@@ -17,18 +17,13 @@ try {
   }
 
 
-
-
+////////////////////////////////////////////////////////////////////////////////////////
+  ///Make User Table
   const { Model } = require('sequelize');
   module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-      /**
-       * Helper method for defining associations.
-       * This method is not a part of Sequelize lifecycle.
-       * The `models/index` file will call this method automatically.
-       */
       static associate(models) {
-        // define association here
+        models.User.hasMany(UserToProject)
       }
     }
     User.init(
@@ -57,19 +52,17 @@ try {
     return User;
   };
 
+
+////////////////////////////////////////////////////////////////////////////////////////
   ///Make Project Table
   module.exports = (sequelize, DataTypes) => {
     class Project extends Model {
-      /**
-       * Helper method for defining associations.
-       * This method is not a part of Sequelize lifecycle.
-       * The `models/index` file will call this method automatically.
-       */
       static associate(models) {
-        Project.hasMany(UserToProject)
+        models.Project.hasMany(UserToProject)
+        models.Project.hasMany(Task)
       }
     }
-    User.init(
+    Project.init(
       {
         project_id: {
           type: DataTypes.INTEGER,
@@ -95,37 +88,76 @@ try {
     return Project;
   };
 
-
-  /// Project to User map
+////////////////////////////////////////////////////////////////////////////////////////
+  ///Make Task Table
   module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
+    class Task extends Model {
       /**
        * Helper method for defining associations.
        * This method is not a part of Sequelize lifecycle.
        * The `models/index` file will call this method automatically.
        */
       static associate(models) {
-        Project.hasMany(UserToProject)
+        models.Task.belongsTo(Project)
+      }
+    }
+    Task.init(
+        {
+          task_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+          },
+         task_name: DataTypes.STRING,
+         task_owner: DataTypes.STRING,
+         task_type: DataTypes.STRING,
+         task_status: DataTypes.STRING,
+         task_descriptions: DataTypes.STRING,
+         date_created: DataTypes.DATE,
+         date_updated: DataTypes.DATE
+        },
+        {
+          // options
+          sequelize,
+          modelName: 'Task',
+          tableName: 'Task',
+          createdAt: 'date_created',
+          updatedAt: 'date_updated',
+          underscore: true,
+        },
+      );
+      return Task;
+    };
+  
+
+
+    /// Project to User map
+  module.exports = (sequelize, DataTypes) => {
+    class UserToProject extends Model {
+      static associate(models) {
+        models.UserToProject.belongsTo(User)
+        models.UserToProject.belongsTo(Project)
       }
     }
     UserToProject.init(
       {
-        user_id: {
-        },
     
       },
       {
-        // // options
-        // sequelize,
-        // modelName: 'User',
-        // tableName: 'User',
-        // createdAt: 'date_created',
-        // updatedAt: 'date_updated',
-        // underscore: true,
+        // options
+        sequelize,
+        modelName: 'UserToProject',
+        tableName: 'UserToProject',
+        createdAt: 'date_created',
+        updatedAt: 'date_updated',
+        underscore: true,
       },
     );
     return UserToProject;
   };
+
+
+
 
 
 /* BEGIN the MODELS ************* */
