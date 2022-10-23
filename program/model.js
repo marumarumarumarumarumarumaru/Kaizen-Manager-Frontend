@@ -161,34 +161,51 @@ try {
 
 
 /* BEGIN the MODELS ************* */
+// Create methods here for Task, Project, and User
 
-const createExercise = async (name, reps, weight, unit, date) => {
+const createUser = async (first_name, last_name, email) => {
         // Call the constructor to create an instance of the model class Exercise
-    const exercise = new Exercise({
-        name: name, 
-        reps: reps, 
-        weight: weight, 
-        unit: unit, 
-        date: date
+    const new_user = await User.create({
+     first_name: first_name,
+     last_name: last_name,
+     email: email
     });
-    // Call save to persist this object as a document in MongoDB
-    return exercise.save();
 }
 
-
-
-// FIND by ID
-const findExerciseById = async (id) => {
-    const query = Exercise.findById(id);
-    return query.exec();
+const createProject = async (project_name, project_type, project_owner) => {
+    // Call the constructor to create an instance of the model class Exercise
+const new_project = await Project.create({
+ project_name: project_name,
+ project_type: project_type,
+ project_owner: project_owner
+});
 }
 
-
-//Delete the exercise with provided id value
-//@returns A promise. Resolves to the count of deleted documents
-const deleteById = async (id) => {
-    const result = await Exercise.deleteOne({ _id: id });
-    // Return the count of deleted document. Since we called deleteOne, this will be either 0 or 1.
-    return result.deletedCount;
+const createTask = async (task_name, task_type, task_owner, task_descriptions, task_status) => {
+    // Call the constructor to create an instance of the model class Exercise
+const new_task = await Task.create({
+ task_name: task_name,
+ task_type: task_type,
+ task_owner: task_owner,
+ task_descriptions: task_descriptions,
+ task_status: task_status
+});
 }
+
+const deleteTask = async (task_id) => {
+    const deleted_task = await Task.destroy({task_id: task_id})
+    console.log(deleted_task)
+
+}
+
+const deleteProject = async (project_id) => {
+    const deleted_project = await Task.destroy({project_id: project_id})
+    console.log(deleted_project)
+}
+
+const deleteUser = async (user_id) => {
+    const deleted_user = await Task.destroy({user_id: user_id})
+    console.log(deleted_user)
+}
+
 
