@@ -1,16 +1,13 @@
 //'use strict';
 
-const { Sequelize } = require('sequelize');
 
+const { Sequelize, DataTypes, Model } = require('sequelize');
 // Option 1: Passing a connection URI
 // Option 2: Passing parameters separately (sqlite)
-const sequelize = new Sequelize({
-    dialect: 'mysql',
-    storage: 'path/to/database.sqlite'
-  });
+const sequelize = new Sequelize('sqlite::memory:')
 
 try {
-    await sequelize.authenticate();
+    sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
@@ -19,11 +16,9 @@ try {
 
 ////////////////////////////////////////////////////////////////////////////////////////
   ///Make User Table
-  const { Model } = require('sequelize');
-  module.exports = (sequelize, DataTypes) => {
     class User extends Model {
       static associate(models) {
-        models.User.hasMany(UserToProject)
+        models.User.belongsToMany(Project, {through: 'ProjectToUser'})
       }
     }
     User.init(
@@ -49,16 +44,13 @@ try {
         underscore: true,
       },
     );
-    return User;
-  };
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
   ///Make Project Table
-  module.exports = (sequelize, DataTypes) => {
     class Project extends Model {
       static associate(models) {
-        models.Project.hasMany(UserToProject)
+        models.Project.belongsToMany(User, {through: 'ProjectToUser'})
         models.Project.hasMany(Task)
       }
     }
@@ -85,24 +77,16 @@ try {
         underscore: true,
       },
     );
-    return Project;
-  };
 
 ////////////////////////////////////////////////////////////////////////////////////////
   ///Make Task Table
-  module.exports = (sequelize, DataTypes) => {
     class Task extends Model {
-      /**
-       * Helper method for defining associations.
-       * This method is not a part of Sequelize lifecycle.
-       * The `models/index` file will call this method automatically.
-       */
       static associate(models) {
         models.Task.belongsTo(Project)
       }
     }
     Task.init(
-        {
+{
           task_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -126,36 +110,11 @@ try {
           underscore: true,
         },
       );
-      return Task;
-    };
   
 
 
     /// Project to User map
-  module.exports = (sequelize, DataTypes) => {
-    class UserToProject extends Model {
-      static associate(models) {
-        models.UserToProject.belongsTo(User)
-        models.UserToProject.belongsTo(Project)
-      }
-    }
-    UserToProject.init(
-      {
-    
-      },
-      {
-        // options
-        sequelize,
-        modelName: 'UserToProject',
-        tableName: 'UserToProject',
-        createdAt: 'date_created',
-        updatedAt: 'date_updated',
-        underscore: true,
-      },
-    );
-    return UserToProject;
-  };
-
+ 
 
 
 
@@ -170,6 +129,7 @@ const createUser = async (first_name, last_name, email) => {
      last_name: last_name,
      email: email
     });
+    return new_user
 }
 
 const createProject = async (project_name, project_type, project_owner) => {
@@ -179,6 +139,7 @@ const new_project = await Project.create({
  project_type: project_type,
  project_owner: project_owner
 });
+return new_project
 }
 
 const createTask = async (task_name, task_type, task_owner, task_descriptions, task_status) => {
@@ -190,22 +151,26 @@ const new_task = await Task.create({
  task_descriptions: task_descriptions,
  task_status: task_status
 });
+return new_task
 }
 
 const deleteTask = async (task_id) => {
     const deleted_task = await Task.destroy({task_id: task_id})
     console.log(deleted_task)
-
+    return deleted_task
 }
 
 const deleteProject = async (project_id) => {
     const deleted_project = await Task.destroy({project_id: project_id})
     console.log(deleted_project)
+    return deleted_project
 }
 
 const deleteUser = async (user_id) => {
     const deleted_user = await Task.destroy({user_id: user_id})
     console.log(deleted_user)
+    return deleted_user
 }
 
 
+module.exports = {deleteUser, deleteProject, deleteTask, createProject, createUser, createTask}
