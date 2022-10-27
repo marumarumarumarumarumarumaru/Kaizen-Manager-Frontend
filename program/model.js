@@ -4,7 +4,11 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 // Option 1: Passing a connection URI
 // Option 2: Passing parameters separately (sqlite)
-const sequelize = new Sequelize('sqlite::memory:')
+const sequelize = new Sequelize("sequelizedemo", "root", "", {
+  host: "127.0.0.1",
+  dialect: "sqlite"
+})
+sequelize.sync()
 
 try {
     sequelize.authenticate();
