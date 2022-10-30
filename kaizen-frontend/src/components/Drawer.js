@@ -1,1 +1,0 @@
-// Placeholder for the drawer code if we can decouple from Workspace.js

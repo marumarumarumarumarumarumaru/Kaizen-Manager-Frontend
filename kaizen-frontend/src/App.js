@@ -7,19 +7,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Workspace from './pages/Workspace';
 // import Landing from './pages/Landing';
 
-import ResponsiveAppBar from './components/ResponsiveAppBar';
-
 import { Route, Routes } from 'react-router-dom';
 
 class App extends React.Component {
-  // const [data, setData] = React.useState(null);
-
-  // React.useEffect(() => {
-  //   fetch("/api")
-  //       .then((res) => res.json())
-  //       .then((data) => setData(data.message));
-  // }, []);
-
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +28,7 @@ class App extends React.Component {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <div className="App">
-          <ResponsiveAppBar/>
+          {/* <ResponsiveAppBar/> */}
           <main>
             <div>
               <Routes>
