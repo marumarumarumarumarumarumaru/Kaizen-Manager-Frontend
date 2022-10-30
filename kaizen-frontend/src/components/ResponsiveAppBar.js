@@ -13,14 +13,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-function ResponsiveAppBar({ drawerOpen, setDrawerOpen }) {
+function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
     Renders the AppBar
   */
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const drawerWidth = 260;
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -39,7 +37,8 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen }) {
     }),
   }));
 
-  const settings = ['Profile', 'Activity', 'Settings', 'Help', 'Notifications', 'Logout'];
+  const settings = ['Profile', 'Settings', 'Help', 'Logout'];
+  const workspaces = ['Workspace 1', 'Testing', 'Sleepless Night']
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -93,7 +92,7 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen }) {
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size="large"
-            aria-label="account of current user"
+            aria-label="workspaces of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
@@ -117,11 +116,14 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen }) {
             onClose={handleCloseNavMenu}
             sx={{
               display: { xs: 'block', md: 'none' },
+              mt: '45px'
             }}
           >
-            <MenuItem onClick={handleCloseNavMenu}>
-              <Typography textAlign="center">Workspaces</Typography>
-            </MenuItem>
+            {workspaces.map((workspace) => (
+              <MenuItem key={workspace} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{workspace}</Typography>
+              </MenuItem>
+            ))}
           </Menu>
         </Box>
         {/* Shows Title in the middle (in smaller viewport) */}
@@ -151,8 +153,31 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen }) {
           >
             Workspaces
           </Button>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+            sx={{
+              display: { xs: 'block', md: 'none' },
+            }}
+          >
+            {workspaces.map((workspace) => (
+              <MenuItem key={workspace} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{workspace}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
         </Box>
-
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

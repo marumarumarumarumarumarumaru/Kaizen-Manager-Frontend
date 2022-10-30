@@ -18,14 +18,12 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 
-function ResponsiveDrawer({ drawerOpen, setDrawerOpen }) {
+function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
     Renders the Drawer
   */
   const theme = useTheme();
   const [memberOpen, setMemberOpen] = React.useState(false);
-
-  const drawerWidth = 260;
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',

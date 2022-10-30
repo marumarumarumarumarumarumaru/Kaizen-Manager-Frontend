@@ -1,19 +1,15 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../components/ResponsiveDrawer';
 
-function Workspace() {
+function Workspace({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
     Page component for rendering the Main page
   */
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-
-  const drawerWidth = 260;
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -46,17 +42,20 @@ function Workspace() {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen}/>
+        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} simplified={false}/>
+        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
         <Main open={drawerOpen}>
           <DrawerHeader />
-          <Typography paragraph>
-            Test Page
-          </Typography>
-          <Typography paragraph>
-            Henlo!
-          </Typography>
+          <Box sx={{
+            mt: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
+            <Typography paragraph>
+              Select a project to get started
+            </Typography>
+          </Box>
         </Main>
       </Box>
     </>
