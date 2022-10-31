@@ -158,7 +158,7 @@ function CreateAccount() {
               <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Back</Button>
             </Link>
             <Link
-              to='/'
+              to='/login'
             >
               <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create</Button>
             </Link>

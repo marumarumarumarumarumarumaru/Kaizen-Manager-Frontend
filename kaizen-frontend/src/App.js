@@ -1,9 +1,10 @@
 import React from "react";
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { amber } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import Workspace from './pages/Workspace';
+import Workspace from './pages/Workspace/Workspace';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import CreateAccount from "./pages/CreateAccount";
@@ -14,14 +15,22 @@ function App(){
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const drawerWidth = 260;
 
-  const darkTheme = createTheme({
+  const getDesignTokens = (mode) => ({
     palette: {
-      mode: 'dark',
+      mode,
+      primary: {
+        ...amber,
+        ...(mode === 'dark' && {
+          main: amber[300],
+        }),
+      }
     },
   });
   
+  const darkModeTheme = createTheme(getDesignTokens('dark'));
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkModeTheme}>
       <CssBaseline />
       <Routes>
         <Route 

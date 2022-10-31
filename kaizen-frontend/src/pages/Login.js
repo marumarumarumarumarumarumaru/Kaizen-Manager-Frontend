@@ -14,41 +14,11 @@ import SimpleAppBar from '../components/SimpleAppBar';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
-import Snackbar from '@mui/material/Snackbar';
-import CloseIcon from '@mui/icons-material/Close';
 
 function Login() {
   /* 
     Page component for rendering the CreateAccount page
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setSnackbarOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSnackbarOpen(false);
-  };
-
-  const action = (
-    <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );  
 
   const [values, setValues] = React.useState({
     email: '',
@@ -147,15 +117,7 @@ function Login() {
               <Button 
                 variant='contained' 
                 sx={{ m: 2, paddingY: 1, paddingX: 2 }}
-                onClick={handleClick}
               >Back</Button>
-              <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                message="Note archived"
-                action={action}
-              />
             </Link>
             <Link
               to='/workspace'

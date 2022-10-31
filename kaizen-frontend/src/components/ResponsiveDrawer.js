@@ -17,6 +17,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
+import PersonAdd from '@mui/icons-material/PersonAdd';
 
 function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
@@ -88,9 +89,9 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
                 </ListItemButton>
               </ListItem>
             ))}
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton sx={{ pl: 3 }}>
               <ListItemIcon>
-                <AddIcon />
+                <PersonAdd />
               </ListItemIcon>
               <ListItemText primary="Add a member" />
             </ListItemButton>
@@ -132,7 +133,14 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
+          
         ))}
+        <ListItemButton sx={{ pl: 3 }}>
+          <ListItemIcon>
+            <AddIcon />
+          </ListItemIcon>
+          <ListItemText primary="Create a project" />
+        </ListItemButton>
       </List>
     </Drawer>
   );
