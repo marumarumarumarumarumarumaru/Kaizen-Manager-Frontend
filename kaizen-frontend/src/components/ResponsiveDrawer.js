@@ -122,7 +122,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
         aria-labelledby="projects-subheader"
         subheader={
           <ListSubheader component="div" id="projects-subheader">
-            Views
+            Projects
           </ListSubheader>
         }
       >  

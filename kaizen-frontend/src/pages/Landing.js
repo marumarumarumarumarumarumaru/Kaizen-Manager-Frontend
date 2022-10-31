@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import SimpleAppBar from '../components/SimpleAppBar';
+import { Link } from 'react-router-dom';
 
 function Landing() {
   /* 
@@ -42,9 +43,16 @@ function Landing() {
             justifyContent: 'center'
           }}
           >
-          
-            <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create an Account</Button>
-            <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Log In</Button>
+            <Link
+              to='/create-account'
+            >
+              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create an Account</Button>
+            </Link>
+            <Link
+              to='/login'
+            >
+              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
+            </Link>
           </Box>
         </Paper>
       </Box>

@@ -5,6 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import Workspace from './pages/Workspace';
 import Landing from './pages/Landing';
+import Login from './pages/Login';
+import CreateAccount from "./pages/CreateAccount";
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -27,6 +29,18 @@ function App(){
           path='/' 
           element={
             <Landing/>
+          }
+        />
+        <Route  
+          path='/login' 
+          element={
+            <Login/>
+          }
+        />
+        <Route  
+          path='/create-account' 
+          element={
+            <CreateAccount/>
           }
         />
         <Route  
