@@ -1,0 +1,25 @@
+{
+    "name": "kaizen-manager",
+    "version": "1.0.0",
+    "description": "[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager/issues"
+    },
+    "homepage": "https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager#readme",
+    "dependencies": {
+      "body-parser": "^1.20.1",
+      "express": "^4.18.2"
+    }
+  }
