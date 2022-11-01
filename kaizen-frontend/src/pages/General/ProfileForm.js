@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 
 function ProfileForm() {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the Profile Settings page's form
   */
 
   const [values, setValues] = React.useState({

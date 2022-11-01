@@ -8,7 +8,7 @@ import ProfileForm from './ProfileForm';
 
 function Profile({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the Profile Settings page
   */
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(

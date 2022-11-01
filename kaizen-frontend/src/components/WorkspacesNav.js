@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 function WorkspacesNav() {
   /* 
-    Renders the WorkspacesNav
+    Renders the Workspaces Navigation
   */
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [newWorkspaceOpen, setNewWorkspaceOpen] = React.useState(false);

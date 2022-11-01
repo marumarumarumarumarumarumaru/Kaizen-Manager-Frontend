@@ -10,7 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Metrics() {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the Metrics page for Workspace
   */
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [checked, setChecked] = React.useState([true, false]);

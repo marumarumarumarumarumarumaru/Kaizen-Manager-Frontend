@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 function Login() {
   /* 
-    Page component for rendering the CreateAccount page
+    Page component for rendering the Login page
   */
 
   const [values, setValues] = React.useState({

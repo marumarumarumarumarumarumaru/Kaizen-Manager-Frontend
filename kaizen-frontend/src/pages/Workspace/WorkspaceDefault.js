@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 function Default() {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the default message on Workspace page
   */
 
   return (

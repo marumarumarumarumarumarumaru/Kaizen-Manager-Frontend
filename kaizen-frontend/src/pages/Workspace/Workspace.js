@@ -9,7 +9,7 @@ import { Outlet } from 'react-router-dom';
 
 function Workspace({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the Workspace page
   */
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(

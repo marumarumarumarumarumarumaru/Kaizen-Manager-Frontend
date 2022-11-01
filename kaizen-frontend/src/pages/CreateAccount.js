@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 function CreateAccount() {
   /* 
-    Page component for rendering the CreateAccount page
+    Page component for rendering the Create Account page
   */
 
   const [values, setValues] = React.useState({

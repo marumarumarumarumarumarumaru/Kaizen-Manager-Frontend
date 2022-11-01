@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 function SimpleAppBar() {
   /* 
-    Renders the AppBar
+    Renders the Simplified version (without the workspace + user dropdowns) AppBar
   */
 
   return (

@@ -8,7 +8,7 @@ import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
 function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the General Settings page
   */
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(

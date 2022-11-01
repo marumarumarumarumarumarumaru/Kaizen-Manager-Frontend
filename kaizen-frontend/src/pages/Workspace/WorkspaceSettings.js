@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 function WorkspaceSettings() {
   /* 
-    Page component for rendering the Main page
+    Page component for rendering the Settings page for Workspace
   */
 
   return (

@@ -4,13 +4,18 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { amber } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import Workspace from './pages/Workspace/Workspace';
+// Entrypoints
+import CreateAccount from "./pages/CreateAccount";
 import Landing from './pages/Landing';
 import Login from './pages/Login';
-import CreateAccount from "./pages/CreateAccount";
+
+// Workspace
 import Metrics from "./pages/Workspace/WorkspaceMetrics";
 import Default from "./pages/Workspace/WorkspaceDefault";
+import Workspace from './pages/Workspace/Workspace';
 import WorkspaceSettings from "./pages/Workspace/WorkspaceSettings";
+
+// User Options
 import GeneralSettings from "./pages/General/GeneralSettings";
 import Help from "./pages/General/Help";
 import Profile from "./pages/General/Profile";
