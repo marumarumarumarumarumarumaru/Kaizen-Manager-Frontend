@@ -1,10 +1,11 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
+
+import { Outlet } from 'react-router-dom';
 
 function Workspace({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
@@ -46,16 +47,7 @@ function Workspace({ drawerOpen, setDrawerOpen, drawerWidth }) {
         <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
         <Main open={drawerOpen}>
           <DrawerHeader />
-          <Box sx={{
-            mt: 10,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}>
-            <Typography paragraph>
-              Select a project to get started
-            </Typography>
-          </Box>
+          <Outlet />
         </Main>
       </Box>
     </>

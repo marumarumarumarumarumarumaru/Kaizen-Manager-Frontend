@@ -92,12 +92,14 @@ function UserMenu() {
             <Avatar>F</Avatar>
             <Box sx={{display: 'flex', flexDirection: 'column', width:'20vh', pl: 1 }}>
               <Typography>Test Name</Typography>
-              <Typography variant="caption">testemail@oregonstate.edu</Typography>
+              <Typography variant="caption">testmail@oregonstate.edu</Typography>
             </Box>
           </MenuItem>
           <Divider variant="middle"/>
           <MenuItem
             onClick={handleCloseUserMenu}
+            component={Link}
+            to={'/profile'}
           >
             <ListItemIcon>
               <AccountCircleIcon fontSize="small" />
@@ -106,6 +108,8 @@ function UserMenu() {
           </MenuItem>
           <MenuItem
             onClick={handleCloseUserMenu}
+            component={Link}
+            to={'/settings'}
           >
             <ListItemIcon>
               <Settings fontSize="small" />
@@ -114,6 +118,8 @@ function UserMenu() {
           </MenuItem>
           <MenuItem
             onClick={handleCloseUserMenu}
+            component={Link}
+            to={'/help'}
           >
             <ListItemIcon>
               <HelpIcon fontSize="small" />

@@ -8,7 +8,12 @@ import Workspace from './pages/Workspace/Workspace';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import CreateAccount from "./pages/CreateAccount";
-import Metrics from "./pages/Workspace/Metrics";
+import Metrics from "./pages/Workspace/WorkspaceMetrics";
+import Default from "./pages/Workspace/WorkspaceDefault";
+import WorkspaceSettings from "./pages/Workspace/WorkspaceSettings";
+import GeneralSettings from "./pages/General/GeneralSettings";
+import Help from "./pages/General/Help";
+import Profile from "./pages/General/Profile";
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -34,28 +39,21 @@ function App(){
     <ThemeProvider theme={darkModeTheme}>
       <CssBaseline />
       <Routes>
-        <Route 
-          exact 
-          path='/' 
-          element={<Landing/>}
-        />
-        <Route  
-          path='/login' 
-          element={<Login/>}
-        />
-        <Route  
-          path='/create-account' 
-          element={<CreateAccount/>}
-        />
+        <Route exact path='/' element={<Landing/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/create-account' element={<CreateAccount/>}/>
         <Route  
           path='/workspace' 
           element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}
         >
-          <Route 
-            path="metrics" 
-            element={<Metrics drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}
-          />
+          <Route index element={<Default />} />
+          <Route path="metrics" element={<Metrics/>}/>
+          <Route path="settings" element={<WorkspaceSettings/>}/>
+          {/* <Route path="*" element={<Default />} /> */}
         </Route>
+        <Route path='/profile' element={<Profile drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
+        <Route path='/settings' element={<GeneralSettings drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
+        <Route path='/help' element={<Help drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
       </Routes>
     </ThemeProvider>
   );

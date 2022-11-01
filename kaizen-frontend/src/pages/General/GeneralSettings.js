@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-function Metrics({ drawerOpen, setDrawerOpen, drawerWidth }) {
+function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
     Page component for rendering the Main page
   */
@@ -48,12 +48,13 @@ function Metrics({ drawerOpen, setDrawerOpen, drawerWidth }) {
           <DrawerHeader />
           <Box sx={{
             m: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'left'
+            flexsDirection: 'column'
           }}>
-            <Typography paragraph>
-              Test
+            <Typography variant="h4">
+              General Settings
+            </Typography>
+            <Typography variant="caption">
+              Edit below to adjust your Kaizen Manager general settings.
             </Typography>
           </Box>
         </Main>
@@ -62,4 +63,4 @@ function Metrics({ drawerOpen, setDrawerOpen, drawerWidth }) {
   );
 }
 
-export default Metrics;
+export default GeneralSettings;

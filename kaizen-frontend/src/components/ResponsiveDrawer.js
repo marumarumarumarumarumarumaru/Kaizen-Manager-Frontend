@@ -115,7 +115,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
               </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton>
+          <ListItemButton component={Link} to={'/workspace/settings'}>
             <ListItemText primary='Settings' />
           </ListItemButton>
         </List>
@@ -130,7 +130,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
             </ListSubheader>
           }
         >  
-          <ListItemButton component={Link} to={'metrics'}>
+          <ListItemButton component={Link} to={'/workspace/metrics'}>
             <ListItemText primary='Metrics' />
           </ListItemButton>
         </List>
