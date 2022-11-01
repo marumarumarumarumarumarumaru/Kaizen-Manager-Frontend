@@ -17,6 +17,7 @@ const createUser = async (first_name, last_name, email) => {
         last_name: last_name,
         email: email
        });
+       comsole.log(new_user)
     }
 
 const createTask = async (task_name, task_type, task_owner, task_descriptions, task_status) => {

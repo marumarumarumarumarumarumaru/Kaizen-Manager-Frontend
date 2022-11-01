@@ -16,15 +16,11 @@ const db = require("./models");
     console.log("syncing db")
  });
 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Mainichi app backend api." });
+  res.json({ message: "Kaizen app backend api." });
 });
-
 
 
 // set port, listen for requests
