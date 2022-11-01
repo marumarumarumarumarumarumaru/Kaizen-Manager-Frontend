@@ -1,5 +1,5 @@
 {
-  "name": "mainichi-backend",
+  "name": "kaizen-backend",
   "version": "1.0.0",
   "description": "Node.js Rest Apis with Express, Sequelize & MySQL.",
   "main": "nodemon server.js",
