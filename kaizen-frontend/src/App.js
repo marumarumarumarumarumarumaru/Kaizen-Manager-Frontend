@@ -8,6 +8,7 @@ import Workspace from './pages/Workspace/Workspace';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import CreateAccount from "./pages/CreateAccount";
+import Metrics from "./pages/Workspace/Metrics";
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -36,28 +37,25 @@ function App(){
         <Route 
           exact 
           path='/' 
-          element={
-            <Landing/>
-          }
+          element={<Landing/>}
         />
         <Route  
           path='/login' 
-          element={
-            <Login/>
-          }
+          element={<Login/>}
         />
         <Route  
           path='/create-account' 
-          element={
-            <CreateAccount/>
-          }
+          element={<CreateAccount/>}
         />
         <Route  
-          path='/Workspace' 
-          element={
-            <Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
-          }
-        />
+          path='/workspace' 
+          element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}
+        >
+          <Route 
+            path="metrics" 
+            element={<Metrics drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}
+          />
+        </Route>
       </Routes>
     </ThemeProvider>
   );

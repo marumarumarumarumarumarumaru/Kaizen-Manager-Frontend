@@ -96,6 +96,7 @@ function CreateAccount() {
               required
               id="outlined-required"
               label="Email"
+              type="email"
               onChange={handleChange('email')}
               sx={{ m: 1, width: '30vh' }}
             />
