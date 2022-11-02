@@ -2,7 +2,7 @@
 import { Sequelize, DataTypes } from "sequelize"
 import {sequelize} from "./index.mjs"
 
-export const Project = sequelize.define('Project', {
+export const Project =  sequelize.define('Project', {
     project_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

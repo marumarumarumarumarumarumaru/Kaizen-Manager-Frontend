@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from "sequelize";
 import {sequelize} from "./index.mjs"
 
 
-export const Task =(sequelize, DataTypes) =>{ sequelize.define('Task',{
+export const Task = sequelize.define('Task',{
     task_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -27,4 +27,4 @@ export const Task =(sequelize, DataTypes) =>{ sequelize.define('Task',{
   },
 );
 
-}
+

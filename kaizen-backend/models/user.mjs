@@ -1,9 +1,7 @@
 import { sequelize } from "./index.mjs"
 import { DataTypes } from "sequelize"
 
-export const User = (sequelize, DataTypes) =>{ (sequelize, DataTypes) => {
-  sequelize.define('User',
-  {
+export const User = sequelize.define('User',{
     user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -25,6 +23,6 @@ export const User = (sequelize, DataTypes) =>{ (sequelize, DataTypes) => {
     underscore: true,
   },
   )
-}
-}
+
+
 
