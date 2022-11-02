@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
-import {sequelize} from "./index.mjs"
+import {sequelize} from "./db_init.mjs"
+
 
 
 export const Task = sequelize.define('Task',{

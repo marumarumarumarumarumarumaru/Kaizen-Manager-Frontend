@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv"
 import {db} from "./models/index.mjs";
 
 const app = express();
@@ -13,9 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
- db.sequelize.sync().then(()=> {
-    console.log("syncing db")
- });
+//  db.sequelize.sync().then(()=> {
+//     console.log("syncing db")
+//  });
+
+
 
 
 // simple route

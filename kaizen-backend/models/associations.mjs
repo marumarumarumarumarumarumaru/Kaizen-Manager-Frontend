@@ -3,10 +3,8 @@ import {Project} from "./project.mjs"
 import {Task} from "./task.mjs"
 // Initializes each table
 
-export function createAssociations(){
-db.user = User;
-db.project = Project;
-db.task = Task;
+export function createAssociations(db){
+
 // M:M project and user
 db.project.belongsToMany(db.user, {
   through: "projectUser",

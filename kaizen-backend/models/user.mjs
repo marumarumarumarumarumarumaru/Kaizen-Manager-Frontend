@@ -1,4 +1,4 @@
-import { sequelize } from "./index.mjs"
+import {sequelize} from "./db_init.mjs"
 import { DataTypes } from "sequelize"
 
 export const User = sequelize.define('User',{
@@ -23,6 +23,5 @@ export const User = sequelize.define('User',{
     underscore: true,
   },
   )
-
 
 

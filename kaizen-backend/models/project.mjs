@@ -1,6 +1,6 @@
 
 import { Sequelize, DataTypes } from "sequelize"
-import {sequelize} from "./index.mjs"
+import {sequelize} from "./db_init.mjs"
 
 export const Project =  sequelize.define('Project', {
     project_id: {
