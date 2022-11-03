@@ -1,3 +1,4 @@
+// Web app's Firebase configuration
 export const firebaseConfig = {
   apiKey: "AIzaSyB7iLQtYtkiHbczythk7E4TLV6twWhfx28",
   authDomain: "kaizen-manager-demo.firebaseapp.com",
