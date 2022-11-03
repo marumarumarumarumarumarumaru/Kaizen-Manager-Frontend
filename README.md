@@ -1,4 +1,6 @@
-# Kaizen-Manager
+# Kaizen-Manager-Frontend
+
+> This is the frontend respository for the Kaizen Manager project. See [Kaizen-Manager-Backend](https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager-Backend) for the backend codebase.
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md) 
 

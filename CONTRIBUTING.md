@@ -4,8 +4,8 @@ Thank you for your interest in contributing to Kaizen Manger!
 We wanted to make this project open source to make this project management tool evolve over time with inputs from people around the world.
 
 **Quick Reference**
-* Noticed an issue but not sure how to fix? [Create an issue](https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager/issues)
-* Found a bug that you can help fix it? [File a PR](https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager/pulls)
+* Noticed an issue but not sure how to fix? [Create an issue](https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager-Frontend/issues)
+* Found a bug that you can help fix it? [File a PR](https://github.com/marumarumarumarumarumarumaru/Kaizen-Manager-Frontend/pulls)
 
 ## Submitting new changes
 Please send a Github Pull Request with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). 
