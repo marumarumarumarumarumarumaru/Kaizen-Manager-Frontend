@@ -1,7 +1,6 @@
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,14 +12,9 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import HelpIcon from '@mui/icons-material/Help';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import { Link } from 'react-router-dom';
+import LogoutDialog from './dialogs/LogoutDialog';
 
 function UserMenu() {
   /* 
@@ -31,10 +25,6 @@ function UserMenu() {
 
   const handleLogoutClickOpen = () => {
     setLogout(true);
-  };
-
-  const handleLogoutClose = () => {
-    setLogout(false);
   };
   
   const handleOpenUserMenu = (event) => {
@@ -139,27 +129,7 @@ function UserMenu() {
           </MenuItem>
         </Menu>
       </Box>
-      <Dialog
-        open={logout}
-        onClose={handleLogoutClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Logout of Kaizen"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to logout?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleLogoutClose}>Cancel</Button>
-          <Button onClick={handleLogoutClose} autoFocus component={Link} to={'/'}>
-            Logout
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <LogoutDialog open={logout} setOpen={setLogout}/>
     </>
   );
 }

@@ -8,14 +8,10 @@ import MenuItem from '@mui/material/MenuItem';
 import AddIcon from '@mui/icons-material/Add';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
-function WorkspacesNav() {
+import CreateWorkspace from './dialogs/CreateWorkspaceDialog';
+
+function WorkspacesNav({ snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Workspaces Navigation
   */
@@ -38,6 +34,7 @@ function WorkspacesNav() {
 
   const handleNewWorkspaceClose = () => {
     setNewWorkspaceOpen(false);
+    setSnackbarOpen(!snackbarOpen);
   };
 
   return (
@@ -87,27 +84,7 @@ function WorkspacesNav() {
           </ListItemIcon>
         </MenuItem>
       </Menu>
-      <Dialog open={newWorkspaceOpen} onClose={handleNewWorkspaceClose}>
-        <DialogTitle>Create a workspace</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Specify the name of the workspace to create a new one.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Workspace name"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleNewWorkspaceClose}>Cancel</Button>
-          <Button onClick={handleNewWorkspaceClose}>Create</Button>
-        </DialogActions>
-      </Dialog>
+      <CreateWorkspace open={newWorkspaceOpen} handleClose={handleNewWorkspaceClose}/>
     </Box>
   );
 }

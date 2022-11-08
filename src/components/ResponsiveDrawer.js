@@ -18,15 +18,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 import PersonAdd from '@mui/icons-material/PersonAdd';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import { Link } from 'react-router-dom';
+import CreateProject from './dialogs/CreateProjectDialog';
 
 function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
   /* 
@@ -35,6 +29,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
   const theme = useTheme();
   const [memberOpen, setMemberOpen] = React.useState(false);
   const [newProjectOpen, setNewProjectOpen] = React.useState(false);
+  const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false);
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -59,6 +54,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
 
   const handleNewProjectClose = () => {
     setNewProjectOpen(false);
+    setSnackbarCreateProjectOpen(!snackbarCreateProjectOpen);
   };
 
   return (
@@ -162,27 +158,12 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
           </ListItemButton>
         </List>
       </Drawer>
-      <Dialog open={newProjectOpen} onClose={handleNewProjectClose}>
-        <DialogTitle>Create a project</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Specify the name of the project to create a new one.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Project name"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleNewProjectClose}>Cancel</Button>
-          <Button onClick={handleNewProjectClose}>Create</Button>
-        </DialogActions>
-      </Dialog>
+      <CreateProject 
+        newProjectOpen={newProjectOpen} 
+        handleNewProjectOpen={handleNewProjectClose} 
+        snackbarOpen={snackbarCreateProjectOpen}
+        setOpen={setSnackbarCreateProjectOpen}
+      />
     </>
   );
 }

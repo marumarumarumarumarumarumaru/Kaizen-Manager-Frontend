@@ -10,12 +10,14 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
+import AlertSnackbar from '../../components/AlertSnackbar';
 
 
 function ProfileForm() {
   /* 
     Page component for rendering the Profile Settings page's form
   */
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
   const [values, setValues] = React.useState({
     name: '',
@@ -29,6 +31,10 @@ function ProfileForm() {
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
+
+  const handleSubmit = () => {
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   const handleClickShowPassword = () => {
     setValues({
@@ -125,7 +131,13 @@ function ProfileForm() {
           />
         </FormControl>
       </Box>
-      <Button variant='contained'>Save</Button>
+      <Button variant='contained' onClick={handleSubmit}>Save</Button>
+      <AlertSnackbar 
+        open={snackbarOpen} 
+        setOpen={setSnackbarOpen} 
+        severity={'success'}
+        message={'Setting saved'}
+      />
     </Box>
   );
 }
