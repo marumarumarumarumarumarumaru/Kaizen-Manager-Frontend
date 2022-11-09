@@ -15,7 +15,7 @@ import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
 
-function Login() {
+function Login({ currentWorkspace }) {
   /* 
     Page component for rendering the Login page
   */
@@ -121,7 +121,7 @@ function Login() {
               >Back</Button>
             </Link>
             <Link
-              to='/workspace'
+              to={'/workspaces/' + currentWorkspace}
             >
               <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
             </Link>

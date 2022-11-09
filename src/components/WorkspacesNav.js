@@ -10,16 +10,15 @@ import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+import { Link } from 'react-router-dom';
 import CreateWorkspace from './dialogs/CreateWorkspaceDialog';
 
-function WorkspacesNav({ snackbarOpen, setSnackbarOpen }) {
+function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWorkspace }) {
   /* 
     Renders the Workspaces Navigation
   */
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [newWorkspaceOpen, setNewWorkspaceOpen] = React.useState(false);
-
-  const workspaces = ['Workspace 1', 'Testing', 'Sleepless Night']
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -27,6 +26,10 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen }) {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleWorkspaceSelect = (workspace) => {
+    setCurrentWorkspace(workspace.id);
   };
 
   const handleNewWorkspaceClickOpen = () => {
@@ -76,9 +79,11 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen }) {
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       >
         {workspaces.map((workspace) => (
-          <MenuItem key={workspace} onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">{workspace}</Typography>
-          </MenuItem>
+          <Link to={'/workspaces/' + workspace.id} style={{ textDecoration: 'none', color: 'white' }}>
+            <MenuItem key={workspace.id} onClick={(event) => handleWorkspaceSelect(workspace)}>
+                <Typography textAlign="center">{workspace.name}</Typography>
+            </MenuItem>
+          </Link>
         ))}
         <Divider variant="middle"/>
         <MenuItem>

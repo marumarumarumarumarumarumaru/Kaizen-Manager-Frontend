@@ -22,7 +22,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import { Link } from 'react-router-dom';
 import CreateProject from './dialogs/CreateProjectDialog';
 
-function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) {
+function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
   /* 
     Renders the Drawer
   */
@@ -57,6 +57,17 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) 
     setSnackbarCreateProjectOpen(!snackbarCreateProjectOpen);
   };
 
+  const getWorkspaceName = (workspaces, currentWorkspace) => {
+    let workspaceName = '';
+
+    for (let i = 0; i < workspaces.length; i++) {
+      if (workspaces[i].id === currentWorkspace) {
+        workspaceName = workspaces[i].name
+      }
+    } 
+    return workspaceName;
+  }
+
   return (
     <>
       <Drawer
@@ -84,7 +95,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) 
           aria-labelledby="workspace-subheader"
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
-              Workspace Name
+              {getWorkspaceName(workspaces, currentWorkspace)}
             </ListSubheader>
           }
         >            
@@ -112,7 +123,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) 
               </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton component={Link} to={'/workspace/settings'}>
+          <ListItemButton component={Link} to={'settings'}>
             <ListItemText primary='Settings' />
           </ListItemButton>
         </List>
@@ -127,7 +138,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) 
             </ListSubheader>
           }
         >  
-          <ListItemButton component={Link} to={'/workspace/metrics'}>
+          <ListItemButton component={Link} to={'metrics'}>
             <ListItemText primary='Metrics' />
           </ListItemButton>
         </List>
@@ -143,7 +154,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) 
           }
         >  
           {projects.map((project) => (
-            <Link to={'/workspace/projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to={'projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
               <ListItem key={project.id} disablePadding>
                 <ListItemButton>
                   <ListItemText primary={project.name} />

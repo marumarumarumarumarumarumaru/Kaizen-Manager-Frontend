@@ -10,7 +10,7 @@ import WorkspacesNav from './WorkspacesNav';
 import UserMenu from './UserMenu';
 import AlertSnackbar from './AlertSnackbar';
 
-function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth }) {
+function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, setCurrentWorkspace }) {
   /* 
     Renders the AppBar
   */
@@ -86,7 +86,7 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth }) {
           >
             Kaizen
           </Typography>
-          <WorkspacesNav snackbarOpen={snackbarCreateWSOpen} setSnackbarOpen={setSnackbarCreateWSOpen}/>
+          <WorkspacesNav snackbarOpen={snackbarCreateWSOpen} setSnackbarOpen={setSnackbarCreateWSOpen} workspaces={workspaces} setCurrentWorkspace={setCurrentWorkspace}/>
           <UserMenu/>
         </Toolbar>
       </AppBar>
