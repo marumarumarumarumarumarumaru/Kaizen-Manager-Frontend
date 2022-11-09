@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AddIcon from '@mui/icons-material/Add';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import CreateWorkspace from './dialogs/CreateWorkspaceDialog';
 
@@ -45,7 +46,10 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen }) {
           onClick={handleOpenNavMenu}
           sx={{ my: 2, color: 'white', display: 'block' }}
         >
-          Workspaces
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Typography variant="overline">Workspaces</Typography> 
+            <ExpandMoreIcon/>
+          </Box>
         </Button>
       </Tooltip>
       <Menu

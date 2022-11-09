@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-function Help({ drawerOpen, setDrawerOpen, drawerWidth }) {
+function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects }) {
   /* 
     Page component for rendering the Help page
   */
@@ -43,7 +43,7 @@ function Help({ drawerOpen, setDrawerOpen, drawerWidth }) {
     <>
       <Box sx={{ display: 'flex' }}>
         <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} simplified={false}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
+        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects}/>
         <Main open={drawerOpen}>
           <DrawerHeader />
           <Box sx={{

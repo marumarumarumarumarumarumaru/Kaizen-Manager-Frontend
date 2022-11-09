@@ -22,7 +22,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import { Link } from 'react-router-dom';
 import CreateProject from './dialogs/CreateProjectDialog';
 
-function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
+function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects }) {
   /* 
     Renders the Drawer
   */
@@ -142,13 +142,14 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
             </ListSubheader>
           }
         >  
-          {['Test project', 'CS467', 'CS493'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-            
+          {projects.map((project) => (
+            <Link to={'/workspace/projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
+              <ListItem key={project.id} disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={project.name} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
           <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
             <ListItemIcon>

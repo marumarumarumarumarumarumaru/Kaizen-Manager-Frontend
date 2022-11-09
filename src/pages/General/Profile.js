@@ -6,7 +6,7 @@ import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import ProfileForm from './ProfileForm';
 
-function Profile({ drawerOpen, setDrawerOpen, drawerWidth }) {
+function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects }) {
   /* 
     Page component for rendering the Profile Settings page
   */
@@ -43,7 +43,7 @@ function Profile({ drawerOpen, setDrawerOpen, drawerWidth }) {
     <>
       <Box sx={{ display: 'flex' }}>
         <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} simplified={false}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
+        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects}/>
         <Main open={drawerOpen}>
           <DrawerHeader />
           <ProfileForm />

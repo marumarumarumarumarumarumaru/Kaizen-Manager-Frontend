@@ -21,9 +21,19 @@ import Help from "./pages/General/Help";
 import Profile from "./pages/General/Profile";
 
 import { Route, Routes } from 'react-router-dom';
+import Projects from "./pages/Workspace/Projects";
+import Project from "./pages/Workspace/Project";
 
 function App(){
+  const projects = [
+    { id: '1', name: 'Test Project' },
+    { id: '2', name: 'CS467' },
+    { id: '3', name: 'CS493' }
+  ];
+  // const workspaces = ['Workspace 1', 'Testing', 'Sleepless Night']
+
   const [drawerOpen, setDrawerOpen] = React.useState(true);
+  // const [currentWorkspace, setCurrentWorkspace] = React.useState(workspaces[0]);
   const drawerWidth = 260;
 
   const getDesignTokens = (mode) => ({
@@ -49,16 +59,28 @@ function App(){
         <Route path='/create-account' element={<CreateAccount/>}/>
         <Route  
           path='/workspace' 
-          element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}
+          element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} />}
         >
           <Route index element={<Default />} />
           <Route path="metrics" element={<Metrics/>}/>
           <Route path="settings" element={<WorkspaceSettings/>}/>
+          <Route path="projects" element={<Projects/>}>
+            <Route path=":projectId" element={<Project projects={projects}/>} />
+          </Route>
           {/* <Route path="*" element={<Default />} /> */}
         </Route>
-        <Route path='/profile' element={<Profile drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
-        <Route path='/settings' element={<GeneralSettings drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
-        <Route path='/help' element={<Help drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
+        <Route 
+          path='/profile' 
+          element={<Profile drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects}/>}
+        />
+        <Route 
+          path='/settings' 
+          element={<GeneralSettings drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects}/>}
+        />
+        <Route 
+          path='/help' 
+          element={<Help drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects}/>}
+        />
       </Routes>
     </ThemeProvider>
   );

@@ -7,7 +7,7 @@ import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
 import { Outlet } from 'react-router-dom';
 
-function Workspace({ drawerOpen, setDrawerOpen, drawerWidth }) {
+function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects }) {
   /* 
     Page component for rendering the Workspace page
   */
@@ -43,8 +43,18 @@ function Workspace({ drawerOpen, setDrawerOpen, drawerWidth }) {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} simplified={false}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
+        <ResponsiveAppBar 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth} 
+          simplified={false}
+        />
+        <ResponsiveDrawer 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth}
+          projects={projects}
+        />
         <Main open={drawerOpen}>
           <DrawerHeader />
           <Outlet />
