@@ -11,7 +11,7 @@ import Login from './pages/Login';
 
 // Workspace
 import Metrics from "./pages/Workspace/WorkspaceMetrics";
-import Default from "./pages/Workspace/WorkspaceDefault";
+import WorkspaceDefault from "./pages/Workspace/WorkspaceDefault";
 import Workspace from './pages/Workspace/Workspace';
 import Workspaces from './pages/Workspace/Workspaces';
 import WorkspaceSettings from "./pages/Workspace/WorkspaceSettings";
@@ -40,6 +40,7 @@ function App(){
 
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const [currentWorkspace, setCurrentWorkspace] = React.useState(workspaces[0].id);
+  // const [loggedIn, setLoggedIn] = React.useState(false);
   const drawerWidth = 260;
 
   const getDesignTokens = (mode) => ({
@@ -60,22 +61,20 @@ function App(){
     <ThemeProvider theme={darkModeTheme}>
       <CssBaseline />
       <Routes>
-        <Route exact path='/' element={<Landing/>}/>
-        <Route path='/login' element={<Login currentWorkspace={currentWorkspace}/>}/>
-        <Route path='/create-account' element={<CreateAccount/>}/>
-        <Route  
-          path='/workspaces' 
-          element={<Workspaces workspaces={workspaces} />}
-        >
+        <Route exact path="/">
+          <Route index element={<Landing />} />
+          <Route path="login" element={<Login currentWorkspace={currentWorkspace}/>}/>
+          <Route path="create-account" element={<CreateAccount/>}/>
+        </Route>
+        <Route path='/workspaces' element={<Workspaces />}>
           <Route path=":workspaceId" element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace} setCurrentWorkspace={setCurrentWorkspace}/>}>
-            <Route index element={<Default />} />
+            <Route index element={<WorkspaceDefault />} />
             <Route path="metrics" element={<Metrics/>}/>
-            <Route path="settings" element={<WorkspaceSettings/>}/>
+            <Route path="settings" element={<WorkspaceSettings workspaces={workspaces} currentWorkspace={currentWorkspace}/>}/>
             <Route path="projects" element={<Projects/>}>
               <Route path=":projectId" element={<Project projects={projects}/>} />
             </Route>
           </Route>
-          {/* <Route path="*" element={<Default />} /> */}
         </Route>
         <Route 
           path='/profile' 

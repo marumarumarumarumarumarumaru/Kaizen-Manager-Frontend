@@ -5,12 +5,19 @@ import Box from '@mui/material/Box';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import ProfileForm from './ProfileForm';
+import DeleteAccount from './DeleteAccount';
+import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog';
 
 function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
   /* 
     Page component for rendering the Profile Settings page
   */
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
 
+  const handleDeleteAccountClickOpen = () => {
+    setDeleteOpen(true);
+  };
+    
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
       flexGrow: 1,
@@ -47,7 +54,9 @@ function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces,
         <Main open={drawerOpen}>
           <DrawerHeader />
           <ProfileForm />
+          <DeleteAccount openDialog={handleDeleteAccountClickOpen}/>
         </Main>
+        <DeleteAccountDialog open={deleteOpen} setOpen={setDeleteOpen}/>
       </Box>
     </>
   );

@@ -7,9 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { Link } from 'react-router-dom';
-
-export default function LogoutDialog({ open, setOpen }) {
+export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) {
   /* 
     Renders the Logout Dialog
   */
@@ -17,9 +15,9 @@ export default function LogoutDialog({ open, setOpen }) {
     setOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleDeleteWorkspace = () => {
     setOpen(false);
-    //setLoggedIn(false);
+    // Method to delete the workspace
   };
 
   return (
@@ -30,17 +28,17 @@ export default function LogoutDialog({ open, setOpen }) {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Logout of Kaizen"}
+        {"Delete Workspace"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to logout?
+          Are you sure you want to delete the workspace "{workspaceName}"?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleLogout} autoFocus component={Link} to={'/'}>
-          Logout
+        <Button onClick={handleDeleteWorkspace}>
+          Delete Workspace
         </Button>
       </DialogActions>
     </Dialog>

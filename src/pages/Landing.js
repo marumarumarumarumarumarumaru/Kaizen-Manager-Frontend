@@ -44,12 +44,12 @@ function Landing() {
           }}
           >
             <Link
-              to='/create-account'
+              to='create-account'
             >
               <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create an Account</Button>
             </Link>
             <Link
-              to='/login'
+              to='login'
             >
               <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
             </Link>

@@ -58,6 +58,7 @@ function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspace
       />
       <Main open={drawerOpen}>
         <DrawerHeader />
+        {/* Outlet will display child routes */}
         <Outlet />
       </Main>
     </>

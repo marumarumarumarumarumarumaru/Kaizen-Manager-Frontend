@@ -1,8 +1,8 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
+import GeneralSettingsForm from './GeneralSettingsForm';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
@@ -46,17 +46,7 @@ function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, wor
         <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace}/>
         <Main open={drawerOpen}>
           <DrawerHeader />
-          <Box sx={{
-            m: 2,
-            flexsDirection: 'column'
-          }}>
-            <Typography variant="h4">
-              General Settings
-            </Typography>
-            <Typography variant="caption">
-              Edit below to adjust your Kaizen Manager general settings.
-            </Typography>
-          </Box>
+          <GeneralSettingsForm/>
         </Main>
       </Box>
     </>

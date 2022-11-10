@@ -48,12 +48,14 @@ function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, cu
           <DrawerHeader />
           <Box sx={{
             m: 2,
-            display: 'flex',
             flexsDirection: 'column',
             alignItems: 'left'
           }}>
             <Typography variant="h4">
               Help
+            </Typography>
+            <Typography variant="caption">
+              This is a help page. It'll list some information about Kaizen Manager.
             </Typography>
           </Box>
         </Main>
