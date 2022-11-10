@@ -7,13 +7,22 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function CreateWorkspace({ open, handleClose }) {
+export default function CreateWorkspace({ newWorkspaceOpen, setNewWorkspaceOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Create Workspace Dialog
   */
 
+  const handleDialogClose = () => {
+    setNewWorkspaceOpen(false);
+  };
+
+  const handleNewWorkspaceClose = () => {
+    setNewWorkspaceOpen(false);
+    setSnackbarOpen(!snackbarOpen);
+  };
+
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={newWorkspaceOpen} onClose={handleDialogClose}>
       <DialogTitle>Create a workspace</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -30,8 +39,8 @@ export default function CreateWorkspace({ open, handleClose }) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Create</Button>
+        <Button onClick={handleDialogClose}>Cancel</Button>
+        <Button onClick={handleNewWorkspaceClose}>Create</Button>
       </DialogActions>
     </Dialog>
   );

@@ -36,11 +36,6 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWo
     setNewWorkspaceOpen(!newWorkspaceOpen);
   };
 
-  const handleNewWorkspaceClose = () => {
-    setNewWorkspaceOpen(false);
-    setSnackbarOpen(!snackbarOpen);
-  };
-
   return (
     <Box sx={{ flexGrow: 1, mr: 1 }}>
       <Tooltip title="Open workspaces">
@@ -87,13 +82,13 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWo
         ))}
         <Divider variant="middle"/>
         <MenuItem>
-          <ListItemIcon onClick={handleNewWorkspaceClickOpen}>
+          <ListItemIcon key='create' onClick={handleNewWorkspaceClickOpen}>
             <AddIcon fontSize='small'/>
             <Typography sx={{pl: 1}}>Create workspace</Typography>
           </ListItemIcon>
         </MenuItem>
       </Menu>
-      <CreateWorkspace open={newWorkspaceOpen} handleClose={handleNewWorkspaceClose}/>
+      <CreateWorkspace newWorkspaceOpen={newWorkspaceOpen} setNewWorkspaceOpen={setNewWorkspaceOpen} snackbarOpen={snackbarOpen} setSnackbarOpen={setSnackbarOpen}/>
     </Box>
   );
 }

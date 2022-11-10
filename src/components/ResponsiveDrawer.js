@@ -52,11 +52,6 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
     setNewProjectOpen(!newProjectOpen);
   };
 
-  const handleNewProjectClose = () => {
-    setNewProjectOpen(false);
-    setSnackbarCreateProjectOpen(!snackbarCreateProjectOpen);
-  };
-
   const getWorkspaceName = (workspaces, currentWorkspace) => {
     let workspaceName = '';
 
@@ -172,9 +167,9 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
       </Drawer>
       <CreateProject 
         newProjectOpen={newProjectOpen} 
-        handleNewProjectOpen={handleNewProjectClose} 
+        setNewProjectOpen={setNewProjectOpen} 
         snackbarOpen={snackbarCreateProjectOpen}
-        setOpen={setSnackbarCreateProjectOpen}
+        setSnackbarOpen={setSnackbarCreateProjectOpen}
       />
     </>
   );

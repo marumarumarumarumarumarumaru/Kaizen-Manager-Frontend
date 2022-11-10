@@ -8,13 +8,22 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AlertSnackbar from '../AlertSnackbar';
 
-export default function CreateProject({ newProjectOpen, handleNewProjectClose, snackbarOpen, setSnackbarOpen  }) {
+export default function CreateProject({ newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen  }) {
   /* 
     Renders the Create Project Dialog
   */
+  const handleClose = () => {
+    setNewProjectOpen(false);
+  };
+
+  const handleNewProjectClose = () => {
+    setNewProjectOpen(false);
+    setSnackbarOpen(!snackbarOpen);
+  };
+
   return (
     <>
-      <Dialog open={newProjectOpen} onClose={handleNewProjectClose}>
+      <Dialog open={newProjectOpen} onClose={handleClose}>
         <DialogTitle>Create a project</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -31,7 +40,7 @@ export default function CreateProject({ newProjectOpen, handleNewProjectClose, s
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleNewProjectClose}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleNewProjectClose}>Create</Button>
         </DialogActions>
       </Dialog>
