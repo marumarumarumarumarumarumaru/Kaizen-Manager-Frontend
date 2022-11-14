@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 
-export default function CreateTaskCard({ status }) {
+export default function CreateTaskCard({ taskStatus, handleClick }) {
   return (
-    <Card key={status} sx={{ mb: 2 }} >
+    <Card sx={{ mb: 2 }} onClick={handleClick}>
       <CardActionArea>
         <CardContent>
           <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>

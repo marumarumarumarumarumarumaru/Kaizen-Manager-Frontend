@@ -17,10 +17,9 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
-// import PersonAdd from '@mui/icons-material/PersonAdd';
 
 import { Link } from 'react-router-dom';
-import CreateProject from './dialogs/CreateProjectDialog';
+import CreateProjectDialog from './dialogs/CreateProjectDialog';
 
 function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
   /* 
@@ -110,12 +109,6 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
                   </ListItemButton>
                 </ListItem>
               ))}
-              {/* <ListItemButton sx={{ pl: 3, ml: 1 }}>
-                <ListItemIcon>
-                  <PersonAdd />
-                </ListItemIcon>
-                <ListItemText primary="Add a member" />
-              </ListItemButton> */}
             </List>
           </Collapse>
           <ListItemButton component={Link} to={'settings'} key='workspaceSettings'>
@@ -165,7 +158,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
           </ListItemButton>
         </List>
       </Drawer>
-      <CreateProject 
+      <CreateProjectDialog 
         newProjectOpen={newProjectOpen} 
         setNewProjectOpen={setNewProjectOpen} 
         snackbarOpen={snackbarCreateProjectOpen}

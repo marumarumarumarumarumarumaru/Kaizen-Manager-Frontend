@@ -7,6 +7,8 @@ import StatusHeader from '../../components/taskStatusHeader';
 import CreateTaskCard from '../../components/taskCreateCard';
 
 import { useParams } from 'react-router-dom';
+import CreateTaskDialog from '../../components/dialogs/CreateTaskDialog';
+import AlertSnackbar from '../../components/AlertSnackbar';
 
 function Project({ projects, tasks }) {
   const { projectId } = useParams();
@@ -15,6 +17,13 @@ function Project({ projects, tasks }) {
   const blockedTasks = tasks.filter(task => task.taskStatus === 'Blocked');
   const inReviewTasks = tasks.filter(task => task.taskStatus === 'In Review');
   const closedTasks = tasks.filter(task => task.taskStatus === 'Closed');
+
+  const [snackbarCreateTaskOpen, setSnackbarCreateTaskOpen] = React.useState(false);
+  const [newTaskOpen, setNewTaskOpen] = React.useState(false);
+
+  const handleNewTaskClickOpen = () => {
+    setNewTaskOpen(!newTaskOpen);
+  };
 
   const getProjectName = (projects, projectId) => {
     let projectName = '';
@@ -38,37 +47,44 @@ function Project({ projects, tasks }) {
           {backlogTasks.map((task) => (
             <TaskCard id={task.id} name={task.name} assignee={task.assignee} targetDate={task.targetDate}/>
           ))}
-          <CreateTaskCard status='Backlog'/>
+          <CreateTaskCard taskStatus='Backlog' handleClick={handleNewTaskClickOpen}/>
         </Grid>
         <Grid item md={2}>
           <StatusHeader status='In Progress'/>
           {inProgressTasks.map((task) => (
             <TaskCard id={task.id} name={task.name} assignee={task.assignee} targetDate={task.targetDate}/>
           ))}
-          <CreateTaskCard status='In Progress'/>
+          <CreateTaskCard taskStatus='In Progress' handleClick={handleNewTaskClickOpen}/>
         </Grid>
         <Grid item md={2}>
           <StatusHeader status='Blocked'/>
           {blockedTasks.map((task) => (
             <TaskCard id={task.id} name={task.name} assignee={task.assignee} targetDate={task.targetDate}/>
           ))}
-          <CreateTaskCard status='Blocked'/>
+          <CreateTaskCard taskStatus='Blocked' handleClick={handleNewTaskClickOpen}/>
         </Grid>
         <Grid item md={2}>
-          <StatusHeader status='In Review'/>
+          <StatusHeader status='In Review' handleClick={handleNewTaskClickOpen}/>
           {inReviewTasks.map((task) => (
             <TaskCard id={task.id} name={task.name} assignee={task.assignee} targetDate={task.targetDate}/>
           ))}
-          <CreateTaskCard status='In Review'/>
+          <CreateTaskCard taskStatus='In Review' handleClick={handleNewTaskClickOpen}/>
         </Grid>
         <Grid item md={2}>
           <StatusHeader status='Closed'/>
           {closedTasks.map((task) => (
             <TaskCard id={task.id} name={task.name} assignee={task.assignee} targetDate={task.targetDate}/>
           ))}
-          <CreateTaskCard status='Closed'/>
+          <CreateTaskCard taskStatus='Closed' handleClick={handleNewTaskClickOpen}/>
         </Grid>
       </Grid>  
+      <CreateTaskDialog newTaskOpen={newTaskOpen} setNewTaskOpen={setNewTaskOpen} snackbarOpen={snackbarCreateTaskOpen} setSnackbarOpen={setSnackbarCreateTaskOpen}/>
+      <AlertSnackbar
+        open={snackbarCreateTaskOpen}
+        setOpen={setSnackbarCreateTaskOpen}
+        severity={'success'}
+        message={'Task has been created'}
+      />
     </>
   );
 };

@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function CreateWorkspace({ newWorkspaceOpen, setNewWorkspaceOpen, snackbarOpen, setSnackbarOpen }) {
+export default function CreateWorkspaceDialog({ newWorkspaceOpen, setNewWorkspaceOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Create Workspace Dialog
   */

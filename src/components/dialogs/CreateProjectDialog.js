@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AlertSnackbar from '../AlertSnackbar';
 
-export default function CreateProject({ newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen  }) {
+export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen  }) {
   /* 
     Renders the Create Project Dialog
   */

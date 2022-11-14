@@ -8,8 +8,6 @@ class Projects extends React.Component {
   */ 
 
   componentDidMount() {
-    console.log('Projects')
-    console.log(window.location.pathname)
   }
 
   render() {

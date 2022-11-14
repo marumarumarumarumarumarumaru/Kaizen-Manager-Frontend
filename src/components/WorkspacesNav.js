@@ -11,7 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { Link } from 'react-router-dom';
-import CreateWorkspace from './dialogs/CreateWorkspaceDialog';
+import CreateWorkspaceDialog from './dialogs/CreateWorkspaceDialog';
 
 function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWorkspace }) {
   /* 
@@ -88,7 +88,7 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWo
           </ListItemIcon>
         </MenuItem>
       </Menu>
-      <CreateWorkspace newWorkspaceOpen={newWorkspaceOpen} setNewWorkspaceOpen={setNewWorkspaceOpen} snackbarOpen={snackbarOpen} setSnackbarOpen={setSnackbarOpen}/>
+      <CreateWorkspaceDialog newWorkspaceOpen={newWorkspaceOpen} setNewWorkspaceOpen={setNewWorkspaceOpen} snackbarOpen={snackbarOpen} setSnackbarOpen={setSnackbarOpen}/>
     </Box>
   );
 }
