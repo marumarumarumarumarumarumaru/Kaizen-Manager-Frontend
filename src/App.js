@@ -25,25 +25,73 @@ import { Route, Routes } from 'react-router-dom';
 import Projects from "./pages/Workspace/Projects";
 import Project from "./pages/Workspace/Project";
 
-function App(){
-  const projects = [
-    { id: '1', name: 'Test Project' },
-    { id: '2', name: 'CS467' },
-    { id: '3', name: 'CS493' }
-  ];
-  const workspaces = [
-    { id: '1', name: 'Workspace 1' },
-    { id: '2', name: 'Testing' },
-    { id: '3', name: 'Sleepless Night' },
-    { id: '4', name: '4th one' }
-  ];
+// Dummy data
+import projectsJson from "./data/projects";
+import workspacesJson from "./data/workspaces";
 
-  const [drawerOpen, setDrawerOpen] = React.useState(true);
-  const [currentWorkspace, setCurrentWorkspace] = React.useState(workspaces[0].id);
-  // const [loggedIn, setLoggedIn] = React.useState(false);
-  const drawerWidth = 260;
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      drawerOpen: true,
+      currentWorkspace: null,
+      drawerWidth: 260,
+      workspaces: null,
+      projects: null
+    }
+    this.setDrawerOpen = this.setDrawerOpen.bind(this);
+    this.setCurrentWorkspace = this.setCurrentWorkspace.bind(this);
+    this.getDesignTokens = this.getDesignTokens.bind(this);
+  }
 
-  const getDesignTokens = (mode) => ({
+  componentDidMount() {
+    this.loadProjects();
+    this.loadWorkspaces();
+  }
+
+  setDrawerOpen() {
+    this.setState(() => ({
+      drawerOpen: !this.state.drawerOpen
+    }));
+  }
+
+  setCurrentWorkspace = newCurrentWorkspace => {
+    this.setState({
+      currentWorkspace: newCurrentWorkspace
+    });
+  }
+
+  loadWorkspaces() {
+    // Currently using dummy data
+    this.setState({
+      workspaces: workspacesJson.workspaces,
+      currentWorkspace: workspacesJson.workspaces[0].id
+    })  
+    // fetch(workspacesJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     workspaces: json.workspaces,
+    //     currentWorkspace: json.workspaces[0].id
+    //   })
+    // })  
+  }
+
+  loadProjects() {
+    // Currently using dummy data
+    this.setState({
+      projects: projectsJson.projects
+    })  
+    // fetch(projectsJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     projects: json.projects
+    //   })
+    // })  
+  }
+
+  getDesignTokens = mode => ({
     palette: {
       mode,
       primary: {
@@ -55,42 +103,42 @@ function App(){
     },
   });
   
-  const darkModeTheme = createTheme(getDesignTokens('dark'));
-
-  return (
-    <ThemeProvider theme={darkModeTheme}>
-      <CssBaseline />
-      <Routes>
-        <Route exact path="/">
-          <Route index element={<Landing />} />
-          <Route path="login" element={<Login currentWorkspace={currentWorkspace}/>}/>
-          <Route path="create-account" element={<CreateAccount/>}/>
-        </Route>
-        <Route path='/workspaces' element={<Workspaces />}>
-          <Route path=":workspaceId" element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace} setCurrentWorkspace={setCurrentWorkspace}/>}>
-            <Route index element={<WorkspaceDefault />} />
-            <Route path="metrics" element={<Metrics/>}/>
-            <Route path="settings" element={<WorkspaceSettings workspaces={workspaces} currentWorkspace={currentWorkspace}/>}/>
-            <Route path="projects" element={<Projects/>}>
-              <Route path=":projectId" element={<Project projects={projects}/>} />
+  render() {
+    return (
+      <ThemeProvider theme={createTheme(this.getDesignTokens('dark'))}>
+        <CssBaseline />
+        <Routes>
+          <Route exact path="/">
+            <Route index element={<Landing />} />
+            <Route path="login" element={<Login currentWorkspace={this.state.currentWorkspace}/>}/>
+            <Route path="create-account" element={<CreateAccount/>}/>
+          </Route>
+          <Route path='/workspaces' element={<Workspaces />}>
+            <Route path=":workspaceId" element={<Workspace drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}>
+              <Route index element={<WorkspaceDefault />} />
+              <Route path="metrics" element={<Metrics/>}/>
+              <Route path="settings" element={<WorkspaceSettings workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace}/>}/>
+              <Route path="projects" element={<Projects/>}>
+                <Route path=":projectId" element={<Project projects={this.state.projects}/>} />
+              </Route>
             </Route>
           </Route>
-        </Route>
-        <Route 
-          path='/profile' 
-          element={<Profile drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace} setCurrentWorkspace={setCurrentWorkspace}/>}
-        />
-        <Route 
-          path='/settings' 
-          element={<GeneralSettings drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace} setCurrentWorkspace={setCurrentWorkspace}/>}
-        />
-        <Route 
-          path='/help' 
-          element={<Help drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace} setCurrentWorkspace={setCurrentWorkspace}/>}
-        />
-      </Routes>
-    </ThemeProvider>
-  );
+          <Route 
+            path='/profile' 
+            element={<Profile drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}
+          />
+          <Route 
+            path='/settings' 
+            element={<GeneralSettings drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}
+          />
+          <Route 
+            path='/help' 
+            element={<Help drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}
+          />
+        </Routes>
+      </ThemeProvider>
+    );
+  }
 }
 
 export default App;
