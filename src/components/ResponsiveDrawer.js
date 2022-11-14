@@ -17,7 +17,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
-import PersonAdd from '@mui/icons-material/PersonAdd';
+// import PersonAdd from '@mui/icons-material/PersonAdd';
 
 import { Link } from 'react-router-dom';
 import CreateProject from './dialogs/CreateProjectDialog';
@@ -94,31 +94,31 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
             </ListSubheader>
           }
         >            
-          <ListItemButton onClick={handleMemberClickOpen}>
+          <ListItemButton key='membersButton' onClick={handleMemberClickOpen}>
             <ListItemText primary='Members' />
             {memberOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={memberOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {['John Doe', 'Fusako Obata', 'Marcos Castillo', 'Corey Gallahar'].map((text, index) => (
-                <ListItem key={text}>
+                <ListItem key={text} sx={{ml: 1}}>
                   <ListItemAvatar>
                     <Avatar>{text.charAt(0)}</Avatar>
                   </ListItemAvatar>
-                  <ListItemButton>
+                  <ListItemButton disabled>
                     <ListItemText primary={text} />
                   </ListItemButton>
                 </ListItem>
               ))}
-              <ListItemButton sx={{ pl: 3 }}>
+              {/* <ListItemButton sx={{ pl: 3, ml: 1 }}>
                 <ListItemIcon>
                   <PersonAdd />
                 </ListItemIcon>
                 <ListItemText primary="Add a member" />
-              </ListItemButton>
+              </ListItemButton> */}
             </List>
           </Collapse>
-          <ListItemButton component={Link} to={'settings'}>
+          <ListItemButton component={Link} to={'settings'} key='workspaceSettings'>
             <ListItemText primary='Settings' />
           </ListItemButton>
         </List>
@@ -133,7 +133,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
             </ListSubheader>
           }
         >  
-          <ListItemButton component={Link} to={'metrics'}>
+          <ListItemButton component={Link} to={'metrics'} key='workspaceMetrics'>
             <ListItemText primary='Metrics' />
           </ListItemButton>
         </List>
@@ -149,7 +149,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
           }
         >  
           {projects.map((project) => (
-            <Link to={'projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to={'/workspaces/' + currentWorkspace + '/projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
               <ListItem key={project.id} disablePadding>
                 <ListItemButton>
                   <ListItemText primary={project.name} />
@@ -158,7 +158,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
             </Link>
           ))}
           <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
-            <ListItemIcon>
+            <ListItemIcon key='createProject'>
               <AddIcon />
             </ListItemIcon>
             <ListItemText primary="Create a project" />

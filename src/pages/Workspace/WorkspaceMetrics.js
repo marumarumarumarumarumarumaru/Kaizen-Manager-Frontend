@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-function Metrics() {
+function Metrics({ projects }) {
   /* 
     Page component for rendering the Metrics page for Workspace
   */
@@ -27,9 +27,11 @@ function Metrics() {
     setChecked([event.target.checked, event.target.checked]);
   };
 
-  const handleChange2 = (event) => {
-    setChecked([event.target.checked, checked[1]]);
-  };
+  // TODO: Need to fix the change handling
+  // Refer: https://mui.com/material-ui/react-checkbox/
+  // const handleChange2 = (event) => {
+  //   setChecked([event.target.checked, checked[1]]);
+  // };
 
   const handleChange3 = (event) => {
     setChecked([checked[0], event.target.checked]);
@@ -37,14 +39,20 @@ function Metrics() {
 
   const children = (
     <Box sx={{ display: 'flex', flexDirection: 'column', ml: 6 }}>
-      <FormControlLabel
+      {/* <FormControlLabel
         label="Project 1"
         control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
       />
       <FormControlLabel
         label="Project 2"
         control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
-      />
+      /> */}
+      {projects.map((project) => (
+        <FormControlLabel
+          label={project.name} key={project.id}
+          control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
+        />
+      ))}
     </Box>
   );
 

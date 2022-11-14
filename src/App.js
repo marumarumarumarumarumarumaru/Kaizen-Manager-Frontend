@@ -22,12 +22,13 @@ import Help from "./pages/General/Help";
 import Profile from "./pages/General/Profile";
 
 import { Route, Routes } from 'react-router-dom';
-import Projects from "./pages/Workspace/Projects";
-import Project from "./pages/Workspace/Project";
+import Projects from "./pages/Projects/Projects";
+import Project from "./pages/Projects/Project";
 
 // Dummy data
 import projectsJson from "./data/projects";
 import workspacesJson from "./data/workspaces";
+import tasksJson from "./data/dummyTasks.json";
 
 class App extends React.Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class App extends React.Component {
       currentWorkspace: null,
       drawerWidth: 260,
       workspaces: null,
-      projects: null
+      projects: null,
+      tasks: null
     }
     this.setDrawerOpen = this.setDrawerOpen.bind(this);
     this.setCurrentWorkspace = this.setCurrentWorkspace.bind(this);
@@ -47,6 +49,7 @@ class App extends React.Component {
   componentDidMount() {
     this.loadProjects();
     this.loadWorkspaces();
+    this.loadTasks();
   }
 
   setDrawerOpen() {
@@ -91,6 +94,21 @@ class App extends React.Component {
     // })  
   }
 
+  loadTasks() {
+    // Currently using dummy data
+    this.setState({
+      tasks: tasksJson.tasks
+    })  
+    // fetch(tasksJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     tasks: json.tasks
+    //   })
+    // })  
+  }
+
+
   getDesignTokens = mode => ({
     palette: {
       mode,
@@ -116,10 +134,10 @@ class App extends React.Component {
           <Route path='/workspaces' element={<Workspaces />}>
             <Route path=":workspaceId" element={<Workspace drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}>
               <Route index element={<WorkspaceDefault />} />
-              <Route path="metrics" element={<Metrics/>}/>
+              <Route path="metrics" element={<Metrics projects={this.state.projects}/>}/>
               <Route path="settings" element={<WorkspaceSettings workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace}/>}/>
               <Route path="projects" element={<Projects/>}>
-                <Route path=":projectId" element={<Project projects={this.state.projects}/>} />
+                <Route path=":projectId" element={<Project projects={this.state.projects} tasks={this.state.tasks}/>} />
               </Route>
             </Route>
           </Route>
