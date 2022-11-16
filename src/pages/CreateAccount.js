@@ -76,17 +76,19 @@ class CreateAccount extends React.Component {
       this.setState({ errors });
       return;
     }
+    const data = {
+      firstName: firstName, 
+      lastName: lastName, 
+      email: email, 
+    }
+
     // fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
     fetch( 'https://kaizen-manager-backend-service-account-35g22o4t5a-uc.a.run.app/users' , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        first_name: firstName, 
-        last_name: lastName, 
-        email: email, 
-      })
+      body: JSON.stringify(data)
     })
     .then ((response) => {
       console.log(response);

@@ -29,6 +29,7 @@ import Project from "./pages/Projects/Project";
 import projectsJson from "./data/projects";
 import workspacesJson from "./data/workspaces";
 import tasksJson from "./data/dummyTasks.json";
+import usersJson from './data/users.json';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,7 +40,8 @@ class App extends React.Component {
       drawerWidth: 260,
       workspaces: null,
       projects: null,
-      tasks: null
+      tasks: null,
+      users: null
     }
     this.setDrawerOpen = this.setDrawerOpen.bind(this);
     this.setCurrentWorkspace = this.setCurrentWorkspace.bind(this);
@@ -50,6 +52,7 @@ class App extends React.Component {
     this.loadProjects();
     this.loadWorkspaces();
     this.loadTasks();
+    this.loadUsers();
   }
 
   setDrawerOpen() {
@@ -67,8 +70,8 @@ class App extends React.Component {
   loadWorkspaces() {
     // Currently using dummy data
     this.setState({
-      workspaces: workspacesJson.workspaces,
-      currentWorkspace: workspacesJson.workspaces[0].id
+      workspaces: workspacesJson,
+      currentWorkspace: workspacesJson[0].id
     })  
     // fetch(workspacesJson)
     // .then(response => response.json())
@@ -83,7 +86,7 @@ class App extends React.Component {
   loadProjects() {
     // Currently using dummy data
     this.setState({
-      projects: projectsJson.projects
+      projects: projectsJson
     })  
     // fetch(projectsJson)
     // .then(response => response.json())
@@ -97,7 +100,7 @@ class App extends React.Component {
   loadTasks() {
     // Currently using dummy data
     this.setState({
-      tasks: tasksJson.tasks
+      tasks: tasksJson
     })  
     // fetch(tasksJson)
     // .then(response => response.json())
@@ -108,6 +111,19 @@ class App extends React.Component {
     // })  
   }
 
+  loadUsers() {
+    // Currently using dummy data
+    this.setState({
+      users: usersJson
+    })  
+    // fetch(tasksJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     tasks: json.tasks
+    //   })
+    // })  
+  }
 
   getDesignTokens = mode => ({
     palette: {
@@ -137,7 +153,7 @@ class App extends React.Component {
               <Route path="metrics" element={<Metrics projects={this.state.projects}/>}/>
               <Route path="settings" element={<WorkspaceSettings workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace}/>}/>
               <Route path="projects" element={<Projects/>}>
-                <Route path=":projectId" element={<Project projects={this.state.projects} tasks={this.state.tasks}/>} />
+                <Route path=":projectId" element={<Project projects={this.state.projects} tasks={this.state.tasks} users={this.state.users}/>} />
               </Route>
             </Route>
           </Route>

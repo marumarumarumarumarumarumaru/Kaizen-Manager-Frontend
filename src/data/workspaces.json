@@ -1,9 +1,6 @@
-{
-  "workspaces": 
-  [
-    { "id": "1", "name": "Workspace 1" },
-    { "id": "2", "name": "Testing" },
-    { "id": "3", "name": "Sleepless Night" },
-    { "id": "4", "name": "4th one"}
-  ]
-}
+[
+  { "id": "1", "name": "Workspace 1" },
+  { "id": "2", "name": "Testing" },
+  { "id": "3", "name": "Sleepless Night" },
+  { "id": "4", "name": "4th one"}
+]

@@ -1,9 +1,6 @@
-{
-  "users": 
-  [
-    { "id": "1", "firstName": "Fusako", "lastName": "Obata" },
-    { "id": "2", "firstName": "Marcos", "lastName": "Castillo" },
-    { "id": "3", "firstName": "Corey", "lastName": "Gallahar" },
-    { "id": "4", "firstName": "Morty", "lastName": "The Dog" }
-  ]
-}
+[
+  { "id": "1", "firstName": "Fusako", "lastName": "Obata" },
+  { "id": "2", "firstName": "Marcos", "lastName": "Castillo" },
+  { "id": "3", "firstName": "Corey", "lastName": "Gallahar" },
+  { "id": "4", "firstName": "Morty", "lastName": "The Dog" }
+]

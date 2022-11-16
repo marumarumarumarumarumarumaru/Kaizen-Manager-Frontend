@@ -111,23 +111,11 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
               ))}
             </List>
           </Collapse>
-          <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/settings'} key='workspaceSettings'>
-            <ListItemText primary='Settings' />
-          </ListItemButton>
-        </List>
-        <Divider />
-        <List
-          sx={{ width: '100%' }}
-          component="nav"
-          aria-labelledby="views-subheader"
-          subheader={
-            <ListSubheader component="div" id="views-subheader">
-              Views
-            </ListSubheader>
-          }
-        >  
           <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/metrics'} key='workspaceMetrics'>
             <ListItemText primary='Metrics' />
+          </ListItemButton>
+          <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/settings'} key='workspaceSettings'>
+            <ListItemText primary='Settings' />
           </ListItemButton>
         </List>
         <Divider />
