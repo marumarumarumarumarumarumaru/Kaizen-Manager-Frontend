@@ -77,8 +77,8 @@ class CreateAccount extends React.Component {
       return;
     }
     const data = {
-      firstName: firstName, 
-      lastName: lastName, 
+      first_name: firstName, 
+      last_name: lastName, 
       email: email, 
     }
 

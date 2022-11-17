@@ -6,19 +6,39 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 
-export default function CreateTaskCard({ taskStatus, handleClick }) {
+import CreateTaskDialog from './dialogs/CreateTaskDialog';
+
+export default function CreateTaskCard({ selectedStatus, users}) {
+
+  const [newTaskOpen, setNewTaskOpen] = React.useState(false);
+  const [snackbarCreateTaskOpen, setSnackbarCreateTaskOpen] = React.useState(false);
+
+  const handleNewTaskClickOpen = () => {
+    setNewTaskOpen(true);
+  };
+
   return (
-    <Card sx={{ mb: 2 }} onClick={handleClick}>
-      <CardActionArea>
-        <CardContent>
-          <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            <PostAddIcon/>
-            <Typography gutterBottom variant="button" component="div" sx={{ ml: 2 }}>
-              Create task
-            </Typography>
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <>
+      <Card sx={{ mb: 2 }} onClick={handleNewTaskClickOpen}>
+        <CardActionArea>
+          <CardContent>
+            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+              <PostAddIcon/>
+              <Typography gutterBottom variant="button" component="div" sx={{ ml: 2 }}>
+                Create task
+              </Typography>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <CreateTaskDialog 
+        selectedStatus={selectedStatus} 
+        users={users} 
+        newTaskOpen={newTaskOpen} 
+        setNewTaskOpen={setNewTaskOpen} 
+        snackbarOpen={snackbarCreateTaskOpen} 
+        setSnackbarOpen={setSnackbarCreateTaskOpen}
+      />
+    </>
   );
 }

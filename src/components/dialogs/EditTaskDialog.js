@@ -12,40 +12,41 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-
-class CreateTaskDialog extends React.Component {
+class EditTaskDialog extends React.Component {
   /* 
     Renders the Create Project Dialog
   */
   constructor(props) {
     super(props);
     this.state = {
-      taskName: '',
-      assignee: undefined,
-      selectedStatus: this.props.selectedStatus,
-      taskValue: undefined,
-      taskDescription: '',
+      taskName: this.props.task.name,
+      assignee: this.props.task.assignee,
+      selectedStatus: this.props.task.taskStatus,
+      taskValue: this.props.task.value,
+      taskDescription: this.props.task.description,
+      targetDate: this.props.task.targetDate,
+      taskStatus: ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'],
       errors: []
     }
   }
 
   handleClose = () => {
-    this.props.setNewTaskOpen(false);
+    this.props.setEditTaskOpen(false);
   };
 
-  handleNewTaskClose = () => {
-    this.props.setNewTaskOpen(false);
+  handleEditTaskClose = () => {
+    this.props.setEditTaskOpen(false);
     this.props.setSnackbarOpen(!this.props.snackbarOpen);
   };
 
   render() {
     return (
       <>
-        <Dialog open={this.props.newTaskOpen} onClose={this.props.handleClose}>
-          <DialogTitle>Create new task</DialogTitle>
+        <Dialog open={this.props.editTaskOpen} onClose={this.props.handleClose}>
+          <DialogTitle>Edit a task</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Fill in below to create a new "{this.props.selectedStatus}" task. Status can be changed later.
+              Edit the details below to update the task.
             </DialogContentText>
             <TextField
               autoFocus
@@ -75,16 +76,20 @@ class CreateTaskDialog extends React.Component {
                 ))}
               </Select>
             </FormControl>
-            <TextField
-              disabled
-              margin="dense"
-              id="name"
-              label="Status"
-              value={this.state.selectedStatus}
-              type="text"
-              fullWidth
-              variant="standard"
-            />
+            <FormControl variant="standard" fullWidth>
+              <InputLabel id="status-select-label">Status</InputLabel>
+              <Select
+                labelId="status-select-standard-label"
+                id="status-select-standard"
+                value={this.state.selectedStatus}
+                onChange={e => this.setState({ selectedStatus: e.target.value })}
+                label="Status"
+              >
+                {this.state.taskStatus.map((status) => (
+                  <MenuItem value={status}>{status}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <TextField
               autoFocus
               margin="dense"
@@ -111,18 +116,18 @@ class CreateTaskDialog extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose}>Cancel</Button>
-            <Button onClick={this.handleNewTaskClose}>Create</Button>
+            <Button onClick={this.handleEditTaskClose}>Update</Button>
           </DialogActions>
         </Dialog>
         <AlertSnackbar 
           open={this.props.snackbarOpen} 
           setOpen={this.props.setSnackbarOpen} 
           severity={'success'}
-          message={'Task has been created'}
+          message={'Task has been updated'}
         />
       </>
     );
   }
 }
 
-export default CreateTaskDialog;
+export default EditTaskDialog;

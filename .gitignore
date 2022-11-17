@@ -26,3 +26,6 @@ yarn-error.log*
 
 # env file
 .env
+
+# other
+/src/Backup.js
