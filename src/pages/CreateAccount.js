@@ -32,54 +32,43 @@ function ValidateCreateUser(firstName, lastName, email) {
   return errors;
 }
 
-class CreateAccount extends React.Component {
+export default function CreateAccount() {
   /* 
     Page component for rendering the Create Account page
   */
+  const [values, setValues] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    passwordMatch: ''
+  });
 
-  constructor() {
-    super();
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      passwordMatch: '',
-      showPassword: false,
-      showPasswordMatch: false,
-      errors: []
-    }
-  }
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPasswordMatch, setShowPasswordMatch] = React.useState(false);
+  const [errors, setErrors] = React.useState([]);
 
-  handleClickShowPassword = () => {
-    this.setState({
-      showPassword: !this.state.showPassword,
-    });
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
 
-  handleClickShowPasswordMatch = () => {
-    this.setState({
-      showPasswordMatch: !this.state.showPasswordMatch,
-    });
-  };
-
-  handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  handleSubmit = () => {
-    let { firstName, lastName, email } = this.state;
-
-    const errors = ValidateCreateUser(firstName, lastName, email)
-    const hasErrors = errors.length > 0;
+  const handleSubmit = () => {
+    const validationErrors = ValidateCreateUser(values.firstName, values.lastName, values.email)
+    const hasErrors = validationErrors.length > 0;
     if (hasErrors) { 
-      this.setState({ errors });
+      setErrors(validationErrors);
+      console.log(errors);
       return;
     }
+
     const data = {
-      first_name: firstName, 
-      last_name: lastName, 
-      email: email, 
+      first_name: values.firstName, 
+      last_name: values.lastName, 
+      email: values.email, 
     }
 
     // fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
@@ -100,136 +89,133 @@ class CreateAccount extends React.Component {
     .catch(error => {alert(error)});
   }
    
-  render() {
-    return (
-      <>
-        <SimpleAppBar/>
-        <Box sx={{ 
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh'
-          }}>
-          <Paper
-            elevation={12}
+  return (
+    <>
+      <SimpleAppBar/>
+      <Box sx={{ 
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh'
+        }}>
+        <Paper
+          elevation={12}
+        >
+          <Box sx={{
+            marginTop: 5,
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
           >
-            <Box sx={{
-              marginTop: 5,
-              p: 2,
+            <Typography variant='h4'>Create an Account</Typography>
+            <Typography paragraph sx={{ textAlign: 'center' }}>
+              Fill in the form below to create an account.<br/>
+              Press "Create" once ready.
+            </Typography>
+          </Box>
+          <Box
+            component="form"
+            sx={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
-            }}
-            >
-              <Typography variant='h4'>Create an Account</Typography>
-              <Typography paragraph sx={{ textAlign: 'center' }}>
-                Fill in the form below to create an account.<br/>
-                Press "Create" once ready.
-              </Typography>
-            </Box>
-            <Box
-              component="form"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                paddingX: 10
-              }}
-            >
-              <TextField
-                required
-                id="outlined-required"
-                label="First Name"
-                value={this.state.firstName}
-                onChange={e => this.setState({ firstName: e.target.value })}
-                sx={{ m: 1, width: '30vh' }}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Last Name"
-                value={this.state.lastName}
-                onChange={e => this.setState({ lastName: e.target.value })}
-                sx={{ m: 1, width: '30vh' }}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Email"
-                type="email"
-                value={this.state.value}
-                onChange={e => this.setState({ email: e.target.value })}
-                sx={{ m: 1, width: '30vh' }}
-              />
-              <FormControl sx={{ m: 1, width: '30vh' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={this.state.showPassword ? 'text' : 'password'}
-                  value={this.state.password}
-                  onChange={e => this.setState({ password: e.target.value })}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={this.handleClickShowPassword}
-                        onMouseDown={this.handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
-              </FormControl>
-              <FormControl sx={{ m: 1, width: '30vh' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password * (type again)</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={this.state.showPasswordMatch ? 'text' : 'password'}
-                  value={this.state.passwordMatch}
-                  onChange={e => this.setState({ passwordMatch: e.target.value })}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={this.handleClickShowPasswordMatch}
-                        onMouseDown={this.handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {this.state.showPasswordMatch ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
-              </FormControl>
-            </Box>
-            <Box sx={{
-              marginBottom: 5,
-              display: 'flex',
-              flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'center'
+              paddingX: 10
             }}
+          >
+            <TextField
+              required
+              id="outlined-required"
+              label="First Name"
+              value={values.firstName}
+              onChange={handleChange('firstName')}
+              sx={{ m: 1, width: '30vh' }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Last Name"
+              value={values.lastName}
+              onChange={handleChange('lastName')}
+              sx={{ m: 1, width: '30vh' }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Email"
+              type="email"
+              value={values.email}
+              onChange={handleChange('email')}
+              sx={{ m: 1, width: '30vh' }}
+            />
+            <FormControl sx={{ m: 1, width: '30vh' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={setShowPassword(!showPassword)}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+            <FormControl sx={{ m: 1, width: '30vh' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">Password * (type again)</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPasswordMatch ? 'text' : 'password'}
+                value={values.passwordMatch}
+                onChange={handleChange('passwordMatch')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={setShowPasswordMatch(!showPasswordMatch)}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPasswordMatch ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+          </Box>
+          <Box sx={{
+            marginBottom: 5,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          >
+            <Link
+              to='/'
             >
-              <Link
-                to='/'
-              >
-                <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Back</Button>
-              </Link>
-              <Link
-                to='/login'
-              >
-                <Button onClick={this.handleSubmit} variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create</Button>
-              </Link>
-            </Box>
-          </Paper>
-        </Box>
-      </>
-    ); 
-  }
+              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Back</Button>
+            </Link>
+            <Link
+              to='/login'
+            >
+              <Button onClick={handleSubmit} variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create</Button>
+            </Link>
+          </Box>
+        </Paper>
+      </Box>
+    </>
+  ); 
 }
 
-export default CreateAccount;

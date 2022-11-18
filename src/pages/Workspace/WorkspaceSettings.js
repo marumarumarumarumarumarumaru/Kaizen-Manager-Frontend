@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog';
 
-function WorkspaceSettings({ workspaces, currentWorkspace }) {
+export default function WorkspaceSettings({ workspaces, currentWorkspace }) {
   /* 
     Page component for rendering the Settings page for Workspace
   */
@@ -55,5 +55,3 @@ function WorkspaceSettings({ workspaces, currentWorkspace }) {
     </>
   );
 }
-
-export default WorkspaceSettings;

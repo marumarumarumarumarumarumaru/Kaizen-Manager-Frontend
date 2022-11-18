@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import LogoutDialog from './dialogs/LogoutDialog';
 
-function UserMenu() {
+export default function UserMenu() {
   /* 
     Renders the User Menu
   */
@@ -133,5 +133,3 @@ function UserMenu() {
     </>
   );
 }
-
-export default UserMenu;

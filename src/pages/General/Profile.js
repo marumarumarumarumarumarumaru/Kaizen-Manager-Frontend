@@ -8,7 +8,7 @@ import ProfileForm from './ProfileForm';
 import DeleteAccount from './DeleteAccount';
 import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog';
 
-function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
   /* 
     Page component for rendering the Profile Settings page
   */
@@ -61,5 +61,3 @@ function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces,
     </>
   );
 }
-
-export default Profile;

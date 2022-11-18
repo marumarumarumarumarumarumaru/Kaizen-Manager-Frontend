@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import SimpleAppBar from '../components/SimpleAppBar';
 import { Link } from 'react-router-dom';
 
-function Landing() {
+export default function Landing() {
   /* 
     Page component for rendering the Landing page
   */
@@ -59,5 +59,3 @@ function Landing() {
     </>
   );
 }
-
-export default Landing;

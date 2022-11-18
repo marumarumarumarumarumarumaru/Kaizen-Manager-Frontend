@@ -8,7 +8,7 @@ import CreateTaskCard from '../../components/TaskCreateCard';
 
 import { useParams } from 'react-router-dom';
 
-function Project({ projects, tasks, users }) {
+export default function Project({ projects, tasks, users }) {
   const { projectId } = useParams();
   const backlogTasks = tasks.filter(task => task.taskStatus === 'Backlog');
   const inProgressTasks = tasks.filter(task => task.taskStatus === 'In Progress');
@@ -73,5 +73,3 @@ function Project({ projects, tasks, users }) {
     </>
   );
 };
-
-export default Project;

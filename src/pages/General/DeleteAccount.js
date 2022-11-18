@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-function DeleteAccount({openDialog}) {
+export default function DeleteAccount({openDialog}) {
   /* 
     Page component for rendering the Profile Settings' delete account button
   */
@@ -26,5 +26,3 @@ function DeleteAccount({openDialog}) {
     </>
   );
 }
-
-export default DeleteAccount;

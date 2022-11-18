@@ -6,7 +6,7 @@ import GeneralSettingsForm from './GeneralSettingsForm';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
   /* 
     Page component for rendering the General Settings page
   */
@@ -52,5 +52,3 @@ function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, wor
     </>
   );
 }
-
-export default GeneralSettings;

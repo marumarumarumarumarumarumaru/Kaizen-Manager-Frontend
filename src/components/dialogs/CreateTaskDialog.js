@@ -12,117 +12,115 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-
-class CreateTaskDialog extends React.Component {
+export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen}) {
   /* 
     Renders the Create Project Dialog
   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      taskName: '',
-      assignee: undefined,
-      selectedStatus: this.props.selectedStatus,
-      taskValue: undefined,
-      taskDescription: '',
-      errors: []
-    }
-  }
 
-  handleClose = () => {
-    this.props.setNewTaskOpen(false);
+  const [values, setValues] = React.useState({
+    taskName: '',
+    assignee: undefined,
+    selectedStatus: selectedStatus,
+    taskValue: undefined,
+    taskDescription: '',
+  });
+
+  // const [errors, setErrors] = React.useState([]);
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
 
-  handleNewTaskClose = () => {
-    this.props.setNewTaskOpen(false);
-    this.props.setSnackbarOpen(!this.props.snackbarOpen);
+  const handleClose = () => {
+    setNewTaskOpen(false);
   };
 
-  render() {
-    return (
-      <>
-        <Dialog open={this.props.newTaskOpen} onClose={this.props.handleClose}>
-          <DialogTitle>Create new task</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Fill in below to create a new "{this.props.selectedStatus}" task. Status can be changed later.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Task name"
-              value={this.state.taskName}
-              onChange={e => this.setState({ taskName: e.target.value })}
-              type="text"
-              fullWidth
-              variant="standard"
-            />
-            <FormControl variant="standard" fullWidth>
-              <InputLabel id="assignee-select-label">Assignee</InputLabel>
-              <Select
-                labelId="assignee-select-standard-label"
-                id="assignee-select-standard"
-                value={this.state.assignee ?? undefined}
-                onChange={e => this.setState({ assignee: e.target.value })}
-                label="Assignee"
-              >
-                <MenuItem value={undefined}>
-                  <em>None</em>
-                </MenuItem>
-                {this.props.users.map((user) => (
-                  <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField
-              disabled
-              margin="dense"
-              id="name"
-              label="Status"
-              value={this.state.selectedStatus}
-              type="text"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Task value"
-              value={this.state.taskValue ?? undefined}
-              onChange={e => this.setState({ taskValue: e.target.value })}
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Description"
-              value={this.state.taskDescription ?? ''}
-              onChange={e => this.setState({ taskDescription: e.target.value })}
-              type="text"
-              fullWidth
-              multiline
-              variant="standard"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose}>Cancel</Button>
-            <Button onClick={this.handleNewTaskClose}>Create</Button>
-          </DialogActions>
-        </Dialog>
-        <AlertSnackbar 
-          open={this.props.snackbarOpen} 
-          setOpen={this.props.setSnackbarOpen} 
-          severity={'success'}
-          message={'Task has been created'}
-        />
-      </>
-    );
-  }
+  const handleNewTaskClose = () => {
+    setNewTaskOpen(false);
+    setSnackbarOpen(!snackbarOpen);
+  };
+
+  return (
+    <>
+      <Dialog open={newTaskOpen} onClose={handleClose}>
+        <DialogTitle>Create new task</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Fill in below to create a new "{selectedStatus}" task. Status can be changed later.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Task name"
+            value={values.taskName}
+            onChange={handleChange('taskName')}
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="assignee-select-label">Assignee</InputLabel>
+            <Select
+              labelId="assignee-select-standard-label"
+              id="assignee-select-standard"
+              value={values.assignee ?? undefined}
+              onChange={handleChange('assignee')}
+              label="Assignee"
+            >
+              <MenuItem value={undefined}>
+                <em>None</em>
+              </MenuItem>
+              {users.map((user) => (
+                <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            disabled
+            margin="dense"
+            id="name"
+            label="Status"
+            value={values.selectedStatus}
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Task value"
+            value={values.taskValue ?? undefined}
+            onChange={handleChange('taskValue')}
+            type="number"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Description"
+            value={values.taskDescription ?? ''}
+            onChange={handleChange('taskDescription')}
+            type="text"
+            fullWidth
+            multiline
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleNewTaskClose}>Create</Button>
+        </DialogActions>
+      </Dialog>
+      <AlertSnackbar 
+        open={snackbarOpen} 
+        setOpen={setSnackbarOpen} 
+        severity={'success'}
+        message={'Task has been created'}
+      />
+    </>
+  );
 }
-
-export default CreateTaskDialog;

@@ -21,7 +21,7 @@ import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 import CreateProjectDialog from './dialogs/CreateProjectDialog';
 
-function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
+export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
   /* 
     Renders the Drawer
   */
@@ -150,10 +150,7 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, wo
         newProjectOpen={newProjectOpen} 
         setNewProjectOpen={setNewProjectOpen} 
         snackbarOpen={snackbarCreateProjectOpen}
-        setSnackbarOpen={setSnackbarCreateProjectOpen}
-      />
+        setSnackbarOpen={setSnackbarCreateProjectOpen}/>
     </>
   );
 }
-
-export default ResponsiveDrawer;

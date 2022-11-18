@@ -6,7 +6,7 @@ import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
 import { Outlet } from 'react-router-dom';
 
-function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
   /* 
     Page component for rendering the Workspace page
   */
@@ -64,5 +64,3 @@ function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspace
     </>
   );
 }
-
-export default Workspace;

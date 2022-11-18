@@ -12,122 +12,121 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-class EditTaskDialog extends React.Component {
+export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Create Project Dialog
   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      taskName: this.props.task.name,
-      assignee: this.props.task.assignee,
-      selectedStatus: this.props.task.taskStatus,
-      taskValue: this.props.task.value,
-      taskDescription: this.props.task.description,
-      targetDate: this.props.task.targetDate,
-      taskStatus: ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'],
-      errors: []
-    }
-  }
 
-  handleClose = () => {
-    this.props.setEditTaskOpen(false);
+  const [values, setValues] = React.useState({
+    taskName: task.name,
+    assignee: task.assignee,
+    selectedStatus: task.taskStatus,
+    taskValue: task.value,
+    taskDescription: task.description,
+    targetDate: task.targetDate
+  });
+
+  const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
+  // const [errors, setErrors] = React.useState([]);
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
 
-  handleEditTaskClose = () => {
-    this.props.setEditTaskOpen(false);
-    this.props.setSnackbarOpen(!this.props.snackbarOpen);
+  const handleClose = () => {
+    setEditTaskOpen(false);
   };
 
-  render() {
-    return (
-      <>
-        <Dialog open={this.props.editTaskOpen} onClose={this.props.handleClose}>
-          <DialogTitle>Edit a task</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Edit the details below to update the task.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Task name"
-              value={this.state.taskName}
-              onChange={e => this.setState({ taskName: e.target.value })}
-              type="text"
-              fullWidth
-              variant="standard"
-            />
-            <FormControl variant="standard" fullWidth>
-              <InputLabel id="assignee-select-label">Assignee</InputLabel>
-              <Select
-                labelId="assignee-select-standard-label"
-                id="assignee-select-standard"
-                value={this.state.assignee ?? undefined}
-                onChange={e => this.setState({ assignee: e.target.value })}
-                label="Assignee"
-              >
-                <MenuItem value={undefined}>
-                  <em>None</em>
-                </MenuItem>
-                {this.props.users.map((user) => (
-                  <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl variant="standard" fullWidth>
-              <InputLabel id="status-select-label">Status</InputLabel>
-              <Select
-                labelId="status-select-standard-label"
-                id="status-select-standard"
-                value={this.state.selectedStatus}
-                onChange={e => this.setState({ selectedStatus: e.target.value })}
-                label="Status"
-              >
-                {this.state.taskStatus.map((status) => (
-                  <MenuItem value={status}>{status}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Task value"
-              value={this.state.taskValue ?? undefined}
-              onChange={e => this.setState({ taskValue: e.target.value })}
-              type="number"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Description"
-              value={this.state.taskDescription ?? ''}
-              onChange={e => this.setState({ taskDescription: e.target.value })}
-              type="text"
-              fullWidth
-              multiline
-              variant="standard"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose}>Cancel</Button>
-            <Button onClick={this.handleEditTaskClose}>Update</Button>
-          </DialogActions>
-        </Dialog>
-        <AlertSnackbar 
-          open={this.props.snackbarOpen} 
-          setOpen={this.props.setSnackbarOpen} 
-          severity={'success'}
-          message={'Task has been updated'}
-        />
-      </>
-    );
-  }
+  const handleEditTaskClose = () => {
+    setEditTaskOpen(false);
+    setSnackbarOpen(!snackbarOpen);
+  };
+
+  return (
+    <>
+      <Dialog open={editTaskOpen} onClose={handleClose}>
+        <DialogTitle>Edit a task</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Edit the details below to update the task.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Task name"
+            value={values.taskName}
+            onChange={handleChange('taskName')}
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="assignee-select-label">Assignee</InputLabel>
+            <Select
+              labelId="assignee-select-standard-label"
+              id="assignee-select-standard"
+              value={values.assignee ?? undefined}
+              onChange={handleChange('assignee')}
+              label="Assignee"
+            >
+              <MenuItem value={undefined}>
+                <em>None</em>
+              </MenuItem>
+              {users.map((user) => (
+                <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="status-select-label">Status</InputLabel>
+            <Select
+              labelId="status-select-standard-label"
+              id="status-select-standard"
+              value={values.selectedStatus}
+              onChange={handleChange('selectedStatus')}
+              label="Status"
+            >
+              {taskStatus.map((status) => (
+                <MenuItem value={status}>{status}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Task value"
+            value={values.taskValue ?? undefined}
+            onChange={handleChange('taskValue')}
+            type="number"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Description"
+            value={values.taskDescription ?? ''}
+            onChange={handleChange('taskDescription')}
+            type="text"
+            fullWidth
+            multiline
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleEditTaskClose}>Update</Button>
+        </DialogActions>
+      </Dialog>
+      <AlertSnackbar 
+        open={snackbarOpen} 
+        setOpen={setSnackbarOpen} 
+        severity={'success'}
+        message={'Task has been updated'}
+      />
+    </>
+  );
 }
-
-export default EditTaskDialog;

@@ -2,26 +2,22 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
 
-class Projects extends React.Component {  
+export default function Projects() {  
   /* 
     Page component for rendering projects
   */ 
 
-  componentDidMount() {
-  }
+  React.useEffect(() => {
+  }, []);
 
-  render() {
-    return (
-      <>
-        <Box sx={{
-          m: 2,
-          flexsDirection: 'column',
-        }}>
-          <Outlet />
-        </Box>
-      </>
-    );
-  }
+  return (
+    <>
+      <Box sx={{
+        m: 2,
+        flexsDirection: 'column',
+      }}>
+        <Outlet />
+      </Box>
+    </>
+  );
 }
-
-export default Projects;

@@ -4,8 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AlertSnackbar from '../../components/AlertSnackbar';
 
-
-function GeneralSettingsForm() {
+export default function GeneralSettingsForm() {
   /* 
     Page component for rendering the Profile Settings page's form
   */
@@ -53,5 +52,3 @@ function GeneralSettingsForm() {
     </Box>
   );
 }
-
-export default GeneralSettingsForm;

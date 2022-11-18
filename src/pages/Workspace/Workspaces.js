@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
 
-function Workspaces() {  
+export default function Workspaces() {  
   /* 
     Page component for rendering workspaces
   */ 
@@ -13,5 +13,3 @@ function Workspaces() {
     </Box>
   );
 }
-
-export default Workspaces;

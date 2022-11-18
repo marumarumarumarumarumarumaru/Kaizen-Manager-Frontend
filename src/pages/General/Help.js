@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
   /* 
     Page component for rendering the Help page
   */
@@ -63,5 +63,3 @@ function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, cu
     </>
   );
 }
-
-export default Help;

@@ -14,8 +14,7 @@ import SimpleAppBar from '../components/SimpleAppBar';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
-
-function Login({ currentWorkspace }) {
+export default function Login({ currentWorkspace }) {
   /* 
     Page component for rendering the Login page
   */
@@ -131,5 +130,3 @@ function Login({ currentWorkspace }) {
     </>
   );
 }
-
-export default Login;

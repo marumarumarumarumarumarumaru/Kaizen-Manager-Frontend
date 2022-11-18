@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-function Metrics({ projects }) {
+export default function Metrics({ projects }) {
   /* 
     Page component for rendering the Metrics page for Workspace
   */
@@ -125,5 +125,3 @@ function Metrics({ projects }) {
     </Box>
   );
 }
-
-export default Metrics;

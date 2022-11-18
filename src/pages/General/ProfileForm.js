@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import AlertSnackbar from '../../components/AlertSnackbar';
 
 
-function ProfileForm() {
+export default function ProfileForm() {
   /* 
     Page component for rendering the Profile Settings page's form
   */
@@ -141,5 +141,3 @@ function ProfileForm() {
     </Box>
   );
 }
-
-export default ProfileForm;

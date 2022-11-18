@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 import CreateWorkspaceDialog from './dialogs/CreateWorkspaceDialog';
 
-function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWorkspace }) {
+export default function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWorkspace }) {
   /* 
     Renders the Workspaces Navigation
   */
@@ -92,5 +92,3 @@ function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWo
     </Box>
   );
 }
-
-export default WorkspacesNav;

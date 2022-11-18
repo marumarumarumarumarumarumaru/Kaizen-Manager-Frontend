@@ -13,73 +13,69 @@ import Select from '@mui/material/Select';
 
 import AlertSnackbar from '../AlertSnackbar';
 
-class MoveTaskDialog extends React.Component {
+export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Logout Dialog
   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedStatus: this.props.task.taskStatus,
-      taskStatus: ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'],
-      errors: []
-    }
-  }
 
-  handleClose = () => {
-    this.props.setMoveTaskOpen(false);
+  const [selectedStatus, setSelectedStatus] = React.useState(task.taskStatus);
+  const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'];
+  // const [errors, setErrors] = React.useState([]);
+
+  const handleChange = (event) => {
+    setSelectedStatus(event.target.value);
   };
 
-  handleStatusUpdate = () => {
-    this.props.setMoveTaskOpen(false);
-    this.props.setSnackbarOpen(!this.props.snackbarOpen);
+  const handleClose = () => {
+    setMoveTaskOpen(false);
   };
 
-  render() {
-    return (
-      <>
-        <Dialog
-          open={this.props.moveTaskOpen}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {'Move "' + this.props.task.name + '" to a different state'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Select the state you'd like to apply for this task
-            </DialogContentText>
-            <FormControl variant="standard" fullWidth>
-              <InputLabel id="update-status-select-label">Status</InputLabel>
-              <Select
-                labelId="update-status-select-standard-label"
-                id="update-status-select-standard"
-                value={this.state.selectedStatus}
-                onChange={e => this.setState({ selectedStatus: e.target.value })}
-                label="Status"
-              >
-                {this.state.taskStatus.map((status) => (
-                  <MenuItem value={status}>{status}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose}>Cancel</Button>
-            <Button onClick={this.handleStatusUpdate} autoFocus>Update</Button>
-          </DialogActions>
-        </Dialog>
-        <AlertSnackbar 
-          open={this.props.snackbarOpen} 
-          setOpen={this.props.setSnackbarOpen} 
-          severity={'success'}
-          message={'Task has been moved to "' + this.state.selectedStatus + '"'}
-        />
-      </>
-    );
-  }
+  const handleStatusUpdate = () => {
+    setMoveTaskOpen(false);
+    setSnackbarOpen(!snackbarOpen);
+  };
+
+  return (
+    <>
+      <Dialog
+        open={moveTaskOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Move "' + task.name + '" to a different state'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Select the state you'd like to apply for this task
+          </DialogContentText>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="update-status-select-label">Status</InputLabel>
+            <Select
+              labelId="update-status-select-standard-label"
+              id="update-status-select-standard"
+              value={selectedStatus}
+              onChange={handleChange}
+              label="Status"
+            >
+              {taskStatus.map((status) => (
+                <MenuItem value={status}>{status}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleStatusUpdate} autoFocus>Update</Button>
+        </DialogActions>
+      </Dialog>
+      <AlertSnackbar 
+        open={snackbarOpen} 
+        setOpen={setSnackbarOpen} 
+        severity={'success'}
+        message={'Task has been moved to "' + selectedStatus + '"'}
+      />
+    </>
+  );
 }
-
-export default MoveTaskDialog;

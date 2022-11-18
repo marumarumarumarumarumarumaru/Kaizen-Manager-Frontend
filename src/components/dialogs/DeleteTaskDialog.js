@@ -13,6 +13,9 @@ export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen, sn
   /* 
     Renders the Logout Dialog
   */
+
+  // const [errors, setErrors] = React.useState([]);
+
   const handleClose = () => {
     setDelTaskOpen(false);
   };

@@ -4,75 +4,33 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { amber } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// Entrypoints
-import CreateAccount from "./pages/CreateAccount";
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-
-// Workspace
-import Metrics from "./pages/Workspace/WorkspaceMetrics";
-import WorkspaceDefault from "./pages/Workspace/WorkspaceDefault";
-import Workspace from './pages/Workspace/Workspace';
-import Workspaces from './pages/Workspace/Workspaces';
-import WorkspaceSettings from "./pages/Workspace/WorkspaceSettings";
-
-// User Options
-import GeneralSettings from "./pages/General/GeneralSettings";
-import Help from "./pages/General/Help";
-import Profile from "./pages/General/Profile";
-
-import { Route, Routes } from 'react-router-dom';
-import Projects from "./pages/Projects/Projects";
-import Project from "./pages/Projects/Project";
-
 // Dummy data
 import projectsJson from "./data/projects";
 import workspacesJson from "./data/workspaces";
 import tasksJson from "./data/dummyTasks.json";
 import usersJson from './data/users.json';
+import MyRoutes from "./Routes";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      drawerOpen: true,
-      currentWorkspace: null,
-      drawerWidth: 260,
-      workspaces: null,
-      projects: null,
-      tasks: null,
-      users: null
-    }
-    this.setDrawerOpen = this.setDrawerOpen.bind(this);
-    this.setCurrentWorkspace = this.setCurrentWorkspace.bind(this);
-    this.getDesignTokens = this.getDesignTokens.bind(this);
-  }
+function App() {
+  const [drawerOpen, setDrawerOpen] = React.useState(true);
+  const [currentWorkspace, setCurrentWorkspace] = React.useState(null);
+  const [workspaces, setWorkspaces] = React.useState(null);
+  const [projects, setProjects] = React.useState(null);
+  const [tasks, setTasks] = React.useState(null);
+  const [users, setUsers] = React.useState(null);
+  const drawerWidth = 260;
 
-  componentDidMount() {
-    this.loadProjects();
-    this.loadWorkspaces();
-    this.loadTasks();
-    this.loadUsers();
-  }
+  React.useEffect(() => {
+    loadProjects();
+    loadTasks();
+    loadUsers();
+    loadWorkspaces();
+  }, []);
 
-  setDrawerOpen() {
-    this.setState(() => ({
-      drawerOpen: !this.state.drawerOpen
-    }));
-  }
-
-  setCurrentWorkspace = newCurrentWorkspace => {
-    this.setState({
-      currentWorkspace: newCurrentWorkspace
-    });
-  }
-
-  loadWorkspaces() {
+  const loadWorkspaces = () => {
     // Currently using dummy data
-    this.setState({
-      workspaces: workspacesJson,
-      currentWorkspace: workspacesJson[0].id
-    })  
+    setWorkspaces(workspacesJson)
+    setCurrentWorkspace(workspacesJson[0].id)
     // fetch(workspacesJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -83,11 +41,9 @@ class App extends React.Component {
     // })  
   }
 
-  loadProjects() {
+  const loadProjects = () => {
     // Currently using dummy data
-    this.setState({
-      projects: projectsJson
-    })  
+    setProjects(projectsJson)
     // fetch(projectsJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -97,11 +53,9 @@ class App extends React.Component {
     // })  
   }
 
-  loadTasks() {
+  const loadTasks = () => {
     // Currently using dummy data
-    this.setState({
-      tasks: tasksJson
-    })  
+    setTasks(tasksJson);
     // fetch(tasksJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -111,11 +65,9 @@ class App extends React.Component {
     // })  
   }
 
-  loadUsers() {
+  const loadUsers = () => {
     // Currently using dummy data
-    this.setState({
-      users: usersJson
-    })  
+    setUsers(usersJson); 
     // fetch(tasksJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -125,7 +77,7 @@ class App extends React.Component {
     // })  
   }
 
-  getDesignTokens = mode => ({
+  const getDesignTokens = (mode) => ({
     palette: {
       mode,
       primary: {
@@ -137,42 +89,22 @@ class App extends React.Component {
     },
   });
   
-  render() {
-    return (
-      <ThemeProvider theme={createTheme(this.getDesignTokens('dark'))}>
-        <CssBaseline />
-        <Routes>
-          <Route exact path="/">
-            <Route index element={<Landing />} />
-            <Route path="login" element={<Login currentWorkspace={this.state.currentWorkspace}/>}/>
-            <Route path="create-account" element={<CreateAccount/>}/>
-          </Route>
-          <Route path='/workspaces' element={<Workspaces />}>
-            <Route path=":workspaceId" element={<Workspace drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}>
-              <Route index element={<WorkspaceDefault />} />
-              <Route path="metrics" element={<Metrics projects={this.state.projects}/>}/>
-              <Route path="settings" element={<WorkspaceSettings workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace}/>}/>
-              <Route path="projects" element={<Projects/>}>
-                <Route path=":projectId" element={<Project projects={this.state.projects} tasks={this.state.tasks} users={this.state.users}/>} />
-              </Route>
-            </Route>
-          </Route>
-          <Route 
-            path='/profile' 
-            element={<Profile drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}
-          />
-          <Route 
-            path='/settings' 
-            element={<GeneralSettings drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}
-          />
-          <Route 
-            path='/help' 
-            element={<Help drawerOpen={this.state.drawerOpen} setDrawerOpen={this.setDrawerOpen} drawerWidth={this.state.drawerWidth} projects={this.state.projects} workspaces={this.state.workspaces} currentWorkspace={this.state.currentWorkspace} setCurrentWorkspace={this.setCurrentWorkspace}/>}
-          />
-        </Routes>
-      </ThemeProvider>
-    );
-  }
+  return (
+    <ThemeProvider theme={createTheme(getDesignTokens('dark'))}>
+      <CssBaseline />
+      <MyRoutes 
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        currentWorkspace={currentWorkspace}
+        setCurrentWorkspace={setCurrentWorkspace}
+        workspaces={workspaces}
+        projects={projects}
+        tasks={tasks}
+        users={users}
+        drawerWidth={drawerWidth}
+      />
+    </ThemeProvider>
+  );
 }
 
 export default App;

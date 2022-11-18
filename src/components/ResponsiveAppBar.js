@@ -10,7 +10,7 @@ import WorkspacesNav from './WorkspacesNav';
 import UserMenu from './UserMenu';
 import AlertSnackbar from './AlertSnackbar';
 
-function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, setCurrentWorkspace }) {
+export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, setCurrentWorkspace }) {
   /* 
     Renders the AppBar
   */
@@ -103,5 +103,3 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, 
     </>
   );
 }
-
-export default ResponsiveAppBar;
