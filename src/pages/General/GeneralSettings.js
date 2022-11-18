@@ -2,11 +2,11 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-import GeneralSettingsForm from './GeneralSettingsForm';
+import GeneralSettingsForm from '../../components/forms/GeneralSettingsForm';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Page component for rendering the General Settings page
   */
@@ -42,8 +42,22 @@ export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} workspaces={workspaces} setCurrentWorkspace={setCurrentWorkspace}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace}/>
+        <ResponsiveAppBar 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth} 
+          workspaces={workspaces}
+          setCurrentWorkspace={setCurrentWorkspace}
+          currentUser={currentUser}
+        />
+        <ResponsiveDrawer 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth}
+          projects={projects}
+          workspaces={workspaces}
+          currentWorkspace={currentWorkspace}
+        />
         <Main open={drawerOpen}>
           <DrawerHeader />
           <GeneralSettingsForm/>

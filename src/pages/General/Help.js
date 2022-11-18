@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Page component for rendering the Help page
   */
@@ -42,8 +42,22 @@ export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects,
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} workspaces={workspaces} setCurrentWorkspace={setCurrentWorkspace}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace}/>
+        <ResponsiveAppBar 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth} 
+          workspaces={workspaces}
+          setCurrentWorkspace={setCurrentWorkspace}
+          currentUser={currentUser}
+        />
+        <ResponsiveDrawer 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth}
+          projects={projects}
+          workspaces={workspaces}
+          currentWorkspace={currentWorkspace}
+        />       
         <Main open={drawerOpen}>
           <DrawerHeader />
           <Box sx={{

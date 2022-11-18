@@ -4,17 +4,14 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import SimpleAppBar from '../components/SimpleAppBar';
 import { Link } from 'react-router-dom';
 
 export default function Landing() {
   /* 
     Page component for rendering the Landing page
   */
- 
   return (
     <>
-      <SimpleAppBar/>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',

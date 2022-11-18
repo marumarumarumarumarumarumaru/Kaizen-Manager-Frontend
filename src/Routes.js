@@ -1,8 +1,9 @@
 import React from "react";
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 // Entrypoints
+import Base from "./pages/Base";
 import CreateAccount from "./pages/CreateAccount";
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -23,12 +24,18 @@ import Projects from "./pages/projects/Projects";
 import Project from "./pages/projects/Project";
 
 function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorkspace, currentUser, workspaces, projects, tasks, users, drawerWidth}) {
+  const [currLocation, setCurrLocation] = React.useState('/');
+  const location = useLocation();
+
+  React.useEffect(() => {
+    setCurrLocation(location.pathname);
+    // console.log(currLocation);
+  }, [location, currLocation]);
+
   return (
     <Routes>
-      <Route exact path="/">
-        <Route 
-          index 
-          element={<Landing />} />
+      <Route exact path="/" element={<Base location={currLocation} />}>
+        <Route index element={<Landing />} />
         <Route 
           path="login" 
           element={<Login 
@@ -36,10 +43,41 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
         <Route 
           path="create-account" 
           element={<CreateAccount/>}/>
+        <Route 
+          path='profile' 
+          element={<Profile 
+            drawerOpen={drawerOpen} 
+            setDrawerOpen={setDrawerOpen} 
+            drawerWidth={drawerWidth} 
+            projects={projects} 
+            workspaces={workspaces} 
+            currentWorkspace={currentWorkspace} 
+            setCurrentWorkspace={setCurrentWorkspace}
+            currentUser={currentUser}/>}/>
+        <Route 
+          path='settings' 
+          element={<GeneralSettings 
+            drawerOpen={drawerOpen} 
+            setDrawerOpen={setDrawerOpen} 
+            drawerWidth={drawerWidth} 
+            projects={projects} 
+            workspaces={workspaces} 
+            currentWorkspace={currentWorkspace} 
+            setCurrentWorkspace={setCurrentWorkspace}
+            currentUser={currentUser}/>}/>
+        <Route 
+          path='help' 
+          element={<Help 
+            drawerOpen={drawerOpen} 
+            setDrawerOpen={setDrawerOpen} 
+            drawerWidth={drawerWidth} 
+            projects={projects} 
+            workspaces={workspaces} 
+            currentWorkspace={currentWorkspace} 
+            setCurrentWorkspace={setCurrentWorkspace}
+            currentUser={currentUser}/>}/>
       </Route>
-      <Route 
-        path='/workspaces' 
-        element={<Workspaces />}>
+      <Route path='/workspaces' element={<Workspaces />}>
         <Route 
           path=":workspaceId" 
           element={<Workspace 
@@ -49,7 +87,8 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
             projects={projects} 
             workspaces={workspaces} 
             currentWorkspace={currentWorkspace} 
-            setCurrentWorkspace={setCurrentWorkspace}/>}>
+            setCurrentWorkspace={setCurrentWorkspace}
+            currentUser={currentUser}/>}>
           <Route 
             index 
             element={<WorkspaceDefault />}/>
@@ -62,9 +101,7 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
               workspaces={workspaces} 
               users={users}
               currentWorkspace={currentWorkspace}/>}/>
-          <Route 
-            path="projects" 
-            element={<Projects/>}>
+          <Route path="projects" element={<Projects/>}>
             <Route 
               path=":projectId" 
               element={<Project 
@@ -74,36 +111,6 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
           </Route>
         </Route>
       </Route>
-      <Route 
-        path='/profile' 
-        element={<Profile 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          projects={projects} 
-          workspaces={workspaces} 
-          currentWorkspace={currentWorkspace} 
-          setCurrentWorkspace={setCurrentWorkspace}/>}/>
-      <Route 
-        path='/settings' 
-        element={<GeneralSettings 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          projects={projects} 
-          workspaces={workspaces} 
-          currentWorkspace={currentWorkspace} 
-          setCurrentWorkspace={setCurrentWorkspace}/>}/>
-      <Route 
-        path='/help' 
-        element={<Help 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          projects={projects} 
-          workspaces={workspaces} 
-          currentWorkspace={currentWorkspace} 
-          setCurrentWorkspace={setCurrentWorkspace}/>}/>
     </Routes>
   );
 }

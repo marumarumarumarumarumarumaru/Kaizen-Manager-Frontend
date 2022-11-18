@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import LogoutDialog from './dialogs/LogoutDialog';
 
-export default function UserMenu() {
+export default function UserMenu({ currentUser }) {
   /* 
     Renders the User Menu
   */
@@ -81,10 +81,10 @@ export default function UserMenu() {
           <MenuItem
             disabled
           >
-            <Avatar>F</Avatar>
+            <Avatar>{currentUser.firstName.charAt(0)}</Avatar>
             <Box sx={{display: 'flex', flexDirection: 'column', width:'20vh', pl: 1 }}>
-              <Typography>Test Name</Typography>
-              <Typography variant="caption">testmail@oregonstate.edu</Typography>
+              <Typography>{currentUser.firstName + ' ' + currentUser.lastName}</Typography>
+              <Typography variant="caption">{currentUser.email}</Typography>
             </Box>
           </MenuItem>
           <Divider variant="middle"/>

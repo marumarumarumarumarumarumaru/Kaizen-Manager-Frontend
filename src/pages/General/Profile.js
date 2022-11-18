@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
-import ProfileForm from './ProfileForm';
+import ProfileForm from '../../components/forms/ProfileForm';
 import DeleteAccount from './DeleteAccount';
 import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog';
 
-export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace }) {
+export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Page component for rendering the Profile Settings page
   */
@@ -49,8 +49,22 @@ export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projec
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} workspaces={workspaces} setCurrentWorkspace={setCurrentWorkspace}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} projects={projects} workspaces={workspaces} currentWorkspace={currentWorkspace}/>
+        <ResponsiveAppBar 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth} 
+          workspaces={workspaces}
+          setCurrentWorkspace={setCurrentWorkspace}
+          currentUser={currentUser}
+        />
+        <ResponsiveDrawer 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth}
+          projects={projects}
+          workspaces={workspaces}
+          currentWorkspace={currentWorkspace}
+        />
         <Main open={drawerOpen}>
           <DrawerHeader />
           <ProfileForm />

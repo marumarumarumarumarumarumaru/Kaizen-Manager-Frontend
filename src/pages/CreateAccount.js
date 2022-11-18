@@ -10,7 +10,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import SimpleAppBar from '../components/SimpleAppBar';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
@@ -91,7 +90,6 @@ export default function CreateAccount() {
    
   return (
     <>
-      <SimpleAppBar/>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',
