@@ -9,49 +9,50 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import AlertSnackbar from '../AlertSnackbar';
 
-export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) {
+export default function RemoveMemberDialog({ user, removeUserOpen, setRemoveUserOpen }) {
   /* 
-    Renders the Logout Dialog
+    Renders the Remove member dialog
   */
-
+  const fullName = user.firstName + ' ' + user.lastName;
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   // const [errors, setErrors] = React.useState([]);
 
   const handleClose = () => {
-    setDelTaskOpen(false);
+    setRemoveUserOpen(false);
   };
 
-  const handleDelete = () => {
-    setDelTaskOpen(false);
+  const handleRemove = () => {
+    setRemoveUserOpen(false);
     setSnackbarOpen(!snackbarOpen)
+    // Remove the user from workspace
   };
 
   return (
     <>
       <Dialog
-        open={delTaskOpen}
+        open={removeUserOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Delete "' + task.name + '"'}
+          {'Remove ' + fullName + ' from current workspace'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this task?
+            Are you sure you want to remove {fullName} from this workspace?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete} autoFocus>Delete</Button>
+          <Button onClick={handleRemove} autoFocus>Remove</Button>
         </DialogActions>
       </Dialog>
       <AlertSnackbar
         open={snackbarOpen} 
         setOpen={setSnackbarOpen} 
         severity={'success'}
-        message={'Task has been deleted'}
+        message={fullName + ' has been removed from this workspace'}
       />
     </>
   );

@@ -8,21 +8,21 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 
 // Workspace
-import Metrics from "./pages/Workspace/WorkspaceMetrics";
-import WorkspaceDefault from "./pages/Workspace/WorkspaceDefault";
-import Workspace from './pages/Workspace/Workspace';
-import Workspaces from './pages/Workspace/Workspaces';
-import WorkspaceSettings from "./pages/Workspace/WorkspaceSettings";
+import Metrics from "./pages/workspace/WorkspaceMetrics";
+import WorkspaceDefault from "./pages/workspace/WorkspaceDefault";
+import Workspace from './pages/workspace/Workspace';
+import Workspaces from './pages/workspace/Workspaces';
+import WorkspaceSettings from "./pages/workspace/WorkspaceSettings";
 
 // User Options
-import GeneralSettings from "./pages/General/GeneralSettings";
-import Help from "./pages/General/Help";
-import Profile from "./pages/General/Profile";
+import GeneralSettings from "./pages/general/GeneralSettings";
+import Help from "./pages/general/Help";
+import Profile from "./pages/general/Profile";
 
-import Projects from "./pages/Projects/Projects";
-import Project from "./pages/Projects/Project";
+import Projects from "./pages/projects/Projects";
+import Project from "./pages/projects/Project";
 
-function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorkspace, workspaces, projects, tasks, users, drawerWidth}) {
+function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorkspace, currentUser, workspaces, projects, tasks, users, drawerWidth}) {
   return (
     <Routes>
       <Route exact path="/">
@@ -60,6 +60,7 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
             path="settings" 
             element={<WorkspaceSettings 
               workspaces={workspaces} 
+              users={users}
               currentWorkspace={currentWorkspace}/>}/>
           <Route 
             path="projects" 

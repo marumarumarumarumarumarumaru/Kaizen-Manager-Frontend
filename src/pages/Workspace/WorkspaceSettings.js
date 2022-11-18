@@ -3,16 +3,23 @@ import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog';
+import MembersTable from './WSMembersTable';
+import AddMemberDialog from '../../components/dialogs/AddMemberDialog';
 
-export default function WorkspaceSettings({ workspaces, currentWorkspace }) {
+export default function WorkspaceSettings({ workspaces, users, currentWorkspace }) {
   /* 
     Page component for rendering the Settings page for Workspace
   */
   const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [addMemberOpen, setAddMemberOpen] = React.useState(false);
 
   const handleDeleteWSClickOpen = () => {
-    setDeleteOpen(true);
+    setDeleteOpen(!deleteOpen);
   };
+
+  const handleAddMemberOpen = () => {
+    setAddMemberOpen(!addMemberOpen);
+  }
 
   const getWorkspaceName = (workspaces, currentWorkspace) => {
     let workspaceName = '';
@@ -43,7 +50,9 @@ export default function WorkspaceSettings({ workspaces, currentWorkspace }) {
         <Typography variant="caption">
           Adjust member's role, add a member, or delete a member from a workspace.
         </Typography>
-        <Typography variant="h5" sx={{ mt: 2 }}>
+        <MembersTable users={users}/>
+        <Button variant='contained' onClick={handleAddMemberOpen}>Add a member</Button>
+        <Typography variant="h5" sx={{ mt: 4 }}>
           Delete Workspace
         </Typography>
         <Typography variant="caption">
@@ -51,7 +60,15 @@ export default function WorkspaceSettings({ workspaces, currentWorkspace }) {
         </Typography>
       </Box>
       <Button variant='contained' onClick={handleDeleteWSClickOpen} sx={{ml: 2}} color="error">Delete Workspace</Button>
-      <DeleteWorkspaceDialog open={deleteOpen} setOpen={setDeleteOpen} workspaceName={getWorkspaceName(workspaces, currentWorkspace)}/>
+      <DeleteWorkspaceDialog 
+        open={deleteOpen} 
+        setOpen={setDeleteOpen} 
+        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}/>
+      <AddMemberDialog 
+        open={addMemberOpen} 
+        setOpen={setAddMemberOpen} 
+        currentWorkspace={currentWorkspace}
+        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}/>
     </>
   );
 }

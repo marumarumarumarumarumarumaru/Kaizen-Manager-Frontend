@@ -8,50 +8,70 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import AlertSnackbar from '../AlertSnackbar';
+import { TextField } from '@mui/material';
 
-export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) {
+export default function AddMemberDialog({ open, setOpen, currentWorkspace, workspaceName }) {
   /* 
-    Renders the Logout Dialog
+    Renders the Remove member dialog
   */
-
+  const [email, setEmail] = React.useState('');
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   // const [errors, setErrors] = React.useState([]);
 
-  const handleClose = () => {
-    setDelTaskOpen(false);
+  const handleChange = (event) => {
+    setEmail(event.target.value);
   };
 
-  const handleDelete = () => {
-    setDelTaskOpen(false);
+  const handleClose = () => {
+    setOpen(!open);
+  };
+
+  const handleAdd = () => {
+    setOpen(!open);
     setSnackbarOpen(!snackbarOpen)
+    // Add the user to the workspace
   };
 
   return (
     <>
       <Dialog
-        open={delTaskOpen}
+        open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Delete "' + task.name + '"'}
+          {'Add an user to ' + workspaceName}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this task?
+          <DialogContentText id="alert-dialog-description1">
+            Enter the email address of the user you'd like to add to this workspace.
           </DialogContentText>
+          <DialogContentText id="alert-dialog-description2">
+            Note that user must have an account on Kaizen Manager.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="email"
+            label="Email"
+            value={email}
+            onChange={handleChange}
+            type="text"
+            fullWidth
+            variant="standard"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete} autoFocus>Delete</Button>
+          <Button onClick={handleAdd} autoFocus>Add</Button>
         </DialogActions>
       </Dialog>
       <AlertSnackbar
         open={snackbarOpen} 
         setOpen={setSnackbarOpen} 
         severity={'success'}
-        message={'Task has been deleted'}
+        message={'User has been added to this workspace'}
       />
     </>
   );

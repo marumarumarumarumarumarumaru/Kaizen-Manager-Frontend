@@ -12,11 +12,11 @@ export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) 
     Renders the Logout Dialog
   */
   const handleClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
 
   const handleDeleteWorkspace = () => {
-    setOpen(false);
+    setOpen(!open);
     // Method to delete the workspace
   };
 

@@ -16,9 +16,6 @@ export default function TaskCard({ task, users }) {
   const [editTaskOpen, setEditTaskOpen] = React.useState(false);
   const [moveTaskOpen, setMoveTaskOpen] = React.useState(false);
   const [delTaskOpen, setDelTaskOpen] = React.useState(false);
-  const [snackbarMoveTaskOpen, setSnackbarMoveTaskOpen] = React.useState(false);
-  const [snackbarEditTaskOpen, setSnackbarEditTaskOpen] = React.useState(false);
-  const [snackbarDelTaskOpen, setSnackbarDelTaskOpen] = React.useState(false);
 
   const handleDelTaskClickOpen = () => {
     setDelTaskOpen(true);
@@ -69,22 +66,16 @@ export default function TaskCard({ task, users }) {
         users={users} 
         editTaskOpen={editTaskOpen} 
         setEditTaskOpen={setEditTaskOpen} 
-        snackbarOpen={snackbarEditTaskOpen} 
-        setSnackbarOpen={setSnackbarEditTaskOpen}
       />
       <MoveTaskDialog
         task={task}
         moveTaskOpen={moveTaskOpen} 
         setMoveTaskOpen={setMoveTaskOpen} 
-        snackbarOpen={snackbarMoveTaskOpen} 
-        setSnackbarOpen={setSnackbarMoveTaskOpen}
       />
       <DeleteTaskDialog
         task={task}
         delTaskOpen={delTaskOpen}
         setDelTaskOpen={setDelTaskOpen}
-        snackbarOpen={snackbarDelTaskOpen}
-        setSnackbarOpen={setSnackbarDelTaskOpen}
       />
     </>
   );

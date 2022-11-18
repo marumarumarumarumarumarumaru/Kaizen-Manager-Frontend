@@ -13,11 +13,11 @@ import Select from '@mui/material/Select';
 
 import AlertSnackbar from '../AlertSnackbar';
 
-export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen, snackbarOpen, setSnackbarOpen }) {
+export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen }) {
   /* 
-    Renders the Logout Dialog
+    Renders the Edit Task Dialog
   */
-
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(task.taskStatus);
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'];
   // const [errors, setErrors] = React.useState([]);

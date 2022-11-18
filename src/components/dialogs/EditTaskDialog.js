@@ -12,10 +12,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen, snackbarOpen, setSnackbarOpen }) {
+export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen }) {
   /* 
     Renders the Create Project Dialog
   */
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
   const [values, setValues] = React.useState({
     taskName: task.name,

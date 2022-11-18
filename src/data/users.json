@@ -1,6 +1,7 @@
 [
-  { "id": 1, "firstName": "Fusako", "lastName": "Obata" },
-  { "id": 2, "firstName": "Marcos", "lastName": "Castillo" },
-  { "id": 3, "firstName": "Corey", "lastName": "Gallahar" },
-  { "id": 4, "firstName": "Morty", "lastName": "The Dog" }
+  { "id": 1, "firstName": "Fusako", "lastName": "Obata", "role": "Owner" },
+  { "id": 2, "firstName": "Marcos", "lastName": "Castillo", "role": "PM" },
+  { "id": 3, "firstName": "Corey", "lastName": "Gallahar", "role": "Member" },
+  { "id": 4, "firstName": "Morty", "lastName": "The Dog", "role": "Member" },
+  { "id": 5, "firstName": "Lily", "lastName": "The Dog", "role": "Owner" }
 ]

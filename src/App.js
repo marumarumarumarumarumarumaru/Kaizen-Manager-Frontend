@@ -11,13 +11,14 @@ import tasksJson from "./data/dummyTasks.json";
 import usersJson from './data/users.json';
 import MyRoutes from "./Routes";
 
-function App() {
+export default function App() {
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const [currentWorkspace, setCurrentWorkspace] = React.useState(null);
   const [workspaces, setWorkspaces] = React.useState(null);
   const [projects, setProjects] = React.useState(null);
   const [tasks, setTasks] = React.useState(null);
   const [users, setUsers] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
   const drawerWidth = 260;
 
   React.useEffect(() => {
@@ -66,8 +67,9 @@ function App() {
   }
 
   const loadUsers = () => {
-    // Currently using dummy data
+    // Currently using dummy data + setting current user temporarily
     setUsers(usersJson); 
+    setCurrentUser(usersJson[0])
     // fetch(tasksJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -97,6 +99,7 @@ function App() {
         setDrawerOpen={setDrawerOpen}
         currentWorkspace={currentWorkspace}
         setCurrentWorkspace={setCurrentWorkspace}
+        currentUser={currentUser}
         workspaces={workspaces}
         projects={projects}
         tasks={tasks}
@@ -106,5 +109,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;

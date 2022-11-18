@@ -33,13 +33,16 @@ export default function DeleteAccountDialog({ open, setOpen }) {
         {"Delete Account"}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id="alert-dialog-description1">
           Are you sure you want to delete your account?
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description2">
+          Note this action cannot be undone!
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleDeleteAccount} autoFocus component={Link} to={'/'}>
+        <Button onClick={handleDeleteAccount} autoFocus component={Link} to={'/'} color="error">
           Delete Account
         </Button>
       </DialogActions>
