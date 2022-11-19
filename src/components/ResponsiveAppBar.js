@@ -8,11 +8,13 @@ import Toolbar from '@mui/material/Toolbar';
 
 import WorkspacesNav from './WorkspacesNav';
 import UserMenu from './UserMenu';
+import AlertSnackbar from './AlertSnackbar';
 
-function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth }) {
+export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, setCurrentWorkspace, currentUser }) {
   /* 
     Renders the AppBar
   */
+  const [snackbarCreateWSOpen, setSnackbarCreateWSOpen] = React.useState(false);
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -36,58 +38,68 @@ function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth }) {
   };
 
   return (
-    <AppBar position="fixed" open={drawerOpen}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          variant="h4"
-          noWrap
-          component="a"
-          href="/"
-          sx={{
-            mr: 2,
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'monospace',
-            fontWeight: 600,
-            letterSpacing: '.1rem',
-            color: 'inherit',
-            textDecoration: 'none',
-          }}
-        >
-          Kaizen
-        </Typography>
-        {/* Shows Title in the middle (in smaller viewport) */}
-        <Typography
-          variant="h4"
-          noWrap
-          component="a"
-          href=""
-          sx={{
-            mr: 2,
-            display: { xs: 'flex', md: 'none' },
-            flexGrow: 1,
-            fontFamily: 'monospace',
-            fontWeight: 600,
-            letterSpacing: '.1rem',
-            color: 'inherit',
-            textDecoration: 'none',
-          }}
-        >
-          Kaizen
-        </Typography>
-        <WorkspacesNav/>
-        <UserMenu/>
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position="fixed" open={drawerOpen}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h4"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 600,
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Kaizen
+          </Typography>
+          {/* Shows Title in the middle (in smaller viewport) */}
+          <Typography
+            variant="h4"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 600,
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Kaizen
+          </Typography>
+          <WorkspacesNav snackbarOpen={snackbarCreateWSOpen} setSnackbarOpen={setSnackbarCreateWSOpen} workspaces={workspaces} setCurrentWorkspace={setCurrentWorkspace}/>
+          <UserMenu currentUser={currentUser}/>
+        </Toolbar>
+      </AppBar>
+      {/* 
+        This snackbar can't be placed any further down the child, 
+        since it'll be hidden by the Dashbar.
+      */}
+      <AlertSnackbar 
+        open={snackbarCreateWSOpen} 
+        setOpen={setSnackbarCreateWSOpen} 
+        severity={'success'}
+        message={'Workspace has been created'}
+      />
+    </>
   );
 }
-
-export default ResponsiveAppBar;

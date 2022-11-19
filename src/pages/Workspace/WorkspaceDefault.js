@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-function Default() {
+export default function WorkspaceDefault() {
   /* 
     Page component for rendering the default message on Workspace page
   */
@@ -20,5 +20,3 @@ function Default() {
     </Box>
   );
 }
-
-export default Default;

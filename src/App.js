@@ -4,27 +4,80 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { amber } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// Entrypoints
-import CreateAccount from "./pages/CreateAccount";
-import Landing from './pages/Landing';
-import Login from './pages/Login';
+// Dummy data
+import projectsJson from "./data/projects";
+import workspacesJson from "./data/workspaces";
+import tasksJson from "./data/dummyTasks.json";
+import usersJson from './data/users.json';
+import MyRoutes from "./Routes";
 
-// Workspace
-import Metrics from "./pages/Workspace/WorkspaceMetrics";
-import Default from "./pages/Workspace/WorkspaceDefault";
-import Workspace from './pages/Workspace/Workspace';
-import WorkspaceSettings from "./pages/Workspace/WorkspaceSettings";
-
-// User Options
-import GeneralSettings from "./pages/General/GeneralSettings";
-import Help from "./pages/General/Help";
-import Profile from "./pages/General/Profile";
-
-import { Route, Routes } from 'react-router-dom';
-
-function App(){
+export default function App() {
   const [drawerOpen, setDrawerOpen] = React.useState(true);
+  const [currentWorkspace, setCurrentWorkspace] = React.useState(null);
+  const [workspaces, setWorkspaces] = React.useState(null);
+  const [projects, setProjects] = React.useState(null);
+  const [tasks, setTasks] = React.useState(null);
+  const [users, setUsers] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
   const drawerWidth = 260;
+
+  React.useEffect(() => {
+    loadProjects();
+    loadTasks();
+    loadUsers();
+    loadWorkspaces();
+  }, []);
+
+  const loadWorkspaces = () => {
+    // Currently using dummy data
+    setWorkspaces(workspacesJson)
+    setCurrentWorkspace(workspacesJson[0].id)
+    // fetch(workspacesJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     workspaces: json.workspaces,
+    //     currentWorkspace: json.workspaces[0].id
+    //   })
+    // })  
+  }
+
+  const loadProjects = () => {
+    // Currently using dummy data
+    setProjects(projectsJson)
+    // fetch(projectsJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     projects: json.projects
+    //   })
+    // })  
+  }
+
+  const loadTasks = () => {
+    // Currently using dummy data
+    setTasks(tasksJson);
+    // fetch(tasksJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     tasks: json.tasks
+    //   })
+    // })  
+  }
+
+  const loadUsers = () => {
+    // Currently using dummy data + setting current user temporarily
+    setUsers(usersJson); 
+    setCurrentUser(usersJson[0])
+    // fetch(tasksJson)
+    // .then(response => response.json())
+    // .then((json) => {
+    //   this.setState({
+    //     tasks: json.tasks
+    //   })
+    // })  
+  }
 
   const getDesignTokens = (mode) => ({
     palette: {
@@ -38,30 +91,21 @@ function App(){
     },
   });
   
-  const darkModeTheme = createTheme(getDesignTokens('dark'));
-
   return (
-    <ThemeProvider theme={darkModeTheme}>
+    <ThemeProvider theme={createTheme(getDesignTokens('dark'))}>
       <CssBaseline />
-      <Routes>
-        <Route exact path='/' element={<Landing/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/create-account' element={<CreateAccount/>}/>
-        <Route  
-          path='/workspace' 
-          element={<Workspace drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}
-        >
-          <Route index element={<Default />} />
-          <Route path="metrics" element={<Metrics/>}/>
-          <Route path="settings" element={<WorkspaceSettings/>}/>
-          {/* <Route path="*" element={<Default />} /> */}
-        </Route>
-        <Route path='/profile' element={<Profile drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
-        <Route path='/settings' element={<GeneralSettings drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
-        <Route path='/help' element={<Help drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>}/>
-      </Routes>
+      <MyRoutes 
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        currentWorkspace={currentWorkspace}
+        setCurrentWorkspace={setCurrentWorkspace}
+        currentUser={currentUser}
+        workspaces={workspaces}
+        projects={projects}
+        tasks={tasks}
+        users={users}
+        drawerWidth={drawerWidth}
+      />
     </ThemeProvider>
   );
 }
-
-export default App;

@@ -1,0 +1,8 @@
+[
+  { "id": "1", "name": "work on frontend", "assignee": 1, "taskStatus": "In Progress", "value": 5, "description": "Test description", "targetDate": "Nov 14, 2022" },
+  { "id": "2", "name": "test task 2", "assignee": null, "taskStatus": "Backlog", "value": 4, "description": null, "targetDate": "Nov 20, 2022" },
+  { "id": "3", "name": "tesk task 3", "assignee": 4, "taskStatus": "Blocked", "value": 1, "description": "Test", "targetDate": "Oct 14, 2022"  },
+  { "id": "4", "name": "tesk task 4", "assignee": 2, "taskStatus": "Closed", "value": 2, "description": null, "targetDate": "Dec 14, 2022" },
+  { "id": "5", "name": "tesk task 5", "assignee": 3, "taskStatus": "In Review", "value": 3, "description": "Merp", "targetDate": "Jan 14, 2023" },
+  { "id": "6", "name": "tesk task 6", "assignee": null, "taskStatus": "In Review", "value": 2, "description": "Hi", "targetDate": "Jan 1, 2023" }
+]

@@ -1,0 +1,7 @@
+[
+  { "id": 1, "firstName": "Fusako", "lastName": "Obata", "role": "Owner", "email": "fusako@test.com" },
+  { "id": 2, "firstName": "Marcos", "lastName": "Castillo", "role": "PM", "email": "marcos@test.com" },
+  { "id": 3, "firstName": "Corey", "lastName": "Gallahar", "role": "Member", "email": "corey@test.com" },
+  { "id": 4, "firstName": "Morty", "lastName": "The Dog", "role": "Member", "email": "morty@test.com" },
+  { "id": 5, "firstName": "Lily", "lastName": "The Dog", "role": "Owner", "email": "lily@test.com" }
+]

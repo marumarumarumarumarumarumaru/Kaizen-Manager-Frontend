@@ -17,24 +17,18 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import { Link } from 'react-router-dom';
+import CreateProjectDialog from './dialogs/CreateProjectDialog';
 
-function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
+export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
   /* 
     Renders the Drawer
   */
   const theme = useTheme();
   const [memberOpen, setMemberOpen] = React.useState(false);
   const [newProjectOpen, setNewProjectOpen] = React.useState(false);
+  const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false);
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -57,9 +51,16 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
     setNewProjectOpen(!newProjectOpen);
   };
 
-  const handleNewProjectClose = () => {
-    setNewProjectOpen(false);
-  };
+  const getWorkspaceName = (workspaces, currentWorkspace) => {
+    let workspaceName = '';
+
+    for (let i = 0; i < workspaces.length; i++) {
+      if (workspaces[i].id === currentWorkspace) {
+        workspaceName = workspaces[i].name
+      }
+    } 
+    return workspaceName;
+  }
 
   return (
     <>
@@ -88,51 +89,33 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
           aria-labelledby="workspace-subheader"
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
-              Workspace Name
+              {getWorkspaceName(workspaces, currentWorkspace)}
             </ListSubheader>
           }
         >            
-          <ListItemButton onClick={handleMemberClickOpen}>
+          <ListItemButton key='membersButton' onClick={handleMemberClickOpen}>
             <ListItemText primary='Members' />
             {memberOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={memberOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {['John Doe', 'Fusako Obata', 'Marcos Castillo', 'Corey Gallahar'].map((text, index) => (
-                <ListItem key={text}>
+                <ListItem key={text} sx={{ml: 1}}>
                   <ListItemAvatar>
                     <Avatar>{text.charAt(0)}</Avatar>
                   </ListItemAvatar>
-                  <ListItemButton>
+                  <ListItemButton disabled>
                     <ListItemText primary={text} />
                   </ListItemButton>
                 </ListItem>
               ))}
-              <ListItemButton sx={{ pl: 3 }}>
-                <ListItemIcon>
-                  <PersonAdd />
-                </ListItemIcon>
-                <ListItemText primary="Add a member" />
-              </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton component={Link} to={'/workspace/settings'}>
-            <ListItemText primary='Settings' />
-          </ListItemButton>
-        </List>
-        <Divider />
-        <List
-          sx={{ width: '100%' }}
-          component="nav"
-          aria-labelledby="views-subheader"
-          subheader={
-            <ListSubheader component="div" id="views-subheader">
-              Views
-            </ListSubheader>
-          }
-        >  
-          <ListItemButton component={Link} to={'/workspace/metrics'}>
+          <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/metrics'} key='workspaceMetrics'>
             <ListItemText primary='Metrics' />
+          </ListItemButton>
+          <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/settings'} key='workspaceSettings'>
+            <ListItemText primary='Settings' />
           </ListItemButton>
         </List>
         <Divider />
@@ -146,45 +129,28 @@ function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth }) {
             </ListSubheader>
           }
         >  
-          {['Test project', 'CS467', 'CS493'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-            
+          {projects.map((project) => (
+            <Link to={'/workspaces/' + currentWorkspace + '/projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
+              <ListItem key={project.id} disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={project.name} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
           <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
-            <ListItemIcon>
+            <ListItemIcon key='createProject'>
               <AddIcon />
             </ListItemIcon>
             <ListItemText primary="Create a project" />
           </ListItemButton>
         </List>
       </Drawer>
-      <Dialog open={newProjectOpen} onClose={handleNewProjectClose}>
-        <DialogTitle>Create a project</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Specify the name of the project to create a new one.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Project name"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleNewProjectClose}>Cancel</Button>
-          <Button onClick={handleNewProjectClose}>Create</Button>
-        </DialogActions>
-      </Dialog>
+      <CreateProjectDialog 
+        newProjectOpen={newProjectOpen} 
+        setNewProjectOpen={setNewProjectOpen} 
+        snackbarOpen={snackbarCreateProjectOpen}
+        setSnackbarOpen={setSnackbarCreateProjectOpen}/>
     </>
   );
 }
-
-export default ResponsiveDrawer;

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-function Help({ drawerOpen, setDrawerOpen, drawerWidth }) {
+export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Page component for rendering the Help page
   */
@@ -42,18 +42,34 @@ function Help({ drawerOpen, setDrawerOpen, drawerWidth }) {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} simplified={false}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
+        <ResponsiveAppBar 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth} 
+          workspaces={workspaces}
+          setCurrentWorkspace={setCurrentWorkspace}
+          currentUser={currentUser}
+        />
+        <ResponsiveDrawer 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth}
+          projects={projects}
+          workspaces={workspaces}
+          currentWorkspace={currentWorkspace}
+        />       
         <Main open={drawerOpen}>
           <DrawerHeader />
           <Box sx={{
             m: 2,
-            display: 'flex',
             flexsDirection: 'column',
             alignItems: 'left'
           }}>
             <Typography variant="h4">
               Help
+            </Typography>
+            <Typography variant="caption">
+              This is a help page. It'll list some information about Kaizen Manager.
             </Typography>
           </Box>
         </Main>
@@ -61,5 +77,3 @@ function Help({ drawerOpen, setDrawerOpen, drawerWidth }) {
     </>
   );
 }
-
-export default Help;

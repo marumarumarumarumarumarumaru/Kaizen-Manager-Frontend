@@ -1,12 +1,12 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
+import GeneralSettingsForm from '../../components/forms/GeneralSettingsForm';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 
-function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth }) {
+export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Page component for rendering the General Settings page
   */
@@ -42,25 +42,27 @@ function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth }) {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth} simplified={false}/>
-        <ResponsiveDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} drawerWidth={drawerWidth}/>
+        <ResponsiveAppBar 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth} 
+          workspaces={workspaces}
+          setCurrentWorkspace={setCurrentWorkspace}
+          currentUser={currentUser}
+        />
+        <ResponsiveDrawer 
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          drawerWidth={drawerWidth}
+          projects={projects}
+          workspaces={workspaces}
+          currentWorkspace={currentWorkspace}
+        />
         <Main open={drawerOpen}>
           <DrawerHeader />
-          <Box sx={{
-            m: 2,
-            flexsDirection: 'column'
-          }}>
-            <Typography variant="h4">
-              General Settings
-            </Typography>
-            <Typography variant="caption">
-              Edit below to adjust your Kaizen Manager general settings.
-            </Typography>
-          </Box>
+          <GeneralSettingsForm/>
         </Main>
       </Box>
     </>
   );
 }
-
-export default GeneralSettings;

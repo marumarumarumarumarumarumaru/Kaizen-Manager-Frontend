@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 
-function SimpleAppBar() {
+export default function SimpleAppBar() {
   /* 
     Renders the Simplified version (without the workspace + user dropdowns) AppBar
   */
@@ -51,5 +51,3 @@ function SimpleAppBar() {
     </AppBar>
   );
 }
-
-export default SimpleAppBar;

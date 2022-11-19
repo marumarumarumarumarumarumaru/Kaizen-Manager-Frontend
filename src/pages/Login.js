@@ -10,12 +10,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import SimpleAppBar from '../components/SimpleAppBar';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
-
-function Login() {
+export default function Login({ currentWorkspace }) {
   /* 
     Page component for rendering the Login page
   */
@@ -43,7 +41,6 @@ function Login() {
 
   return (
     <>
-      <SimpleAppBar/>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',
@@ -121,7 +118,7 @@ function Login() {
               >Back</Button>
             </Link>
             <Link
-              to='/workspace'
+              to={'/workspaces/' + currentWorkspace}
             >
               <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
             </Link>
@@ -131,5 +128,3 @@ function Login() {
     </>
   );
 }
-
-export default Login;

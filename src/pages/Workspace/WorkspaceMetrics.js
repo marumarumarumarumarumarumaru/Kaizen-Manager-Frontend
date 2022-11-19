@@ -1,32 +1,39 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
-function Metrics() {
+export default function Metrics({ projects }) {
   /* 
     Page component for rendering the Metrics page for Workspace
   */
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [checked, setChecked] = React.useState([true, false]);
+  const [period, setPeriod] = React.useState('2w');
+  const [format, setFormat] = React.useState('json');
 
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleSubmit = () => {
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };  
+
+  const handlePeriodChange = (event) => {
+    setPeriod(event.target.value);
+  };
+
+  const handleFormatChange = (event) => {
+    setFormat(event.target.value);
+  };
 
   const handleChange1 = (event) => {
     setChecked([event.target.checked, event.target.checked]);
   };
 
+  // TODO: Need to fix the change handling
+  // Refer: https://mui.com/material-ui/react-checkbox/
   const handleChange2 = (event) => {
     setChecked([event.target.checked, checked[1]]);
   };
@@ -38,13 +45,23 @@ function Metrics() {
   const children = (
     <Box sx={{ display: 'flex', flexDirection: 'column', ml: 6 }}>
       <FormControlLabel
-        label="Project 1"
+        label="Test Project"
         control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
       />
       <FormControlLabel
-        label="Project 2"
+        label="CS467"
         control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
       />
+      {/* <FormControlLabel
+        label="CS493"
+        control={<Checkbox checked={checked[0]} onChange={handleChange4} />}
+      /> */}
+      {/* {projects.map((project) => (
+        <FormControlLabel
+          label={project.name} key={project.id}
+          control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
+        />
+      ))} */}
     </Box>
   );
 
@@ -53,45 +70,33 @@ function Metrics() {
       m: 2,
       flexsDirection: 'column',
     }}>
+      <Typography variant="h4">
+        Metrics
+      </Typography>
+      <Typography variant="caption">
+        Select a time period and projects you'd like to generate metrics data on.
+      </Typography>
       <Box sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
       }}>
-        <Typography variant="h4">
-          Metrics
-        </Typography>
-        <Tooltip title="Open workspaces">
-          <Button
-            id="basic-button"
-            variant="contained"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-            // sx={{ my: 2 }}
-            endIcon={<KeyboardArrowDownIcon />}
+        <FormControl sx={{ m: 2 }}>
+          <FormLabel id="time-period-radio-button-group" sx={{ marginY: 1 }}>Time Period</FormLabel>
+          <RadioGroup
+            aria-labelledby="time-period-radio-group"
+            name="time-period-radio-buttons-group"
+            value={period}
+            onChange={handlePeriodChange}
           >
-            Select project(s)
-          </Button>
-        </Tooltip>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-          sx={{
-            mt: 1,
-            paddingX: 100
-          }}
-          transformOrigin={{ horizontal: 'center', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-        >
+            <FormControlLabel value="2w" control={<Radio />} label="2 weeks" />
+            <FormControlLabel value="1m" control={<Radio />} label="1 month" />
+            <FormControlLabel value="3m" control={<Radio />} label="3 months" />
+            <FormControlLabel value="6m" control={<Radio />} label="6 months" />
+            <FormControlLabel value="1y" control={<Radio />} label="1 year" />
+          </RadioGroup>
+        </FormControl>
+        <FormControl sx={{ m: 2 }}>
+          <FormLabel id="radio-button-group" sx={{ marginY: 1 }}>Select Project(s)</FormLabel>
           <FormControlLabel
-            label="All project(s)"
+            label="All"
             sx={{paddingX: 2}}
             control={
               <Checkbox
@@ -102,19 +107,21 @@ function Metrics() {
             }
           />
           {children}
-        </Menu>
+        </FormControl>
+        <FormControl sx={{ m: 2 }}>
+          <FormLabel id="data-format-radio-button-group" sx={{ marginY: 1 }}>Data Format</FormLabel>
+          <RadioGroup
+            aria-labelledby="data-format-radio-group"
+            name="data-format-radio-buttons-group"
+            value={format}
+            onChange={handleFormatChange}
+          >
+            <FormControlLabel value="json" control={<Radio />} label="JSON" />
+            <FormControlLabel value="csv" control={<Radio />} label="CSV" />
+          </RadioGroup>
+        </FormControl>
       </Box>
-      <Typography variant="h5" sx={{ mt: 4 }}>
-        Burn-down Chart
-      </Typography>
-      <Typography variant="h5" sx={{ mt: 2 }}>
-        Team Velocity
-      </Typography>
-      <Typography variant="h5" sx={{ mt: 2 }}>
-        Individual Velocity
-      </Typography>
+      <Button variant='contained' onClick={handleSubmit} sx={{ marginY: 2 }} >Generate data</Button>
     </Box>
   );
 }
-
-export default Metrics;

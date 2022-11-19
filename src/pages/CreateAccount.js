@@ -10,26 +10,48 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import SimpleAppBar from '../components/SimpleAppBar';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
-function CreateAccount() {
+function ValidateCreateUser(firstName, lastName, email) { 
+
+  const errors = [];
+
+  if (firstName === null) {
+    errors.push("Missing first name");
+  }
+  if (lastName === null) {
+    errors.push("Missing last name");
+  }
+  // TODO: Verify email further on the formatting
+  if (email === null) {
+    errors.push("Missing email");
+  }
+
+  return errors;
+}
+
+export default function CreateAccount() {
   /* 
     Page component for rendering the Create Account page
   */
-
   const [values, setValues] = React.useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     passwordMatch: '',
     showPassword: false,
     showPasswordMatch: false,
   });
+  const [errors, setErrors] = React.useState([]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const handleClickShowPassword = () => {
@@ -46,13 +68,41 @@ function CreateAccount() {
     });
   };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleSubmit = () => {
+    const validationErrors = ValidateCreateUser(values.firstName, values.lastName, values.email)
+    const hasErrors = validationErrors.length > 0;
+    if (hasErrors) { 
+      setErrors(validationErrors);
+      console.log(errors);
+      return;
+    }
+
+    const data = {
+      first_name: values.firstName, 
+      last_name: values.lastName, 
+      email: values.email, 
+    }
+
+    // fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
+    fetch( 'https://kaizen-manager-backend-service-account-35g22o4t5a-uc.a.run.app/users' , {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then ((response) => {
+      console.log(response);
+      if (response.ok)
+        return response;
+      else
+        throw new Error("Something went wrong querying the database!");
+    })
+    .catch(error => {alert(error)});
+  }
    
   return (
     <>
-      <SimpleAppBar/>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',
@@ -88,8 +138,17 @@ function CreateAccount() {
             <TextField
               required
               id="outlined-required"
-              label="Name"
-              onChange={handleChange('name')}
+              label="First Name"
+              value={values.firstName}
+              onChange={handleChange('firstName')}
+              sx={{ m: 1, width: '30vh' }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Last Name"
+              value={values.lastName}
+              onChange={handleChange('lastName')}
               sx={{ m: 1, width: '30vh' }}
             />
             <TextField
@@ -97,6 +156,7 @@ function CreateAccount() {
               id="outlined-required"
               label="Email"
               type="email"
+              value={values.email}
               onChange={handleChange('email')}
               sx={{ m: 1, width: '30vh' }}
             />
@@ -161,13 +221,12 @@ function CreateAccount() {
             <Link
               to='/login'
             >
-              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create</Button>
+              <Button onClick={handleSubmit} variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create</Button>
             </Link>
           </Box>
         </Paper>
       </Box>
     </>
-  );
+  ); 
 }
 
-export default CreateAccount;
