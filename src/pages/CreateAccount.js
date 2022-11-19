@@ -40,11 +40,10 @@ export default function CreateAccount() {
     lastName: '',
     email: '',
     password: '',
-    passwordMatch: ''
+    passwordMatch: '',
+    showPassword: false,
+    showPasswordMatch: false,
   });
-
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showPasswordMatch, setShowPasswordMatch] = React.useState(false);
   const [errors, setErrors] = React.useState([]);
 
   const handleChange = (prop) => (event) => {
@@ -53,6 +52,20 @@ export default function CreateAccount() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleClickShowPasswordMatch = () => {
+    setValues({
+      ...values,
+      showPasswordMatch: !values.showPasswordMatch,
+    });
   };
 
   const handleSubmit = () => {
@@ -151,14 +164,14 @@ export default function CreateAccount() {
               <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
+                type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={setShowPassword(!showPassword)}
+                      onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
                     >
@@ -173,14 +186,14 @@ export default function CreateAccount() {
               <InputLabel htmlFor="outlined-adornment-password">Password * (type again)</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
-                type={showPasswordMatch ? 'text' : 'password'}
+                type={values.showPasswordMatch ? 'text' : 'password'}
                 value={values.passwordMatch}
                 onChange={handleChange('passwordMatch')}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={setShowPasswordMatch(!showPasswordMatch)}
+                      onClick={handleClickShowPasswordMatch}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
                     >

@@ -29,7 +29,7 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
 
   React.useEffect(() => {
     setCurrLocation(location.pathname);
-    // console.log(currLocation);
+    console.log(currLocation);
   }, [location, currLocation]);
 
   return (
