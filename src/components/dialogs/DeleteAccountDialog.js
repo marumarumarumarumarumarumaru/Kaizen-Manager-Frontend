@@ -1,26 +1,26 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export default function DeleteAccountDialog({ open, setOpen }) {
   /* 
     Renders the Logout Dialog
   */
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(!open)
+  }
 
   const handleDeleteAccount = () => {
-    setOpen(false);
+    setOpen(!open)
     // Method to delete the account
-  };
+  }
 
   return (
     <Dialog
@@ -47,5 +47,5 @@ export default function DeleteAccountDialog({ open, setOpen }) {
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

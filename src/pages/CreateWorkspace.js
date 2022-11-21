@@ -1,21 +1,21 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import { Link } from 'react-router-dom'
 
 export default function CreateWorkspace() {
   /* 
     Page component for rendering the Login page
   */
 
-  const [workspaceName, setWorkspaceName] = React.useState('');
+  const [workspaceName, setWorkspaceName] = React.useState('')
 
   const handleChange = (event) => {
-    setWorkspaceName(event.target.value);
-  };
+    setWorkspaceName(event.target.value)
+  }
 
   return (
     <>
@@ -75,5 +75,5 @@ export default function CreateWorkspace() {
         </Paper>
       </Box>
     </>
-  );
+  )
 }

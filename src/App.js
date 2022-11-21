@@ -1,33 +1,33 @@
-import React from "react";
-import './App.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { amber } from '@mui/material/colors';
-import CssBaseline from '@mui/material/CssBaseline';
+import React from "react"
+import './App.css'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { amber } from '@mui/material/colors'
+import CssBaseline from '@mui/material/CssBaseline'
 
 // Dummy data
-import projectsJson from "./data/projects";
-import workspacesJson from "./data/workspaces";
-import tasksJson from "./data/dummyTasks.json";
-import usersJson from './data/users.json';
-import MyRoutes from "./Routes";
+import projectsJson from "./data/projects"
+import workspacesJson from "./data/workspaces"
+import tasksJson from "./data/dummyTasks.json"
+import usersJson from './data/users.json'
+import MyRoutes from "./Routes"
 
 export default function App() {
-  const [drawerOpen, setDrawerOpen] = React.useState(true);
-  const [currentWorkspace, setCurrentWorkspace] = React.useState(null);
-  const [workspaces, setWorkspaces] = React.useState(null);
-  const [projects, setProjects] = React.useState(null);
-  const [tasks, setTasks] = React.useState(null);
-  const [users, setUsers] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState(null);
-  const drawerWidth = 260;
+  const [drawerOpen, setDrawerOpen] = React.useState(true)
+  const [currentWorkspace, setCurrentWorkspace] = React.useState(null)
+  const [workspaces, setWorkspaces] = React.useState(null)
+  const [projects, setProjects] = React.useState(null)
+  const [tasks, setTasks] = React.useState(null)
+  const [users, setUsers] = React.useState(null)
+  const [currentUser, setCurrentUser] = React.useState(null)
+  const drawerWidth = 260
 
   React.useEffect(() => {
-    loadProjects();
-    loadTasks();
-    loadUsers();
-    loadCurrentUser();
-    loadWorkspaces();
-  }, []);
+    loadProjects()
+    loadTasks()
+    loadUsers()
+    loadCurrentUser()
+    loadWorkspaces()
+  }, [])
 
   const loadWorkspaces = () => {
     // Currently using dummy data
@@ -57,7 +57,7 @@ export default function App() {
 
   const loadTasks = () => {
     // Currently using dummy data
-    setTasks(tasksJson);
+    setTasks(tasksJson)
     // fetch(tasksJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -73,7 +73,7 @@ export default function App() {
 
   const loadUsers = () => {
     // Currently using dummy data + setting current user temporarily
-    setUsers(usersJson); 
+    setUsers(usersJson) 
     // fetch(tasksJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -93,7 +93,7 @@ export default function App() {
         }),
       }
     },
-  });
+  })
   
   return (
     <ThemeProvider theme={createTheme(getDesignTokens('dark'))}>
@@ -111,5 +111,5 @@ export default function App() {
         drawerWidth={drawerWidth}
       />
     </ThemeProvider>
-  );
+  )
 }

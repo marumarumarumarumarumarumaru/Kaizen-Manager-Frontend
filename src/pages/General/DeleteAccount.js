@@ -1,7 +1,7 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 
 export default function DeleteAccount({openDialog}) {
   /* 
@@ -24,5 +24,5 @@ export default function DeleteAccount({openDialog}) {
       </Box>
       <Button variant='contained' onClick={openDialog} sx={{ml: 2}} color="error">Delete Account</Button>
     </>
-  );
+  )
 }

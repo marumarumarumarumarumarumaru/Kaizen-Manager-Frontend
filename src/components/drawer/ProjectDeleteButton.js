@@ -1,9 +1,9 @@
-import React from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Tooltip from '@mui/material/Tooltip';
+import React from 'react'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Tooltip from '@mui/material/Tooltip'
 
-import { IconButton } from '@mui/material';
-import DeleteProjectDialog from '../dialogs/DeleteProjectDialog';
+import { IconButton } from '@mui/material'
+import DeleteProjectDialog from '../dialogs/DeleteProjectDialog'
 
 export default function ProjectDeleteButton({ project, snackbarOpen, setSnackbarOpen }) {
   /* 
@@ -13,7 +13,7 @@ export default function ProjectDeleteButton({ project, snackbarOpen, setSnackbar
 
   const handleDelProjectClickOpen = () => {
     setDelProjectOpen(!delProjectOpen)
-  };
+  }
 
   return (
     <>
@@ -30,5 +30,5 @@ export default function ProjectDeleteButton({ project, snackbarOpen, setSnackbar
         setSnackbarOpen={setSnackbarOpen}
       />
     </>
-  );
+  )
 }

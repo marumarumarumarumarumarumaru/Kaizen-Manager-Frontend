@@ -1,40 +1,40 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AddIcon from '@mui/icons-material/Add';
-import Divider from '@mui/material/Divider';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import AddIcon from '@mui/icons-material/Add'
+import Divider from '@mui/material/Divider'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-import { Link } from 'react-router-dom';
-import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog';
+import { Link } from 'react-router-dom'
+import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
 
 export default function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWorkspace }) {
   /* 
     Renders the Workspaces Navigation
   */
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [newWorkspaceOpen, setNewWorkspaceOpen] = React.useState(false);
+  const [anchorElNav, setAnchorElNav] = React.useState(null)
+  const [newWorkspaceOpen, setNewWorkspaceOpen] = React.useState(false)
 
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    setAnchorElNav(event.currentTarget)
+  }
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    setAnchorElNav(null)
+  }
 
   const handleWorkspaceSelect = (workspace) => {
-    setCurrentWorkspace(workspace.workspace_id);
-  };
+    setCurrentWorkspace(workspace.workspace_id)
+  }
 
   const handleNewWorkspaceClickOpen = () => {
-    setNewWorkspaceOpen(!newWorkspaceOpen);
-  };
+    setNewWorkspaceOpen(!newWorkspaceOpen)
+  }
 
   return (
     <Box sx={{ flexGrow: 1, mr: 1 }}>
@@ -90,5 +90,5 @@ export default function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspace
       </Menu>
       <CreateWorkspaceDialog newWorkspaceOpen={newWorkspaceOpen} setNewWorkspaceOpen={setNewWorkspaceOpen} snackbarOpen={snackbarOpen} setSnackbarOpen={setSnackbarOpen}/>
     </Box>
-  );
+  )
 }

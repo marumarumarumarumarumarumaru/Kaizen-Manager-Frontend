@@ -1,36 +1,36 @@
-import React from "react";
-import './App.css';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import React from "react"
+import './App.css'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 // Entrypoints
-import Base from "./pages/Base";
-import CreateAccount from "./pages/CreateAccount";
-import Landing from './pages/Landing';
-import Login from './pages/Login';
+import Base from "./pages/Base"
+import CreateAccount from "./pages/CreateAccount"
+import Landing from './pages/Landing'
+import Login from './pages/Login'
 
 // Workspace
-import Metrics from "./pages/workspace/WorkspaceMetrics";
-import WorkspaceDefault from "./pages/workspace/WorkspaceDefault";
-import Workspace from './pages/workspace/Workspace';
-import Workspaces from './pages/workspace/Workspaces';
-import WorkspaceSettings from "./pages/workspace/WorkspaceSettings";
+import Metrics from "./pages/workspace/WorkspaceMetrics"
+import WorkspaceDefault from "./pages/workspace/WorkspaceDefault"
+import Workspace from './pages/workspace/Workspace'
+import Workspaces from './pages/workspace/Workspaces'
+import WorkspaceSettings from "./pages/workspace/WorkspaceSettings"
 
 // User Options
-import GeneralSettings from "./pages/general/GeneralSettings";
-import Help from "./pages/general/Help";
-import Profile from "./pages/general/Profile";
+import GeneralSettings from "./pages/general/GeneralSettings"
+import Help from "./pages/general/Help"
+import Profile from "./pages/general/Profile"
 
-import Projects from "./pages/projects/Projects";
-import Project from "./pages/projects/Project";
+import Projects from "./pages/projects/Projects"
+import Project from "./pages/projects/Project"
 
 function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorkspace, currentUser, workspaces, projects, tasks, users, drawerWidth}) {
-  const [currLocation, setCurrLocation] = React.useState('/');
-  const location = useLocation();
+  const [currLocation, setCurrLocation] = React.useState('/')
+  const location = useLocation()
 
   React.useEffect(() => {
-    setCurrLocation(location.pathname);
-    console.log(currLocation);
-  }, [location, currLocation]);
+    setCurrLocation(location.pathname)
+    console.log(currLocation)
+  }, [location, currLocation])
 
   return (
     <Routes>
@@ -112,7 +112,7 @@ function MyRoutes({ drawerOpen, setDrawerOpen, currentWorkspace, setCurrentWorks
         </Route>
       </Route>
     </Routes>
-  );
+  )
 }
 
-export default MyRoutes;
+export default MyRoutes

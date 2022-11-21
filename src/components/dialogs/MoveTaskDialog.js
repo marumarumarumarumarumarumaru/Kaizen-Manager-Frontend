@@ -1,39 +1,39 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
-import AlertSnackbar from '../AlertSnackbar';
+import AlertSnackbar from '../AlertSnackbar'
 
 export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen }) {
   /* 
     Renders the Edit Task Dialog
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState(task.task_status);
-  const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'];
-  // const [errors, setErrors] = React.useState([]);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [selectedStatus, setSelectedStatus] = React.useState(task.task_status)
+  const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (event) => {
-    setSelectedStatus(event.target.value);
-  };
+    setSelectedStatus(event.target.value)
+  }
 
   const handleClose = () => {
-    setMoveTaskOpen(false);
-  };
+    setMoveTaskOpen(!moveTaskOpen)
+  }
 
   const handleStatusUpdate = () => {
-    setMoveTaskOpen(false);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    setMoveTaskOpen(!moveTaskOpen)
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   return (
     <>
@@ -77,5 +77,5 @@ export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen }) 
         message={'Task has been moved to "' + selectedStatus + '"'}
       />
     </>
-  );
+  )
 }

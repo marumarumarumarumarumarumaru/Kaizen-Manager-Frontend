@@ -1,24 +1,24 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer';
-import ProfileForm from '../../components/forms/ProfileForm';
-import DeleteAccount from './DeleteAccount';
-import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog';
-import PasswordForm from '../../components/forms/ProfilePasswordForm';
+import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
+import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
+import ProfileForm from '../../components/forms/ProfileForm'
+import DeleteAccount from './DeleteAccount'
+import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
+import PasswordForm from '../../components/forms/ProfilePasswordForm'
 
 export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Page component for rendering the Profile Settings page
   */
-  const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [deleteOpen, setDeleteOpen] = React.useState(false)
 
   const handleDeleteAccountClickOpen = () => {
-    setDeleteOpen(true);
-  };
+    setDeleteOpen(!deleteOpen)
+  }
     
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -37,7 +37,7 @@ export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projec
         marginLeft: 0,
       }),
     }),
-  );
+  )
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -46,7 +46,7 @@ export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projec
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-  }));
+  }))
 
   return (
     <>
@@ -87,5 +87,5 @@ export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projec
         <DeleteAccountDialog open={deleteOpen} setOpen={setDeleteOpen}/>
       </Box>
     </>
-  );
+  )
 }

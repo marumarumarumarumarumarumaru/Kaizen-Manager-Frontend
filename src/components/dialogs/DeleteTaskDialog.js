@@ -1,30 +1,30 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
-import AlertSnackbar from '../AlertSnackbar';
+import AlertSnackbar from '../AlertSnackbar'
 
 export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) {
   /* 
     Renders the Logout Dialog
   */
 
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  // const [errors, setErrors] = React.useState([]);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  // const [errors, setErrors] = React.useState([])
 
   const handleClose = () => {
-    setDelTaskOpen(false);
-  };
+    setDelTaskOpen(!delTaskOpen)
+  }
 
   const handleDelete = () => {
-    setDelTaskOpen(false);
+    setDelTaskOpen(!delTaskOpen)
     setSnackbarOpen(!snackbarOpen)
-  };
+  }
 
   return (
     <>
@@ -54,5 +54,5 @@ export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) 
         message={'Task has been deleted'}
       />
     </>
-  );
+  )
 }

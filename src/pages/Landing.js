@@ -1,10 +1,10 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export default function Landing() {
   /* 
@@ -54,5 +54,5 @@ export default function Landing() {
         </Paper>
       </Box>
     </>
-  );
+  )
 }

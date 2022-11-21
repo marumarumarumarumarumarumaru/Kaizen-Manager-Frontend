@@ -1,21 +1,21 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import AlertSnackbar from '../../components/AlertSnackbar';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import AlertSnackbar from '../../components/AlertSnackbar'
 
 export default function GeneralSettingsForm() {
   /* 
     Page component for rendering the Profile Settings page's form
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
   // const [values, setValues] = React.useState({
-  // });
+  // })
 
   // const handleChange = (prop) => (event) => {
-  //   setValues({ ...values, [prop]: event.target.value });
-  // };
+  //   setValues({ ...values, [prop]: event.target.value })
+  // }
 
   const handleSubmit = () => {
     setSnackbarOpen(!snackbarOpen)
@@ -50,5 +50,5 @@ export default function GeneralSettingsForm() {
         message={'Setting saved'}
       />
     </Box>
-  );
+  )
 }

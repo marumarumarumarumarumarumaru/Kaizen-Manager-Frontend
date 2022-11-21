@@ -1,10 +1,10 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer';
+import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
+import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
 
 export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
@@ -28,7 +28,7 @@ export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects,
         marginLeft: 0,
       }),
     }),
-  );
+  )
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -37,7 +37,7 @@ export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects,
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-  }));
+  }))
 
   return (
     <>
@@ -75,5 +75,5 @@ export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects,
         </Main>
       </Box>
     </>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import React from 'react'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 
-import GeneralSettingsForm from '../../components/forms/GeneralSettingsForm';
-import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer';
+import GeneralSettingsForm from '../../components/forms/GeneralSettingsForm'
+import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
+import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
 
 export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
@@ -28,7 +28,7 @@ export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth
         marginLeft: 0,
       }),
     }),
-  );
+  )
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -37,7 +37,7 @@ export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-  }));
+  }))
 
   return (
     <>
@@ -64,5 +64,5 @@ export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth
         </Main>
       </Box>
     </>
-  );
+  )
 }

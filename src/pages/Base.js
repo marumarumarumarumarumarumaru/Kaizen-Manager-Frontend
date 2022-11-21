@@ -1,11 +1,11 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { Outlet } from 'react-router-dom';
-// import { styled } from '@mui/material/styles';
+import React from 'react'
+import Box from '@mui/material/Box'
+import { Outlet } from 'react-router-dom'
+// import { styled } from '@mui/material/styles'
 
-import SimpleAppBar from '../components/appBar/SimpleAppBar';
-// import ResponsiveAppBar from '../components/ResponsiveAppBar';
-// import ResponsiveDrawer from '../components/ResponsiveDrawer';
+import SimpleAppBar from '../components/appBar/SimpleAppBar'
+// import ResponsiveAppBar from '../components/ResponsiveAppBar'
+// import ResponsiveDrawer from '../components/ResponsiveDrawer'
 
 export default function Base({ location }) {  
   /* 
@@ -14,7 +14,7 @@ export default function Base({ location }) {
   const simplePages = ['/', '/login', '/create-account']
 
   React.useEffect(() => {
-  }, []);
+  }, [])
 
   return (
     <>
@@ -31,5 +31,5 @@ export default function Base({ location }) {
         </Box>
       }
     </>
-  );
+  )
 }

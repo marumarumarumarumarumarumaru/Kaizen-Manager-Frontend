@@ -1,6 +1,6 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 export default function WorkspaceDefault() {
   /* 
@@ -18,5 +18,5 @@ export default function WorkspaceDefault() {
         Select a project to get started
       </Typography>
     </Box>
-  );
+  )
 }

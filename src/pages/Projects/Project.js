@@ -1,40 +1,40 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import React from 'react'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
 
-import TaskCard from '../../components/TaskCard';
-import StatusHeader from '../../components/TaskStatusHeader';
-import CreateTaskCard from '../../components/TaskCreateCard';
-import EditProjectDialog from '../../components/dialogs/EditProjectDialog';
+import TaskCard from '../../components/TaskCard'
+import StatusHeader from '../../components/TaskStatusHeader'
+import CreateTaskCard from '../../components/TaskCreateCard'
+import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
 
-import { useParams } from 'react-router-dom';
-import { IconButton } from '@mui/material';
+import { useParams } from 'react-router-dom'
+import { IconButton } from '@mui/material'
 
 export default function Project({ projects, tasks, users }) {
-  const { projectId } = useParams();
-  const backlogTasks = tasks.filter(task => task.task_status === 'Backlog');
-  const inProgressTasks = tasks.filter(task => task.task_status === 'In Progress');
-  const blockedTasks = tasks.filter(task => task.task_status === 'Blocked');
-  const inReviewTasks = tasks.filter(task => task.task_status === 'In Review');
-  const closedTasks = tasks.filter(task => task.task_status === 'Closed');
+  const { projectId } = useParams()
+  const backlogTasks = tasks.filter(task => task.task_status === 'Backlog')
+  const inProgressTasks = tasks.filter(task => task.task_status === 'In Progress')
+  const blockedTasks = tasks.filter(task => task.task_status === 'Blocked')
+  const inReviewTasks = tasks.filter(task => task.task_status === 'In Review')
+  const closedTasks = tasks.filter(task => task.task_status === 'Closed')
   const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
-  const [editNameOpen, setEditNameOpen] = React.useState(false);
+  const [editNameOpen, setEditNameOpen] = React.useState(false)
 
   const handleEditNameClickOpen = () => {
-    setEditNameOpen(!editNameOpen);
-  };
+    setEditNameOpen(!editNameOpen)
+  }
 
   const getProjectName = (projects, projectId) => {
-    let projectName = '';
+    let projectName = ''
 
     for (let i = 0; i < projects.length; i++) {
       if (projects[i].project_id === parseInt(projectId)) {
         projectName = projects[i].project_name
       }
     } 
-    return projectName;
+    return projectName
   }
 
   return (
@@ -96,5 +96,5 @@ export default function Project({ projects, tasks, users }) {
         setOpen={setEditNameOpen}
       />
     </>
-  );
-};
+  )
+}

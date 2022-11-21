@@ -14,11 +14,11 @@ export default function LogoutDialog({ open, setOpen }) {
     Renders the Logout Dialog
   */
   const handleClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
 
   const handleLogout = () => {
-    setOpen(false);
+    setOpen(!open);
     //setLoggedIn(false);
   };
 

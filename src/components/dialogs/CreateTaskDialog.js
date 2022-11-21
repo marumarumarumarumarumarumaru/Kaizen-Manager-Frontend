@@ -1,16 +1,16 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AlertSnackbar from '../AlertSnackbar';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import React from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import AlertSnackbar from '../AlertSnackbar'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen}) {
   /* 
@@ -23,22 +23,22 @@ export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, 
     selectedStatus: selectedStatus,
     taskValue: undefined,
     taskDescription: '',
-  });
+  })
 
-  // const [errors, setErrors] = React.useState([]);
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+    setValues({ ...values, [prop]: event.target.value })
+  }
 
   const handleClose = () => {
-    setNewTaskOpen(false);
-  };
+    setNewTaskOpen(!newTaskOpen)
+  }
 
   const handleNewTaskClose = () => {
-    setNewTaskOpen(false);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    setNewTaskOpen(!newTaskOpen)
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   return (
     <>
@@ -122,5 +122,5 @@ export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, 
         message={'Task has been created'}
       />
     </>
-  );
+  )
 }

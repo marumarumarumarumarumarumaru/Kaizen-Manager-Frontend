@@ -1,36 +1,36 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
-import AlertSnackbar from '../AlertSnackbar';
-import { TextField } from '@mui/material';
+import AlertSnackbar from '../AlertSnackbar'
+import { TextField } from '@mui/material'
 
 export default function AddMemberDialog({ open, setOpen, currentWorkspace, workspaceName }) {
   /* 
     Renders the Remove member dialog
   */
-  const [email, setEmail] = React.useState('');
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  // const [errors, setErrors] = React.useState([]);
+  const [email, setEmail] = React.useState('')
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (event) => {
-    setEmail(event.target.value);
-  };
+    setEmail(event.target.value)
+  }
 
   const handleClose = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const handleAdd = () => {
-    setOpen(!open);
+    setOpen(!open)
     setSnackbarOpen(!snackbarOpen)
     // Add the user to the workspace
-  };
+  }
 
   return (
     <>
@@ -74,5 +74,5 @@ export default function AddMemberDialog({ open, setOpen, currentWorkspace, works
         message={'User has been added to this workspace'}
       />
     </>
-  );
+  )
 }

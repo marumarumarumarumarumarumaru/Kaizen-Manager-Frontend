@@ -1,33 +1,33 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import Chip from '@mui/material/Chip'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { Button, CardActionArea, CardActions } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
 
-import EditTaskDialog from './dialogs/EditTaskDialog';
-import MoveTaskDialog from './dialogs/MoveTaskDialog';
-import DeleteTaskDialog from './dialogs/DeleteTaskDialog';
+import EditTaskDialog from './dialogs/EditTaskDialog'
+import MoveTaskDialog from './dialogs/MoveTaskDialog'
+import DeleteTaskDialog from './dialogs/DeleteTaskDialog'
 
 export default function TaskCard({ task, users }) {
 
-  const [editTaskOpen, setEditTaskOpen] = React.useState(false);
-  const [moveTaskOpen, setMoveTaskOpen] = React.useState(false);
-  const [delTaskOpen, setDelTaskOpen] = React.useState(false);
+  const [editTaskOpen, setEditTaskOpen] = React.useState(false)
+  const [moveTaskOpen, setMoveTaskOpen] = React.useState(false)
+  const [delTaskOpen, setDelTaskOpen] = React.useState(false)
 
   const handleDelTaskClickOpen = () => {
-    setDelTaskOpen(!delTaskOpen);
-  };
+    setDelTaskOpen(!delTaskOpen)
+  }
 
   const handleMoveTaskClickOpen = () => {
-    setMoveTaskOpen(!moveTaskOpen);
-  };
+    setMoveTaskOpen(!moveTaskOpen)
+  }
 
   const handleEditTaskClickOpen = () => {
-    setEditTaskOpen(!editTaskOpen);
-  };
+    setEditTaskOpen(!editTaskOpen)
+  }
 
   const getAssigneeFirstName = (assigneeId) => {
     for (let i = 0; i < users.length; i++) {
@@ -35,7 +35,7 @@ export default function TaskCard({ task, users }) {
         return users[i].first_name
       }
     }
-    return null;
+    return null
   }
 
   return (
@@ -78,5 +78,5 @@ export default function TaskCard({ task, users }) {
         setDelTaskOpen={setDelTaskOpen}
       />
     </>
-  );
+  )
 }

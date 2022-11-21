@@ -1,33 +1,33 @@
-import * as React from 'react';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import ClearIcon from '@mui/icons-material/Clear';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import * as React from 'react'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import ClearIcon from '@mui/icons-material/Clear'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
-import { IconButton } from '@mui/material';
-import AlertSnackbar from '../../components/AlertSnackbar';
-import RemoveMemberDialog from '../../components/dialogs/RemoveMemberDialog';
+import { IconButton } from '@mui/material'
+import AlertSnackbar from '../../components/AlertSnackbar'
+import RemoveMemberDialog from '../../components/dialogs/RemoveMemberDialog'
 
 export default function MembersRow({ user }) {
 
-  const [role, setRole] = React.useState(user.role);
-  const roles = ['Owner', 'PM', 'Member'];
-  const [removeUserOpen, setRemoveUserOpen] = React.useState(false);
-  const [roleSnackbarOpen, setRoleSnackbarOpen] = React.useState(false);
-  const fullName = user.first_name + ' ' + user.last_name;
-  // const [errors, setErrors] = React.useState([]);
+  const [role, setRole] = React.useState(user.role)
+  const roles = ['Owner', 'PM', 'Member']
+  const [removeUserOpen, setRemoveUserOpen] = React.useState(false)
+  const [roleSnackbarOpen, setRoleSnackbarOpen] = React.useState(false)
+  const fullName = user.first_name + ' ' + user.last_name
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (event) => {
-    setRole(event.target.value);
-    setRoleSnackbarOpen(!roleSnackbarOpen);
+    setRole(event.target.value)
+    setRoleSnackbarOpen(!roleSnackbarOpen)
     // Update database as well
-  };
+  }
 
   const handleRemoveUserClickOpen = () => {
-    setRemoveUserOpen(!removeUserOpen);
-  };
+    setRemoveUserOpen(!removeUserOpen)
+  }
 
   return (
     <>
@@ -71,5 +71,5 @@ export default function MembersRow({ user }) {
         message={ fullName + "'s role has been updated to: " + role }
       />
     </>
-  );
+  )
 }

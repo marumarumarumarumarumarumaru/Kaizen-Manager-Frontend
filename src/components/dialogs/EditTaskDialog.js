@@ -1,22 +1,22 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AlertSnackbar from '../AlertSnackbar';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import React from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import AlertSnackbar from '../AlertSnackbar'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen }) {
   /* 
     Renders the Edit Task Dialog
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
   const [values, setValues] = React.useState({
     taskName: task.task_name,
@@ -25,23 +25,23 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
     taskValue: task.task_value,
     taskDescription: task.task_descriptions,
     targetDate: task.task_due_date
-  });
+  })
 
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
-  // const [errors, setErrors] = React.useState([]);
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+    setValues({ ...values, [prop]: event.target.value })
+  }
 
   const handleClose = () => {
-    setEditTaskOpen(!editTaskOpen);
-  };
+    setEditTaskOpen(!editTaskOpen)
+  }
 
   const handleEditTaskClose = () => {
-    setEditTaskOpen(!editTaskOpen);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    setEditTaskOpen(!editTaskOpen)
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   return (
     <>
@@ -129,5 +129,5 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
         message={'Task has been updated'}
       />
     </>
-  );
+  )
 }

@@ -1,33 +1,33 @@
-import React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import React from 'react'
+import { styled, useTheme } from '@mui/material/styles'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import ListSubheader from '@mui/material/ListSubheader'
+import Collapse from '@mui/material/Collapse'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import Avatar from '@mui/material/Avatar'
 
-import { Link } from 'react-router-dom';
-import CreateProjectDialog from '../dialogs/CreateProjectDialog';
-import DrawerProjects from './DrawerProjects';
-import Tooltip from '@mui/material/Tooltip';
+import { Link } from 'react-router-dom'
+import CreateProjectDialog from '../dialogs/CreateProjectDialog'
+import DrawerProjects from './DrawerProjects'
+import Tooltip from '@mui/material/Tooltip'
 
 export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
   /* 
     Renders the Drawer
   */
-  const theme = useTheme();
-  const [memberOpen, setMemberOpen] = React.useState(false);
-  const [newProjectOpen, setNewProjectOpen] = React.useState(false);
+  const theme = useTheme()
+  const [memberOpen, setMemberOpen] = React.useState(false)
+  const [newProjectOpen, setNewProjectOpen] = React.useState(false)
   const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false);
 
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -40,22 +40,22 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
   }));
 
   const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
+    setDrawerOpen(false)
+  }
 
   const handleMemberClickOpen = () => {
-    setMemberOpen(!memberOpen);
-  };
+    setMemberOpen(!memberOpen)
+  }
 
   const getWorkspaceName = (workspaces, currentWorkspace) => {
-    let workspaceName = '';
+    let workspaceName = ''
 
-    for (let i = 0; i < workspaces.length; i++) {
+    for (let i = 0 ; i < workspaces.length ; i++) {
       if (workspaces[i].workspace_id === currentWorkspace) {
         workspaceName = workspaces[i].workspace_name
       }
     } 
-    return workspaceName;
+    return workspaceName
   }
 
   return (
@@ -127,5 +127,5 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
         snackbarOpen={snackbarCreateProjectOpen}
         setSnackbarOpen={setSnackbarCreateProjectOpen}/>
     </>
-  );
+  )
 }

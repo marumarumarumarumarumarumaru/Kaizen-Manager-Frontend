@@ -1,11 +1,11 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import React from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
 export default function CreateWorkspaceDialog({ newWorkspaceOpen, setNewWorkspaceOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
@@ -13,13 +13,13 @@ export default function CreateWorkspaceDialog({ newWorkspaceOpen, setNewWorkspac
   */
 
   const handleDialogClose = () => {
-    setNewWorkspaceOpen(false);
-  };
+    setNewWorkspaceOpen(!newWorkspaceOpen)
+  }
 
   const handleNewWorkspaceClose = () => {
-    setNewWorkspaceOpen(false);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    setNewWorkspaceOpen(!newWorkspaceOpen)
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   return (
     <Dialog open={newWorkspaceOpen} onClose={handleDialogClose}>
@@ -43,5 +43,5 @@ export default function CreateWorkspaceDialog({ newWorkspaceOpen, setNewWorkspac
         <Button onClick={handleNewWorkspaceClose}>Create</Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

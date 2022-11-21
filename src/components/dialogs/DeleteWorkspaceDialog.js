@@ -1,24 +1,24 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
 export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) {
   /* 
     Renders the Logout Dialog
   */
   const handleClose = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const handleDeleteWorkspace = () => {
-    setOpen(!open);
+    setOpen(!open)
     // Method to delete the workspace
-  };
+  }
 
   return (
     <Dialog
@@ -42,5 +42,5 @@ export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) 
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

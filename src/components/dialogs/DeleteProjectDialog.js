@@ -1,11 +1,11 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
 export default function DeleteProjectDialog({ project, delProjectOpen, setDelProjectOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
@@ -13,13 +13,13 @@ export default function DeleteProjectDialog({ project, delProjectOpen, setDelPro
   */  
   const handleClose = () => {
     setDelProjectOpen(!delProjectOpen)
-  };
+  }
 
   const handleDeleteProject = () => {
     setDelProjectOpen(!delProjectOpen)
     setSnackbarOpen(!snackbarOpen)
     // Method to delete the workspace
-  };
+  }
 
   return (
     <>
@@ -45,5 +45,5 @@ export default function DeleteProjectDialog({ project, delProjectOpen, setDelPro
         </DialogActions>
       </Dialog>
     </>
-  );
+  )
 }

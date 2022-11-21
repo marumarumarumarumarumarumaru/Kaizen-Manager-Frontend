@@ -1,34 +1,34 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import InputAdornment from '@mui/material/InputAdornment'
+import FormControl from '@mui/material/FormControl'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import TextField from '@mui/material/TextField'
+import { Link } from 'react-router-dom'
 
 function ValidateCreateUser(firstName, lastName, email) { 
 
-  const errors = [];
+  const errors = []
 
   if (firstName === null) {
-    errors.push("Missing first name");
+    errors.push("Missing first name")
   }
   if (lastName === null) {
-    errors.push("Missing last name");
+    errors.push("Missing last name")
   }
   // TODO: Verify email further on the formatting
   if (email === null) {
-    errors.push("Missing email");
+    errors.push("Missing email")
   }
 
-  return errors;
+  return errors
 }
 
 export default function CreateAccount() {
@@ -43,38 +43,38 @@ export default function CreateAccount() {
     passwordMatch: '',
     showPassword: false,
     showPasswordMatch: false,
-  });
-  const [errors, setErrors] = React.useState([]);
+  })
+  const [errors, setErrors] = React.useState([])
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+    setValues({ ...values, [prop]: event.target.value })
+  }
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const handleClickShowPassword = () => {
     setValues({
       ...values,
       showPassword: !values.showPassword,
-    });
-  };
+    })
+  }
 
   const handleClickShowPasswordMatch = () => {
     setValues({
       ...values,
       showPasswordMatch: !values.showPasswordMatch,
-    });
-  };
+    })
+  }
 
   const handleSubmit = () => {
     const validationErrors = ValidateCreateUser(values.firstName, values.lastName, values.email)
-    const hasErrors = validationErrors.length > 0;
+    const hasErrors = validationErrors.length > 0
     if (hasErrors) { 
-      setErrors(validationErrors);
-      console.log(errors);
-      return;
+      setErrors(validationErrors)
+      console.log(errors)
+      return
     }
 
     const data = {
@@ -92,13 +92,13 @@ export default function CreateAccount() {
       body: JSON.stringify(data)
     })
     .then ((response) => {
-      console.log(response);
+      console.log(response)
       if (response.ok)
-        return response;
+        return response
       else
-        throw new Error("Something went wrong querying the database!");
+        throw new Error("Something went wrong querying the database!")
     })
-    .catch(error => {alert(error)});
+    .catch(error => {alert(error)})
   }
    
   return (
@@ -227,6 +227,6 @@ export default function CreateAccount() {
         </Paper>
       </Box>
     </>
-  ); 
+  ) 
 }
 

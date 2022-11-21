@@ -1,33 +1,33 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import AlertSnackbar from '../../components/AlertSnackbar';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import InputAdornment from '@mui/material/InputAdornment'
+import FormControl from '@mui/material/FormControl'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import AlertSnackbar from '../../components/AlertSnackbar'
 
 
 export default function PasswordForm() {
   /* 
     Page component for rendering the Profile Settings page's form
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
   const [values, setValues] = React.useState({
     password: '',
     passwordMatch: '',
     showPassword: false,
     showPasswordMatch: false,
-  });
+  })
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+    setValues({ ...values, [prop]: event.target.value })
+  }
 
   const handleSubmit = () => {
     setSnackbarOpen(!snackbarOpen)
@@ -37,19 +37,19 @@ export default function PasswordForm() {
     setValues({
       ...values,
       showPassword: !values.showPassword,
-    });
-  };
+    })
+  }
 
   const handleClickShowPasswordMatch = () => {
     setValues({
       ...values,
       showPasswordMatch: !values.showPasswordMatch,
-    });
-  };
+    })
+  }
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   return (
     <Box sx={{
@@ -123,5 +123,5 @@ export default function PasswordForm() {
         message={'Password updated'}
       />
     </Box>
-  );
+  )
 }

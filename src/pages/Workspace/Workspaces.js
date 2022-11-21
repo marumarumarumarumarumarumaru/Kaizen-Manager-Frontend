@@ -1,6 +1,6 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { Outlet } from 'react-router-dom';
+import React from 'react'
+import Box from '@mui/material/Box'
+import { Outlet } from 'react-router-dom'
 
 export default function Workspaces() {  
   /* 
@@ -11,5 +11,5 @@ export default function Workspaces() {
     <Box sx={{ display: 'flex' }}>
       <Outlet/>
     </Box>
-  );
+  )
 }

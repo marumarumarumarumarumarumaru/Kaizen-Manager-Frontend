@@ -1,34 +1,34 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AlertSnackbar from '../AlertSnackbar';
+import React from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import AlertSnackbar from '../AlertSnackbar'
 
 export default function EditProjectDialog({ projectName, projectId, open, setOpen }) {
   /* 
     Renders the Edit Project Dialog
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
   const [newName, setNewName] = React.useState(projectName)
 
-  // const [errors, setErrors] = React.useState([]);
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (event) => {
-    setNewName(event.target.value);
-  };
+    setNewName(event.target.value)
+  }
 
   const handleClose = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const handleEditProjectClose = () => {
-    setOpen(!open);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    setOpen(!open)
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   return (
     <>
@@ -67,5 +67,5 @@ export default function EditProjectDialog({ projectName, projectId, open, setOpe
         message={'Project has been updated'}
       />
     </>
-  );
+  )
 }

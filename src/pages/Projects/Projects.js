@@ -1,6 +1,6 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { Outlet } from 'react-router-dom';
+import React from 'react'
+import Box from '@mui/material/Box'
+import { Outlet } from 'react-router-dom'
 
 export default function Projects() {  
   /* 
@@ -8,7 +8,7 @@ export default function Projects() {
   */ 
 
   React.useEffect(() => {
-  }, []);
+  }, [])
 
   return (
     <>
@@ -19,5 +19,5 @@ export default function Projects() {
         <Outlet />
       </Box>
     </>
-  );
+  )
 }

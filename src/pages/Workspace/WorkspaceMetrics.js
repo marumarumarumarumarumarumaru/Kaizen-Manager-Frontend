@@ -1,51 +1,51 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { Button, FormGroup } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import React from 'react'
+import Box from '@mui/material/Box'
+import { Button, FormGroup } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
 
 export default function Metrics({ projects }) {
   /* 
     Page component for rendering the Metrics page for Workspace
   */
-  const [period, setPeriod] = React.useState('2w');
-  const [format, setFormat] = React.useState('json');
-  const [state, setState] = React.useState({});
+  const [period, setPeriod] = React.useState('2w')
+  const [format, setFormat] = React.useState('json')
+  const [state, setState] = React.useState({})
 
   React.useEffect(() => {
-    setState(createStates(projects));
-  }, [projects]);
+    setState(createStates(projects))
+  }, [projects])
 
   const createStates = (projects) => {
     let states = {}
-    for (let i = 0; i < projects.length; i++) {
+    for (let i = 0 ; i < projects.length ; i++) {
       states[projects.project_id] = false
     }
     return states
   }
 
   const handleSubmit = () => {
-  };
+  }
 
   const handlePeriodChange = (event) => {
-    setPeriod(event.target.value);
-  };
+    setPeriod(event.target.value)
+  }
   
   const handleProjectChange = (event) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
-    });
-  };
+    })
+  }
 
   const handleFormatChange = (event) => {
-    setFormat(event.target.value);
-  };
+    setFormat(event.target.value)
+  }
 
   return (
     <Box sx={{
@@ -104,5 +104,5 @@ export default function Metrics({ projects }) {
       </Box>
       <Button variant='contained' onClick={handleSubmit} sx={{ marginY: 2 }} >Generate data</Button>
     </Box>
-  );
+  )
 }

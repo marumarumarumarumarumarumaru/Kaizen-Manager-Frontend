@@ -1,13 +1,13 @@
-import React from 'react';
-import List from '@mui/material/List';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import AddIcon from '@mui/icons-material/Add';
-import ProjectItem from './ProjectItem';
+import React from 'react'
+import List from '@mui/material/List'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import ListSubheader from '@mui/material/ListSubheader'
+import AddIcon from '@mui/icons-material/Add'
+import ProjectItem from './ProjectItem'
 
-import AlertSnackbar from '../AlertSnackbar';
+import AlertSnackbar from '../AlertSnackbar'
 
 export default function DrawerProjects({ projects, currentWorkspace, newProjectOpen, setNewProjectOpen }) {
   /* 
@@ -18,7 +18,7 @@ export default function DrawerProjects({ projects, currentWorkspace, newProjectO
 
   const handleNewProjectClickOpen = () => {
     setNewProjectOpen(!newProjectOpen)
-  };
+  }
 
   return (
     <>

@@ -1,25 +1,25 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AlertSnackbar from '../AlertSnackbar';
+import React from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import AlertSnackbar from '../AlertSnackbar'
 
 export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen  }) {
   /* 
     Renders the Create Project Dialog
   */
   const handleClose = () => {
-    setNewProjectOpen(false);
-  };
+    setNewProjectOpen(!newProjectOpen)
+  }
 
   const handleNewProjectClose = () => {
-    setNewProjectOpen(false);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    setNewProjectOpen(!newProjectOpen)
+    setSnackbarOpen(!snackbarOpen)
+  }
 
   return (
     <>
@@ -51,5 +51,5 @@ export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen,
         message={'Project has been created'}
       />
     </>
-  );
+  )
 }

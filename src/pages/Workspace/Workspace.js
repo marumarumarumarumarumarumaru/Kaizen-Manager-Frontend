@@ -1,10 +1,10 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React from 'react'
+import { styled } from '@mui/material/styles'
 
-import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer';
+import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
+import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
 
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
 export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
@@ -28,7 +28,7 @@ export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, proj
         marginLeft: 0,
       }),
     }),
-  );
+  )
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -37,7 +37,7 @@ export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, proj
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-  }));
+  }))
 
   return (
     <>
@@ -63,5 +63,5 @@ export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, proj
         <Outlet />
       </Main>
     </>
-  );
+  )
 }
