@@ -13,24 +13,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import TextField from '@mui/material/TextField'
 import { Link } from 'react-router-dom'
 
-function ValidateCreateUser(firstName, lastName, email) { 
-
-  const errors = []
-
-  if (firstName === null) {
-    errors.push("Missing first name")
-  }
-  if (lastName === null) {
-    errors.push("Missing last name")
-  }
-  // TODO: Verify email further on the formatting
-  if (email === null) {
-    errors.push("Missing email")
-  }
-
-  return errors
-}
-
 export default function CreateAccount() {
   /* 
     Page component for rendering the Create Account page
@@ -230,3 +212,20 @@ export default function CreateAccount() {
   ) 
 }
 
+function ValidateCreateUser(firstName, lastName, email) { 
+
+  const errors = []
+
+  if (firstName === null) {
+    errors.push("Missing first name")
+  }
+  if (lastName === null) {
+    errors.push("Missing last name")
+  }
+  // TODO: Verify email further on the formatting
+  if (email === null) {
+    errors.push("Missing email")
+  }
+
+  return errors
+}

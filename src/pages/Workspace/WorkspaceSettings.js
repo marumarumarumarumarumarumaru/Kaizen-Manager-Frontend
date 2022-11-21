@@ -2,8 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { Button } from '@mui/material'
 import Typography from '@mui/material/Typography'
+
+import MembersTable from '../../components/WSMembersTable'
 import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog'
-import MembersTable from './WSMembersTable'
 import AddMemberDialog from '../../components/dialogs/AddMemberDialog'
 
 export default function WorkspaceSettings({ workspaces, users, currentWorkspace }) {

@@ -1,7 +1,7 @@
 import React from 'react'
-import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress';
+import { Main, DrawerHeader } from '../../components/CustomUI';
 
 import GeneralSettingsForm from '../../components/forms/GeneralSettingsForm'
 import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
@@ -11,34 +11,6 @@ export default function GeneralSettings({ dataLoaded, drawerOpen, setDrawerOpen,
   /* 
     Page component for rendering the General Settings page
   */
-
-  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    }),
-  )
-
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }))
 
   return (
     <>

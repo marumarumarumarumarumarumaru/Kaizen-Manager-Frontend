@@ -1,16 +1,42 @@
 import * as React from 'react'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
 import ClearIcon from '@mui/icons-material/Clear'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
 import { IconButton } from '@mui/material'
-import AlertSnackbar from '../../components/AlertSnackbar'
-import RemoveMemberDialog from '../../components/dialogs/RemoveMemberDialog'
+import AlertSnackbar from './AlertSnackbar'
+import RemoveMemberDialog from './dialogs/RemoveMemberDialog'
 
-export default function MembersRow({ user }) {
+export default function MembersTable({ users }) {
+  return (
+    <TableContainer component={Paper} sx={{ marginY: 2, maxWidth: 1000 }}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Member name</TableCell>
+            <TableCell align="right">Role</TableCell>
+            <TableCell align="right">Delete</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.map((user) => (
+            <MembersRow user={user}/>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+}
+
+function MembersRow({ user }) {
 
   const [role, setRole] = React.useState(user.role)
   const roles = ['Owner', 'PM', 'Member']

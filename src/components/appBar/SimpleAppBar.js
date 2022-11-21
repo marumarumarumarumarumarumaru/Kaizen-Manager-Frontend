@@ -3,10 +3,13 @@ import AppBar from '@mui/material/AppBar'
 import Typography from '@mui/material/Typography'
 import Toolbar from '@mui/material/Toolbar'
 
+/**
+ * 
+ * @returns render()
+ * Renders simple appbar without the workspace and user navigation
+ * 
+ */
 export default function SimpleAppBar() {
-  /* 
-    Renders the Simplified version (without the workspace + user dropdowns) AppBar
-  */
 
   return (
     <AppBar position="fixed">

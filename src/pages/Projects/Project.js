@@ -1,5 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
@@ -7,7 +8,6 @@ import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 
 import TaskCard from '../../components/TaskCard'
-import StatusHeader from '../../components/TaskStatusHeader'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
 
@@ -97,5 +97,13 @@ export default function Project({ projects, currentProject, tasks, users }) {
         setOpen={setEditNameOpen}
       />
     </>
+  )
+}
+
+function StatusHeader({ status }) {
+  return (
+    <Paper elevation={24} key={status}>
+      <Typography variant="h5" sx={{ m: 2, paddingY: 2 }}>{status}</Typography>
+    </Paper>
   )
 }

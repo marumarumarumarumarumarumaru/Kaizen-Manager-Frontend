@@ -1,43 +1,14 @@
 import React from 'react'
-import { styled } from '@mui/material/styles'
+import { Outlet } from 'react-router-dom'
 
 import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
 import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
-
-import { Outlet } from 'react-router-dom'
+import { Main, DrawerHeader } from '../../components/CustomUI';
 
 export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, users, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
   /* 
     Page component for rendering the Workspace page
   */
-
-  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    }),
-  )
-
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }))
 
   return (
     <>
