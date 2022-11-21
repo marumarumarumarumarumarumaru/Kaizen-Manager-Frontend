@@ -25,13 +25,14 @@ export default function App() {
     loadProjects();
     loadTasks();
     loadUsers();
+    loadCurrentUser();
     loadWorkspaces();
   }, []);
 
   const loadWorkspaces = () => {
     // Currently using dummy data
     setWorkspaces(workspacesJson)
-    setCurrentWorkspace(workspacesJson[0].id)
+    setCurrentWorkspace(workspacesJson[0].workspace_id)
     // fetch(workspacesJson)
     // .then(response => response.json())
     // .then((json) => {
@@ -66,10 +67,13 @@ export default function App() {
     // })  
   }
 
+  const loadCurrentUser = () => {
+    setCurrentUser(usersJson[0])
+  }
+
   const loadUsers = () => {
     // Currently using dummy data + setting current user temporarily
     setUsers(usersJson); 
-    setCurrentUser(usersJson[0])
     // fetch(tasksJson)
     // .then(response => response.json())
     // .then((json) => {

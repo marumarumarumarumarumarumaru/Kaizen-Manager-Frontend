@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
@@ -15,11 +14,12 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 
 import { Link } from 'react-router-dom';
-import CreateProjectDialog from './dialogs/CreateProjectDialog';
+import CreateProjectDialog from '../dialogs/CreateProjectDialog';
+import DrawerProjects from './DrawerProjects';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
   /* 
@@ -47,16 +47,12 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
     setMemberOpen(!memberOpen);
   };
 
-  const handleNewProjectClickOpen = () => {
-    setNewProjectOpen(!newProjectOpen);
-  };
-
   const getWorkspaceName = (workspaces, currentWorkspace) => {
     let workspaceName = '';
 
     for (let i = 0; i < workspaces.length; i++) {
-      if (workspaces[i].id === currentWorkspace) {
-        workspaceName = workspaces[i].name
+      if (workspaces[i].workspace_id === currentWorkspace) {
+        workspaceName = workspaces[i].workspace_name
       }
     } 
     return workspaceName;
@@ -78,9 +74,11 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
         open={drawerOpen}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+          <Tooltip title="Hide drawer">
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </Tooltip>
         </DrawerHeader>
         <Divider />
         <List
@@ -93,10 +91,12 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
             </ListSubheader>
           }
         >            
-          <ListItemButton key='membersButton' onClick={handleMemberClickOpen}>
-            <ListItemText primary='Members' />
-            {memberOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
+          <Tooltip title="View members">
+            <ListItemButton key='membersButton' onClick={handleMemberClickOpen}>
+              <ListItemText primary='Members' />
+              {memberOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          </Tooltip>
           <Collapse in={memberOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {['John Doe', 'Fusako Obata', 'Marcos Castillo', 'Corey Gallahar'].map((text, index) => (
@@ -119,32 +119,7 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
           </ListItemButton>
         </List>
         <Divider />
-        <List
-          sx={{ width: '100%' }}
-          component="nav"
-          aria-labelledby="projects-subheader"
-          subheader={
-            <ListSubheader component="div" id="projects-subheader">
-              Projects
-            </ListSubheader>
-          }
-        >  
-          {projects.map((project) => (
-            <Link to={'/workspaces/' + currentWorkspace + '/projects/' + project.id} style={{ textDecoration: 'none', color: 'white' }}>
-              <ListItem key={project.id} disablePadding>
-                <ListItemButton>
-                  <ListItemText primary={project.name} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          ))}
-          <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
-            <ListItemIcon key='createProject'>
-              <AddIcon />
-            </ListItemIcon>
-            <ListItemText primary="Create a project" />
-          </ListItemButton>
-        </List>
+        <DrawerProjects projects={projects} currentWorkspace={currentWorkspace} newProjectOpen={newProjectOpen} setNewProjectOpen={setNewProjectOpen}/>
       </Drawer>
       <CreateProjectDialog 
         newProjectOpen={newProjectOpen} 

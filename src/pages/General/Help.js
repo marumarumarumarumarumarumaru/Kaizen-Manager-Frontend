@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import ResponsiveAppBar from '../../components/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/ResponsiveDrawer';
+import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar';
+import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer';
 
 export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 

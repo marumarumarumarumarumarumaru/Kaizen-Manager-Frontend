@@ -1,5 +1,5 @@
 [
-  { "id": "1", "name": "Test Project" },
-  { "id": "2", "name": "CS467" },
-  { "id": "3", "name": "CS493" }
+  { "project_id": 1, "project_name": "Test Project" },
+  { "project_id": 2, "project_name": "CS467" },
+  { "project_id": 3, "project_name": "CS493" }
 ]

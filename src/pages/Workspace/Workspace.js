@@ -1,8 +1,8 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 
-import ResponsiveAppBar from '../../components/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/ResponsiveDrawer';
+import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar';
+import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer';
 
 import { Outlet } from 'react-router-dom';
 

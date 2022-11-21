@@ -25,8 +25,8 @@ export default function WorkspaceSettings({ workspaces, users, currentWorkspace 
     let workspaceName = '';
 
     for (let i = 0; i < workspaces.length; i++) {
-      if (workspaces[i].id === currentWorkspace) {
-        workspaceName = workspaces[i].name
+      if (workspaces[i].workspace_id === currentWorkspace) {
+        workspaceName = workspaces[i].workspace_name
       }
     } 
     return workspaceName;

@@ -13,7 +13,7 @@ export default function RemoveMemberDialog({ user, removeUserOpen, setRemoveUser
   /* 
     Renders the Remove member dialog
   */
-  const fullName = user.firstName + ' ' + user.lastName;
+  const fullName = user.first_name + ' ' + user.last_name;
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   // const [errors, setErrors] = React.useState([]);
 

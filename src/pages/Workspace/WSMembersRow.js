@@ -16,7 +16,7 @@ export default function MembersRow({ user }) {
   const roles = ['Owner', 'PM', 'Member'];
   const [removeUserOpen, setRemoveUserOpen] = React.useState(false);
   const [roleSnackbarOpen, setRoleSnackbarOpen] = React.useState(false);
-  const fullName = user.firstName + ' ' + user.lastName;
+  const fullName = user.first_name + ' ' + user.last_name;
   // const [errors, setErrors] = React.useState([]);
 
   const handleChange = (event) => {
@@ -32,11 +32,11 @@ export default function MembersRow({ user }) {
   return (
     <>
       <TableRow
-        key={user.id}
+        key={user.user_id}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >
         <TableCell component="th" scope="row">
-          {user.firstName + ' ' + user.lastName}
+          {fullName}
         </TableCell>
         <TableCell align="right">
           <FormControl>

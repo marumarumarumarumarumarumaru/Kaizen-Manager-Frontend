@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
+import { Button, FormGroup } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -13,9 +13,21 @@ export default function Metrics({ projects }) {
   /* 
     Page component for rendering the Metrics page for Workspace
   */
-  const [checked, setChecked] = React.useState([true, false]);
   const [period, setPeriod] = React.useState('2w');
   const [format, setFormat] = React.useState('json');
+  const [state, setState] = React.useState({});
+
+  React.useEffect(() => {
+    setState(createStates(projects));
+  }, [projects]);
+
+  const createStates = (projects) => {
+    let states = {}
+    for (let i = 0; i < projects.length; i++) {
+      states[projects.project_id] = false
+    }
+    return states
+  }
 
   const handleSubmit = () => {
   };
@@ -23,47 +35,17 @@ export default function Metrics({ projects }) {
   const handlePeriodChange = (event) => {
     setPeriod(event.target.value);
   };
+  
+  const handleProjectChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
 
   const handleFormatChange = (event) => {
     setFormat(event.target.value);
   };
-
-  const handleChange1 = (event) => {
-    setChecked([event.target.checked, event.target.checked]);
-  };
-
-  // TODO: Need to fix the change handling
-  // Refer: https://mui.com/material-ui/react-checkbox/
-  const handleChange2 = (event) => {
-    setChecked([event.target.checked, checked[1]]);
-  };
-
-  const handleChange3 = (event) => {
-    setChecked([checked[0], event.target.checked]);
-  };
-
-  const children = (
-    <Box sx={{ display: 'flex', flexDirection: 'column', ml: 6 }}>
-      <FormControlLabel
-        label="Test Project"
-        control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-      />
-      <FormControlLabel
-        label="CS467"
-        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
-      />
-      {/* <FormControlLabel
-        label="CS493"
-        control={<Checkbox checked={checked[0]} onChange={handleChange4} />}
-      /> */}
-      {/* {projects.map((project) => (
-        <FormControlLabel
-          label={project.name} key={project.id}
-          control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-        />
-      ))} */}
-    </Box>
-  );
 
   return (
     <Box sx={{
@@ -95,18 +77,17 @@ export default function Metrics({ projects }) {
         </FormControl>
         <FormControl sx={{ m: 2 }}>
           <FormLabel id="radio-button-group" sx={{ marginY: 1 }}>Select Project(s)</FormLabel>
-          <FormControlLabel
-            label="All"
-            sx={{paddingX: 2}}
-            control={
-              <Checkbox
-                checked={checked[0] && checked[1]}
-                indeterminate={checked[0] !== checked[1]}
-                onChange={handleChange1}
-              />
-            }
-          />
-          {children}
+          <FormGroup>
+
+          </FormGroup>
+          {projects.map((project) => (
+            <FormControlLabel
+              control={
+                <Checkbox checked={state[project.project_id]} onChange={handleProjectChange} name={project.project_name} />
+              }
+              label={project.project_name}
+            />
+          ))}
         </FormControl>
         <FormControl sx={{ m: 2 }}>
           <FormLabel id="data-format-radio-button-group" sx={{ marginY: 1 }}>Data Format</FormLabel>

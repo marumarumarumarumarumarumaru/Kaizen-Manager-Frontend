@@ -7,52 +7,43 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import AlertSnackbar from '../AlertSnackbar';
-
-export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) {
+export default function DeleteProjectDialog({ project, delProjectOpen, setDelProjectOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Logout Dialog
-  */
-
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  // const [errors, setErrors] = React.useState([]);
-
+  */  
   const handleClose = () => {
-    setDelTaskOpen(false);
+    setDelProjectOpen(!delProjectOpen)
   };
 
-  const handleDelete = () => {
-    setDelTaskOpen(false);
+  const handleDeleteProject = () => {
+    setDelProjectOpen(!delProjectOpen)
     setSnackbarOpen(!snackbarOpen)
+    // Method to delete the workspace
   };
 
   return (
     <>
       <Dialog
-        open={delTaskOpen}
+        open={delProjectOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Delete "' + task.task_name + '"'}
+          {'Delete project "' + project.project_name + '"'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this task?
+            Are you sure you want to delete this project?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete} autoFocus>Delete</Button>
+          <Button onClick={handleDeleteProject}>
+            Delete Project
+          </Button>
         </DialogActions>
       </Dialog>
-      <AlertSnackbar
-        open={snackbarOpen} 
-        setOpen={setSnackbarOpen} 
-        severity={'success'}
-        message={'Task has been deleted'}
-      />
     </>
   );
 }

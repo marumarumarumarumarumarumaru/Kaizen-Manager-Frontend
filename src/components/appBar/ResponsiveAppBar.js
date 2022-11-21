@@ -1,20 +1,21 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MuiAppBar from '@mui/material/AppBar';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
+import React from 'react'
+import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import MuiAppBar from '@mui/material/AppBar'
+import MenuIcon from '@mui/icons-material/Menu'
+import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
 
-import WorkspacesNav from './WorkspacesNav';
-import UserMenu from './UserMenu';
-import AlertSnackbar from './AlertSnackbar';
+import WorkspacesNav from './WorkspacesNav'
+import UserMenu from './UserMenu'
+import AlertSnackbar from '../AlertSnackbar'
 
 export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, setCurrentWorkspace, currentUser }) {
   /* 
     Renders the AppBar
   */
-  const [snackbarCreateWSOpen, setSnackbarCreateWSOpen] = React.useState(false);
+  const [snackbarCreateWSOpen, setSnackbarCreateWSOpen] = React.useState(false)
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -31,25 +32,27 @@ export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidt
         duration: theme.transitions.duration.enteringScreen,
       }),
     }),
-  }));
+  }))
 
   const handleDrawerOpen = () => {
-    setDrawerOpen(true);
-  };
+    setDrawerOpen(true)
+  }
 
   return (
     <>
       <AppBar position="fixed" open={drawerOpen}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Tooltip title="Expand drawer">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Tooltip>
           <Typography
             variant="h4"
             noWrap
@@ -101,5 +104,5 @@ export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidt
         message={'Workspace has been created'}
       />
     </>
-  );
+  )
 }

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
 // import { styled } from '@mui/material/styles';
 
-import SimpleAppBar from '../components/SimpleAppBar';
+import SimpleAppBar from '../components/appBar/SimpleAppBar';
 // import ResponsiveAppBar from '../components/ResponsiveAppBar';
 // import ResponsiveDrawer from '../components/ResponsiveDrawer';
 

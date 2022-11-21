@@ -11,7 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { Link } from 'react-router-dom';
-import CreateWorkspaceDialog from './dialogs/CreateWorkspaceDialog';
+import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog';
 
 export default function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspaces, setCurrentWorkspace }) {
   /* 
@@ -29,7 +29,7 @@ export default function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspace
   };
 
   const handleWorkspaceSelect = (workspace) => {
-    setCurrentWorkspace(workspace.id);
+    setCurrentWorkspace(workspace.workspace_id);
   };
 
   const handleNewWorkspaceClickOpen = () => {
@@ -74,9 +74,9 @@ export default function WorkspacesNav({ snackbarOpen, setSnackbarOpen, workspace
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       >
         {workspaces.map((workspace) => (
-          <Link to={'/workspaces/' + workspace.id} style={{ textDecoration: 'none', color: 'white' }}>
-            <MenuItem key={workspace.id} onClick={(event) => handleWorkspaceSelect(workspace)}>
-                <Typography textAlign="center">{workspace.name}</Typography>
+          <Link to={'/workspaces/' + workspace.workspace_id} style={{ textDecoration: 'none', color: 'white' }}>
+            <MenuItem key={workspace.workspace_id} onClick={(event) => handleWorkspaceSelect(workspace)}>
+                <Typography textAlign="center">{workspace.workspace_name}</Typography>
             </MenuItem>
           </Link>
         ))}

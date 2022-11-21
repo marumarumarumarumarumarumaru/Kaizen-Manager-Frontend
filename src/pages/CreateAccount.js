@@ -84,7 +84,7 @@ export default function CreateAccount() {
     }
 
     // fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
-    fetch( 'https://kaizen-manager-backend-service-account-35g22o4t5a-uc.a.run.app/users' , {
+    fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

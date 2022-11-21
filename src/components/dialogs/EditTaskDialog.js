@@ -14,17 +14,17 @@ import Select from '@mui/material/Select';
 
 export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen }) {
   /* 
-    Renders the Create Project Dialog
+    Renders the Edit Task Dialog
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
   const [values, setValues] = React.useState({
-    taskName: task.name,
-    assignee: task.assignee,
-    selectedStatus: task.taskStatus,
-    taskValue: task.value,
-    taskDescription: task.description,
-    targetDate: task.targetDate
+    taskName: task.task_name,
+    assignee: task.task_assignee,
+    selectedStatus: task.task_status,
+    taskValue: task.task_value,
+    taskDescription: task.task_descriptions,
+    targetDate: task.task_due_date
   });
 
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
@@ -35,11 +35,11 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
   };
 
   const handleClose = () => {
-    setEditTaskOpen(false);
+    setEditTaskOpen(!editTaskOpen);
   };
 
   const handleEditTaskClose = () => {
-    setEditTaskOpen(false);
+    setEditTaskOpen(!editTaskOpen);
     setSnackbarOpen(!snackbarOpen);
   };
 
@@ -75,7 +75,7 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
                 <em>None</em>
               </MenuItem>
               {users.map((user) => (
-                <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
+                <MenuItem value={user.user_id}>{user.first_name + ' ' + user.last_name}</MenuItem>
               ))}
             </Select>
           </FormControl>

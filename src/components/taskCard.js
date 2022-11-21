@@ -18,21 +18,21 @@ export default function TaskCard({ task, users }) {
   const [delTaskOpen, setDelTaskOpen] = React.useState(false);
 
   const handleDelTaskClickOpen = () => {
-    setDelTaskOpen(true);
+    setDelTaskOpen(!delTaskOpen);
   };
 
   const handleMoveTaskClickOpen = () => {
-    setMoveTaskOpen(true);
+    setMoveTaskOpen(!moveTaskOpen);
   };
 
   const handleEditTaskClickOpen = () => {
-    setEditTaskOpen(true);
+    setEditTaskOpen(!editTaskOpen);
   };
 
   const getAssigneeFirstName = (assigneeId) => {
     for (let i = 0; i < users.length; i++) {
-      if (users[i].id === assigneeId) {
-        return users[i].firstName
+      if (users[i].user_id === assigneeId) {
+        return users[i].first_name
       }
     }
     return null;
@@ -40,18 +40,18 @@ export default function TaskCard({ task, users }) {
 
   return (
     <>
-      <Card key={'task' + task.id} sx={{ mb: 2 }} elevation={4}>
+      <Card key={'task' + task.task_id} sx={{ mb: 2 }} elevation={4}>
         <CardActionArea onClick={handleEditTaskClickOpen}>
           <CardContent>
             <Typography noWrap gutterBottom variant="h6" component="div" sx={{ mb: 1 }}>
-              {task.name}
+              {task.task_name}
             </Typography>
             {/* Color: succes, warning, error  */}
             {/* TODO: Do a date comparison check with current date + color accordingly */}
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Chip color="error" label={task.targetDate}/>
+              <Chip color="error" label={task.task_due_date}/>
               <Avatar sx={{ width: 36, height: 36, ml: 1 }}>
-                {task.assignee ? getAssigneeFirstName(task.assignee).charAt(0) : null}
+                {task.task_assignee ? getAssigneeFirstName(task.task_assignee).charAt(0) : null}
               </Avatar>
             </Box>
           </CardContent>

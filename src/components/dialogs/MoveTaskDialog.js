@@ -18,7 +18,7 @@ export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen }) 
     Renders the Edit Task Dialog
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState(task.taskStatus);
+  const [selectedStatus, setSelectedStatus] = React.useState(task.task_status);
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed'];
   // const [errors, setErrors] = React.useState([]);
 

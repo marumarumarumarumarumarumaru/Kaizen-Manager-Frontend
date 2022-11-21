@@ -1,39 +1,39 @@
-import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import HelpIcon from '@mui/icons-material/Help';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React from 'react'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Tooltip from '@mui/material/Tooltip'
+import Settings from '@mui/icons-material/Settings'
+import Logout from '@mui/icons-material/Logout'
+import HelpIcon from '@mui/icons-material/Help'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
-import { Link } from 'react-router-dom';
-import LogoutDialog from './dialogs/LogoutDialog';
+import { Link } from 'react-router-dom'
+import LogoutDialog from '../dialogs/LogoutDialog'
 
 export default function UserMenu({ currentUser }) {
   /* 
     Renders the User Menu
   */
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [logout, setLogout] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [logout, setLogout] = React.useState(false)
 
   const handleLogoutClickOpen = () => {
-    setLogout(true);
-  };
+    setLogout(true)
+  }
   
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
 
   return (
     <>
@@ -81,9 +81,9 @@ export default function UserMenu({ currentUser }) {
           <MenuItem
             disabled
           >
-            <Avatar>{currentUser.firstName.charAt(0)}</Avatar>
+            <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
             <Box sx={{display: 'flex', flexDirection: 'column', width:'20vh', pl: 1 }}>
-              <Typography>{currentUser.firstName + ' ' + currentUser.lastName}</Typography>
+              <Typography>{currentUser.first_name + ' ' + currentUser.last_name}</Typography>
               <Typography variant="caption">{currentUser.email}</Typography>
             </Box>
           </MenuItem>
@@ -131,5 +131,5 @@ export default function UserMenu({ currentUser }) {
       </Box>
       <LogoutDialog open={logout} setOpen={setLogout}/>
     </>
-  );
+  )
 }
