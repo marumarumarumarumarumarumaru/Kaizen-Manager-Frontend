@@ -166,6 +166,7 @@ function MyRoutes() {
             setDrawerOpen={setDrawerOpen} 
             drawerWidth={drawerWidth} 
             projects={projects} 
+            users={users}
             workspaces={workspaces} 
             currentWorkspace={currentWorkspace} 
             setCurrentWorkspace={setCurrentWorkspace}
@@ -202,6 +203,7 @@ function MyRoutes() {
             setDrawerOpen={setDrawerOpen} 
             drawerWidth={drawerWidth} 
             projects={projects} 
+            users={users}
             workspaces={workspaces} 
             currentWorkspace={currentWorkspace} 
             setCurrentWorkspace={setCurrentWorkspace}
@@ -215,6 +217,7 @@ function MyRoutes() {
           setDrawerOpen={setDrawerOpen} 
           drawerWidth={drawerWidth} 
           projects={projects} 
+          users={users}
           workspaces={workspaces} 
           currentWorkspace={currentWorkspace} 
           setCurrentWorkspace={setCurrentWorkspace}
@@ -228,6 +231,7 @@ function MyRoutes() {
           setDrawerOpen={setDrawerOpen} 
           drawerWidth={drawerWidth} 
           projects={projects} 
+          users={users}
           workspaces={workspaces} 
           currentWorkspace={currentWorkspace} 
           setCurrentWorkspace={setCurrentWorkspace}

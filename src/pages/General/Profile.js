@@ -11,7 +11,7 @@ import DeleteAccount from './DeleteAccount'
 import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
 import PasswordForm from '../../components/forms/ProfilePasswordForm'
 
-export default function Profile({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
+export default function Profile({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidth, projects, users, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
   /* 
     Page component for rendering the Profile Settings page
   */
@@ -66,6 +66,7 @@ export default function Profile({ dataLoaded, drawerOpen, setDrawerOpen, drawerW
               setDrawerOpen={setDrawerOpen} 
               drawerWidth={drawerWidth}
               projects={projects}
+              users={users}
               workspaces={workspaces}
               currentWorkspace={currentWorkspace}
               setCurrentProject={setCurrentProject}

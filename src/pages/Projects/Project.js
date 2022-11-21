@@ -3,20 +3,21 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 import TaskCard from '../../components/TaskCard'
 import StatusHeader from '../../components/TaskStatusHeader'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
 
-import { IconButton } from '@mui/material'
-
 export default function Project({ projects, currentProject, tasks, users }) {
-  const backlogTasks = tasks.filter(task => task.task_status === 'Backlog')
-  const inProgressTasks = tasks.filter(task => task.task_status === 'In Progress')
-  const blockedTasks = tasks.filter(task => task.task_status === 'Blocked')
-  const inReviewTasks = tasks.filter(task => task.task_status === 'In Review')
-  const closedTasks = tasks.filter(task => task.task_status === 'Closed')
+  const projTasks = tasks.filter(task => task.proj_id === currentProject)
+  const backlogTasks = projTasks.filter(task => task.task_status === 'Backlog')
+  const inProgressTasks = projTasks.filter(task => task.task_status === 'In Progress')
+  const blockedTasks = projTasks.filter(task => task.task_status === 'Blocked')
+  const inReviewTasks = projTasks.filter(task => task.task_status === 'In Review')
+  const closedTasks = projTasks.filter(task => task.task_status === 'Closed')
   const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
   const [editNameOpen, setEditNameOpen] = React.useState(false)
 
@@ -45,9 +46,11 @@ export default function Project({ projects, currentProject, tasks, users }) {
           <Typography variant="h4" sx={{ mb: 4 }}>
             {getProjectName(projects)}
           </Typography>
-          <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
-            <BorderColorIcon/>
-          </IconButton>
+          <Tooltip title="Update name">
+            <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
+              <BorderColorIcon/>
+            </IconButton>
+          </Tooltip>
         </Box>
         <Grid container spacing={4}>
           <Grid item md={2.4}>

@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
 import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
 
-export default function Help({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
+export default function Help({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidth, projects, users, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
   /* 
     Page component for rendering the Help page
   */
@@ -57,6 +57,7 @@ export default function Help({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidt
               setDrawerOpen={setDrawerOpen} 
               drawerWidth={drawerWidth}
               projects={projects}
+              users={users}
               workspaces={workspaces}
               currentWorkspace={currentWorkspace}
               setCurrentProject={setCurrentProject}

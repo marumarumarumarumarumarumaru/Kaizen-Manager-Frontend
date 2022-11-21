@@ -21,7 +21,7 @@ import CreateProjectDialog from '../dialogs/CreateProjectDialog'
 import DrawerProjects from './DrawerProjects'
 import Tooltip from '@mui/material/Tooltip'
 
-export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentProject }) {
+export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, users, workspaces, currentWorkspace, setCurrentProject }) {
   /* 
     Renders the Drawer
   */
@@ -99,13 +99,13 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
           </Tooltip>
           <Collapse in={memberOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {['John Doe', 'Fusako Obata', 'Marcos Castillo', 'Corey Gallahar'].map((text, index) => (
-                <ListItem key={text} sx={{ml: 1}}>
+              {users.map((user) => (
+                <ListItem key={user.id} sx={{ml: 1}}>
                   <ListItemAvatar>
-                    <Avatar>{text.charAt(0)}</Avatar>
+                    <Avatar>{user.first_name.charAt(0)}</Avatar>
                   </ListItemAvatar>
                   <ListItemButton disabled>
-                    <ListItemText primary={text} />
+                    <ListItemText primary={user.first_name + ' ' + user.last_name} />
                   </ListItemButton>
                 </ListItem>
               ))}
