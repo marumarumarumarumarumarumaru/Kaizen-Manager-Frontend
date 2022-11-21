@@ -9,7 +9,7 @@ import ProjectItem from './ProjectItem'
 
 import AlertSnackbar from '../AlertSnackbar'
 
-export default function DrawerProjects({ projects, currentWorkspace, newProjectOpen, setNewProjectOpen }) {
+export default function DrawerProjects({ projects, currentWorkspace, newProjectOpen, setNewProjectOpen, setCurrentProject }) {
   /* 
     Renders the Projects in drawer
   */
@@ -38,7 +38,7 @@ export default function DrawerProjects({ projects, currentWorkspace, newProjectO
             currentWorkspace={currentWorkspace}
             snackbarOpen={snackbarOpen}
             setSnackbarOpen={setSnackbarOpen}
-          />
+            setCurrentProject={setCurrentProject}/>        
         ))}
         <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
           <ListItemIcon key='createProject'>

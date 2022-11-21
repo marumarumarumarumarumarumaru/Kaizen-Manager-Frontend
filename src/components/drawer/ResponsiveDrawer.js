@@ -21,14 +21,14 @@ import CreateProjectDialog from '../dialogs/CreateProjectDialog'
 import DrawerProjects from './DrawerProjects'
 import Tooltip from '@mui/material/Tooltip'
 
-export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace }) {
+export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentProject }) {
   /* 
     Renders the Drawer
   */
   const theme = useTheme()
   const [memberOpen, setMemberOpen] = React.useState(false)
   const [newProjectOpen, setNewProjectOpen] = React.useState(false)
-  const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false);
+  const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false)
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -119,7 +119,12 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
           </ListItemButton>
         </List>
         <Divider />
-        <DrawerProjects projects={projects} currentWorkspace={currentWorkspace} newProjectOpen={newProjectOpen} setNewProjectOpen={setNewProjectOpen}/>
+        <DrawerProjects 
+          projects={projects} 
+          currentWorkspace={currentWorkspace} 
+          newProjectOpen={newProjectOpen} 
+          setNewProjectOpen={setNewProjectOpen} 
+          setCurrentProject={setCurrentProject}/>
       </Drawer>
       <CreateProjectDialog 
         newProjectOpen={newProjectOpen} 

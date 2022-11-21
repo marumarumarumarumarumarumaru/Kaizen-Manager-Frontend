@@ -2,6 +2,7 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress';
 
 import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
 import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
@@ -10,7 +11,7 @@ import DeleteAccount from './DeleteAccount'
 import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
 import PasswordForm from '../../components/forms/ProfilePasswordForm'
 
-export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
+export default function Profile({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
   /* 
     Page component for rendering the Profile Settings page
   */
@@ -50,42 +51,46 @@ export default function Profile({ drawerOpen, setDrawerOpen, drawerWidth, projec
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          workspaces={workspaces}
-          setCurrentWorkspace={setCurrentWorkspace}
-          currentUser={currentUser}
-        />
-        <ResponsiveDrawer 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth}
-          projects={projects}
-          workspaces={workspaces}
-          currentWorkspace={currentWorkspace}
-        />
-        <Main open={drawerOpen}>
-          <DrawerHeader />
-          <Box sx={{
-            m: 2,
-            flexsDirection: 'column',
-          }}>
-            <Typography variant="h4">
-              Profile Settings
-            </Typography>
-            <Typography variant="caption">
-              Edit below to update your user profile on Kaizen Manager.
-            </Typography>
+      {dataLoaded 
+        ? <Box sx={{ display: 'flex' }}>
+            <ResponsiveAppBar 
+              drawerOpen={drawerOpen} 
+              setDrawerOpen={setDrawerOpen} 
+              drawerWidth={drawerWidth} 
+              workspaces={workspaces}
+              setCurrentWorkspace={setCurrentWorkspace}
+              currentUser={currentUser}
+            />
+            <ResponsiveDrawer 
+              drawerOpen={drawerOpen} 
+              setDrawerOpen={setDrawerOpen} 
+              drawerWidth={drawerWidth}
+              projects={projects}
+              workspaces={workspaces}
+              currentWorkspace={currentWorkspace}
+              setCurrentProject={setCurrentProject}
+            />
+            <Main open={drawerOpen}>
+              <DrawerHeader />
+              <Box sx={{
+                m: 2,
+                flexsDirection: 'column',
+              }}>
+                <Typography variant="h4">
+                  Profile Settings
+                </Typography>
+                <Typography variant="caption">
+                  Edit below to update your user profile on Kaizen Manager.
+                </Typography>
+              </Box>
+              <ProfileForm />
+              <PasswordForm />
+              <DeleteAccount openDialog={handleDeleteAccountClickOpen}/>
+            </Main>
+            <DeleteAccountDialog open={deleteOpen} setOpen={setDeleteOpen}/>
           </Box>
-          <ProfileForm />
-          <PasswordForm />
-          <DeleteAccount openDialog={handleDeleteAccountClickOpen}/>
-        </Main>
-        <DeleteAccountDialog open={deleteOpen} setOpen={setDeleteOpen}/>
-      </Box>
+        : <CircularProgress />
+      }
     </>
   )
 }

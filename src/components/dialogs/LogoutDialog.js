@@ -1,26 +1,26 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export default function LogoutDialog({ open, setOpen }) {
   /* 
     Renders the Logout Dialog
   */
   const handleClose = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const handleLogout = () => {
-    setOpen(!open);
-    //setLoggedIn(false);
-  };
+    setOpen(!open)
+    //setLoggedIn(false)
+  }
 
   return (
     <Dialog
@@ -44,5 +44,5 @@ export default function LogoutDialog({ open, setOpen }) {
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

@@ -9,11 +9,9 @@ import StatusHeader from '../../components/TaskStatusHeader'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
 
-import { useParams } from 'react-router-dom'
 import { IconButton } from '@mui/material'
 
-export default function Project({ projects, tasks, users }) {
-  const { projectId } = useParams()
+export default function Project({ projects, currentProject, tasks, users }) {
   const backlogTasks = tasks.filter(task => task.task_status === 'Backlog')
   const inProgressTasks = tasks.filter(task => task.task_status === 'In Progress')
   const blockedTasks = tasks.filter(task => task.task_status === 'Blocked')
@@ -26,11 +24,11 @@ export default function Project({ projects, tasks, users }) {
     setEditNameOpen(!editNameOpen)
   }
 
-  const getProjectName = (projects, projectId) => {
+  const getProjectName = (projects) => {
     let projectName = ''
 
     for (let i = 0; i < projects.length; i++) {
-      if (projects[i].project_id === parseInt(projectId)) {
+      if (projects[i].project_id === currentProject) {
         projectName = projects[i].project_name
       }
     } 
@@ -45,7 +43,7 @@ export default function Project({ projects, tasks, users }) {
       }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
           <Typography variant="h4" sx={{ mb: 4 }}>
-            {getProjectName(projects, projectId)}
+            {getProjectName(projects)}
           </Typography>
           <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
             <BorderColorIcon/>
@@ -90,8 +88,8 @@ export default function Project({ projects, tasks, users }) {
         </Grid>  
       </Box>
       <EditProjectDialog
-        projectName={getProjectName(projects, projectId)}
-        projectId={projectId}
+        projectName={getProjectName(projects)}
+        projectId={currentProject}
         open={editNameOpen}
         setOpen={setEditNameOpen}
       />

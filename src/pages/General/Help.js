@@ -2,11 +2,12 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress';
 
 import ResponsiveAppBar from '../../components/appBar/ResponsiveAppBar'
 import ResponsiveDrawer from '../../components/drawer/ResponsiveDrawer'
 
-export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
+export default function Help({ dataLoaded, drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {
   /* 
     Page component for rendering the Help page
   */
@@ -41,39 +42,43 @@ export default function Help({ drawerOpen, setDrawerOpen, drawerWidth, projects,
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          workspaces={workspaces}
-          setCurrentWorkspace={setCurrentWorkspace}
-          currentUser={currentUser}
-        />
-        <ResponsiveDrawer 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth}
-          projects={projects}
-          workspaces={workspaces}
-          currentWorkspace={currentWorkspace}
-        />       
-        <Main open={drawerOpen}>
-          <DrawerHeader />
-          <Box sx={{
-            m: 2,
-            flexsDirection: 'column',
-            alignItems: 'left'
-          }}>
-            <Typography variant="h4">
-              Help
-            </Typography>
-            <Typography variant="caption">
-              This is a help page. It'll list some information about Kaizen Manager.
-            </Typography>
+      {dataLoaded 
+        ? <Box sx={{ display: 'flex' }}>
+            <ResponsiveAppBar 
+              drawerOpen={drawerOpen} 
+              setDrawerOpen={setDrawerOpen} 
+              drawerWidth={drawerWidth} 
+              workspaces={workspaces}
+              setCurrentWorkspace={setCurrentWorkspace}
+              currentUser={currentUser}
+            />
+            <ResponsiveDrawer 
+              drawerOpen={drawerOpen} 
+              setDrawerOpen={setDrawerOpen} 
+              drawerWidth={drawerWidth}
+              projects={projects}
+              workspaces={workspaces}
+              currentWorkspace={currentWorkspace}
+              setCurrentProject={setCurrentProject}
+            />       
+            <Main open={drawerOpen}>
+              <DrawerHeader />
+              <Box sx={{
+                m: 2,
+                flexsDirection: 'column',
+                alignItems: 'left'
+              }}>
+                <Typography variant="h4">
+                  Help
+                </Typography>
+                <Typography variant="caption">
+                  This is a help page. It'll list some information about Kaizen Manager.
+                </Typography>
+              </Box>
+            </Main>
           </Box>
-        </Main>
-      </Box>
+        : <CircularProgress />
+      }
     </>
   )
 }
