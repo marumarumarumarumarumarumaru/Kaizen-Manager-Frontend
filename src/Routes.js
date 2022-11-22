@@ -12,7 +12,6 @@ import Login from './pages/Login'
 import Metrics from "./pages/workspace/WorkspaceMetrics"
 import WorkspaceDefault from "./pages/workspace/WorkspaceDefault"
 import Workspace from './pages/workspace/Workspace'
-import Workspaces from './pages/workspace/Workspaces'
 import WorkspaceSettings from "./pages/workspace/WorkspaceSettings"
 
 // User Options
@@ -29,17 +28,17 @@ import workspacesJson from "./data/workspaces"
 import tasksJson from "./data/dummyTasks.json"
 import usersJson from './data/users.json'
 
-function MyRoutes() {
+export default function MyRoutes() {
   const [drawerOpen, setDrawerOpen] = React.useState(true)
-  const [currentWorkspace, setCurrentWorkspace] = React.useState(null)
-  const [currentUser, setCurrentUser] = React.useState(null)
-  const [currentProject, setCurrentProject] = React.useState(null)
+  const [currentWorkspace, setCurrentWorkspace] = React.useState(null) // ID of workspace
+  const [currentUser, setCurrentUser] = React.useState(null) // User entity
+  const [currentProject, setCurrentProject] = React.useState(null) // ID of project
   const [workspaces, setWorkspaces] = React.useState(null)
   const [projects, setProjects] = React.useState(null)
   const [tasks, setTasks] = React.useState(null)
   const [users, setUsers] = React.useState(null)
   const [dataLoaded, setDataLoaded] = React.useState(false)
-  const drawerWidth = 260
+  const [loggedIn, setLoggedIn] = React.useState(false)
 
   React.useEffect(() => {
     (async () => {
@@ -149,96 +148,74 @@ function MyRoutes() {
 
   return (
     <Routes>
-      <Route exact path="/" element={<Base dataLoaded={dataLoaded}/>}>
+      <Route 
+        exact 
+        path="/" 
+        element={<Base 
+          dataLoaded={dataLoaded}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          drawerOpen={drawerOpen} 
+          setDrawerOpen={setDrawerOpen} 
+          projects={projects} 
+          users={users}
+          workspaces={workspaces} 
+          currentWorkspace={currentWorkspace} 
+          setCurrentWorkspace={setCurrentWorkspace}
+          currentUser={currentUser}
+          setCurrentProject={setCurrentProject}
+        />}>
         <Route index element={<Landing/>} />
         <Route 
           path="login" 
-          element={<Login currentWorkspace={currentWorkspace}/>}/>
-        <Route 
-          path="create-account" 
+          element={<Login currentWorkspace={currentWorkspace} setLoggedIn={setLoggedIn}/>}/>
+        <Route path="create-account" 
           element={<CreateAccount/>}/>  
-      </Route>
-      <Route path='/workspaces' element={<Workspaces dataLoaded={dataLoaded}/>}>
         <Route 
-          path=":workspaceId" 
-          element={<Workspace 
-            drawerOpen={drawerOpen} 
-            setDrawerOpen={setDrawerOpen} 
-            drawerWidth={drawerWidth} 
-            projects={projects} 
-            users={users}
-            workspaces={workspaces} 
-            currentWorkspace={currentWorkspace} 
-            setCurrentWorkspace={setCurrentWorkspace}
-            currentUser={currentUser}
-            setCurrentProject={setCurrentProject}/>}>      
-          <Route 
-            index 
-            element={<WorkspaceDefault />}/>
-          <Route 
-            path="metrics" 
-            element={<Metrics projects={projects}/>}/>
-          <Route 
-            path="settings" 
-            element={<WorkspaceSettings 
-              workspaces={workspaces} 
-              users={users}
-              currentWorkspace={currentWorkspace}/>}/>
-          <Route path="projects" element={<Projects/>}>
-            <Route 
-              path=":projectId" 
-              element={<Project 
-                projects={projects}
-                currentProject={currentProject} 
-                tasks={tasks} 
-                users={users}/>} />
-          </Route>
-        </Route>
-      </Route>
-      <Route 
-          path='/profile' 
-          element={<Profile 
-            dataLoaded={dataLoaded}
-            drawerOpen={drawerOpen} 
-            setDrawerOpen={setDrawerOpen} 
-            drawerWidth={drawerWidth} 
-            projects={projects} 
-            users={users}
-            workspaces={workspaces} 
-            currentWorkspace={currentWorkspace} 
-            setCurrentWorkspace={setCurrentWorkspace}
-            currentUser={currentUser}
-            setCurrentProject={setCurrentProject}/>}/>
-      <Route 
-        path='/settings' 
-        element={<GeneralSettings 
-          dataLoaded={dataLoaded}
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          projects={projects} 
-          users={users}
-          workspaces={workspaces} 
-          currentWorkspace={currentWorkspace} 
-          setCurrentWorkspace={setCurrentWorkspace}
-          currentUser={currentUser}
-          setCurrentProject={setCurrentProject}/>}/>
-      <Route 
-        path='/help' 
-        element={<Help 
-          dataLoaded={dataLoaded}
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          projects={projects} 
-          users={users}
-          workspaces={workspaces} 
-          currentWorkspace={currentWorkspace} 
-          setCurrentWorkspace={setCurrentWorkspace}
-          currentUser={currentUser}
-          setCurrentProject={setCurrentProject}/>}/>    
+          path='profile' 
+          element={<Profile setLoggedIn={setLoggedIn}/>}/>
+        <Route 
+          path='settings' 
+          element={<GeneralSettings />}/>
+        <Route 
+          path='help' 
+          element={<Help />}/> 
+        {WorkspaceRoutes(tasks, projects, users, workspaces, currentWorkspace, currentProject)}
+      </Route>  
     </Routes>
   )
 }
 
-export default MyRoutes
+function WorkspaceRoutes( tasks, projects, users, workspaces, currentWorkspace, currentProject ) {
+  return (
+    <Route 
+      path='workspaces' 
+      >
+      <Route 
+        path=":workspaceId" 
+        element={<Workspace />}>      
+        <Route 
+          index 
+          element={<WorkspaceDefault />}/>
+        <Route 
+          path="metrics" 
+          element={<Metrics projects={projects}/>}/>
+        <Route 
+          path="settings" 
+          element={<WorkspaceSettings 
+            workspaces={workspaces} 
+            users={users}
+            currentWorkspace={currentWorkspace}/>}/>
+        <Route path="projects" element={<Projects/>}>
+          <Route 
+            path=":projectId" 
+            element={<Project 
+              projects={projects}
+              currentProject={currentProject} 
+              tasks={tasks} 
+              users={users}/>} />
+        </Route>
+      </Route>
+    </Route>
+  )
+}

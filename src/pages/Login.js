@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import TextField from '@mui/material/TextField'
 import { Link } from 'react-router-dom'
 
-export default function Login({ currentWorkspace }) {
+export default function Login({ currentWorkspace, setLoggedIn }) {
   /* 
     Page component for rendering the Login page
   */
@@ -37,6 +37,11 @@ export default function Login({ currentWorkspace }) {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault()
+  }
+
+  const handleLogIn = () => {
+    setLoggedIn(true)
+    window.localStorage.setItem('loggedIn', true)
   }
 
   return (
@@ -120,7 +125,9 @@ export default function Login({ currentWorkspace }) {
             <Link
               to={'/workspaces/' + currentWorkspace}
             >
-              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
+              <Button 
+                variant='contained' onClick={handleLogIn}
+                sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
             </Link>
           </Box>
         </Paper>

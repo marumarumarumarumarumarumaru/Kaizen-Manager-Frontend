@@ -65,7 +65,6 @@ export default function CreateAccount() {
       email: values.email, 
     }
 
-    // fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
     fetch( process.env.REACT_APP_BACKEND_URL + '/users' , {
       method: 'POST',
       headers: {

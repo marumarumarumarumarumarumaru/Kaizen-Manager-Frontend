@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import AlertSnackbar from '../../components/AlertSnackbar'
 
-
 export default function ProfileForm() {
   /* 
     Page component for rendering the Profile Settings page's form
@@ -14,8 +13,7 @@ export default function ProfileForm() {
 
   const [values, setValues] = React.useState({
     firstName: '',
-    lastName: '',
-    email: ''
+    lastName: ''
   })
 
   const handleChange = (prop) => (event) => {
@@ -27,16 +25,13 @@ export default function ProfileForm() {
   }
 
   return (
-    <Box sx={{
-      m: 2,
-      flexDirection: 'column'
-    }}>
+    <>
       <Box sx={{ display: 'flex', 'flexDirection': 'column' }}>
         <Typography variant="h5" sx={{ mt: 4 }}>
-          Name and Email
+          Name
         </Typography>
         <Typography variant="caption">
-          Edit below to adjust your name and email that you use on Kaizen Manager.
+          Edit below to adjust your name that you use on Kaizen Manager.
         </Typography>
         <Typography variant="caption">
           Note: If you hit "save" without changing anything, nothing will be updated.
@@ -64,13 +59,6 @@ export default function ProfileForm() {
           onChange={handleChange('lastName')}
           sx={{ m: 1, width: '50vh' }}
         />
-        <TextField
-          id="outlined"
-          label="Email"
-          type="email"
-          onChange={handleChange('email')}
-          sx={{ m: 1, width: '50vh' }}
-        />
       </Box>
       <Button variant='contained' onClick={handleSubmit}>Save</Button>
       <AlertSnackbar 
@@ -79,6 +67,6 @@ export default function ProfileForm() {
         severity={'success'}
         message={'Settings updated'}
       />
-    </Box>
+    </>
   )
 }

@@ -1,8 +1,6 @@
 import React from 'react'
-import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
-import MuiAppBar from '@mui/material/AppBar'
 import MenuIcon from '@mui/icons-material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
@@ -10,29 +8,13 @@ import Tooltip from '@mui/material/Tooltip'
 import WorkspacesNav from './WorkspacesNav'
 import UserMenu from './UserMenu'
 import AlertSnackbar from '../AlertSnackbar'
+import { AppBar } from '../CustomUI'
 
-export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidth, workspaces, setCurrentWorkspace, currentUser }) {
+export default function ResponsiveAppBar({ setLoggedIn, drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Renders the AppBar
   */
   const [snackbarCreateWSOpen, setSnackbarCreateWSOpen] = React.useState(false)
-
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }))
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true)
@@ -89,8 +71,14 @@ export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, drawerWidt
           >
             Kaizen
           </Typography>
-          <WorkspacesNav snackbarOpen={snackbarCreateWSOpen} setSnackbarOpen={setSnackbarCreateWSOpen} workspaces={workspaces} setCurrentWorkspace={setCurrentWorkspace}/>
-          <UserMenu currentUser={currentUser}/>
+          <WorkspacesNav 
+            currentUser={currentUser} 
+            currentWorkspace={currentWorkspace}
+            setCurrentWorkspace={setCurrentWorkspace}
+            snackbarOpen={snackbarCreateWSOpen} 
+            setSnackbarOpen={setSnackbarCreateWSOpen} 
+            workspaces={workspaces}/>
+          <UserMenu currentUser={currentUser} setLoggedIn={setLoggedIn}/>
         </Toolbar>
       </AppBar>
       {/* 

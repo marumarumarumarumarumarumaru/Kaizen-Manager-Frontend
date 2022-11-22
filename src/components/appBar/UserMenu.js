@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../dialogs/LogoutDialog'
 
-export default function UserMenu({ currentUser }) {
+export default function UserMenu({ currentUser, setLoggedIn }) {
   /* 
     Renders the User Menu
   */
@@ -40,7 +40,7 @@ export default function UserMenu({ currentUser }) {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar>F</Avatar>
+            <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
         <Menu
@@ -129,7 +129,7 @@ export default function UserMenu({ currentUser }) {
           </MenuItem>
         </Menu>
       </Box>
-      <LogoutDialog open={logout} setOpen={setLogout}/>
+      <LogoutDialog open={logout} setOpen={setLogout} setLoggedIn={setLoggedIn}/>
     </>
   )
 }

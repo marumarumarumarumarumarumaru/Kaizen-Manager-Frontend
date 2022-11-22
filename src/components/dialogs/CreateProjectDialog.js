@@ -8,15 +8,53 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
-export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen  }) {
+export default function CreateProjectDialog({ currentUser, currentWorkspace, newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen }) {
   /* 
     Renders the Create Project Dialog
   */
+  const [projectName, setProjectName] = React.useState('')
+  const [errors, setErrors] = React.useState([])
+
+  const handleChange = (event) => {
+    setProjectName(event.target.value)
+  }
+
   const handleClose = () => {
     setNewProjectOpen(!newProjectOpen)
   }
 
-  const handleNewProjectClose = () => {
+  const handleNewProjectSubmit = () => {
+    const validationErrors = ValidateCreateProject(projectName)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrors(validationErrors)
+      console.log(errors)
+      return
+    }
+    const data = {
+      project_name: projectName
+    }
+
+    // POST /users/:user_id/workspaces/:workspace_id/projects
+    fetch( process.env.REACT_APP_BACKEND_URL + '/users/' + currentUser.user_id + '/workspaces/' + currentWorkspace + '/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then ((response) => {
+      console.log(response)
+      if (response.ok) {
+        setNewProjectOpen(!newProjectOpen)
+        setSnackbarOpen(!snackbarOpen)
+        return response
+      } else {
+        throw new Error("Something went wrong querying the database!")
+      }
+    })
+    .catch(error => {alert(error)})
+
     setNewProjectOpen(!newProjectOpen)
     setSnackbarOpen(!snackbarOpen)
   }
@@ -34,6 +72,8 @@ export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen,
             margin="dense"
             id="name"
             label="Project name"
+            value={projectName}
+            onChange={handleChange}
             type="text"
             fullWidth
             variant="standard"
@@ -41,7 +81,7 @@ export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen,
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleNewProjectClose}>Create</Button>
+          <Button onClick={handleNewProjectSubmit}>Create</Button>
         </DialogActions>
       </Dialog>
       <AlertSnackbar 
@@ -52,4 +92,13 @@ export default function CreateProjectDialog({ newProjectOpen, setNewProjectOpen,
       />
     </>
   )
+}
+
+function ValidateCreateProject(projectName) { 
+  const errors = []
+
+  if (projectName === null) {
+    errors.push("Project name empty")
+  }
+  return errors
 }

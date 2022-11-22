@@ -1,5 +1,5 @@
 import React from 'react'
-import { styled, useTheme } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
@@ -20,8 +20,9 @@ import { Link } from 'react-router-dom'
 import CreateProjectDialog from '../dialogs/CreateProjectDialog'
 import DrawerProjects from './DrawerProjects'
 import Tooltip from '@mui/material/Tooltip'
+import { DrawerHeader } from '../CustomUI'
 
-export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidth, projects, users, workspaces, currentWorkspace, setCurrentProject }) {
+export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, projects, users, workspaces, currentUser, currentWorkspace, setCurrentProject }) {
   /* 
     Renders the Drawer
   */
@@ -29,15 +30,7 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
   const [memberOpen, setMemberOpen] = React.useState(false)
   const [newProjectOpen, setNewProjectOpen] = React.useState(false)
   const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false)
-
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }));
+  const drawerWidth = parseInt(process.env.REACT_APP_DRAWER_WIDTH)
 
   const handleDrawerClose = () => {
     setDrawerOpen(false)
@@ -127,6 +120,8 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, drawerWidt
           setCurrentProject={setCurrentProject}/>
       </Drawer>
       <CreateProjectDialog 
+        currentUser={currentUser}
+        currentWorkspace={currentWorkspace}
         newProjectOpen={newProjectOpen} 
         setNewProjectOpen={setNewProjectOpen} 
         snackbarOpen={snackbarCreateProjectOpen}
