@@ -4,9 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 
 // Entrypoints
 import Base from "./pages/Base"
-import CreateAccount from "./pages/CreateAccount"
 import Landing from './pages/Landing'
-import Login from './pages/Login'
+import Redirect from "./pages/Redirect"
 
 // Workspace
 import Metrics from "./pages/workspace/WorkspaceMetrics"
@@ -166,11 +165,8 @@ export default function MyRoutes() {
           setCurrentProject={setCurrentProject}
         />}>
         <Route index element={<Landing/>} />
-        <Route 
-          path="login" 
-          element={<Login currentWorkspace={currentWorkspace} setLoggedIn={setLoggedIn}/>}/>
-        <Route path="create-account" 
-          element={<CreateAccount/>}/>  
+        <Route path="redirect" 
+          element={<Redirect currentWorkspace={currentWorkspace} setLoggedIn={setLoggedIn}/>}/>  
         <Route 
           path='profile' 
           element={<Profile setLoggedIn={setLoggedIn}/>}/>

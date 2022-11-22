@@ -11,6 +11,9 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen }) {
   /* 
@@ -108,9 +111,30 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             autoFocus
             margin="dense"
             id="name"
-            label="Description"
+            label="Descriptions"
             value={values.taskDescription ?? ''}
             onChange={handleChange('taskDescription')}
+            type="text"
+            fullWidth
+            multiline
+            variant="standard"
+          />
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Basic example"
+              value={values.targetDate}
+              fullWidth
+              onChange={handleChange('targetDate')}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider> */}
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Target date"
+            value={values.targetDate ?? ''}
+            onChange={handleChange('targetDate')}
             type="text"
             fullWidth
             multiline
