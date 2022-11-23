@@ -5,23 +5,18 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { Link } from 'react-router-dom'
 import { Button, Typography } from '@mui/material'
 
-export default function Redirect({currentWorkspace, setLoggedIn}) {
+export default function Redirect({ currentWorkspace, setCurrentWorkspace, setLoggedIn }) {
   /* 
     Page component for rendering the Redirect page
   */
-  const [progress, setProgress] = React.useState(0)
-
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        const diff = Math.random() * 10
-        return Math.min(oldProgress + diff, 100)
-      });
-    }, 100);
-    
-    return () => {
-      clearInterval(timer)
-    };
+    // setTimeout(function() {
+    //   window.location.replace('/create-workspace');
+    // }, 3000);
+
+    // setTimeout(function() {
+    //   window.location.replace('/workspaces');
+    // }, 3000);
   }, []);
 
   const handleLogIn = () => {
@@ -41,7 +36,7 @@ export default function Redirect({currentWorkspace, setLoggedIn}) {
         <Typography variant="body2" sx={{ mb: 2 }}>
           Hold up, we're getting there...
         </Typography>
-        <LinearProgress variant="determinate" value={progress} />
+        <LinearProgress />
         <Link
           to={'/workspaces/' + currentWorkspace}
         >

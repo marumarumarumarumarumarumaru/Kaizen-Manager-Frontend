@@ -1,6 +1,6 @@
 import React from "react"
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 // Entrypoints
 import Base from "./pages/Base"
@@ -38,14 +38,11 @@ export default function MyRoutes() {
   const [users, setUsers] = React.useState(null)
   const [dataLoaded, setDataLoaded] = React.useState(false)
   const [loggedIn, setLoggedIn] = React.useState(false)
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
 
   React.useEffect(() => {
     (async () => {
       setDataLoaded(false)
-      let getUser = await loadCurrentUser();
-      if (getUser.success) {
-        setCurrentUser(getUser.data)
-      }
       let getUsers = await loadUsers();
       if (getUsers.success) {
         setUsers(getUsers.data) 
@@ -63,25 +60,11 @@ export default function MyRoutes() {
         setWorkspaces(getWorkspaces.data) 
         setCurrentWorkspace(getWorkspaces.data[0].workspace_id)
       }
-      if (getUser.success && getUsers.success && getProjects.success && getTasks.success && getWorkspaces.success) {
+      if (getUsers.success && getProjects.success && getTasks.success && getWorkspaces.success) {
         setDataLoaded(true)
       }
     })()
   }, [])
-
-  const loadCurrentUser = () => {
-    // Currently using dummy data
-    // setCurrentUser(usersJson[0])
-    return { success: true, data: usersJson[0] }
-    // fetch( process.env.REACT_APP_BACKEND_URL + '/users/' + 1, {
-    //   method: 'GET'
-    // })
-    //   .then(response => response.json())
-    //     .then((data) => {
-    //       setCurrentUser(data)
-    //     })
-    //       .catch(error => {alert(error);});    
-  }
 
   const loadUsers = () => {
     // Currently using dummy data
@@ -164,9 +147,21 @@ export default function MyRoutes() {
           currentUser={currentUser}
           setCurrentProject={setCurrentProject}
         />}>
-        <Route index element={<Landing/>} />
+        <Route 
+          index 
+          element={
+            shouldRedirect
+            ? (<Navigate replace to="redirect"/>)
+            : <Landing 
+                setShouldRedirect={setShouldRedirect}
+                currentUser={currentUser} 
+                setCurrentUser={setCurrentUser}/>} />
         <Route path="redirect" 
-          element={<Redirect currentWorkspace={currentWorkspace} setLoggedIn={setLoggedIn}/>}/>  
+          element={<Redirect 
+            currentUser={currentUser}
+            currentWorkspace={currentWorkspace}
+            setCurrentWorkspace={setCurrentWorkspace}
+            setLoggedIn={setLoggedIn}/>}/>  
         <Route 
           path='profile' 
           element={<Profile setLoggedIn={setLoggedIn}/>}/>

@@ -2,15 +2,38 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import GoogleButton from 'react-google-button'
+import { GoogleLogin } from '@react-oauth/google'
+import jwtDecode from 'jwt-decode'
 
-import { Link } from 'react-router-dom'
-
-export default function Landing() {
+export default function Landing({ setShouldRedirect, currentUser, setCurrentUser }) {
   /* 
     Page component for rendering the Landing page
   */
-  const handleLogin = () => {
+  const handleLogin = (jwtToken) => {
+    const firstName = jwtToken.given_name
+    const lastName = jwtToken.family_name
+    const email = jwtToken.email
+
+    const data = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email
+    }
+
+    fetch( process.env.REACT_APP_BACKEND_URL + '/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+        .then((data) => {
+          setCurrentUser(data)
+          console.log(currentUser)
+          setShouldRedirect(true)
+        })
+        .catch(error => {alert(error);})   
   }
 
   return (
@@ -34,21 +57,15 @@ export default function Landing() {
           >
             <Typography variant='h4'>Welcome to Kaizen Manager</Typography>
             <Typography paragraph>Click on the button below to get started!</Typography>
-          </Box>
-          <Box sx={{
-            m: 5,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-          >
-            <Link to='redirect'>
-              <GoogleButton
-                type='light'
-                onClick={handleLogin}
-              />
-            </Link>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                let jwtToken = jwtDecode(credentialResponse.credential)
+                handleLogin(jwtToken)
+              }}                
+              onError={() => {
+                console.log('Login Failed')
+              }}
+            />
           </Box>
         </Paper>
       </Box>
