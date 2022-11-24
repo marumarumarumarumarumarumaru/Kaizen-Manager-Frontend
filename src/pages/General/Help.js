@@ -2,11 +2,14 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-export default function Help() {
+export default function Help({ setShowDrawer }) {
   /* 
     Page component for rendering the Help page
   */
- 
+  React.useEffect(() => {
+    setShowDrawer(true)
+  })
+
   return (
     <>
       <Box sx={{

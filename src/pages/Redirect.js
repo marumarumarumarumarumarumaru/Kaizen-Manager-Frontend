@@ -2,27 +2,54 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 
-import { Link } from 'react-router-dom'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
-export default function Redirect({ currentWorkspace, setCurrentWorkspace, setLoggedIn }) {
+export default function Redirect({ 
+  setShowDrawer, currentUser, handleWorkspacesUpdate, handleCurrentWorkspaceUpdate, handleDataLoaded
+}) {
   /* 
     Page component for rendering the Redirect page
   */
+
   React.useEffect(() => {
-    // setTimeout(function() {
-    //   window.location.replace('/create-workspace');
-    // }, 3000);
+    setShowDrawer(false)
+    setTimeout(function() {
+      handleDataLoaded(true)
+    }, 3000);
+  })
+  
+  React.useEffect(() => {
+    let active = true
+  
+    const fetchData = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces'
+      
+      const response = await fetch(endpoint, {method: 'GET'})
+      const workspaces = await response.json()
+      if (active) {
+        handleWorkspacesUpdate(workspaces) 
+        if (workspaces.length > 0) {
+          handleCurrentWorkspaceUpdate(workspaces[0].workspace_id)
+        }
+      }
+    }
+  
+    fetchData()
+    return () => {
+      active = false
+    }
+    // Disables the eslint complaining about the dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    // setTimeout(function() {
-    //   window.location.replace('/workspaces');
-    // }, 3000);
-  }, []);
-
-  const handleLogIn = () => {
-    setLoggedIn(true)
-    // window.localStorage.setItem('loggedIn', true)
-  }
+  // React.useEffect(() => {
+  //   setTimeout(function() {
+  //     setLoggedIn(true)
+  //     setDataLoaded(true)
+  //   }, 3000);
+  // }, [])
 
   return (
     <Box sx={{ 
@@ -33,17 +60,13 @@ export default function Redirect({ currentWorkspace, setCurrentWorkspace, setLog
       textAlign: 'center'
       }}>
       <Box sx={{ width: '100%'}}>
+        <Typography variant="body2">
+          Hi {currentUser.first_name}!
+        </Typography>
         <Typography variant="body2" sx={{ mb: 2 }}>
-          Hold up, we're getting there...
+          Hold up, we're getting your session started...
         </Typography>
         <LinearProgress />
-        <Link
-          to={'/workspaces/' + currentWorkspace}
-        >
-          <Button 
-            variant='contained' onClick={handleLogIn}
-            sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
-        </Link>
       </Box>
     </Box>
   )

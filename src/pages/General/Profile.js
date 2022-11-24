@@ -7,11 +7,15 @@ import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
 // import PasswordForm from '../../components/forms/ProfilePasswordForm'
 import ProfileForm from '../../components/forms/ProfileForm'
 
-export default function Profile({ setLoggedIn }) {
+export default function Profile({ setShowDrawer }) {
   /* 
     Page component for rendering the Profile Settings page
   */
   const [deleteOpen, setDeleteOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    setShowDrawer(true)
+  })
 
   const handleDeleteAccountClickOpen = () => {
     setDeleteOpen(!deleteOpen)
@@ -34,7 +38,7 @@ export default function Profile({ setLoggedIn }) {
       </Box>
       {/* Commenting out as we currently utilize OAuth for login flow */}
       {/* <PasswordForm /> */}
-      <DeleteAccountDialog setLoggedIn={setLoggedIn} open={deleteOpen} setOpen={setDeleteOpen}/>
+      <DeleteAccountDialog open={deleteOpen} setOpen={setDeleteOpen}/>
     </>
   )
 }

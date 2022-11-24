@@ -21,11 +21,7 @@ import Profile from "./pages/general/Profile"
 import Projects from "./pages/projects/Projects"
 import Project from "./pages/projects/Project"
 
-// Dummy data
-import projectsJson from "./data/projects"
-import workspacesJson from "./data/workspaces"
-import tasksJson from "./data/dummyTasks.json"
-import usersJson from './data/users.json'
+import CreateWorkspace from "./pages/CreateWorkspace"
 
 export default function MyRoutes() {
   const [drawerOpen, setDrawerOpen] = React.useState(true)
@@ -37,95 +33,50 @@ export default function MyRoutes() {
   const [tasks, setTasks] = React.useState(null)
   const [users, setUsers] = React.useState(null)
   const [dataLoaded, setDataLoaded] = React.useState(false)
-  const [loggedIn, setLoggedIn] = React.useState(false)
-  const [shouldRedirect, setShouldRedirect] = React.useState(false);
+  const [showDrawer, setShowDrawer] = React.useState(false)
+  const [navigateToRedirect, setNavigateToRedirect] = React.useState(false)
 
-  React.useEffect(() => {
-    (async () => {
-      setDataLoaded(false)
-      let getUsers = await loadUsers();
-      if (getUsers.success) {
-        setUsers(getUsers.data) 
-      }
-      let getProjects = await loadProjects();
-      if (getProjects.success) {
-        setProjects(getProjects.data) 
-      }
-      let getTasks = await loadTasks();
-      if (getTasks.success) {
-        setTasks(getTasks.data) 
-      }
-      let getWorkspaces = await loadWorkspaces()
-      if (getWorkspaces.success) {
-        setWorkspaces(getWorkspaces.data) 
-        setCurrentWorkspace(getWorkspaces.data[0].workspace_id)
-      }
-      if (getUsers.success && getProjects.success && getTasks.success && getWorkspaces.success) {
-        setDataLoaded(true)
-      }
-    })()
-  }, [])
+  // React.useEffect(() => {
+  //   (async () => {
+  //     setDataLoaded(false)
+  //     let getUsers = await loadUsers();
+  //     if (getUsers.success) {
+  //       setUsers(getUsers.data) 
+  //     }
+  //     let getProjects = await loadProjects();
+  //     if (getProjects.success) {
+  //       setProjects(getProjects.data) 
+  //     }
+  //     let getTasks = await loadTasks();
+  //     if (getTasks.success) {
+  //       setTasks(getTasks.data) 
+  //     }
+  //     let getWorkspaces = await loadWorkspaces()
+  //     if (getWorkspaces.success) {
+  //       setWorkspaces(getWorkspaces.data) 
+  //       setCurrentWorkspace(getWorkspaces.data[0].workspace_id)
+  //     }
+  //     if (getUsers.success && getProjects.success && getTasks.success && getWorkspaces.success) {
+  //       setLoggedIn(true)
+  //       setDataLoaded(true)
+  //     }
+  //   })()
+  // }, [])
 
-  const loadUsers = () => {
-    // Currently using dummy data
-    // setUsers(usersJson) 
-    return { success: true, data: usersJson }
-
-    // fetch(tasksJson)
-    // .then(response => response.json())
-    // .then((json) => {
-    //   this.setState({
-    //     tasks: json.tasks
-    //   })
-    // })  
+  function handleWorkspacesUpdate(data) {
+    setWorkspaces(data)
   }
-
-  const loadWorkspaces = () => {
-    // Currently using dummy data
-    // 
-    // setWorkspaces(workspacesJson)
-    // setCurrentWorkspace(workspacesJson[0].workspace_id)
-    return { success: true, data: workspacesJson }
-
-    // Real Data
-    //
-    // fetch( process.env.REACT_APP_BACKEND_URL + '/users/' + 1 + '/workspaces', {
-    //   method: 'GET'
-    // })
-    //   .then(response => response.json())
-    //     .then((data) => {
-    //       setWorkspaces(data)
-    //       setCurrentWorkspace(data[0].workspace_id)
-    //     })
-    //       .catch(error => {alert(error);});
+  function handleCurrentWorkspaceUpdate(data) {
+    setCurrentWorkspace(data)
   }
-
-  const loadProjects = () => {
-    // Currently using dummy data
-    // setProjects(projectsJson)
-    return { success: true, data: projectsJson }
-
-    // fetch(projectsJson)
-    // .then(response => response.json())
-    // .then((json) => {
-    //   this.setState({
-    //     projects: json.projects
-    //   })
-    // })  
+  function handleUsersUpdate(data) {
+    setUsers(data)
   }
-
-  const loadTasks = () => {
-    // Currently using dummy data
-    // setTasks(tasksJson)
-    return { success: true, data: tasksJson }
-
-    // fetch(tasksJson)
-    // .then(response => response.json())
-    // .then((json) => {
-    //   this.setState({
-    //     tasks: json.tasks
-    //   })
-    // })  
+  function handleProjectsUpdate(data) {
+    setProjects(data)
+  }
+  function handleDataLoaded(bool) {
+    setDataLoaded(bool)
   }
 
   return (
@@ -134,9 +85,10 @@ export default function MyRoutes() {
         exact 
         path="/" 
         element={<Base 
+          showDrawer={showDrawer}
           dataLoaded={dataLoaded}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
+          // loggedIn={loggedIn}
+          // setLoggedIn={setLoggedIn}
           drawerOpen={drawerOpen} 
           setDrawerOpen={setDrawerOpen} 
           projects={projects} 
@@ -150,41 +102,61 @@ export default function MyRoutes() {
         <Route 
           index 
           element={
-            shouldRedirect
+            navigateToRedirect
             ? (<Navigate replace to="redirect"/>)
             : <Landing 
-                setShouldRedirect={setShouldRedirect}
+                setShowDrawer={setShowDrawer}
+                setNavigateToRedirect={setNavigateToRedirect}
                 currentUser={currentUser} 
                 setCurrentUser={setCurrentUser}/>} />
-        <Route path="redirect" 
-          element={<Redirect 
-            currentUser={currentUser}
-            currentWorkspace={currentWorkspace}
-            setCurrentWorkspace={setCurrentWorkspace}
-            setLoggedIn={setLoggedIn}/>}/>  
+        <Route 
+          path="redirect" 
+          element={
+            dataLoaded
+            ? (workspaces.length > 0
+              ? <Navigate replace to={'/workspaces/' + currentWorkspace}/>
+              : <Navigate replace to='/create-workspace'/>
+              )
+            : <Redirect 
+                setShowDrawer={setShowDrawer}
+                currentUser={currentUser}
+                currentWorkspace={currentWorkspace}
+                handleWorkspacesUpdate={handleWorkspacesUpdate}
+                handleCurrentWorkspaceUpdate={handleCurrentWorkspaceUpdate}
+                handleDataLoaded={handleDataLoaded}
+                />}/>  
+        <Route 
+          path='create-workspace' 
+          element={<CreateWorkspace
+            setShowDrawer={setShowDrawer}
+            urrentWorkspace={currentWorkspace} 
+            setCurrentWorkspace={setCurrentWorkspace}/>}/>
         <Route 
           path='profile' 
-          element={<Profile setLoggedIn={setLoggedIn}/>}/>
+          element={<Profile 
+            setShowDrawer={setShowDrawer}/>}/>
         <Route 
           path='settings' 
-          element={<GeneralSettings />}/>
+          element={<GeneralSettings 
+            setShowDrawer={setShowDrawer}/>}/>
         <Route 
           path='help' 
           element={<Help />}/> 
-        {WorkspaceRoutes(tasks, projects, users, workspaces, currentWorkspace, currentProject)}
+        {WorkspaceRoutes(tasks, projects, users, workspaces, currentWorkspace, currentProject, setShowDrawer)}
       </Route>  
     </Routes>
   )
 }
 
-function WorkspaceRoutes( tasks, projects, users, workspaces, currentWorkspace, currentProject ) {
+function WorkspaceRoutes( tasks, projects, users, workspaces, currentWorkspace, currentProject, setShowDrawer ) {
   return (
     <Route 
       path='workspaces' 
       >
       <Route 
         path=":workspaceId" 
-        element={<Workspace />}>      
+        element={<Workspace 
+          setShowDrawer={setShowDrawer}/>}>      
         <Route 
           index 
           element={<WorkspaceDefault />}/>

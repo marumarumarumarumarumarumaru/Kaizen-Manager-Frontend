@@ -10,7 +10,7 @@ import UserMenu from './UserMenu'
 import AlertSnackbar from '../AlertSnackbar'
 import { AppBar } from '../CustomUI'
 
-export default function ResponsiveAppBar({ setLoggedIn, drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
+export default function ResponsiveAppBar({ drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
   /* 
     Renders the AppBar
   */
@@ -78,7 +78,7 @@ export default function ResponsiveAppBar({ setLoggedIn, drawerOpen, setDrawerOpe
             snackbarOpen={snackbarCreateWSOpen} 
             setSnackbarOpen={setSnackbarCreateWSOpen} 
             workspaces={workspaces}/>
-          <UserMenu currentUser={currentUser} setLoggedIn={setLoggedIn}/>
+          <UserMenu currentUser={currentUser} />
         </Toolbar>
       </AppBar>
       {/* 

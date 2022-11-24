@@ -8,7 +8,7 @@ import ResponsiveAppBar from '../components/appBar/ResponsiveAppBar';
 import ResponsiveDrawer from '../components/drawer/ResponsiveDrawer';
 import { Main, DrawerHeader } from '../components/CustomUI';
 
-export default function Base({ dataLoaded, loggedIn, setLoggedIn, drawerOpen, setDrawerOpen, projects, users, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {  
+export default function Base({ dataLoaded, showDrawer, drawerOpen, setDrawerOpen, projects, users, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {  
   /* 
     Page component for rendering base templating of the page
   */ 
@@ -18,10 +18,9 @@ export default function Base({ dataLoaded, loggedIn, setLoggedIn, drawerOpen, se
   return (
     <>
       {dataLoaded 
-      ? (loggedIn
+      ? (showDrawer
           ? <Box sx={{ display: 'flex' }}>
               <ResponsiveAppBar 
-                setLoggedIn={setLoggedIn}
                 drawerOpen={drawerOpen} 
                 setDrawerOpen={setDrawerOpen} 
                 workspaces={workspaces}
@@ -50,7 +49,13 @@ export default function Base({ dataLoaded, loggedIn, setLoggedIn, drawerOpen, se
               <Outlet />
             </> 
         )
-      : <CircularProgress />
+      : (showDrawer
+          ? <CircularProgress />
+          : <>
+              <SimpleAppBar />
+              <Outlet />
+            </>
+        )
       }
     </>
   )

@@ -6,12 +6,15 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { Link } from 'react-router-dom'
 
-export default function CreateWorkspace() {
+export default function CreateWorkspace({ setShowDrawer, currentWorkspace, setCurrentWorkspace}) {
   /* 
-    Page component for rendering the Login page
+    Page component for rendering the create workspace page
   */
-
   const [workspaceName, setWorkspaceName] = React.useState('')
+
+  React.useEffect(() => {
+    setShowDrawer(true)
+  })
 
   const handleChange = (event) => {
     setWorkspaceName(event.target.value)

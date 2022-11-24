@@ -4,10 +4,13 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import AlertSnackbar from '../../components/AlertSnackbar'
 
-export default function GeneralSettings() {
+export default function GeneralSettings({ setShowDrawer }) {
   /* 
     Page component for rendering the General Settings page
   */
+  React.useEffect(() => {
+    setShowDrawer(true)
+  })
 
   return (
     <>

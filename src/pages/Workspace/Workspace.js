@@ -1,10 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-export default function Workspace() {
+export default function Workspace({ setShowDrawer }) {
   /* 
     Page component for outletting the workspace for specific workspace id
   */
+  React.useEffect(() => {
+    setShowDrawer(true)
+  })
 
   return (
     <>

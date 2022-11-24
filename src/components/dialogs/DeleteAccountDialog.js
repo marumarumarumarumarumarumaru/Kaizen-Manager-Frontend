@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 
 import { Link } from 'react-router-dom'
 
-export default function DeleteAccountDialog({ setLoggedIn, open, setOpen }) {
+export default function DeleteAccountDialog({ open, setOpen }) {
   /* 
     Renders the Logout Dialog
   */
@@ -19,7 +19,6 @@ export default function DeleteAccountDialog({ setLoggedIn, open, setOpen }) {
 
   const handleDeleteAccount = () => {
     setOpen(!open)
-    setLoggedIn(false)
     // Method to delete the account
   }
 

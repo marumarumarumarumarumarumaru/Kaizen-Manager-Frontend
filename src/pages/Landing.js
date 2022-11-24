@@ -5,10 +5,14 @@ import Typography from '@mui/material/Typography'
 import { GoogleLogin } from '@react-oauth/google'
 import jwtDecode from 'jwt-decode'
 
-export default function Landing({ setShouldRedirect, currentUser, setCurrentUser }) {
+export default function Landing({ setShowDrawer, setNavigateToRedirect, currentUser, setCurrentUser }) {
   /* 
     Page component for rendering the Landing page
   */
+  React.useEffect(() => {
+    setShowDrawer(false)
+  })
+
   const handleLogin = (jwtToken) => {
     const firstName = jwtToken.given_name
     const lastName = jwtToken.family_name
@@ -30,8 +34,7 @@ export default function Landing({ setShouldRedirect, currentUser, setCurrentUser
       .then(response => response.json())
         .then((data) => {
           setCurrentUser(data)
-          console.log(currentUser)
-          setShouldRedirect(true)
+          setNavigateToRedirect(true)
         })
         .catch(error => {alert(error);})   
   }
