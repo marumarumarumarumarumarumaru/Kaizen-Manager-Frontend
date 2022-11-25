@@ -32,36 +32,9 @@ export default function MyRoutes() {
   const [projects, setProjects] = React.useState(null)
   const [tasks, setTasks] = React.useState(null)
   const [users, setUsers] = React.useState(null)
-  const [dataLoaded, setDataLoaded] = React.useState(false)
+  const [workspacesLoaded, setWorkspacesLoaded] = React.useState(false)
   const [showDrawer, setShowDrawer] = React.useState(false)
   const [navigateToRedirect, setNavigateToRedirect] = React.useState(false)
-
-  // React.useEffect(() => {
-  //   (async () => {
-  //     setDataLoaded(false)
-  //     let getUsers = await loadUsers();
-  //     if (getUsers.success) {
-  //       setUsers(getUsers.data) 
-  //     }
-  //     let getProjects = await loadProjects();
-  //     if (getProjects.success) {
-  //       setProjects(getProjects.data) 
-  //     }
-  //     let getTasks = await loadTasks();
-  //     if (getTasks.success) {
-  //       setTasks(getTasks.data) 
-  //     }
-  //     let getWorkspaces = await loadWorkspaces()
-  //     if (getWorkspaces.success) {
-  //       setWorkspaces(getWorkspaces.data) 
-  //       setCurrentWorkspace(getWorkspaces.data[0].workspace_id)
-  //     }
-  //     if (getUsers.success && getProjects.success && getTasks.success && getWorkspaces.success) {
-  //       setLoggedIn(true)
-  //       setDataLoaded(true)
-  //     }
-  //   })()
-  // }, [])
 
   function handleWorkspacesUpdate(data) {
     setWorkspaces(data)
@@ -75,8 +48,8 @@ export default function MyRoutes() {
   function handleProjectsUpdate(data) {
     setProjects(data)
   }
-  function handleDataLoaded(bool) {
-    setDataLoaded(bool)
+  function handleTasksUpdate(data) {
+    setTasks(data)
   }
 
   return (
@@ -86,7 +59,7 @@ export default function MyRoutes() {
         path="/" 
         element={<Base 
           showDrawer={showDrawer}
-          dataLoaded={dataLoaded}
+          workspacesLoaded={workspacesLoaded}
           // loggedIn={loggedIn}
           // setLoggedIn={setLoggedIn}
           drawerOpen={drawerOpen} 
@@ -112,7 +85,7 @@ export default function MyRoutes() {
         <Route 
           path="redirect" 
           element={
-            dataLoaded
+            workspacesLoaded
             ? (workspaces.length > 0
               ? <Navigate replace to={'/workspaces/' + currentWorkspace}/>
               : <Navigate replace to='/create-workspace'/>
@@ -123,7 +96,7 @@ export default function MyRoutes() {
                 currentWorkspace={currentWorkspace}
                 handleWorkspacesUpdate={handleWorkspacesUpdate}
                 handleCurrentWorkspaceUpdate={handleCurrentWorkspaceUpdate}
-                handleDataLoaded={handleDataLoaded}
+                setWorkspacesLoaded={setWorkspacesLoaded}
                 />}/>  
         <Route 
           path='create-workspace' 
@@ -141,14 +114,21 @@ export default function MyRoutes() {
             setShowDrawer={setShowDrawer}/>}/>
         <Route 
           path='help' 
-          element={<Help />}/> 
-        {WorkspaceRoutes(tasks, projects, users, workspaces, currentWorkspace, currentProject, setShowDrawer)}
+          element={<Help 
+            setShowDrawer={setShowDrawer}/>}/> 
+        {WorkspaceRoutes(
+          tasks, projects, users, workspaces, currentUser, currentWorkspace, 
+          currentProject, setShowDrawer, handleProjectsUpdate, handleUsersUpdate,
+          handleTasksUpdate)}
       </Route>  
     </Routes>
   )
 }
 
-function WorkspaceRoutes( tasks, projects, users, workspaces, currentWorkspace, currentProject, setShowDrawer ) {
+function WorkspaceRoutes( 
+  tasks, projects, users, workspaces, currentUser, currentWorkspace, currentProject, 
+  setShowDrawer, handleProjectsUpdate, handleUsersUpdate, handleTasksUpdate
+) {
   return (
     <Route 
       path='workspaces' 
@@ -156,7 +136,12 @@ function WorkspaceRoutes( tasks, projects, users, workspaces, currentWorkspace, 
       <Route 
         path=":workspaceId" 
         element={<Workspace 
-          setShowDrawer={setShowDrawer}/>}>      
+          setShowDrawer={setShowDrawer}
+          currentUser={currentUser}
+          currentWorkspace={currentWorkspace}
+          handleProjectsUpdate={handleProjectsUpdate}
+          handleUsersUpdate={handleUsersUpdate}
+          />}>      
         <Route 
           index 
           element={<WorkspaceDefault />}/>
@@ -174,9 +159,12 @@ function WorkspaceRoutes( tasks, projects, users, workspaces, currentWorkspace, 
             path=":projectId" 
             element={<Project 
               projects={projects}
+              currentWorkspace={currentWorkspace}
               currentProject={currentProject} 
+              currentUser={currentUser}
               tasks={tasks} 
-              users={users}/>} />
+              users={users}
+              handleTasksUpdate={handleTasksUpdate}/>} />
         </Route>
       </Route>
     </Route>

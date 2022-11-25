@@ -37,14 +37,16 @@ export default function DrawerProjects({ projects, currentWorkspace, newProjectO
           </ListSubheader>
         }
       >  
-        {projects.map((project) => (
-          <ProjectItem
-            project={project}
-            currentWorkspace={currentWorkspace}
-            snackbarOpen={snackbarOpen}
-            setSnackbarOpen={setSnackbarOpen}
-            setCurrentProject={setCurrentProject}/>        
-        ))}
+        {projects
+        ? (projects.map((project) => (
+            <ProjectItem
+              project={project}
+              currentWorkspace={currentWorkspace}
+              snackbarOpen={snackbarOpen}
+              setSnackbarOpen={setSnackbarOpen}
+              setCurrentProject={setCurrentProject}/>        
+          )))
+        : <></>}
         <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
           <ListItemIcon key='createProject'>
             <AddIcon />

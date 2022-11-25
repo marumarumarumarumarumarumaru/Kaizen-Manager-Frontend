@@ -92,16 +92,18 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, projects, 
           </Tooltip>
           <Collapse in={memberOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {users.map((user) => (
-                <ListItem key={user.id} sx={{ml: 1}}>
-                  <ListItemAvatar>
-                    <Avatar>{user.first_name.charAt(0)}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemButton disabled>
-                    <ListItemText primary={user.first_name + ' ' + user.last_name} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
+              {users
+              ? (users.map((user) => (
+                  <ListItem key={user.id} sx={{ml: 1}}>
+                    <ListItemAvatar>
+                      <Avatar>{user.first_name.charAt(0)}</Avatar>
+                    </ListItemAvatar>
+                    <ListItemButton disabled>
+                      <ListItemText primary={user.first_name + ' ' + user.last_name} />
+                    </ListItemButton>
+                  </ListItem>
+                )))
+              : <></>}
             </List>
           </Collapse>
           <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/metrics'} key='workspaceMetrics'>

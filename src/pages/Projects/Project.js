@@ -11,13 +11,49 @@ import TaskCard from '../../components/TaskCard'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
 
-export default function Project({ projects, currentProject, tasks, users }) {
-  const projTasks = tasks.filter(task => task.proj_id === currentProject)
-  const backlogTasks = projTasks.filter(task => task.task_status === 'Backlog')
-  const inProgressTasks = projTasks.filter(task => task.task_status === 'In Progress')
-  const blockedTasks = projTasks.filter(task => task.task_status === 'Blocked')
-  const inReviewTasks = projTasks.filter(task => task.task_status === 'In Review')
-  const closedTasks = projTasks.filter(task => task.task_status === 'Closed')
+export default function Project({ 
+  projects, currentWorkspace, currentProject, currentUser, tasks, users, handleTasksUpdate
+}) {
+  const [projTasks, setProjTasks] = React.useState()
+  const [backlogTasks, setBacklogTasks] = React.useState()
+  const [inProgressTasks, setInProgressTasks] = React.useState()
+  const [blockedTasks, setBlockedTasks] = React.useState()
+  const [inReviewTasks, setInReviewTasks] = React.useState()
+  const [closedTasks, setClosedTasks] = React.useState()
+
+  React.useEffect(() => {
+    let retrieveData = true
+  
+    const fetchData = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const currTasksUrl = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      
+      const getTasks = await fetch(currTasksUrl, {method: 'GET'})
+      const tasks = await getTasks.json()
+      if (retrieveData) {
+        if (tasks) {
+          // Store the tasks so in the case create/delete tasks happen, this useEffect triggers
+          handleTasksUpdate(tasks)
+          // Filter the tasks into respective status bucket
+          setProjTasks(tasks.filter(task => task.proj_id === currentProject))
+          if (projTasks) {
+            setBacklogTasks(projTasks.filter(task => task.task_status === 'Backlog'))
+            setInProgressTasks(projTasks.filter(task => task.task_status === 'In Progress'))
+            setBlockedTasks(projTasks.filter(task => task.task_status === 'Blocked'))
+            setInReviewTasks(projTasks.filter(task => task.task_status === 'In Review'))
+            setClosedTasks(projTasks.filter(task => task.task_status === 'Closed'))
+          }
+        }      
+      }
+    }
+
+    fetchData()
+    return () => {
+      retrieveData = false
+    }
+  }, [tasks])
+
   const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
   const [editNameOpen, setEditNameOpen] = React.useState(false)
 
@@ -55,37 +91,47 @@ export default function Project({ projects, currentProject, tasks, users }) {
         <Grid container spacing={4}>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[0]}/>
-            {backlogTasks.map((task, index) => (
-              <TaskCard task={backlogTasks[index]} users={users}/>
-            ))}
+            {backlogTasks
+            ? (backlogTasks.map((task, index) => (
+                <TaskCard task={backlogTasks[index]} users={users}/>
+              )))
+            : <></>}
             <CreateTaskCard selectedStatus={taskStates[0]} users={users}/>
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[1]}/>
-            {inProgressTasks.map((task, index) => (
-              <TaskCard task={inProgressTasks[index]} users={users}/>
-              ))}
+            {inProgressTasks
+            ? (inProgressTasks.map((task, index) => (
+                <TaskCard task={inProgressTasks[index]} users={users}/>
+              )))
+            : <></>}
             <CreateTaskCard selectedStatus={taskStates[1]} users={users}/>
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[2]}/>
-            {blockedTasks.map((task, index) => (
-              <TaskCard task={blockedTasks[index]} users={users}/>
-              ))}
+            {blockedTasks
+            ? (blockedTasks.map((task, index) => (
+                <TaskCard task={blockedTasks[index]} users={users}/>
+              )))
+            : <></>}
             <CreateTaskCard selectedStatus={taskStates[2]} users={users}/>
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[3]}/>
-            {inReviewTasks.map((task, index) => (
-              <TaskCard task={inReviewTasks[index]} users={users}/>
-              ))}
+            {inReviewTasks
+            ? (inReviewTasks.map((task, index) => (
+                <TaskCard task={inReviewTasks[index]} users={users}/>
+              )))
+            : <></>}
             <CreateTaskCard selectedStatus={taskStates[3]} users={users}/>
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[4]}/>
-            {closedTasks.map((task, index) => (
-              <TaskCard task={closedTasks[index]} users={users}/>
-              ))}
+            {closedTasks
+            ? (closedTasks.map((task, index) => (
+                <TaskCard task={closedTasks[index]} users={users}/>
+              )))
+            : <></>}
             <CreateTaskCard selectedStatus={taskStates[4]} users={users}/>
           </Grid>
         </Grid>  

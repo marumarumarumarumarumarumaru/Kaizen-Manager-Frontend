@@ -137,7 +137,6 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             onChange={handleChange('targetDate')}
             type="text"
             fullWidth
-            multiline
             variant="standard"
           />
         </DialogContent>

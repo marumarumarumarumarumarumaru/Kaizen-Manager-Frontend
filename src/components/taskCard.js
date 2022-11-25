@@ -93,26 +93,34 @@ export default function TaskCard({ task, users }) {
  * @returns - string
  */
 function CheckTargetDate(targetDate, taskStatus) {
-  const date = Date.parse(targetDate)
-  const today = new Date()
-  let difference = date - today
-  let totalDays = Math.ceil(difference / (1000 * 3600 * 24))
-  // If target date today or in the past, show red
-  if (totalDays <= 0) {
-    return "error"
-  // Else if target date is within the next 2 weeks, show yellow
-  } else if (14 >= totalDays) {
-    return "warning"
-  // Else if the task is already closed, show grey
-  } else if (taskStatus === "Closed") {
-    return
-  // Otherwise, show green
+  if (targetDate) {
+    const date = Date.parse(targetDate)
+    const today = new Date()
+    let difference = date - today
+    let totalDays = Math.ceil(difference / (1000 * 3600 * 24))
+    // If target date today or in the past, show red
+    if (totalDays <= 0) {
+      return "error"
+    // Else if target date is within the next 2 weeks, show yellow
+    } else if (14 >= totalDays) {
+      return "warning"
+    // Else if the task is already closed, show grey
+    } else if (taskStatus === "Closed") {
+      return
+    // Otherwise, show green
+    } else {
+      return "success"
+    }
   } else {
-    return "success"
+    return
   }
 }
 
 function FormatDate(targetDate) {
-  const formattingStyle = 'MMM dd, yyyy'
-  return format(Date.parse(targetDate), formattingStyle)
+  if (targetDate) {
+    const formattingStyle = 'MMM dd, yyyy'
+    return format(Date.parse(targetDate), formattingStyle)
+  } else {
+    return 'n/a'
+  }
 }

@@ -23,6 +23,7 @@ export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, 
     selectedStatus: selectedStatus,
     taskValue: undefined,
     taskDescription: '',
+    targetDate: undefined
   })
 
   // const [errors, setErrors] = React.useState([])
@@ -107,6 +108,17 @@ export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, 
             type="text"
             fullWidth
             multiline
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Target date"
+            value={values.targetDate ?? ''}
+            onChange={handleChange('targetDate')}
+            type="text"
+            fullWidth
             variant="standard"
           />
         </DialogContent>

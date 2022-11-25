@@ -5,7 +5,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { Typography } from '@mui/material'
 
 export default function Redirect({ 
-  setShowDrawer, currentUser, handleWorkspacesUpdate, handleCurrentWorkspaceUpdate, handleDataLoaded
+  setShowDrawer, currentUser, handleWorkspacesUpdate, handleCurrentWorkspaceUpdate, setWorkspacesLoaded
 }) {
   /* 
     Page component for rendering the Redirect page
@@ -14,12 +14,12 @@ export default function Redirect({
   React.useEffect(() => {
     setShowDrawer(false)
     setTimeout(function() {
-      handleDataLoaded(true)
+      setWorkspacesLoaded(true)
     }, 3000);
   })
   
   React.useEffect(() => {
-    let active = true
+    let retrieveData = true
   
     const fetchData = async () => {
       const url = process.env.REACT_APP_BACKEND_URL
@@ -28,7 +28,7 @@ export default function Redirect({
       
       const response = await fetch(endpoint, {method: 'GET'})
       const workspaces = await response.json()
-      if (active) {
+      if (retrieveData) {
         handleWorkspacesUpdate(workspaces) 
         if (workspaces.length > 0) {
           handleCurrentWorkspaceUpdate(workspaces[0].workspace_id)
@@ -38,7 +38,7 @@ export default function Redirect({
   
     fetchData()
     return () => {
-      active = false
+      retrieveData = false
     }
     // Disables the eslint complaining about the dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
