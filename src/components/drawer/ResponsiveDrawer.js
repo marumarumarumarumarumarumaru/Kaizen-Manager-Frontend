@@ -22,7 +22,10 @@ import DrawerProjects from './DrawerProjects'
 import Tooltip from '@mui/material/Tooltip'
 import { DrawerHeader } from '../CustomUI'
 
-export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, projects, users, workspaces, currentUser, currentWorkspace, setCurrentProject }) {
+export default function ResponsiveDrawer({ 
+  drawerOpen, setDrawerOpen, projects, users, workspaces, currentUser, 
+  currentWorkspace, currentProject, setCurrentProject 
+}) {
   /* 
     Renders the Drawer
   */
@@ -116,9 +119,12 @@ export default function ResponsiveDrawer({ drawerOpen, setDrawerOpen, projects, 
         <Divider />
         <DrawerProjects 
           projects={projects} 
+          users={users}
+          currentUser={currentUser}
           currentWorkspace={currentWorkspace} 
           newProjectOpen={newProjectOpen} 
           setNewProjectOpen={setNewProjectOpen} 
+          currentProject={currentProject}
           setCurrentProject={setCurrentProject}/>
       </Drawer>
       <CreateProjectDialog 

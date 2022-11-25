@@ -34,6 +34,8 @@ export default function Workspace({
     return () => {
       retrieveData = false
     }
+    // Disables the eslint complaining about the dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWorkspace])
 
   return (

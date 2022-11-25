@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add'
 import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
 import { Link } from 'react-router-dom'
 import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
@@ -73,13 +74,22 @@ export default function WorkspacesNav({ currentUser, currentWorkspace, setCurren
         transformOrigin={{ horizontal: 'center', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       >
-        {workspaces.map((workspace) => (
-          <Link to={'/workspaces/' + workspace.workspace_id} style={{ textDecoration: 'none', color: 'white' }}>
-            <MenuItem key={workspace.workspace_id} onClick={(event) => handleWorkspaceSelect(workspace)}>
-                <Typography textAlign="center">{workspace.workspace_name}</Typography>
-            </MenuItem>
-          </Link>
-        ))}
+        {workspaces
+        ? (workspaces.map((workspace) => (
+            <Link to={'/workspaces/' + workspace.workspace_id} style={{ textDecoration: 'none', color: 'white' }}>
+              <MenuItem 
+                key={workspace.workspace_id} 
+                onClick={(event) => handleWorkspaceSelect(workspace)}
+                >
+                  {workspace.workspace_id === currentWorkspace 
+                  ? <ArrowRightIcon fontSize="large" color="primary" sx={{ mr: 0.5 }}/> 
+                  : null}
+                  <Typography textAlign="center">{workspace.workspace_name}</Typography>
+              </MenuItem>
+            </Link>
+          )))
+          // We shouldn't encounter a case where no workspace exist for user, BUT in the case it does happen to avoid error
+        : <></>}
         <Divider variant="middle"/>
         <MenuItem>
           <ListItemIcon key='create' onClick={handleNewWorkspaceClickOpen}>

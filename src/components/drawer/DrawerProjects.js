@@ -10,16 +10,21 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Tooltip from '@mui/material/Tooltip'
 import { IconButton } from '@mui/material'
 import { Link } from 'react-router-dom'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
 import AlertSnackbar from '../AlertSnackbar'
 import DeleteProjectDialog from '../dialogs/DeleteProjectDialog'
+import { CheckUserRole } from '../../utils/UserFns'
 
-export default function DrawerProjects({ projects, currentWorkspace, newProjectOpen, setNewProjectOpen, setCurrentProject }) {
+export default function DrawerProjects({ 
+  projects, users, currentUser, currentWorkspace, currentProject, newProjectOpen, 
+  setNewProjectOpen, setCurrentProject 
+}) {
   /* 
     Renders the Projects in drawer
   */
-
   const [snackbarOpen, setSnackbarOpen] = React.useState(false) // For deletion
+  const currentUserRole = CheckUserRole(users, currentUser)
 
   const handleNewProjectClickOpen = () => {
     setNewProjectOpen(!newProjectOpen)
@@ -41,9 +46,11 @@ export default function DrawerProjects({ projects, currentWorkspace, newProjectO
         ? (projects.map((project) => (
             <ProjectItem
               project={project}
+              currentUserRole={currentUserRole}
               currentWorkspace={currentWorkspace}
               snackbarOpen={snackbarOpen}
               setSnackbarOpen={setSnackbarOpen}
+              currentProject={currentProject}
               setCurrentProject={setCurrentProject}/>        
           )))
         : <></>}
@@ -64,7 +71,10 @@ export default function DrawerProjects({ projects, currentWorkspace, newProjectO
   )
 }
 
-function ProjectItem({ project, currentWorkspace, snackbarOpen, setSnackbarOpen, setCurrentProject }) {
+function ProjectItem({ 
+  project, currentUserRole, currentWorkspace, snackbarOpen, setSnackbarOpen, 
+  currentProject, setCurrentProject 
+}) {
   /* 
     Renders the Project Item under drawer project list
   */
@@ -77,13 +87,17 @@ function ProjectItem({ project, currentWorkspace, snackbarOpen, setSnackbarOpen,
       key={project.project_id} 
       disablePadding 
       secondaryAction={
-        <ProjectDeleteButton 
+        ["owner", "pm"].includes(currentUserRole)
+        ? <ProjectDeleteButton 
           project={project}
           snackbarOpen={snackbarOpen}
           setSnackbarOpen={setSnackbarOpen}/>
-      }>
+        : null}>
       <Link to={'/workspaces/' + currentWorkspace + '/projects/' + project.project_id} style={{ textDecoration: 'none', color: 'white' }}>
         <ListItemButton onClick={handleClick}>
+          {project.project_id === currentProject 
+          ? <ArrowRightIcon fontSize="large" color="primary" sx={{ mr: 0.5 }}/> 
+          : null}
           <ListItemText primary={project.project_name} />
         </ListItemButton>
       </Link>

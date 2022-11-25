@@ -52,6 +52,8 @@ export default function Project({
     return () => {
       retrieveData = false
     }
+    // Disables the eslint complaining about the dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks])
 
   const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']

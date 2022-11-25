@@ -8,7 +8,11 @@ import ResponsiveAppBar from '../components/appBar/ResponsiveAppBar';
 import ResponsiveDrawer from '../components/drawer/ResponsiveDrawer';
 import { Main, DrawerHeader } from '../components/CustomUI';
 
-export default function Base({ workspacesLoaded, showDrawer, drawerOpen, setDrawerOpen, projects, users, workspaces, currentWorkspace, setCurrentWorkspace, currentUser, setCurrentProject }) {  
+export default function Base({ 
+  workspacesLoaded, showDrawer, drawerOpen, setDrawerOpen, projects, users, 
+  workspaces, currentWorkspace, setCurrentWorkspace, currentUser, currentProject,
+  setCurrentProject, setShowDrawer
+}) {  
   /* 
     Page component for rendering base templating of the page
   */ 
@@ -27,6 +31,7 @@ export default function Base({ workspacesLoaded, showDrawer, drawerOpen, setDraw
                 currentWorkspace={currentWorkspace}
                 setCurrentWorkspace={setCurrentWorkspace}
                 currentUser={currentUser}
+                setShowDrawer={setShowDrawer}
               />
               <ResponsiveDrawer 
                 drawerOpen={drawerOpen} 
@@ -36,6 +41,7 @@ export default function Base({ workspacesLoaded, showDrawer, drawerOpen, setDraw
                 workspaces={workspaces}
                 currentUser={currentUser}
                 currentWorkspace={currentWorkspace}
+                currentProject={currentProject}
                 setCurrentProject={setCurrentProject}
               />
               <Main open={drawerOpen}>

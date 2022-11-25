@@ -15,7 +15,11 @@ import { IconButton } from '@mui/material'
 import AlertSnackbar from './AlertSnackbar'
 import RemoveMemberDialog from './dialogs/RemoveMemberDialog'
 
-export default function MembersTable({ users }) {
+import { CheckUserRole } from '../utils/UserFns'
+
+export default function MembersTable({ users, currentUser }) {
+  const currentUserRole = CheckUserRole(users, currentUser)
+
   return (
     <TableContainer component={Paper} sx={{ marginY: 2, maxWidth: 1000 }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -28,7 +32,7 @@ export default function MembersTable({ users }) {
         </TableHead>
         <TableBody>
           {users.map((user) => (
-            <MembersRow user={user}/>
+            <MembersRow user={user} currentUserRole={currentUserRole}/>
           ))}
         </TableBody>
       </Table>
@@ -36,10 +40,10 @@ export default function MembersTable({ users }) {
   )
 }
 
-function MembersRow({ user }) {
+function MembersRow({ user, currentUserRole }) {
 
-  const [role, setRole] = React.useState(user.role)
-  const roles = ['Owner', 'PM', 'Member']
+  const [role, setRole] = React.useState(user.user_role)
+  const roles = ['owner', 'pm', 'member']
   const [removeUserOpen, setRemoveUserOpen] = React.useState(false)
   const [roleSnackbarOpen, setRoleSnackbarOpen] = React.useState(false)
   const fullName = user.first_name + ' ' + user.last_name
@@ -74,13 +78,16 @@ function MembersRow({ user }) {
               inputProps={{ 'aria-label': 'Without label' }}
             >
               {roles.map((role) => (
-                <MenuItem value={role}>{role}</MenuItem>
+                <MenuItem value={role}>{role.toUpperCase()}</MenuItem>
               ))}
             </Select>
           </FormControl>
         </TableCell>
         <TableCell align="right">
-          <IconButton onClick={handleRemoveUserClickOpen}>
+          <IconButton 
+            onClick={handleRemoveUserClickOpen}
+            disabled={currentUserRole !== 'owner'}
+            >
             <ClearIcon/>
           </IconButton>
         </TableCell>

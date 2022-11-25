@@ -7,7 +7,9 @@ import MembersTable from '../../components/WSMembersTable'
 import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog'
 import AddMemberDialog from '../../components/dialogs/AddMemberDialog'
 
-export default function WorkspaceSettings({ workspaces, users, currentWorkspace }) {
+export default function WorkspaceSettings({
+  workspaces, users, currentWorkspace, currentUser 
+}) {
   /* 
     Page component for rendering the Settings page for Workspace
   */
@@ -51,7 +53,9 @@ export default function WorkspaceSettings({ workspaces, users, currentWorkspace 
         <Typography variant="caption">
           Adjust member's role, add a member, or delete a member from a workspace.
         </Typography>
-        <MembersTable users={users}/>
+        <MembersTable 
+          users={users} 
+          currentUser={currentUser}/>
         <Button variant='contained' onClick={handleAddMemberOpen}>Add a member</Button>
         <Typography variant="h5" sx={{ mt: 4 }}>
           Delete Workspace

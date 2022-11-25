@@ -80,14 +80,16 @@ export default function Metrics({ projects }) {
           <FormGroup>
 
           </FormGroup>
-          {projects.map((project) => (
-            <FormControlLabel
-              control={
-                <Checkbox checked={state[project.project_id]} onChange={handleProjectChange} name={project.project_name} />
-              }
-              label={project.project_name}
-            />
-          ))}
+          {projects
+          ? (projects.map((project) => (
+              <FormControlLabel
+                control={
+                  <Checkbox checked={state[project.project_id]} onChange={handleProjectChange} name={project.project_name} />
+                }
+                label={project.project_name}
+              />
+            )))
+          : <></>}
         </FormControl>
         <FormControl sx={{ m: 2 }}>
           <FormLabel id="data-format-radio-button-group" sx={{ marginY: 1 }}>Data Format</FormLabel>
@@ -102,7 +104,16 @@ export default function Metrics({ projects }) {
           </RadioGroup>
         </FormControl>
       </Box>
-      <Button variant='contained' onClick={handleSubmit} sx={{ marginY: 2 }} >Generate data</Button>
+      <Button 
+        variant='contained' 
+        onClick={handleSubmit}
+        disabled={projects.length < 1}
+        x={{ marginY: 2 }} >
+          Generate data
+      </Button>
+      {projects.length < 1
+      ? <Typography variant="subtitle2" sx={{mt: 1}} color="primary">Tip: Create a project and some tasks to generate data!</Typography>
+      : null}
     </Box>
   )
 }

@@ -70,6 +70,7 @@ export default function MyRoutes() {
           currentWorkspace={currentWorkspace} 
           setCurrentWorkspace={setCurrentWorkspace}
           currentUser={currentUser}
+          currentProject={currentProject}
           setCurrentProject={setCurrentProject}
         />}>
         <Route 
@@ -153,7 +154,8 @@ function WorkspaceRoutes(
           element={<WorkspaceSettings 
             workspaces={workspaces} 
             users={users}
-            currentWorkspace={currentWorkspace}/>}/>
+            currentWorkspace={currentWorkspace}
+            currentUser={currentUser}/>}/>
         <Route path="projects" element={<Projects/>}>
           <Route 
             path=":projectId" 
