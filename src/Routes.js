@@ -17,26 +17,32 @@ import Projects from "./pages/projects/Projects"
 import Project from "./pages/projects/Project"
 // User Options
 import GeneralSettings from "./pages/general/GeneralSettings"
-import Help from "./pages/general/Help"
+import About from "./pages/general/About"
 import Profile from "./pages/general/Profile"
 
 import { checkUserRole } from "./utils/UserFns"
 
 export default function MyRoutes() {
-  const [drawerOpen, setDrawerOpen] = React.useState(true)
-  const [currentWorkspace, setCurrentWorkspace] = React.useState(null) // ID of workspace
-  const [currentUser, setCurrentUser] = React.useState(null) // User entity
-  const [currentProject, setCurrentProject] = React.useState(null) // ID of project
-  const [workspaces, setWorkspaces] = React.useState(null)
-  const [projects, setProjects] = React.useState(null)
-  const [users, setUsers] = React.useState(null)
-  const [workspacesLoaded, setWorkspacesLoaded] = React.useState(false)
-  const [showDrawer, setShowDrawer] = React.useState(false)
-  const [navigateToRedirect, setNavigateToRedirect] = React.useState(false)
-  const [currentUserRole, setCurrentUserRole] = React.useState(checkUserRole(users, currentUser))
+  const [drawerOpen, setDrawerOpen] = useLocalStorage('drawer-open', true)
+  const [currentWorkspace, setCurrentWorkspace] = useLocalStorage('current-workspace', null) // ID of workspace
+  const [currentProject, setCurrentProject] = useLocalStorage('current-project', null) // ID of project
+  const [currentUser, setCurrentUser] = useLocalStorage('current-user', null) // User entity
+  const [workspaces, setWorkspaces] = useLocalStorage('workspaces', null)
+  const [projects, setProjects] = useLocalStorage('projects', null)
+  const [users, setUsers] = useLocalStorage('users', null)
+  const [workspacesLoaded, setWorkspacesLoaded] = useLocalStorage('workspaces-loaded', false)
+  const [showDrawer, setShowDrawer] = useLocalStorage('show-drawer', false)
+  const [navigateToRedirect, setNavigateToRedirect] = useLocalStorage('navigate-to-redirect', false)
+  const [currentUserRole, setCurrentUserRole] = useLocalStorage('current-user-role', null)
+  const [logout, setLogout] = useLocalStorage('logout', false)
 
   React.useEffect(() => {
-    setCurrentUserRole(checkUserRole(users, currentUser))
+  }, []);
+
+  React.useEffect(() => {
+    let role = checkUserRole(users, currentUser)
+    setCurrentUserRole(role)
+    // eslint-disable-next-line
   }, [users, currentUser])
 
   return (
@@ -61,6 +67,7 @@ export default function MyRoutes() {
           setWorkspaces={setWorkspaces}
           setCurrentProject={setCurrentProject}
           setProjects={setProjects}
+          setLogout={setLogout}
         />}>
         {EntryRoutes(
           setShowDrawer, navigateToRedirect, setNavigateToRedirect, currentUser, setCurrentUser,
@@ -68,7 +75,7 @@ export default function MyRoutes() {
           workspacesLoaded, setWorkspacesLoaded
         )}
         {UserRoutes(
-          setShowDrawer, setCurrentProject, setCurrentUser, currentUser
+          setShowDrawer, setCurrentProject, setCurrentUser, currentUser, setLogout
         )}
         {WorkspaceRoutes(
           projects, users, workspaces, currentUser, currentUserRole, currentWorkspace, 
@@ -79,6 +86,22 @@ export default function MyRoutes() {
     </Routes>
   )
 }
+
+// Credit:
+// Robin Wieruch 
+// https://www.robinwieruch.de/react-uselocalstorage-hook/
+// 
+const useLocalStorage = (storageKey, fallbackState) => {
+  const [value, setValue] = React.useState(
+    JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState
+  );
+
+  React.useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(value));
+  }, [value, storageKey]);
+
+  return [value, setValue];
+};
 
 function EntryRoutes(
   setShowDrawer, navigateToRedirect, setNavigateToRedirect, currentUser, 
@@ -127,7 +150,7 @@ function EntryRoutes(
 }
 
 function UserRoutes( 
-  setShowDrawer, setCurrentProject, setCurrentUser, currentUser
+  setShowDrawer, setCurrentProject, setCurrentUser, currentUser, setLogout
 ) {
   return(
     <>
@@ -138,6 +161,7 @@ function UserRoutes(
           setCurrentProject={setCurrentProject}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
+          setLogout={setLogout}
         />}
       />
       <Route 
@@ -148,8 +172,8 @@ function UserRoutes(
         />}
       />
       <Route 
-        path='help' 
-        element={<Help 
+        path='about' 
+        element={<About 
           setShowDrawer={setShowDrawer}
           setCurrentProject={setCurrentProject}
         />}

@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-export default function Help({ setShowDrawer, setCurrentProject }) {
+export default function About({ setShowDrawer, setCurrentProject }) {
   /* 
     Page component for rendering the Help page
   */
@@ -19,7 +19,7 @@ export default function Help({ setShowDrawer, setCurrentProject }) {
         alignItems: 'left'
       }}>
         <Typography variant="h4">
-          Help
+          About
         </Typography>
         <Typography variant="caption">
           This is a help page. It'll list some information about Kaizen Manager.

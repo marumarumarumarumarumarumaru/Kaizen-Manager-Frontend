@@ -9,7 +9,9 @@ import DialogTitle from '@mui/material/DialogTitle'
 
 import { Link } from 'react-router-dom'
 
-export default function LogoutDialog({ open, setOpen, setShowDrawer }) {
+export default function LogoutDialog({ 
+  open, setOpen, setLogout 
+}) {
   /* 
     Renders the Logout Dialog
   */
@@ -18,8 +20,9 @@ export default function LogoutDialog({ open, setOpen, setShowDrawer }) {
   }
 
   const handleLogout = () => {
+    // localStorage.clear()
     setOpen(!open)
-    setShowDrawer(false)
+    setLogout(true)
   }
 
   return (

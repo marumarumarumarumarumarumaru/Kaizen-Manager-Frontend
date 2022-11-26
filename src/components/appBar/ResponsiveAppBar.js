@@ -12,7 +12,7 @@ import { AppBar } from '../CustomUI'
 
 export default function ResponsiveAppBar({ 
   drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, 
-  currentUser, setShowDrawer, setWorkspaces
+  currentUser, setWorkspaces, setLogout
 }) {
   /* 
     Renders the AppBar
@@ -42,7 +42,7 @@ export default function ResponsiveAppBar({
             variant="h4"
             noWrap
             component="a"
-            href="/"
+            href={"/workspaces/" + currentWorkspace}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -60,7 +60,7 @@ export default function ResponsiveAppBar({
             variant="h4"
             noWrap
             component="a"
-            href=""
+            href={"/workspaces/" + currentWorkspace}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -84,7 +84,7 @@ export default function ResponsiveAppBar({
             setWorkspaces={setWorkspaces}/>
           <UserMenu 
             currentUser={currentUser} 
-            setShowDrawer={setShowDrawer}/>
+            setLogout={setLogout}/>
         </Toolbar>
       </AppBar>
       {/* 

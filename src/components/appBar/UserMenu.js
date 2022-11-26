@@ -16,15 +16,15 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../dialogs/LogoutDialog'
 
-export default function UserMenu({ currentUser, setShowDrawer }) {
+export default function UserMenu({ currentUser, setLogout }) {
   /* 
     Renders the User Menu
   */
   const [anchorElUser, setAnchorElUser] = React.useState(null)
-  const [logout, setLogout] = React.useState(false)
+  const [showLogoutDialog, setShowLogoutDialog] = React.useState(false)
 
   const handleLogoutClickOpen = () => {
-    setLogout(true)
+    setShowLogoutDialog(true)
   }
   
   const handleOpenUserMenu = (event) => {
@@ -111,12 +111,12 @@ export default function UserMenu({ currentUser, setShowDrawer }) {
           <MenuItem
             onClick={handleCloseUserMenu}
             component={Link}
-            to={'/help'}
+            to={'/about'}
           >
             <ListItemIcon>
               <HelpIcon fontSize="small" />
             </ListItemIcon>
-            Help
+            About
           </MenuItem>
           <Divider variant="middle"/>
           <MenuItem
@@ -129,7 +129,10 @@ export default function UserMenu({ currentUser, setShowDrawer }) {
           </MenuItem>
         </Menu>
       </Box>
-      <LogoutDialog open={logout} setOpen={setLogout} setShowDrawer={setShowDrawer}/>
+      <LogoutDialog 
+        open={showLogoutDialog} 
+        setOpen={setShowLogoutDialog} 
+        setLogout={setLogout}/>
     </>
   )
 }
