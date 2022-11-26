@@ -7,22 +7,24 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function LogoutDialog({ 
-  open, setOpen, setLogout 
+  open, setOpen, setLogout, setNavigateToRedirect
 }) {
   /* 
     Renders the Logout Dialog
   */
+  const navigate = useNavigate()
   const handleClose = () => {
     setOpen(!open)
   }
 
   const handleLogout = () => {
-    // localStorage.clear()
     setOpen(!open)
     setLogout(true)
+    setNavigateToRedirect(false)
+    navigate("/")
   }
 
   return (
@@ -42,7 +44,7 @@ export default function LogoutDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleLogout} autoFocus component={Link} to={'/'}>
+        <Button onClick={handleLogout} autoFocus>
           Logout
         </Button>
       </DialogActions>

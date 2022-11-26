@@ -12,7 +12,7 @@ import { AppBar } from '../CustomUI'
 
 export default function ResponsiveAppBar({ 
   drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, 
-  currentUser, setWorkspaces, setLogout
+  currentUser, setWorkspaces, setLogout, setNavigateToRedirect
 }) {
   /* 
     Renders the AppBar
@@ -84,7 +84,9 @@ export default function ResponsiveAppBar({
             setWorkspaces={setWorkspaces}/>
           <UserMenu 
             currentUser={currentUser} 
-            setLogout={setLogout}/>
+            setLogout={setLogout}
+            setNavigateToRedirect={setNavigateToRedirect}
+          />
         </Toolbar>
       </AppBar>
       {/* 

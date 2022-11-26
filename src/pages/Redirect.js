@@ -15,7 +15,7 @@ export default function Redirect({
     setShowDrawer(false)
     setTimeout(function() {
       setWorkspacesLoaded(true)
-    }, 3000);
+    }, 3000)
   })
   
   React.useEffect(() => {

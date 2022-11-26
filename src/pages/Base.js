@@ -11,7 +11,8 @@ import { Main, DrawerHeader } from '../components/CustomUI';
 export default function Base({ 
   workspacesLoaded, showDrawer, drawerOpen, setDrawerOpen, projects, users, 
   workspaces, currentWorkspace, setCurrentWorkspace, currentUser, currentUserRole,
-  currentProject, setCurrentProject, setShowDrawer, setWorkspaces, setProjects, setLogout
+  currentProject, setCurrentProject, setWorkspaces, setProjects, setLogout,
+  setNavigateToRedirect
 }) {  
   /* 
     Page component for rendering base templating of the page
@@ -33,6 +34,7 @@ export default function Base({
                 currentUser={currentUser}
                 setWorkspaces={setWorkspaces}
                 setLogout={setLogout}
+                setNavigateToRedirect={setNavigateToRedirect}
               />
               <ResponsiveDrawer 
                 drawerOpen={drawerOpen} 

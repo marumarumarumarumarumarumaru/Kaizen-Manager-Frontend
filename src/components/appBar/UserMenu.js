@@ -16,7 +16,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../dialogs/LogoutDialog'
 
-export default function UserMenu({ currentUser, setLogout }) {
+export default function UserMenu({ 
+  currentUser, setLogout, setNavigateToRedirect
+}) {
   /* 
     Renders the User Menu
   */
@@ -132,7 +134,9 @@ export default function UserMenu({ currentUser, setLogout }) {
       <LogoutDialog 
         open={showLogoutDialog} 
         setOpen={setShowLogoutDialog} 
-        setLogout={setLogout}/>
+        setLogout={setLogout}
+        setNavigateToRedirect={setNavigateToRedirect}
+      />
     </>
   )
 }

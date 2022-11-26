@@ -23,7 +23,10 @@ import Profile from "./pages/general/Profile"
 import { checkUserRole } from "./utils/UserFns"
 
 export default function MyRoutes() {
-  const [drawerOpen, setDrawerOpen] = useLocalStorage('drawer-open', true)
+  const [drawerOpen, setDrawerOpen] = useLocalStorage('drawer-open', true)  // Controls responsive drawer
+  const [showDrawer, setShowDrawer] = useLocalStorage('show-drawer', false)
+  const [logout, setLogout] = useLocalStorage('logout', false)              // Controls logged in state
+  const [navigateToRedirect, setNavigateToRedirect] = useLocalStorage('navigate-to-redirect', false)
   const [currentWorkspace, setCurrentWorkspace] = useLocalStorage('current-workspace', null) // ID of workspace
   const [currentProject, setCurrentProject] = useLocalStorage('current-project', null) // ID of project
   const [currentUser, setCurrentUser] = useLocalStorage('current-user', null) // User entity
@@ -31,13 +34,11 @@ export default function MyRoutes() {
   const [projects, setProjects] = useLocalStorage('projects', null)
   const [users, setUsers] = useLocalStorage('users', null)
   const [workspacesLoaded, setWorkspacesLoaded] = useLocalStorage('workspaces-loaded', false)
-  const [showDrawer, setShowDrawer] = useLocalStorage('show-drawer', false)
-  const [navigateToRedirect, setNavigateToRedirect] = useLocalStorage('navigate-to-redirect', false)
   const [currentUserRole, setCurrentUserRole] = useLocalStorage('current-user-role', null)
-  const [logout, setLogout] = useLocalStorage('logout', false)
 
   React.useEffect(() => {
-  }, []);
+    // localStorage.clear()
+  }, [])
 
   React.useEffect(() => {
     let role = checkUserRole(users, currentUser)
@@ -51,31 +52,33 @@ export default function MyRoutes() {
         exact 
         path="/" 
         element={<Base 
-          showDrawer={showDrawer}
-          workspacesLoaded={workspacesLoaded}
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          projects={projects} 
-          users={users}
-          workspaces={workspaces} 
-          currentWorkspace={currentWorkspace} 
-          setCurrentWorkspace={setCurrentWorkspace}
-          currentUser={currentUser}
-          currentUserRole={currentUserRole}
-          currentProject={currentProject}
-          setShowDrawer={setShowDrawer}
-          setWorkspaces={setWorkspaces}
-          setCurrentProject={setCurrentProject}
-          setProjects={setProjects}
-          setLogout={setLogout}
-        />}>
+            showDrawer={showDrawer}
+            workspacesLoaded={workspacesLoaded}
+            drawerOpen={drawerOpen} 
+            setDrawerOpen={setDrawerOpen} 
+            projects={projects} 
+            users={users}
+            workspaces={workspaces} 
+            currentWorkspace={currentWorkspace} 
+            setCurrentWorkspace={setCurrentWorkspace}
+            currentUser={currentUser}
+            currentUserRole={currentUserRole}
+            currentProject={currentProject}
+            setShowDrawer={setShowDrawer}
+            setWorkspaces={setWorkspaces}
+            setCurrentProject={setCurrentProject}
+            setProjects={setProjects}
+            setLogout={setLogout}
+            setNavigateToRedirect={setNavigateToRedirect}
+          />
+        }>
         {EntryRoutes(
-          setShowDrawer, navigateToRedirect, setNavigateToRedirect, currentUser, setCurrentUser,
-          currentWorkspace, setCurrentWorkspace, workspaces, setWorkspaces, 
-          workspacesLoaded, setWorkspacesLoaded
+          setShowDrawer, navigateToRedirect, setNavigateToRedirect, currentUser, 
+          setCurrentUser, currentWorkspace, setCurrentWorkspace, workspaces, setWorkspaces, 
+          workspacesLoaded, setWorkspacesLoaded, logout, setLogout
         )}
         {UserRoutes(
-          setShowDrawer, setCurrentProject, setCurrentUser, currentUser, setLogout
+          setShowDrawer, setCurrentProject, setCurrentUser, currentUser
         )}
         {WorkspaceRoutes(
           projects, users, workspaces, currentUser, currentUserRole, currentWorkspace, 
@@ -87,9 +90,11 @@ export default function MyRoutes() {
   )
 }
 
-// Credit:
-// Robin Wieruch 
+// 
+// Code adopted from:
 // https://www.robinwieruch.de/react-uselocalstorage-hook/
+// Robin Wieruch 
+// Last accessed: November 26, 2022
 // 
 const useLocalStorage = (storageKey, fallbackState) => {
   const [value, setValue] = React.useState(
@@ -106,20 +111,22 @@ const useLocalStorage = (storageKey, fallbackState) => {
 function EntryRoutes(
   setShowDrawer, navigateToRedirect, setNavigateToRedirect, currentUser, 
   setCurrentUser, currentWorkspace, setCurrentWorkspace, workspaces, setWorkspaces,
-  workspacesLoaded, setWorkspacesLoaded
+  workspacesLoaded, setWorkspacesLoaded, logout, setLogout
 ) {
   return(
     <>
       <Route 
         index 
         element={
-          navigateToRedirect
-          ? (<Navigate replace to="redirect"/>)
+          (navigateToRedirect && !logout)
+          ? <Navigate replace to="redirect"/>
           : <Landing 
               setShowDrawer={setShowDrawer}
               setNavigateToRedirect={setNavigateToRedirect}
-              currentUser={currentUser} 
-              setCurrentUser={setCurrentUser}/>} />
+              setCurrentUser={setCurrentUser}
+              setLogout={setLogout}
+        />} 
+      />
       <Route 
         path="redirect" 
         element={
@@ -135,7 +142,8 @@ function EntryRoutes(
               setWorkspaces={setWorkspaces}
               setCurrentWorkspace={setCurrentWorkspace}
               setWorkspacesLoaded={setWorkspacesLoaded}
-              />}/>  
+        />}
+      />  
       <Route 
         path='create-workspace' 
         element={<CreateWorkspace
@@ -150,7 +158,7 @@ function EntryRoutes(
 }
 
 function UserRoutes( 
-  setShowDrawer, setCurrentProject, setCurrentUser, currentUser, setLogout
+  setShowDrawer, setCurrentProject, setCurrentUser, currentUser
 ) {
   return(
     <>
@@ -161,7 +169,6 @@ function UserRoutes(
           setCurrentProject={setCurrentProject}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
-          setLogout={setLogout}
         />}
       />
       <Route 
@@ -199,8 +206,8 @@ function WorkspaceRoutes(
           currentWorkspace={currentWorkspace}
           setProjects={setProjects}
           setUsers={setUsers}
-          />}
-        >      
+          />
+        }>      
           <Route 
             index 
             element={<WorkspaceDefault />}/>

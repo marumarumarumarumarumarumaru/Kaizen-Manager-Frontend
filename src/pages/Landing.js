@@ -4,11 +4,15 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { GoogleLogin } from '@react-oauth/google'
 
-export default function Landing({ setShowDrawer, setNavigateToRedirect, setCurrentUser }) {
+export default function Landing({ 
+  setShowDrawer, setNavigateToRedirect, setCurrentUser, setLogout
+}) {
   /* 
     Page component for rendering the Landing page
   */
   React.useEffect(() => {
+    localStorage.clear()
+    setLogout(false)
     setShowDrawer(false)
   })
 
