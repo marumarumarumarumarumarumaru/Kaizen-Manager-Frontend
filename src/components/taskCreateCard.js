@@ -8,7 +8,9 @@ import PostAddIcon from '@mui/icons-material/PostAdd'
 
 import CreateTaskDialog from './dialogs/CreateTaskDialog'
 
-export default function CreateTaskCard({ selectedStatus, users}) {
+export default function CreateTaskCard({ 
+  currentWorkspace, currentProject, currentUser, selectedStatus, users, setTasks
+}) {
 
   const [newTaskOpen, setNewTaskOpen] = React.useState(false)
   const [snackbarCreateTaskOpen, setSnackbarCreateTaskOpen] = React.useState(false)
@@ -32,12 +34,16 @@ export default function CreateTaskCard({ selectedStatus, users}) {
         </CardActionArea>
       </Card>
       <CreateTaskDialog 
+        currentWorkspace={currentWorkspace}
+        currentProject={currentProject}
+        currentUser={currentUser}
         selectedStatus={selectedStatus} 
         users={users} 
         newTaskOpen={newTaskOpen} 
         setNewTaskOpen={setNewTaskOpen} 
         snackbarOpen={snackbarCreateTaskOpen} 
         setSnackbarOpen={setSnackbarCreateTaskOpen}
+        setTasks={setTasks}
       />
     </>
   )

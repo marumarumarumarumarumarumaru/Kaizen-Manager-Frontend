@@ -6,18 +6,62 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { Link } from 'react-router-dom'
 
-export default function CreateWorkspace({ setShowDrawer, currentWorkspace, setCurrentWorkspace}) {
+import { ValidateCreateWorkspace } from '../utils/ValidationFns'
+
+export default function CreateWorkspace({ 
+  setShowDrawer, currentWorkspace, currentUser, setCurrentWorkspace, setWorkspaces
+}) {
   /* 
     Page component for rendering the create workspace page
   */
   const [workspaceName, setWorkspaceName] = React.useState('')
+  const [errors, setErrors] = React.useState([])
 
   React.useEffect(() => {
-    setShowDrawer(true)
+    setShowDrawer(false)
   })
 
   const handleChange = (event) => {
     setWorkspaceName(event.target.value)
+  }
+
+  const handleSubmit = () => {
+    const validationErrors = ValidateCreateWorkspace(workspaceName)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrors(validationErrors)
+      console.log(errors)
+      return
+    }
+
+    let createWorkspace = true
+
+    const createWS = async () => {
+      const data = { workspace_name: workspaceName }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces'
+      // POST /users/:user_id/workspaces
+      const response = await fetch( endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const workspace = await response.json()
+      const getWorkspaces = await fetch( endpoint, {method: 'GET'})
+      const workspaces = await getWorkspaces.json()
+      if (createWorkspace) {
+        setCurrentWorkspace(workspace.workspace_id)
+        setWorkspaces(workspaces)
+      }
+    }
+
+    createWS()
+    return () => {
+      createWorkspace = false
+    }
   }
 
   return (
@@ -33,6 +77,7 @@ export default function CreateWorkspace({ setShowDrawer, currentWorkspace, setCu
         >
           <Box sx={{
             marginTop: 5,
+            marginX: 2,
             p: 2,
             display: 'flex',
             flexDirection: 'column',
@@ -52,13 +97,15 @@ export default function CreateWorkspace({ setShowDrawer, currentWorkspace, setCu
             }}
           >
             <TextField
-              required
-              id="outlined-required"
-              label="Workspace"
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Workspace name"
               type="text"
               value={workspaceName}
               onChange={handleChange}
-              sx={{ m: 1, width: '30vh' }}
+              fullWidth
+              variant="standard"
             />
           </Box>
           <Box sx={{
@@ -72,7 +119,12 @@ export default function CreateWorkspace({ setShowDrawer, currentWorkspace, setCu
             <Link
               to={'/workspaces/' + currentWorkspace}
             >
-              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Get Started!</Button>
+              <Button 
+                variant='contained' 
+                sx={{ m: 2, paddingY: 1, paddingX: 2 }}
+                onClick={handleSubmit}>
+                  Get Started!
+              </Button>
             </Link>
           </Box>
         </Paper>
@@ -80,3 +132,4 @@ export default function CreateWorkspace({ setShowDrawer, currentWorkspace, setCu
     </>
   )
 }
+

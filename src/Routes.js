@@ -71,7 +71,10 @@ export default function MyRoutes() {
           setCurrentWorkspace={setCurrentWorkspace}
           currentUser={currentUser}
           currentProject={currentProject}
+          setShowDrawer={setShowDrawer}
+          setWorkspaces={setWorkspaces}
           setCurrentProject={setCurrentProject}
+          setProjects={setProjects}
         />}>
         <Route 
           index 
@@ -103,8 +106,9 @@ export default function MyRoutes() {
           path='create-workspace' 
           element={<CreateWorkspace
             setShowDrawer={setShowDrawer}
-            urrentWorkspace={currentWorkspace} 
-            setCurrentWorkspace={setCurrentWorkspace}/>}/>
+            currentUser={currentUser}
+            setCurrentWorkspace={setCurrentWorkspace}
+            setWorkspaces={setWorkspaces}/>}/>
         <Route 
           path='profile' 
           element={<Profile 
@@ -120,7 +124,7 @@ export default function MyRoutes() {
         {WorkspaceRoutes(
           tasks, projects, users, workspaces, currentUser, currentWorkspace, 
           currentProject, setShowDrawer, handleProjectsUpdate, handleUsersUpdate,
-          handleTasksUpdate)}
+          handleTasksUpdate, setProjects, setTasks, setUsers)}
       </Route>  
     </Routes>
   )
@@ -128,7 +132,8 @@ export default function MyRoutes() {
 
 function WorkspaceRoutes( 
   tasks, projects, users, workspaces, currentUser, currentWorkspace, currentProject, 
-  setShowDrawer, handleProjectsUpdate, handleUsersUpdate, handleTasksUpdate
+  setShowDrawer, handleProjectsUpdate, handleUsersUpdate, handleTasksUpdate,
+  setProjects, setTasks, setUsers
 ) {
   return (
     <Route 
@@ -155,7 +160,8 @@ function WorkspaceRoutes(
             workspaces={workspaces} 
             users={users}
             currentWorkspace={currentWorkspace}
-            currentUser={currentUser}/>}/>
+            currentUser={currentUser}
+            setUsers={setUsers}/>}/>
         <Route path="projects" element={<Projects/>}>
           <Route 
             path=":projectId" 
@@ -166,6 +172,8 @@ function WorkspaceRoutes(
               currentUser={currentUser}
               tasks={tasks} 
               users={users}
+              setProjects={setProjects}
+              setTasks={setTasks}
               handleTasksUpdate={handleTasksUpdate}/>} />
         </Route>
       </Route>

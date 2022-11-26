@@ -24,7 +24,7 @@ import { DrawerHeader } from '../CustomUI'
 
 export default function ResponsiveDrawer({ 
   drawerOpen, setDrawerOpen, projects, users, workspaces, currentUser, 
-  currentWorkspace, currentProject, setCurrentProject 
+  currentWorkspace, currentProject, setCurrentProject, setProjects 
 }) {
   /* 
     Renders the Drawer
@@ -130,10 +130,12 @@ export default function ResponsiveDrawer({
       <CreateProjectDialog 
         currentUser={currentUser}
         currentWorkspace={currentWorkspace}
+        setCurrentProject={setCurrentProject}
         newProjectOpen={newProjectOpen} 
         setNewProjectOpen={setNewProjectOpen} 
         snackbarOpen={snackbarCreateProjectOpen}
-        setSnackbarOpen={setSnackbarCreateProjectOpen}/>
+        setSnackbarOpen={setSnackbarCreateProjectOpen}
+        setProjects={setProjects}/>
     </>
   )
 }

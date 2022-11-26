@@ -32,7 +32,7 @@ export default function MembersTable({ users, currentUser }) {
         </TableHead>
         <TableBody>
           {users.map((user) => (
-            <MembersRow user={user} currentUserRole={currentUserRole}/>
+            <MembersRow user={user} currentUserRole={currentUserRole} currentUser={currentUser}/>
           ))}
         </TableBody>
       </Table>
@@ -40,7 +40,7 @@ export default function MembersTable({ users, currentUser }) {
   )
 }
 
-function MembersRow({ user, currentUserRole }) {
+function MembersRow({ user, currentUserRole, currentUser }) {
 
   const [role, setRole] = React.useState(user.user_role)
   const roles = ['owner', 'pm', 'member']
@@ -75,6 +75,7 @@ function MembersRow({ user, currentUserRole }) {
               value={role}
               onChange={handleChange}
               displayEmpty
+              disabled={user.user_id === currentUser.user_id}
               inputProps={{ 'aria-label': 'Without label' }}
             >
               {roles.map((role) => (
@@ -86,7 +87,7 @@ function MembersRow({ user, currentUserRole }) {
         <TableCell align="right">
           <IconButton 
             onClick={handleRemoveUserClickOpen}
-            disabled={currentUserRole !== 'owner'}
+            disabled={currentUserRole !== 'owner' || user.user_id === currentUser.user_id}
             >
             <ClearIcon/>
           </IconButton>

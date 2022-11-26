@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { GoogleLogin } from '@react-oauth/google'
-import jwtDecode from 'jwt-decode'
 
 export default function Landing({ setShowDrawer, setNavigateToRedirect, currentUser, setCurrentUser }) {
   /* 
@@ -13,15 +12,11 @@ export default function Landing({ setShowDrawer, setNavigateToRedirect, currentU
     setShowDrawer(false)
   })
 
-  const handleLogin = (jwtToken) => {
-    const firstName = jwtToken.given_name
-    const lastName = jwtToken.family_name
-    const email = jwtToken.email
+  const handleLogin = (credentialResponse) => {
+    const credential = credentialResponse.credential
 
     const data = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email
+      credential: credential
     }
 
     fetch( process.env.REACT_APP_BACKEND_URL + '/login', {
@@ -62,8 +57,7 @@ export default function Landing({ setShowDrawer, setNavigateToRedirect, currentU
             <Typography paragraph>Click on the button below to get started!</Typography>
             <GoogleLogin
               onSuccess={credentialResponse => {
-                let jwtToken = jwtDecode(credentialResponse.credential)
-                handleLogin(jwtToken)
+                handleLogin(credentialResponse)
               }}                
               onError={() => {
                 console.log('Login Failed')

@@ -8,7 +8,10 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
-export default function CreateProjectDialog({ currentUser, currentWorkspace, newProjectOpen, setNewProjectOpen, snackbarOpen, setSnackbarOpen }) {
+export default function CreateProjectDialog({ 
+  currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 
+  snackbarOpen, setSnackbarOpen, setProjects
+}) {
   /* 
     Renders the Create Project Dialog
   */
@@ -31,32 +34,36 @@ export default function CreateProjectDialog({ currentUser, currentWorkspace, new
       console.log(errors)
       return
     }
-    const data = {
-      project_name: projectName
-    }
+    let addProjectToWS = true
 
-    // POST /users/:user_id/workspaces/:workspace_id/projects
-    fetch( process.env.REACT_APP_BACKEND_URL + '/users/' + currentUser.user_id + '/workspaces/' + currentWorkspace + '/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then ((response) => {
-      console.log(response)
-      if (response.ok) {
+    const createProject = async () => {
+      const data = { project_name: projectName }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects'
+      // POST /users/:user_id/workspaces/:workspace_id/projects
+      const response = await fetch( endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const project = response.json()
+      const getProjects = await fetch( endpoint, {method: 'GET'})
+      const projects = await getProjects.json()
+      if (addProjectToWS) {
+        setProjects(projects)
+        setCurrentProject(project.project_id)
         setNewProjectOpen(!newProjectOpen)
         setSnackbarOpen(!snackbarOpen)
-        return response
-      } else {
-        throw new Error("Something went wrong querying the database!")
       }
-    })
-    .catch(error => {alert(error)})
+    }
 
-    setNewProjectOpen(!newProjectOpen)
-    setSnackbarOpen(!snackbarOpen)
+    createProject()
+    return () => {
+      addProjectToWS = false
+    }
   }
 
   return (

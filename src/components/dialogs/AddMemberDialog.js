@@ -13,7 +13,9 @@ import Select from '@mui/material/Select'
 import AlertSnackbar from '../AlertSnackbar'
 import { Box, FormHelperText, TextField } from '@mui/material'
 
-export default function AddMemberDialog({ open, setOpen, currentWorkspace, workspaceName }) {
+export default function AddMemberDialog({ 
+  open, setOpen, currentWorkspace, currentUser, workspaceName, setUsers
+}) {
   /* 
     Renders the Remove member dialog
   */
@@ -34,9 +36,49 @@ export default function AddMemberDialog({ open, setOpen, currentWorkspace, works
   }
 
   const handleAdd = () => {
-    setOpen(!open)
-    setSnackbarOpen(!snackbarOpen)
-    // Add the user to the workspace
+    let addMemberToWS = true
+    
+    const addMember = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const emailEndpoint = url + '/users/by-email'
+      const emailData = { email: values.email }
+  
+      // GET /users/by_email
+      const userResponse = await fetch( emailEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(emailData)
+      })
+      const user = await userResponse.json()
+      const userId = await user.user_id
+      const currUserId = currentUser.user_id
+      const usersEndpoint = url + '/users/' + currUserId + '/workspaces/' + currentWorkspace + '/users'
+      const putMemberEndpoint = usersEndpoint + '/' + userId
+      const data = { user_role: values.role }
+      // POST /users/:user_id/workspaces/:workspace_id/users/:user_id_to_be_added
+      await fetch( putMemberEndpoint, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      // GET /users/:user_id/workspaces/:worspace_id/users
+      const usersResponse = await fetch( usersEndpoint, { method: 'GET'})
+      const users = await usersResponse.json() 
+      if (addMemberToWS) {
+        setUsers(users)
+        setOpen(!open)
+        setSnackbarOpen(!snackbarOpen)      
+      }
+    }
+
+    addMember()
+    return () => {
+      addMemberToWS = false
+    }
   }
 
   return (

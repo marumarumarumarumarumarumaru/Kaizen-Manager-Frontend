@@ -14,7 +14,10 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Link } from 'react-router-dom'
 import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
 
-export default function WorkspacesNav({ currentUser, currentWorkspace, setCurrentWorkspace, snackbarOpen, setSnackbarOpen, workspaces }) {
+export default function WorkspacesNav({
+  currentUser, currentWorkspace, setCurrentWorkspace, snackbarOpen, setSnackbarOpen, 
+  workspaces, setWorkspaces
+}) {
   /* 
     Renders the Workspaces Navigation
   */
@@ -100,11 +103,12 @@ export default function WorkspacesNav({ currentUser, currentWorkspace, setCurren
       </Menu>
       <CreateWorkspaceDialog 
         currentUser={currentUser} 
-        currentWorkspace={currentWorkspace}
+        setCurrentWorkspace={setCurrentWorkspace}
         newWorkspaceOpen={newWorkspaceOpen} 
         setNewWorkspaceOpen={setNewWorkspaceOpen} 
         snackbarOpen={snackbarOpen} 
-        setSnackbarOpen={setSnackbarOpen}/>
+        setSnackbarOpen={setSnackbarOpen}
+        setWorkspaces={setWorkspaces}/>
     </Box>
   )
 }

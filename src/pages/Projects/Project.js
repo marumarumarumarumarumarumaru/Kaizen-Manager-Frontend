@@ -12,7 +12,8 @@ import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
 
 export default function Project({ 
-  projects, currentWorkspace, currentProject, currentUser, tasks, users, handleTasksUpdate
+  projects, currentWorkspace, currentProject, currentUser, tasks, users, 
+  handleTasksUpdate, setProjects, setTasks
 }) {
   const [projTasks, setProjTasks] = React.useState()
   const [backlogTasks, setBacklogTasks] = React.useState()
@@ -134,7 +135,13 @@ export default function Project({
                 <TaskCard task={closedTasks[index]} users={users}/>
               )))
             : <></>}
-            <CreateTaskCard selectedStatus={taskStates[4]} users={users}/>
+            <CreateTaskCard 
+              currentWorkspace={currentWorkspace}
+              currentProject={currentProject}
+              currentUser={currentUser}
+              selectedStatus={taskStates[4]} 
+              users={users}
+              setTasks={setTasks}/>
           </Grid>
         </Grid>  
       </Box>

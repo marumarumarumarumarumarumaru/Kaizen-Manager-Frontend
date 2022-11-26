@@ -12,7 +12,7 @@ import { AppBar } from '../CustomUI'
 
 export default function ResponsiveAppBar({ 
   drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, 
-  currentUser, setShowDrawer
+  currentUser, setShowDrawer, setWorkspaces
 }) {
   /* 
     Renders the AppBar
@@ -80,7 +80,8 @@ export default function ResponsiveAppBar({
             setCurrentWorkspace={setCurrentWorkspace}
             snackbarOpen={snackbarCreateWSOpen} 
             setSnackbarOpen={setSnackbarCreateWSOpen} 
-            workspaces={workspaces}/>
+            workspaces={workspaces}
+            setWorkspaces={setWorkspaces}/>
           <UserMenu 
             currentUser={currentUser} 
             setShowDrawer={setShowDrawer}/>

@@ -44,13 +44,6 @@ export default function Redirect({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // React.useEffect(() => {
-  //   setTimeout(function() {
-  //     setLoggedIn(true)
-  //     setDataLoaded(true)
-  //   }, 3000);
-  // }, [])
-
   return (
     <Box sx={{ 
       display: 'flex',

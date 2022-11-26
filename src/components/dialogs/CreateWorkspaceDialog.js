@@ -7,7 +7,12 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-export default function CreateWorkspaceDialog({ currentUser, currentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, snackbarOpen, setSnackbarOpen }) {
+import { ValidateCreateWorkspace } from '../../utils/ValidationFns'
+
+export default function CreateWorkspaceDialog({ 
+  currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 
+  snackbarOpen, setSnackbarOpen, setWorkspaces
+}) {
   /* 
     Renders the Create Workspace Dialog
   */
@@ -30,32 +35,36 @@ export default function CreateWorkspaceDialog({ currentUser, currentWorkspace, n
       console.log(errors)
       return
     }
-    const data = {
-      workspace_name: workspaceName
+
+    let createWorkspace = true
+
+    const createWS = async () => {
+      const data = { workspace_name: workspaceName }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces'
+      // POST /users/:user_id/workspaces
+      const response = await fetch( endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const workspace = await response.json()
+      const getWorkspaces = await fetch( endpoint, {method: 'GET'})
+      const workspaces = await getWorkspaces.json()
+      if (createWorkspace) {
+        setCurrentWorkspace(workspace.workspace_id)
+        setWorkspaces(workspaces)
+        setNewWorkspaceOpen(!newWorkspaceOpen)
+        setSnackbarOpen(!snackbarOpen)      }
     }
 
-    // POST /users/:user_id/workspaces/:workspace_id
-    fetch( process.env.REACT_APP_BACKEND_URL + '/users/' + currentUser.user_id + '/workspaces/' + currentWorkspace, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then ((response) => {
-      console.log(response)
-      if (response.ok) {
-        setNewWorkspaceOpen(!newWorkspaceOpen)
-        setSnackbarOpen(!snackbarOpen)
-        return response
-      } else {
-        throw new Error("Something went wrong querying the database!")
-      }
-    })
-    .catch(error => {alert(error)})
-
-    setNewWorkspaceOpen(!newWorkspaceOpen)
-    setSnackbarOpen(!snackbarOpen)
+    createWS()
+    return () => {
+      createWorkspace = false
+    }
   }
 
   return (
@@ -83,13 +92,4 @@ export default function CreateWorkspaceDialog({ currentUser, currentWorkspace, n
       </DialogActions>
     </Dialog>
   )
-}
-
-function ValidateCreateWorkspace(workspaceName) { 
-  const errors = []
-
-  if (workspaceName === null) {
-    errors.push("Workspace name empty")
-  }
-  return errors
 }

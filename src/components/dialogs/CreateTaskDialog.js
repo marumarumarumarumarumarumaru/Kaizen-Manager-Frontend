@@ -12,11 +12,13 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
-export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen}) {
+export default function CreateTaskDialog ({ 
+  currentWorkspace, currentProject, currentUser, selectedStatus, users, 
+  newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen, setTasks
+}) {
   /* 
     Renders the Create Project Dialog
   */
-
   const [values, setValues] = React.useState({
     taskName: '',
     assignee: undefined,
@@ -36,9 +38,42 @@ export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, 
     setNewTaskOpen(!newTaskOpen)
   }
 
-  const handleNewTaskClose = () => {
-    setNewTaskOpen(!newTaskOpen)
-    setSnackbarOpen(!snackbarOpen)
+  const handleNewTaskCreate = async () => {
+    let addTaskToWS = true
+
+    const createTask = async () => {
+      const data = {
+        task_name: values.taskName,
+        task_value: values.taskValue,
+        task_status: values.selectedStatus,
+        task_assignee: values.assignee,
+        task_description: values.taskDescription,
+        task_due_date: values.targetDate
+      }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      // POST /users/:user_id/workspaces/:workspace_id/projects/:project_id/tasks
+      await fetch( endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const getTasks = await fetch( endpoint, {method: 'GET'})
+      const tasks = await getTasks.json()
+      if (addTaskToWS) {
+        setTasks(tasks)
+        setNewTaskOpen(!newTaskOpen)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    createTask()
+    return () => {
+      addTaskToWS = false
+    }
   }
 
   return (
@@ -124,7 +159,7 @@ export default function CreateTaskDialog ({ selectedStatus, users, newTaskOpen, 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleNewTaskClose}>Create</Button>
+          <Button onClick={handleNewTaskCreate}>Create</Button>
         </DialogActions>
       </Dialog>
       <AlertSnackbar 
