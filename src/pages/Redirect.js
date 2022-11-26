@@ -5,7 +5,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { Typography } from '@mui/material'
 
 export default function Redirect({ 
-  setShowDrawer, currentUser, handleWorkspacesUpdate, handleCurrentWorkspaceUpdate, setWorkspacesLoaded
+  setShowDrawer, currentUser, setWorkspaces, setCurrentWorkspace, setWorkspacesLoaded
 }) {
   /* 
     Page component for rendering the Redirect page
@@ -29,9 +29,9 @@ export default function Redirect({
       const response = await fetch(endpoint, {method: 'GET'})
       const workspaces = await response.json()
       if (retrieveData) {
-        handleWorkspacesUpdate(workspaces) 
+        setWorkspaces(workspaces) 
         if (workspaces.length > 0) {
-          handleCurrentWorkspaceUpdate(workspaces[0].workspace_id)
+          setCurrentWorkspace(workspaces[0].workspace_id)
         }
       }
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 export default function Workspace({ 
-  setShowDrawer, currentUser, currentWorkspace, handleProjectsUpdate, handleUsersUpdate 
+  setShowDrawer, currentUser, currentWorkspace, setProjects, setUsers 
 }) {
   /* 
     Page component for outletting the workspace for specific workspace id
@@ -25,8 +25,8 @@ export default function Workspace({
       const users = await getUsers.json()
 
       if (retrieveData) {
-        handleProjectsUpdate(projects) 
-        handleUsersUpdate(users)
+        setProjects(projects) 
+        setUsers(users)
       }
     }
   

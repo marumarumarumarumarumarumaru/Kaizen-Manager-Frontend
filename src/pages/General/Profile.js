@@ -7,7 +7,9 @@ import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
 // import PasswordForm from '../../components/forms/ProfilePasswordForm'
 import ProfileForm from '../../components/forms/ProfileForm'
 
-export default function Profile({ setShowDrawer }) {
+export default function Profile({ 
+  setShowDrawer, setCurrentProject, currentUser, setCurrentUser
+}) {
   /* 
     Page component for rendering the Profile Settings page
   */
@@ -15,6 +17,7 @@ export default function Profile({ setShowDrawer }) {
 
   React.useEffect(() => {
     setShowDrawer(true)
+    setCurrentProject(null)
   })
 
   const handleDeleteAccountClickOpen = () => {
@@ -33,12 +36,19 @@ export default function Profile({ setShowDrawer }) {
         <Typography variant="caption">
           Edit below to update your user profile on Kaizen Manager.
         </Typography>
-        <ProfileForm />
+        <ProfileForm 
+          currentUser={currentUser} 
+          setCurrentUser={setCurrentUser}
+        />
         <DeleteAccount openDialog={handleDeleteAccountClickOpen}/>
       </Box>
       {/* Commenting out as we currently utilize OAuth for login flow */}
       {/* <PasswordForm /> */}
-      <DeleteAccountDialog open={deleteOpen} setOpen={setDeleteOpen}/>
+      <DeleteAccountDialog 
+        open={deleteOpen} 
+        setOpen={setDeleteOpen}
+        currentUser={currentUser}
+      />
     </>
   )
 }
@@ -60,7 +70,14 @@ function DeleteAccount({openDialog}) {
           By pressing the below button, you can delete your account after a confirmation screen.
         </Typography>
       </Box>
-      <Button variant='contained' onClick={openDialog} color="error" sx={{ mt: 2 }}>Delete Account</Button>
+      <Button 
+        variant='contained' 
+        onClick={openDialog} 
+        color="error" 
+        sx={{ mt: 2 }}
+      >
+        Delete Account
+      </Button>
     </>
   )
 }

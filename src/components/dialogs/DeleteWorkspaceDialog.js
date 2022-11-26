@@ -7,7 +7,10 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) {
+export default function DeleteWorkspaceDialog({ 
+  open, setOpen, workspaceName, currentUser, currentWorkspace, setWorkspaces, 
+  setCurrentWorkspace
+}) {
   /* 
     Renders the Logout Dialog
   */
@@ -16,8 +19,30 @@ export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) 
   }
 
   const handleDeleteWorkspace = () => {
-    setOpen(!open)
-    // Method to delete the workspace
+    let delWorkspace = true
+
+    const performWSDeletion = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces'
+      const workspaceEndpoint = endpoint + '/' + currentWorkspace
+      // DELETE /users/:user_id/workspaces/:workspace_id
+      await fetch( workspaceEndpoint, {method: 'DELETE'})
+      const getWorkspaces = await fetch( endpoint, {method: 'GET'})
+      const workspaces = await getWorkspaces.json()
+      if (delWorkspace) {
+        setWorkspaces(workspaces)
+        if (workspaces.length > 0) {
+          setCurrentWorkspace(workspaces[0].workspace_id)
+        }
+        setOpen(!open)
+      }
+    }
+
+    performWSDeletion()
+    return () => {
+      delWorkspace = false
+    }
   }
 
   return (

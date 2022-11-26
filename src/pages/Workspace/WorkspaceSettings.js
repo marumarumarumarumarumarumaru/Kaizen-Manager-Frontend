@@ -6,17 +6,26 @@ import Typography from '@mui/material/Typography'
 import MembersTable from '../../components/WSMembersTable'
 import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog'
 import AddMemberDialog from '../../components/dialogs/AddMemberDialog'
-import { CheckUserRole } from '../../utils/UserFns'
+import { checkUserRole } from '../../utils/UserFns'
 
 export default function WorkspaceSettings({
-  workspaces, users, currentWorkspace, currentUser, setUsers
+  workspaces, users, currentWorkspace, currentUser, setUsers, setWorkspaces, 
+  setCurrentWorkspace, setCurrentProject
 }) {
   /* 
     Page component for rendering the Settings page for Workspace
   */
   const [deleteOpen, setDeleteOpen] = React.useState(false)
   const [addMemberOpen, setAddMemberOpen] = React.useState(false)
-  const currentUserRole = CheckUserRole(users, currentUser)
+  const [currentUserRole, setCurrentUserRole] = React.useState(checkUserRole(users, currentUser))
+
+  React.useEffect(() => {
+    setCurrentUserRole(checkUserRole(users, currentUser))
+  }, [users, currentUser])
+
+  React.useEffect(() => {
+    setCurrentProject(null)
+  })
 
   const handleDeleteWSClickOpen = () => {
     setDeleteOpen(!deleteOpen)
@@ -57,7 +66,9 @@ export default function WorkspaceSettings({
         </Typography>
         <MembersTable 
           users={users} 
-          currentUser={currentUser}/>
+          currentUser={currentUser}
+          currentWorkspace={currentWorkspace}
+          setUsers={setUsers}/>
         <Button 
           variant='contained' 
           disabled={currentUserRole !== 'owner'}
@@ -65,7 +76,13 @@ export default function WorkspaceSettings({
             Add a member
         </Button>
         {currentUserRole !== 'owner'
-        ? <Typography variant="subtitle2" sx={{mt: 1}} color="error">You must be an owner to add a member</Typography>
+        ? <Typography 
+            variant="subtitle2" 
+            sx={{mt: 1}} 
+            color="error"
+          >
+            You must be an owner to add a member
+          </Typography>
         : null}
         <Typography variant="h5" sx={{ mt: 4 }}>
           Delete Workspace
@@ -83,21 +100,31 @@ export default function WorkspaceSettings({
           Delete Workspace
       </Button>
       {currentUserRole !== 'owner'
-      ? <Typography variant="subtitle2" sx={{ml: 2, mt: 1}} color="error">You must be an owner to delete a workspace</Typography>
+      ? <Typography 
+          variant="subtitle2" 
+          sx={{ml: 2, mt: 1}} 
+          color="error"
+        >
+            You must be an owner to delete a workspace
+        </Typography>
       : null}
       <DeleteWorkspaceDialog 
         open={deleteOpen} 
         setOpen={setDeleteOpen} 
         currentWorkspace={currentWorkspace}
         currentUser={currentUser}
-        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}/>
+        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}
+        setWorkspaces={setWorkspaces}
+        setCurrentWorkspace={setCurrentWorkspace}
+      />
       <AddMemberDialog 
         open={addMemberOpen} 
         setOpen={setAddMemberOpen} 
         currentWorkspace={currentWorkspace}
         currentUser={currentUser}
         workspaceName={getWorkspaceName(workspaces, currentWorkspace)}
-        setUsers={setUsers}/>
+        setUsers={setUsers}
+      />
     </>
   )
 }

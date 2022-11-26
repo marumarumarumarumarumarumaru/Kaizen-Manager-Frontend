@@ -7,7 +7,10 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-export default function DeleteProjectDialog({ project, delProjectOpen, setDelProjectOpen, snackbarOpen, setSnackbarOpen }) {
+export default function DeleteProjectDialog({ 
+  project, delProjectOpen, setDelProjectOpen, snackbarOpen, setSnackbarOpen, 
+  currentWorkspace, currentProject, currentUser, setProjects
+}) {
   /* 
     Renders the Logout Dialog
   */  
@@ -16,9 +19,28 @@ export default function DeleteProjectDialog({ project, delProjectOpen, setDelPro
   }
 
   const handleDeleteProject = () => {
-    setDelProjectOpen(!delProjectOpen)
-    setSnackbarOpen(!snackbarOpen)
-    // Method to delete the workspace
+    let delProjectFromWS = true
+
+    const deleteProject = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects'
+      const projectEndpoint = endpoint + '/' + currentProject
+      // DELETE /users/:user_id/workspaces/:workspace_id/projects/:project_id
+      await fetch( projectEndpoint, {method: 'DELETE'})
+      const getProjects = await fetch( endpoint, {method: 'GET'})
+      const projects = await getProjects.json()
+      if (delProjectFromWS) {
+        setProjects(projects)
+        setDelProjectOpen(!delProjectOpen)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    deleteProject()
+    return () => {
+      delProjectFromWS = false
+    }
   }
 
   return (

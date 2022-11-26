@@ -13,7 +13,10 @@ import Select from '@mui/material/Select'
 
 import AlertSnackbar from '../AlertSnackbar'
 
-export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen }) {
+export default function UpdateTaskStatusDialog({ 
+  task, moveTaskOpen, setMoveTaskOpen, currentWorkspace, currentProject, 
+  currentUser, setProjTasks
+}) {
   /* 
     Renders the Edit Task Dialog
   */
@@ -31,8 +34,35 @@ export default function EditTaskDialog({ task, moveTaskOpen, setMoveTaskOpen }) 
   }
 
   const handleStatusUpdate = () => {
-    setMoveTaskOpen(!moveTaskOpen)
-    setSnackbarOpen(!snackbarOpen)
+    let updateTaskFromProj = true
+
+    const moveTask = async () => {
+      const data = { task_status: selectedStatus }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      const taskEndpoint = endpoint + '/' + task.task_id
+      // PATCH /users/:user_id/workspaces/:workspace_id/projects/:project_id/tasks/:task_id
+      await fetch( taskEndpoint, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const getTasks = await fetch( endpoint, {method: 'GET'})
+      const tasks = await getTasks.json()
+      if (updateTaskFromProj) {
+        setProjTasks(tasks)
+        setMoveTaskOpen(!moveTaskOpen)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    moveTask()
+    return () => {
+      updateTaskFromProj = false
+    }
   }
 
   return (

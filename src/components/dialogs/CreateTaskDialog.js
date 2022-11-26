@@ -11,23 +11,24 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 export default function CreateTaskDialog ({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, 
-  newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen, setTasks
+  newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen, setProjTasks
 }) {
   /* 
     Renders the Create Project Dialog
   */
+  const [targetDate, setTargetDate] = React.useState(null)
+
   const [values, setValues] = React.useState({
     taskName: '',
     assignee: undefined,
     selectedStatus: selectedStatus,
-    taskValue: undefined,
-    taskDescription: '',
-    targetDate: undefined
+    taskValue: 0,
+    taskDescription: ''
   })
-
   // const [errors, setErrors] = React.useState([])
 
   const handleChange = (prop) => (event) => {
@@ -47,12 +48,12 @@ export default function CreateTaskDialog ({
         task_value: values.taskValue,
         task_status: values.selectedStatus,
         task_assignee: values.assignee,
-        task_description: values.taskDescription,
-        task_due_date: values.targetDate
+        task_descriptions: values.taskDescription,
+        task_due_date: targetDate
       }
       const url = process.env.REACT_APP_BACKEND_URL
       const userId = currentUser.user_id
-      const endpoint = url + '/users/' + userId + '/workspaces' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects/' + currentProject + '/tasks'
       // POST /users/:user_id/workspaces/:workspace_id/projects/:project_id/tasks
       await fetch( endpoint, {
         method: 'POST',
@@ -64,7 +65,7 @@ export default function CreateTaskDialog ({
       const getTasks = await fetch( endpoint, {method: 'GET'})
       const tasks = await getTasks.json()
       if (addTaskToWS) {
-        setTasks(tasks)
+        setProjTasks(tasks)
         setNewTaskOpen(!newTaskOpen)
         setSnackbarOpen(!snackbarOpen)
       }
@@ -100,16 +101,16 @@ export default function CreateTaskDialog ({
             <Select
               labelId="assignee-select-standard-label"
               id="assignee-select-standard"
-              value={values.assignee ?? undefined}
+              value={values.assignee || ''}
               onChange={handleChange('assignee')}
               label="Assignee"
             >
-              <MenuItem value={undefined}>
-                <em>None</em>
-              </MenuItem>
-              {users.map((user) => (
-                <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
-              ))}
+              <MenuItem value={''}>None</MenuItem>
+              {users
+              ? (users.map((user) => (
+                  <MenuItem value={user.user_id}>{user.first_name + ' ' + user.last_name}</MenuItem>
+                )))
+              : null}
             </Select>
           </FormControl>
           <TextField
@@ -127,7 +128,7 @@ export default function CreateTaskDialog ({
             margin="dense"
             id="name"
             label="Task value"
-            value={values.taskValue ?? undefined}
+            value={values.taskValue || ''}
             onChange={handleChange('taskValue')}
             type="number"
             fullWidth
@@ -138,23 +139,19 @@ export default function CreateTaskDialog ({
             margin="dense"
             id="name"
             label="Description"
-            value={values.taskDescription ?? ''}
+            value={values.taskDescription || ''}
             onChange={handleChange('taskDescription')}
             type="text"
             fullWidth
             multiline
             variant="standard"
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
+          <DatePicker
             label="Target date"
-            value={values.targetDate ?? ''}
-            onChange={handleChange('targetDate')}
-            type="text"
-            fullWidth
-            variant="standard"
+            value={targetDate}
+            onChange={(newValue) => {setTargetDate(newValue)}}
+            renderInput={(params) => <TextField {...params}
+            sx={{ mt: 2 }}/>}
           />
         </DialogContent>
         <DialogActions>

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import AlertSnackbar from '../../components/AlertSnackbar'
 
-export default function ProfileForm() {
+export default function ProfileForm({ currentUser, setCurrentUser }) {
   /* 
     Page component for rendering the Profile Settings page's form
   */
@@ -21,7 +21,37 @@ export default function ProfileForm() {
   }
 
   const handleSubmit = () => {
-    setSnackbarOpen(!snackbarOpen)
+    let updateUserProfile = true
+
+    const updateUser = async () => {
+      const data = {
+        first_name: values.firstName,
+        last_name: values.lastName
+      }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId
+      // PATCH /users/:user_id
+      await fetch( endpoint, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      // GET /users/:user_id
+      const getUser = await fetch( endpoint, {method: 'GET'})
+      const user = await getUser.json()
+      if (updateUserProfile) {
+        setCurrentUser(user)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    updateUser()
+    return () => {
+      updateUserProfile = false
+    }
   }
 
   return (
@@ -48,14 +78,14 @@ export default function ProfileForm() {
         <TextField
           id="outlined"
           label="First Name"
-          value={values.firstName ?? ''}
+          value={values.firstName || ''}
           onChange={handleChange('firstName')}
           sx={{ m: 1, width: '50vh' }}
         />
         <TextField
           id="outlined"
           label="Last Name"
-          value={values.lastName ?? ''}
+          value={values.lastName || ''}
           onChange={handleChange('lastName')}
           sx={{ m: 1, width: '50vh' }}
         />

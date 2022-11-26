@@ -9,11 +9,11 @@ import IconButton from '@mui/material/IconButton'
 
 import TaskCard from '../../components/TaskCard'
 import CreateTaskCard from '../../components/TaskCreateCard'
-import EditProjectDialog from '../../components/dialogs/EditProjectDialog'
+import EditProjectNameDialog from '../../components/dialogs/EditProjectNameDialog'
+import { getProjectName } from '../../utils/ProjectsFns'
 
 export default function Project({ 
-  projects, currentWorkspace, currentProject, currentUser, tasks, users, 
-  handleTasksUpdate, setProjects, setTasks
+  projects, currentWorkspace, currentProject, currentUser, currentUserRole, users, setProjects
 }) {
   const [projTasks, setProjTasks] = React.useState()
   const [backlogTasks, setBacklogTasks] = React.useState()
@@ -21,6 +21,23 @@ export default function Project({
   const [blockedTasks, setBlockedTasks] = React.useState()
   const [inReviewTasks, setInReviewTasks] = React.useState()
   const [closedTasks, setClosedTasks] = React.useState()
+  const [editNameOpen, setEditNameOpen] = React.useState(false)
+  const [currentProjectName, setCurrentProjectName] = React.useState(getProjectName(projects, currentProject))
+  const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
+
+  React.useEffect(() => {
+    if (projTasks) {
+      setBacklogTasks(projTasks.filter(task => task.task_status === 'Backlog'))
+      setInProgressTasks(projTasks.filter(task => task.task_status === 'In Progress'))
+      setBlockedTasks(projTasks.filter(task => task.task_status === 'Blocked'))
+      setInReviewTasks(projTasks.filter(task => task.task_status === 'In Review'))
+      setClosedTasks(projTasks.filter(task => task.task_status === 'Closed'))
+    }
+  }, [projTasks])
+
+  React.useEffect(() => {
+    setCurrentProjectName(getProjectName(projects, currentProject))
+  }, [projects, currentProject])
 
   React.useEffect(() => {
     let retrieveData = true
@@ -34,17 +51,7 @@ export default function Project({
       const tasks = await getTasks.json()
       if (retrieveData) {
         if (tasks) {
-          // Store the tasks so in the case create/delete tasks happen, this useEffect triggers
-          handleTasksUpdate(tasks)
-          // Filter the tasks into respective status bucket
-          setProjTasks(tasks.filter(task => task.proj_id === currentProject))
-          if (projTasks) {
-            setBacklogTasks(projTasks.filter(task => task.task_status === 'Backlog'))
-            setInProgressTasks(projTasks.filter(task => task.task_status === 'In Progress'))
-            setBlockedTasks(projTasks.filter(task => task.task_status === 'Blocked'))
-            setInReviewTasks(projTasks.filter(task => task.task_status === 'In Review'))
-            setClosedTasks(projTasks.filter(task => task.task_status === 'Closed'))
-          }
+          setProjTasks(tasks)
         }      
       }
     }
@@ -55,24 +62,10 @@ export default function Project({
     }
     // Disables the eslint complaining about the dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tasks])
-
-  const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
-  const [editNameOpen, setEditNameOpen] = React.useState(false)
+  }, [currentProject])
 
   const handleEditNameClickOpen = () => {
     setEditNameOpen(!editNameOpen)
-  }
-
-  const getProjectName = (projects) => {
-    let projectName = ''
-
-    for (let i = 0; i < projects.length; i++) {
-      if (projects[i].project_id === currentProject) {
-        projectName = projects[i].project_name
-      }
-    } 
-    return projectName
   }
 
   return (
@@ -83,56 +76,121 @@ export default function Project({
       }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
           <Typography variant="h4" sx={{ mb: 4 }}>
-            {getProjectName(projects)}
+            {currentProjectName}
           </Typography>
-          <Tooltip title="Update name">
-            <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
-              <BorderColorIcon/>
-            </IconButton>
-          </Tooltip>
+          {["owner", "pm"].includes(currentUserRole)
+          ? <Tooltip title="Update name">
+              <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
+                <BorderColorIcon/>
+              </IconButton>
+            </Tooltip>
+          : null}
         </Box>
         <Grid container spacing={4}>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[0]}/>
             {backlogTasks
             ? (backlogTasks.map((task, index) => (
-                <TaskCard task={backlogTasks[index]} users={users}/>
+                <TaskCard 
+                  task={backlogTasks[index]} 
+                  users={users}
+                  currentWorkspace={currentWorkspace}
+                  currentProject={currentProject}
+                  currentUser={currentUser}
+                  setProjTasks={setProjTasks}
+                />
               )))
             : <></>}
-            <CreateTaskCard selectedStatus={taskStates[0]} users={users}/>
+            <CreateTaskCard 
+              currentWorkspace={currentWorkspace}
+              currentProject={currentProject}
+              currentUser={currentUser}
+              selectedStatus={taskStates[0]} 
+              users={users}
+              setProjTasks={setProjTasks}
+            />
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[1]}/>
             {inProgressTasks
             ? (inProgressTasks.map((task, index) => (
-                <TaskCard task={inProgressTasks[index]} users={users}/>
+                <TaskCard 
+                  task={inProgressTasks[index]} 
+                  users={users}
+                  currentWorkspace={currentWorkspace}
+                  currentProject={currentProject}
+                  currentUser={currentUser}
+                  setProjTasks={setProjTasks}
+                />
               )))
             : <></>}
-            <CreateTaskCard selectedStatus={taskStates[1]} users={users}/>
+            <CreateTaskCard 
+              currentWorkspace={currentWorkspace}
+              currentProject={currentProject}
+              currentUser={currentUser}
+              selectedStatus={taskStates[1]} 
+              users={users}
+              setProjTasks={setProjTasks}
+            />
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[2]}/>
             {blockedTasks
             ? (blockedTasks.map((task, index) => (
-                <TaskCard task={blockedTasks[index]} users={users}/>
+                <TaskCard 
+                  task={blockedTasks[index]} 
+                  users={users}
+                  currentWorkspace={currentWorkspace}
+                  currentProject={currentProject}
+                  currentUser={currentUser}
+                  setProjTasks={setProjTasks}
+                />
               )))
             : <></>}
-            <CreateTaskCard selectedStatus={taskStates[2]} users={users}/>
+            <CreateTaskCard 
+              currentWorkspace={currentWorkspace}
+              currentProject={currentProject}
+              currentUser={currentUser}
+              selectedStatus={taskStates[2]} 
+              users={users}
+              setProjTasks={setProjTasks}
+            />
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[3]}/>
             {inReviewTasks
             ? (inReviewTasks.map((task, index) => (
-                <TaskCard task={inReviewTasks[index]} users={users}/>
+                <TaskCard 
+                  task={inReviewTasks[index]} 
+                  users={users}
+                  currentWorkspace={currentWorkspace}
+                  currentProject={currentProject}
+                  currentUser={currentUser}
+                  setProjTasks={setProjTasks}
+                />
               )))
             : <></>}
-            <CreateTaskCard selectedStatus={taskStates[3]} users={users}/>
+            <CreateTaskCard 
+              currentWorkspace={currentWorkspace}
+              currentProject={currentProject}
+              currentUser={currentUser}
+              selectedStatus={taskStates[3]} 
+              users={users}
+              setProjTasks={setProjTasks}
+            />
           </Grid>
           <Grid item md={2.4}>
             <StatusHeader status={taskStates[4]}/>
             {closedTasks
             ? (closedTasks.map((task, index) => (
-                <TaskCard task={closedTasks[index]} users={users}/>
+                <TaskCard 
+                  task={closedTasks[index]} 
+                  users={users}
+                  currentWorkspace={currentWorkspace}
+                  currentProject={currentProject}
+                  currentUser={currentUser}
+                  setProjTasks={setProjTasks}
+                />
               )))
             : <></>}
             <CreateTaskCard 
@@ -141,15 +199,19 @@ export default function Project({
               currentUser={currentUser}
               selectedStatus={taskStates[4]} 
               users={users}
-              setTasks={setTasks}/>
+              setProjTasks={setProjTasks}
+            />
           </Grid>
         </Grid>  
       </Box>
-      <EditProjectDialog
-        projectName={getProjectName(projects)}
+      <EditProjectNameDialog
+        projectName={currentProjectName}
         projectId={currentProject}
         open={editNameOpen}
         setOpen={setEditNameOpen}
+        currentWorkspace={currentWorkspace}
+        currentUser={currentUser}
+        setProjects={setProjects}
       />
     </>
   )

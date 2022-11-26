@@ -14,17 +14,15 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
 import AlertSnackbar from '../AlertSnackbar'
 import DeleteProjectDialog from '../dialogs/DeleteProjectDialog'
-import { CheckUserRole } from '../../utils/UserFns'
 
 export default function DrawerProjects({ 
-  projects, users, currentUser, currentWorkspace, currentProject, newProjectOpen, 
-  setNewProjectOpen, setCurrentProject 
+  projects, users, currentUser, currentUserRole, currentWorkspace, currentProject, 
+  newProjectOpen, setNewProjectOpen, setCurrentProject, setProjects
 }) {
   /* 
     Renders the Projects in drawer
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false) // For deletion
-  const currentUserRole = CheckUserRole(users, currentUser)
 
   const handleNewProjectClickOpen = () => {
     setNewProjectOpen(!newProjectOpen)
@@ -51,7 +49,9 @@ export default function DrawerProjects({
               snackbarOpen={snackbarOpen}
               setSnackbarOpen={setSnackbarOpen}
               currentProject={currentProject}
-              setCurrentProject={setCurrentProject}/>        
+              setCurrentProject={setCurrentProject}
+              currentUser={currentUser}
+              setProjects={setProjects}/>        
           )))
         : <></>}
         <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
@@ -73,7 +73,7 @@ export default function DrawerProjects({
 
 function ProjectItem({ 
   project, currentUserRole, currentWorkspace, snackbarOpen, setSnackbarOpen, 
-  currentProject, setCurrentProject 
+  currentProject, setCurrentProject, currentUser, setProjects
 }) {
   /* 
     Renders the Project Item under drawer project list
@@ -89,9 +89,14 @@ function ProjectItem({
       secondaryAction={
         ["owner", "pm"].includes(currentUserRole)
         ? <ProjectDeleteButton 
-          project={project}
-          snackbarOpen={snackbarOpen}
-          setSnackbarOpen={setSnackbarOpen}/>
+            project={project}
+            snackbarOpen={snackbarOpen}
+            setSnackbarOpen={setSnackbarOpen}
+            currentWorkspace={currentWorkspace}
+            currentProject={currentProject}
+            currentUser={currentUser}
+            setProjects={setProjects}
+          />
         : null}>
       <Link to={'/workspaces/' + currentWorkspace + '/projects/' + project.project_id} style={{ textDecoration: 'none', color: 'white' }}>
         <ListItemButton onClick={handleClick}>
@@ -105,7 +110,10 @@ function ProjectItem({
   )
 }
 
-function ProjectDeleteButton({ project, snackbarOpen, setSnackbarOpen }) {
+function ProjectDeleteButton({ 
+  project, snackbarOpen, setSnackbarOpen, currentWorkspace, currentProject, 
+  currentUser, setProjects
+}) {
   /* 
     Renders the Project Delete Button for a project under the drawer
   */
@@ -128,6 +136,10 @@ function ProjectDeleteButton({ project, snackbarOpen, setSnackbarOpen }) {
         setDelProjectOpen={setDelProjectOpen}
         snackbarOpen={snackbarOpen}
         setSnackbarOpen={setSnackbarOpen}
+        currentWorkspace={currentWorkspace}
+        currentProject={currentProject}
+        currentUser={currentUser}
+        setProjects={setProjects}
       />
     </>
   )

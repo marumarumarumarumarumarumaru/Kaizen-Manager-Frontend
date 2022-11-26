@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { GoogleLogin } from '@react-oauth/google'
 
-export default function Landing({ setShowDrawer, setNavigateToRedirect, currentUser, setCurrentUser }) {
+export default function Landing({ setShowDrawer, setNavigateToRedirect, setCurrentUser }) {
   /* 
     Page component for rendering the Landing page
   */
@@ -12,26 +12,22 @@ export default function Landing({ setShowDrawer, setNavigateToRedirect, currentU
     setShowDrawer(false)
   })
 
-  const handleLogin = (credentialResponse) => {
+  const handleLogin = async (credentialResponse) => {
     const credential = credentialResponse.credential
-
-    const data = {
-      credential: credential
-    }
-
-    fetch( process.env.REACT_APP_BACKEND_URL + '/login', {
+    const data = { credential: credential }
+    const endpoint = process.env.REACT_APP_BACKEND_URL + '/login'
+    const response = await fetch( endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-      .then(response => response.json())
-        .then((data) => {
-          setCurrentUser(data)
-          setNavigateToRedirect(true)
-        })
-        .catch(error => {alert(error);})   
+    const userData = await response.json()
+    if (userData) {
+      setCurrentUser(userData)
+      setNavigateToRedirect(true)
+    }
   }
 
   return (

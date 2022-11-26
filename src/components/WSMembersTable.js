@@ -15,10 +15,12 @@ import { IconButton } from '@mui/material'
 import AlertSnackbar from './AlertSnackbar'
 import RemoveMemberDialog from './dialogs/RemoveMemberDialog'
 
-import { CheckUserRole } from '../utils/UserFns'
+import { checkUserRole } from '../utils/UserFns'
 
-export default function MembersTable({ users, currentUser }) {
-  const currentUserRole = CheckUserRole(users, currentUser)
+export default function MembersTable({ 
+  users, currentUser, currentWorkspace, setUsers 
+}) {
+  const currentUserRole = checkUserRole(users, currentUser)
 
   return (
     <TableContainer component={Paper} sx={{ marginY: 2, maxWidth: 1000 }}>
@@ -32,7 +34,12 @@ export default function MembersTable({ users, currentUser }) {
         </TableHead>
         <TableBody>
           {users.map((user) => (
-            <MembersRow user={user} currentUserRole={currentUserRole} currentUser={currentUser}/>
+            <MembersRow 
+              user={user} 
+              currentUserRole={currentUserRole} 
+              currentWorkspace={currentWorkspace}
+              setUsers={setUsers}
+              currentUser={currentUser}/>
           ))}
         </TableBody>
       </Table>
@@ -40,10 +47,10 @@ export default function MembersTable({ users, currentUser }) {
   )
 }
 
-function MembersRow({ user, currentUserRole, currentUser }) {
+function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setUsers }) {
 
   const [role, setRole] = React.useState(user.user_role)
-  const roles = ['owner', 'pm', 'member']
+  const roles = ['member', 'pm', 'owner']
   const [removeUserOpen, setRemoveUserOpen] = React.useState(false)
   const [roleSnackbarOpen, setRoleSnackbarOpen] = React.useState(false)
   const fullName = user.first_name + ' ' + user.last_name
@@ -51,8 +58,37 @@ function MembersRow({ user, currentUserRole, currentUser }) {
 
   const handleChange = (event) => {
     setRole(event.target.value)
-    setRoleSnackbarOpen(!roleSnackbarOpen)
-    // Update database as well
+    let updateMemberRole = true
+    
+    const updateMember = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+  
+      const userId = await user.user_id
+      const currUserId = currentUser.user_id
+      const usersEndpoint = url + '/users/' + currUserId + '/workspaces/' + currentWorkspace + '/users'
+      const updateRoleEndpoint = usersEndpoint + '/' + userId
+      const data = { user_role: event.target.value }
+      // PATCH /users/:user_id/workspaces/:workspace_id/users/:user_id_to_be_updated
+      await fetch( updateRoleEndpoint, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      // GET /users/:user_id/workspaces/:worspace_id/users
+      const usersResponse = await fetch( usersEndpoint, { method: 'GET'})
+      const users = await usersResponse.json() 
+      if (updateMemberRole) {
+        setUsers(users)
+        setRoleSnackbarOpen(!roleSnackbarOpen)
+      }
+    }
+
+    updateMember()
+    return () => {
+      updateMemberRole = false
+    }
   }
 
   const handleRemoveUserClickOpen = () => {
@@ -78,8 +114,8 @@ function MembersRow({ user, currentUserRole, currentUser }) {
               disabled={user.user_id === currentUser.user_id}
               inputProps={{ 'aria-label': 'Without label' }}
             >
-              {roles.map((role) => (
-                <MenuItem value={role}>{role.toUpperCase()}</MenuItem>
+              {roles.map((newRole) => (
+                <MenuItem value={newRole}>{newRole.toUpperCase()}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -95,6 +131,9 @@ function MembersRow({ user, currentUserRole, currentUser }) {
       </TableRow>    
       <RemoveMemberDialog 
         user={user}
+        currentUser={currentUser}
+        currentWorkspace={currentWorkspace}
+        setUsers={setUsers}
         removeUserOpen={removeUserOpen}
         setRemoveUserOpen={setRemoveUserOpen}
       />
@@ -102,7 +141,7 @@ function MembersRow({ user, currentUserRole, currentUser }) {
         open={roleSnackbarOpen} 
         setOpen={setRoleSnackbarOpen} 
         severity={'success'}
-        message={ fullName + "'s role has been updated to: " + role }
+        message={ fullName + "'s role has been updated to: " + role.toUpperCase() }
       />
     </>
   )

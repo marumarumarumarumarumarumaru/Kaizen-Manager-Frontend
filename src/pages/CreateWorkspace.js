@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { Link } from 'react-router-dom'
 
-import { ValidateCreateWorkspace } from '../utils/ValidationFns'
+import { validateCreateWorkspace } from '../utils/ValidationFns'
 
 export default function CreateWorkspace({ 
   setShowDrawer, currentWorkspace, currentUser, setCurrentWorkspace, setWorkspaces
@@ -26,7 +26,7 @@ export default function CreateWorkspace({
   }
 
   const handleSubmit = () => {
-    const validationErrors = ValidateCreateWorkspace(workspaceName)
+    const validationErrors = validateCreateWorkspace(workspaceName)
     const hasErrors = validationErrors.length > 0
     if (hasErrors) { 
       setErrors(validationErrors)

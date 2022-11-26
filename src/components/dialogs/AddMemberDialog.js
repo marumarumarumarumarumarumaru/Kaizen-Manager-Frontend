@@ -24,7 +24,7 @@ export default function AddMemberDialog({
     role: 'member',
   })
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
-  const roles = ['owner', 'pm', 'member']
+  const roles = ['member', 'pm', 'owner']
   // const [errors, setErrors] = React.useState([])
 
   const handleChange = (prop) => (event) => {
@@ -57,7 +57,7 @@ export default function AddMemberDialog({
       const usersEndpoint = url + '/users/' + currUserId + '/workspaces/' + currentWorkspace + '/users'
       const putMemberEndpoint = usersEndpoint + '/' + userId
       const data = { user_role: values.role }
-      // POST /users/:user_id/workspaces/:workspace_id/users/:user_id_to_be_added
+      // PUT /users/:user_id/workspaces/:workspace_id/users/:user_id_to_be_added
       await fetch( putMemberEndpoint, {
         method: 'PUT',
         headers: {

@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 
-export default function Metrics({ projects }) {
+export default function Metrics({ projects, setCurrentProject }) {
   /* 
     Page component for rendering the Metrics page for Workspace
   */
@@ -20,6 +20,10 @@ export default function Metrics({ projects }) {
   React.useEffect(() => {
     setState(createStates(projects))
   }, [projects])
+
+  React.useEffect(() => {
+    setCurrentProject(null)
+  })
 
   const createStates = (projects) => {
     let states = {}

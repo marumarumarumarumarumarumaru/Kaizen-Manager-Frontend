@@ -11,23 +11,24 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
-export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen }) {
+export default function EditTaskDialog({ 
+  task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 
+  currentUser, setProjTasks
+}) {
   /* 
     Renders the Edit Task Dialog
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [targetDate, setTargetDate] = React.useState(task.task_due_date)
 
   const [values, setValues] = React.useState({
     taskName: task.task_name,
     assignee: task.task_assignee,
     selectedStatus: task.task_status,
     taskValue: task.task_value,
-    taskDescription: task.task_descriptions,
-    targetDate: task.task_due_date
+    taskDescription: task.task_descriptions
   })
 
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
@@ -42,8 +43,42 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
   }
 
   const handleEditTaskClose = () => {
-    setEditTaskOpen(!editTaskOpen)
-    setSnackbarOpen(!snackbarOpen)
+    let updateTaskFromProj = true
+
+    const editTask = async () => {
+      const data = {
+        task_name: values.taskName,
+        task_value: values.taskValue,
+        task_status: values.selectedStatus,
+        task_assignee: values.assignee,
+        task_descriptions: values.taskDescription,
+        task_due_date: targetDate
+      }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      const taskEndpoint = endpoint + '/' + task.task_id
+      // PATCH /users/:user_id/workspaces/:workspace_id/projects/:project_id/tasks/:task_id
+      await fetch( taskEndpoint, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const getTasks = await fetch( endpoint, {method: 'GET'})
+      const tasks = await getTasks.json()
+      if (updateTaskFromProj) {
+        setProjTasks(tasks)
+        setEditTaskOpen(!editTaskOpen)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    editTask()
+    return () => {
+      updateTaskFromProj = false
+    }
   }
 
   return (
@@ -70,16 +105,16 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             <Select
               labelId="assignee-select-standard-label"
               id="assignee-select-standard"
-              value={values.assignee ?? undefined}
+              value={values.assignee || ''}
               onChange={handleChange('assignee')}
               label="Assignee"
             >
-              <MenuItem value={undefined}>
-                <em>None</em>
-              </MenuItem>
-              {users.map((user) => (
-                <MenuItem value={user.user_id}>{user.first_name + ' ' + user.last_name}</MenuItem>
-              ))}
+              <MenuItem value={''}>None</MenuItem>
+              {users
+              ? (users.map((user) => (
+                  <MenuItem value={user.user_id}>{user.first_name + ' ' + user.last_name}</MenuItem>
+                )))
+              : null}
             </Select>
           </FormControl>
           <FormControl variant="standard" fullWidth>
@@ -101,7 +136,7 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             margin="dense"
             id="name"
             label="Task value"
-            value={values.taskValue ?? undefined}
+            value={values.taskValue || ''}
             onChange={handleChange('taskValue')}
             type="number"
             fullWidth
@@ -112,32 +147,19 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             margin="dense"
             id="name"
             label="Descriptions"
-            value={values.taskDescription ?? ''}
+            value={values.taskDescription || ''}
             onChange={handleChange('taskDescription')}
             type="text"
             fullWidth
             multiline
             variant="standard"
           />
-          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Basic example"
-              value={values.targetDate}
-              fullWidth
-              onChange={handleChange('targetDate')}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
+          <DatePicker
             label="Target date"
-            value={values.targetDate ?? ''}
-            onChange={handleChange('targetDate')}
-            type="text"
-            fullWidth
-            variant="standard"
+            value={targetDate}
+            onChange={(newValue) => {setTargetDate(newValue)}}
+            renderInput={(params) => <TextField {...params}
+            sx={{ mt: 2 }}/>}
           />
         </DialogContent>
         <DialogActions>

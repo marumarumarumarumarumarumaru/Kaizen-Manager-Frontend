@@ -9,7 +9,9 @@ import DialogTitle from '@mui/material/DialogTitle'
 
 import AlertSnackbar from '../AlertSnackbar'
 
-export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) {
+export default function DeleteTaskDialog({ 
+  task, delTaskOpen, setDelTaskOpen, currentWorkspace, currentProject, currentUser, setProjTasks
+}) {
   /* 
     Renders the Logout Dialog
   */
@@ -22,8 +24,28 @@ export default function DeleteTaskDialog({ task, delTaskOpen, setDelTaskOpen }) 
   }
 
   const handleDelete = () => {
-    setDelTaskOpen(!delTaskOpen)
-    setSnackbarOpen(!snackbarOpen)
+    let delTaskFromWS = true
+
+    const deleteTask = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      const taskEndpoint = endpoint + '/' + task.task_id
+      // DELETE /users/:user_id/workspaces/:workspace_id/projects/:project_id/tasks/:task_id
+      await fetch( taskEndpoint, {method: 'DELETE'})
+      const getTasks = await fetch( endpoint, {method: 'GET'})
+      const tasks = await getTasks.json()
+      if (delTaskFromWS) {
+        setProjTasks(tasks)
+        setDelTaskOpen(!delTaskOpen)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    deleteTask()
+    return () => {
+      delTaskFromWS = false
+    }
   }
 
   return (

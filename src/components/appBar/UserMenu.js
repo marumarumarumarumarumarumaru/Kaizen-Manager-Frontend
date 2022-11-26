@@ -82,7 +82,7 @@ export default function UserMenu({ currentUser, setShowDrawer }) {
             disabled
           >
             <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
-            <Box sx={{display: 'flex', flexDirection: 'column', width:'20vh', pl: 1 }}>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '20', pl: 1 }}>
               <Typography>{currentUser.first_name + ' ' + currentUser.last_name}</Typography>
               <Typography variant="caption">{currentUser.email}</Typography>
             </Box>

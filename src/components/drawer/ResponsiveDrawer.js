@@ -15,16 +15,21 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
+import Tooltip from '@mui/material/Tooltip'
 
 import { Link } from 'react-router-dom'
 import CreateProjectDialog from '../dialogs/CreateProjectDialog'
 import DrawerProjects from './DrawerProjects'
-import Tooltip from '@mui/material/Tooltip'
 import { DrawerHeader } from '../CustomUI'
 
+import { Box } from '@mui/material'
+import EditWorkspaceNameDialog from '../dialogs/EditWorkspaceNameDialog'
+import { getWorkspaceName } from '../../utils/WorkspacesFns'
+
 export default function ResponsiveDrawer({ 
-  drawerOpen, setDrawerOpen, projects, users, workspaces, currentUser, 
-  currentWorkspace, currentProject, setCurrentProject, setProjects 
+  drawerOpen, setDrawerOpen, projects, users, workspaces, currentUser, currentUserRole,
+  currentWorkspace, currentProject, setCurrentProject, setProjects, setWorkspaces
 }) {
   /* 
     Renders the Drawer
@@ -33,7 +38,10 @@ export default function ResponsiveDrawer({
   const [memberOpen, setMemberOpen] = React.useState(false)
   const [newProjectOpen, setNewProjectOpen] = React.useState(false)
   const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false)
+  const [editNameOpen, setEditNameOpen] = React.useState(false)
+
   const drawerWidth = parseInt(process.env.REACT_APP_DRAWER_WIDTH)
+  const currWorkspaceName = getWorkspaceName(workspaces, currentWorkspace)
 
   const handleDrawerClose = () => {
     setDrawerOpen(false)
@@ -43,15 +51,8 @@ export default function ResponsiveDrawer({
     setMemberOpen(!memberOpen)
   }
 
-  const getWorkspaceName = (workspaces, currentWorkspace) => {
-    let workspaceName = ''
-
-    for (let i = 0 ; i < workspaces.length ; i++) {
-      if (workspaces[i].workspace_id === currentWorkspace) {
-        workspaceName = workspaces[i].workspace_name
-      }
-    } 
-    return workspaceName
+  const handleEditNameClickOpen = () => {
+    setEditNameOpen(!editNameOpen)
   }
 
   return (
@@ -83,7 +84,18 @@ export default function ResponsiveDrawer({
           aria-labelledby="workspace-subheader"
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
-              {getWorkspaceName(workspaces, currentWorkspace)}
+              <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                {currWorkspaceName}
+                {currentUserRole === "owner"
+                ? <Box>
+                    <Tooltip title="Update name">
+                      <IconButton onClick={handleEditNameClickOpen}>
+                        <BorderColorIcon fontSize="small"/>
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                : null}
+              </Box>
             </ListSubheader>
           }
         >            
@@ -109,10 +121,18 @@ export default function ResponsiveDrawer({
               : <></>}
             </List>
           </Collapse>
-          <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/metrics'} key='workspaceMetrics'>
+          <ListItemButton 
+            component={Link} 
+            to={'/workspaces/' + currentWorkspace + '/metrics'} 
+            key='workspaceMetrics'
+          >
             <ListItemText primary='Metrics' />
           </ListItemButton>
-          <ListItemButton component={Link} to={'/workspaces/' + currentWorkspace + '/settings'} key='workspaceSettings'>
+          <ListItemButton 
+            component={Link} 
+            to={'/workspaces/' + currentWorkspace + '/settings'} 
+            key='workspaceSettings'
+          >
             <ListItemText primary='Settings' />
           </ListItemButton>
         </List>
@@ -121,11 +141,14 @@ export default function ResponsiveDrawer({
           projects={projects} 
           users={users}
           currentUser={currentUser}
+          currentUserRole={currentUserRole}
           currentWorkspace={currentWorkspace} 
           newProjectOpen={newProjectOpen} 
           setNewProjectOpen={setNewProjectOpen} 
           currentProject={currentProject}
-          setCurrentProject={setCurrentProject}/>
+          setCurrentProject={setCurrentProject}
+          setProjects={setProjects}
+        />
       </Drawer>
       <CreateProjectDialog 
         currentUser={currentUser}
@@ -135,7 +158,16 @@ export default function ResponsiveDrawer({
         setNewProjectOpen={setNewProjectOpen} 
         snackbarOpen={snackbarCreateProjectOpen}
         setSnackbarOpen={setSnackbarCreateProjectOpen}
-        setProjects={setProjects}/>
+        setProjects={setProjects}
+      />
+      <EditWorkspaceNameDialog
+        workspaceName={currWorkspaceName}
+        workspaceId={currentWorkspace}
+        open={editNameOpen}
+        setOpen={setEditNameOpen}
+        currentUser={currentUser}
+        setWorkspaces={setWorkspaces}
+      />
     </>
   )
 }

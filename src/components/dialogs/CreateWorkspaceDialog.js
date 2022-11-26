@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-import { ValidateCreateWorkspace } from '../../utils/ValidationFns'
+import { validateCreateWorkspace } from '../../utils/ValidationFns'
 
 export default function CreateWorkspaceDialog({ 
   currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 
@@ -28,7 +28,7 @@ export default function CreateWorkspaceDialog({
   }
 
   const handleNewWorkspaceSubmit = () => {
-    const validationErrors = ValidateCreateWorkspace(workspaceName)
+    const validationErrors = validateCreateWorkspace(workspaceName)
     const hasErrors = validationErrors.length > 0
     if (hasErrors) { 
       setErrors(validationErrors)

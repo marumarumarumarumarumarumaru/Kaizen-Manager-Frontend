@@ -10,8 +10,8 @@ import { Main, DrawerHeader } from '../components/CustomUI';
 
 export default function Base({ 
   workspacesLoaded, showDrawer, drawerOpen, setDrawerOpen, projects, users, 
-  workspaces, currentWorkspace, setCurrentWorkspace, currentUser, currentProject,
-  setCurrentProject, setShowDrawer, setWorkspaces, setProjects
+  workspaces, currentWorkspace, setCurrentWorkspace, currentUser, currentUserRole,
+  currentProject, setCurrentProject, setShowDrawer, setWorkspaces, setProjects
 }) {  
   /* 
     Page component for rendering base templating of the page
@@ -41,10 +41,12 @@ export default function Base({
                 users={users}
                 workspaces={workspaces}
                 currentUser={currentUser}
+                currentUserRole={currentUserRole}
                 currentWorkspace={currentWorkspace}
                 currentProject={currentProject}
                 setCurrentProject={setCurrentProject}
                 setProjects={setProjects}
+                setWorkspaces={setWorkspaces}
               />
               <Main open={drawerOpen}>
                 <DrawerHeader />

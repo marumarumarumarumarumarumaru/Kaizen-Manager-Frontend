@@ -9,10 +9,12 @@ import Avatar from '@mui/material/Avatar'
 import { format } from 'date-fns'
 
 import EditTaskDialog from './dialogs/EditTaskDialog'
-import MoveTaskDialog from './dialogs/MoveTaskDialog'
+import UpdateTaskStatusDialog from './dialogs/UpdateTaskStatusDialog'
 import DeleteTaskDialog from './dialogs/DeleteTaskDialog'
 
-export default function TaskCard({ task, users }) {
+export default function TaskCard({ 
+  task, users, currentWorkspace, currentProject, currentUser, setProjTasks
+}) {
 
   const [editTaskOpen, setEditTaskOpen] = React.useState(false)
   const [moveTaskOpen, setMoveTaskOpen] = React.useState(false)
@@ -65,16 +67,28 @@ export default function TaskCard({ task, users }) {
         users={users} 
         editTaskOpen={editTaskOpen} 
         setEditTaskOpen={setEditTaskOpen} 
+        currentWorkspace={currentWorkspace}
+        currentProject={currentProject}
+        currentUser={currentUser}
+        setProjTasks={setProjTasks}
       />
-      <MoveTaskDialog
+      <UpdateTaskStatusDialog
         task={task}
         moveTaskOpen={moveTaskOpen} 
         setMoveTaskOpen={setMoveTaskOpen} 
+        currentWorkspace={currentWorkspace}
+        currentProject={currentProject}
+        currentUser={currentUser}
+        setProjTasks={setProjTasks}
       />
       <DeleteTaskDialog
         task={task}
         delTaskOpen={delTaskOpen}
         setDelTaskOpen={setDelTaskOpen}
+        currentWorkspace={currentWorkspace}
+        currentProject={currentProject}
+        currentUser={currentUser}
+        setProjTasks={setProjTasks}
       />
     </>
   )
@@ -101,12 +115,12 @@ function CheckTargetDate(targetDate, taskStatus) {
     // If target date today or in the past, show red
     if (totalDays <= 0) {
       return "error"
-    // Else if target date is within the next 2 weeks, show yellow
-    } else if (14 >= totalDays) {
-      return "warning"
     // Else if the task is already closed, show grey
     } else if (taskStatus === "Closed") {
       return
+    // Else if target date is within the next 2 weeks, show yellow
+    } else if (14 >= totalDays) {
+      return "warning"
     // Otherwise, show green
     } else {
       return "success"

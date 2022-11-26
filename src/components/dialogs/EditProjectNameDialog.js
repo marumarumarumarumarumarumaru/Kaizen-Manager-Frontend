@@ -8,80 +8,77 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
-import { validateCreateProject } from '../../utils/ValidationFns'
-
-export default function CreateProjectDialog({ 
-  currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 
-  snackbarOpen, setSnackbarOpen, setProjects
+export default function EditProjectNameDialog({ 
+  projectName, projectId, open, setOpen, currentUser, currentWorkspace, setProjects
 }) {
   /* 
-    Renders the Create Project Dialog
+    Renders the Edit Project Dialog
   */
-  const [projectName, setProjectName] = React.useState('')
-  const [errors, setErrors] = React.useState([])
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [newName, setNewName] = React.useState(projectName)
+
+  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (event) => {
-    setProjectName(event.target.value)
+    setNewName(event.target.value)
   }
 
   const handleClose = () => {
-    setNewProjectOpen(!newProjectOpen)
+    setOpen(!open)
   }
 
-  const handleNewProjectSubmit = () => {
-    const validationErrors = validateCreateProject(projectName)
-    const hasErrors = validationErrors.length > 0
-    if (hasErrors) { 
-      setErrors(validationErrors)
-      console.log(errors)
-      return
-    }
-    let addProjectToWS = true
+  const handleEditProjectUpdate = () => {
+    let updateProjectName = true
 
-    const createProject = async () => {
-      const data = { project_name: projectName }
+    const updateName = async () => {
+      const data = { project_name: newName }
       const url = process.env.REACT_APP_BACKEND_URL
       const userId = currentUser.user_id
       const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects'
-      // POST /users/:user_id/workspaces/:workspace_id/projects
-      const response = await fetch( endpoint, {
-        method: 'POST',
+      const projectEndpoint = endpoint + '/' + projectId
+      // PATCH /users/:user_id/workspaces/:worspace_id/projects/:project_id
+      await fetch( projectEndpoint, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       })
-      const project = response.json()
+      // GET /users/:user_id/workspaces/:worspace_id/projects
       const getProjects = await fetch( endpoint, {method: 'GET'})
       const projects = await getProjects.json()
-      if (addProjectToWS) {
+      if (updateProjectName) {
         setProjects(projects)
-        setCurrentProject(project.project_id)
-        setNewProjectOpen(!newProjectOpen)
+        setOpen(!open)
         setSnackbarOpen(!snackbarOpen)
       }
     }
 
-    createProject()
+    updateName()
     return () => {
-      addProjectToWS = false
+      updateProjectName = false
     }
   }
 
   return (
     <>
-      <Dialog open={newProjectOpen} onClose={handleClose}>
-        <DialogTitle>Create a project</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Edit project name</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Specify the name of the project to create a new one.
+          <DialogContentText id="alert-dialog-description1">
+            Enter the name you'd like to change the current project to.
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Project name"
-            value={projectName}
+            id="project-name"
+            label="Name"
+            value={newName}
             onChange={handleChange}
             type="text"
             fullWidth
@@ -90,14 +87,14 @@ export default function CreateProjectDialog({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleNewProjectSubmit}>Create</Button>
+          <Button onClick={handleEditProjectUpdate} autoFocus>Update</Button>
         </DialogActions>
       </Dialog>
       <AlertSnackbar 
         open={snackbarOpen} 
         setOpen={setSnackbarOpen} 
         severity={'success'}
-        message={'Project has been created'}
+        message={'Project has been updated'}
       />
     </>
   )
