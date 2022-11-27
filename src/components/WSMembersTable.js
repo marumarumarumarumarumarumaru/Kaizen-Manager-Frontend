@@ -1,22 +1,24 @@
-import * as React from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import ClearIcon from '@mui/icons-material/Clear'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+import React from 'react'
 
-import { IconButton } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { IconButton, MenuItem, FormControl, Select, Paper } from '@mui/material'
+import { Clear as ClearIcon } from '@mui/icons-material'
+
 import AlertSnackbar from './AlertSnackbar'
 import RemoveMemberDialog from './dialogs/RemoveMemberDialog'
-
 import { checkUserRole } from '../utils/UserFns'
 
+/**
+ * Renders the Members Table
+ * 
+ * Parameters passed down from WorkspaceSettings
+ * @param {array} users
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setUsers
+ * 
+ * @returns render()
+ */
 export default function MembersTable({ 
   users, currentUser, currentWorkspace, setUsers 
 }) {
@@ -24,12 +26,12 @@ export default function MembersTable({
 
   return (
     <TableContainer component={Paper} sx={{ marginY: 2, maxWidth: 1000 }}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
             <TableCell>Member name</TableCell>
-            <TableCell align="right">Role</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell align='right'>Role</TableCell>
+            <TableCell align='right'>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -47,6 +49,18 @@ export default function MembersTable({
   )
 }
 
+/**
+ * Renders the Member Rows
+ * 
+ * Parameters passed down from WorkspaceTable
+ * @param {object} user
+ * @param {object} currentUser
+ * @param {string} currentUserRole
+ * @param {integer} currentWorkspace
+ * @param {function} setUsers
+ * 
+ * @returns render()
+ */
 function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setUsers }) {
 
   const [role, setRole] = React.useState(user.user_role)
@@ -101,13 +115,13 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
         key={user.user_id}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >
-        <TableCell component="th" scope="row">
+        <TableCell component='th' scope='row'>
           {fullName}
         </TableCell>
-        <TableCell align="right">
+        <TableCell align='right'>
           <FormControl>
             <Select
-              id="update-role-select-standard"
+              id='update-role-select-standard'
               value={role}
               onChange={handleChange}
               displayEmpty
@@ -120,7 +134,7 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
             </Select>
           </FormControl>
         </TableCell>
-        <TableCell align="right">
+        <TableCell align='right'>
           <IconButton 
             onClick={handleRemoveUserClickOpen}
             disabled={currentUserRole !== 'owner' || user.user_id === currentUser.user_id}
@@ -141,7 +155,7 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
         open={roleSnackbarOpen} 
         setOpen={setRoleSnackbarOpen} 
         severity={'success'}
-        message={ fullName + "'s role has been updated to: " + role.toUpperCase() }
+        message={ fullName + '\'s role has been updated to: ' + role.toUpperCase() }
       />
     </React.Fragment>
   )

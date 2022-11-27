@@ -1,20 +1,26 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+import { Button, TextField, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 import { isEmpty, validateTask } from '../../utils/ValidationFns'
+import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog for edit task
+ * 
+ * Parameters passed down from TaskCard
+ * @param {object} task
+ * @param {array} users
+ * @param {boolean} editTaskOpen      // Boolean controls visibility
+ * @param {function} setEditTaskOpen
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {function} setProjTasks
+ *  
+ * @returns render()
+ */
 export default function EditTaskDialog({ 
   task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 
   currentUser, setProjTasks
@@ -99,25 +105,25 @@ export default function EditTaskDialog({
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Task name"
+            margin='dense'
+            id='name'
+            label='Task name'
             value={values.taskName}
             error={isEmpty(values.taskName) ? true: false}
-            helperText={isEmpty(values.taskName) ? "Task name cannot be blank": false}
+            helperText={isEmpty(values.taskName) ? 'Task name cannot be blank': false}
             onChange={handleChange('taskName')}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="assignee-select-label">Assignee</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='assignee-select-label'>Assignee</InputLabel>
             <Select
-              labelId="assignee-select-standard-label"
-              id="assignee-select-standard"
+              labelId='assignee-select-standard-label'
+              id='assignee-select-standard'
               value={values.assignee || ''}
               onChange={handleChange('assignee')}
-              label="Assignee"
+              label='Assignee'
             >
               <MenuItem value={''}>None</MenuItem>
               {users
@@ -127,14 +133,14 @@ export default function EditTaskDialog({
               : null}
             </Select>
           </FormControl>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="status-select-label">Status</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='status-select-label'>Status</InputLabel>
             <Select
-              labelId="status-select-standard-label"
-              id="status-select-standard"
+              labelId='status-select-standard-label'
+              id='status-select-standard'
               value={values.selectedStatus}
               onChange={handleChange('selectedStatus')}
-              label="Status"
+              label='Status'
             >
               {taskStatus.map((status) => (
                 <MenuItem value={status}>{status}</MenuItem>
@@ -143,29 +149,29 @@ export default function EditTaskDialog({
           </FormControl>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Task value"
+            margin='dense'
+            id='name'
+            label='Task value'
             value={values.taskValue || ''}
             onChange={handleChange('taskValue')}
-            type="number"
+            type='number'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Descriptions"
+            margin='dense'
+            id='name'
+            label='Descriptions'
             value={values.taskDescription || 0}
             onChange={handleChange('taskDescription')}
-            type="text"
+            type='text'
             fullWidth
             multiline
-            variant="standard"
+            variant='standard'
           />
           <DatePicker
-            label="Target date"
+            label='Target date'
             value={targetDate}
             onChange={(newValue) => {setTargetDate(newValue)}}
             renderInput={(params) => <TextField {...params}

@@ -1,14 +1,22 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
+/**
+ * Renders Dialog to delete workspace
+ * 
+ * Parameters passed down from WorkspaceSettings
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {string} workspaceName
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setWorkspaces
+ * @param {function} setCurrentWorkspace
+ *  
+ * @returns render()
+ */
 export default function DeleteWorkspaceDialog({ 
   open, setOpen, workspaceName, currentUser, currentWorkspace, setWorkspaces, 
   setCurrentWorkspace
@@ -39,7 +47,7 @@ export default function DeleteWorkspaceDialog({
           setCurrentWorkspace(workspaces[0].workspace_id)
         } else {
           setCurrentWorkspace(null)
-          navigate("/create-workspace")
+          navigate('/create-workspace')
         }
         setOpen(!open)
       }
@@ -55,14 +63,14 @@ export default function DeleteWorkspaceDialog({
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Delete Workspace"}
+      <DialogTitle id='alert-dialog-title'>
+        {'Delete Workspace'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id='alert-dialog-description'>
           Are you sure you want to delete the workspace "{workspaceName}"?
         </DialogContentText>
       </DialogContent>

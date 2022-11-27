@@ -1,12 +1,12 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import { Box, Typography } from '@mui/material'
 
+/**
+ * Renders the placeholder workspace content
+ * 
+ * @returns render()
+ */
 export default function WorkspaceDefault() {
-  /* 
-    Page component for rendering the default message on Workspace page
-  */
-
   return (
     <Box sx={{
       mt: 10,

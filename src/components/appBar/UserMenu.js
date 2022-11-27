@@ -1,27 +1,26 @@
 import React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Tooltip from '@mui/material/Tooltip'
+
+import { Avatar, Box, Divider, Menu, MenuItem, ListItemIcon, IconButton, Typography, Tooltip } from '@mui/material'
+import { Logout, Help as HelpIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material'
 // import Settings from '@mui/icons-material/Settings'
-import Logout from '@mui/icons-material/Logout'
-import HelpIcon from '@mui/icons-material/Help'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../dialogs/LogoutDialog'
 
+/**
+ * Renders the User Menu
+ * 
+ * Parameters passed down from ResponsiveAppBar
+ * @param {object} currentUser
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ * 
+ * @returns render()
+ */
+
 export default function UserMenu({ 
   currentUser, setLogout, setNavigateToRedirect
 }) {
-  /* 
-    Renders the User Menu
-  */
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [showLogoutDialog, setShowLogoutDialog] = React.useState(false)
 
@@ -40,14 +39,14 @@ export default function UserMenu({
   return (
     <React.Fragment>
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
+        <Tooltip title='Open settings'>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
         <Menu
           anchorEl={anchorElUser}
-          id="account-menu"
+          id='account-menu'
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
           onClick={handleCloseUserMenu}
@@ -86,17 +85,17 @@ export default function UserMenu({
             <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '20', pl: 1 }}>
               <Typography>{currentUser.first_name + ' ' + currentUser.last_name}</Typography>
-              <Typography variant="caption">{currentUser.email}</Typography>
+              <Typography variant='caption'>{currentUser.email}</Typography>
             </Box>
           </MenuItem>
-          <Divider variant="middle"/>
+          <Divider variant='middle'/>
           <MenuItem
             onClick={handleCloseUserMenu}
             component={Link}
             to={'/profile'}
           >
             <ListItemIcon>
-              <AccountCircleIcon fontSize="small" />
+              <AccountCircleIcon fontSize='small' />
             </ListItemIcon>
             Profile
           </MenuItem>
@@ -106,7 +105,7 @@ export default function UserMenu({
             to={'/settings'}
           >
             <ListItemIcon>
-              <Settings fontSize="small" />
+              <Settings fontSize='small' />
             </ListItemIcon>
             Settings
           </MenuItem> */}
@@ -116,16 +115,16 @@ export default function UserMenu({
             to={'/about'}
           >
             <ListItemIcon>
-              <HelpIcon fontSize="small" />
+              <HelpIcon fontSize='small' />
             </ListItemIcon>
             About
           </MenuItem>
-          <Divider variant="middle"/>
+          <Divider variant='middle'/>
           <MenuItem
             onClick={handleLogoutClickOpen}
           >
             <ListItemIcon>
-              <Logout fontSize="small" />
+              <Logout fontSize='small' />
             </ListItemIcon>
             Logout
           </MenuItem>

@@ -1,9 +1,18 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
+import { Box, Paper, Typography } from '@mui/material'
 import { GoogleLogin } from '@react-oauth/google'
 
+/**
+ * Renders the landing page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setNavigateToRedirect 
+ * @param {function} setCurrentUser 
+ * @param {function} setLogout 
+ * @param {function} setWorkspacesLoaded 
+ * 
+ * @returns render()
+ */
 export default function Landing({ 
   setShowDrawer, setNavigateToRedirect, setCurrentUser, setLogout, setWorkspacesLoaded
 }) {

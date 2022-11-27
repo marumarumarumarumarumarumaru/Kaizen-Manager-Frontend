@@ -1,15 +1,24 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
+import AlertSnackbar from '../AlertSnackbar'
 import { isEmpty } from '../../utils/ValidationFns'
 
+/**
+ * Renders Dialog for edit project name
+ * 
+ * Parameters passed down from Project
+ * @param {string} projectName
+ * @param {integer} projectId
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setProjects
+ *  
+ * @returns render()
+ */
 export default function EditProjectNameDialog({ 
   projectName, projectId, open, setOpen, currentUser, currentWorkspace, setProjects
 }) {
@@ -67,26 +76,26 @@ export default function EditProjectNameDialog({
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">Edit project name</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>Edit project name</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description1">
+          <DialogContentText id='alert-dialog-description1'>
             Enter the name you'd like to change the current project to.
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="project-name"
-            label="Name"
+            margin='dense'
+            id='project-name'
+            label='Name'
             value={newName}
             error={isEmpty(newName) ? true: false}
-            helperText={isEmpty(newName) ? "Project name cannot be blank": false}
+            helperText={isEmpty(newName) ? 'Project name cannot be blank': false}
             onChange={handleChange}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
         </DialogContent>
         <DialogActions>

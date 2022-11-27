@@ -1,14 +1,20 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Button } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders Dialog for logout
+ * 
+ * Parameters passed down from UserNav
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ *  
+ * @returns render()
+ */
 export default function LogoutDialog({ 
   open, setOpen, setLogout, setNavigateToRedirect
 }) {
@@ -24,21 +30,21 @@ export default function LogoutDialog({
     setOpen(!open)
     setLogout(true)
     setNavigateToRedirect(false)
-    navigate("/")
+    navigate('/')
   }
 
   return (
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Logout of Kaizen"}
+      <DialogTitle id='alert-dialog-title'>
+        {'Logout of Kaizen'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id='alert-dialog-description'>
           Are you sure you want to logout?
         </DialogContentText>
       </DialogContent>

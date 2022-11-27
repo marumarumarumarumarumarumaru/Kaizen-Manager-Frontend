@@ -1,9 +1,16 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
+import { Box, Typography } from '@mui/material'
+
 import AlertSnackbar from '../../components/AlertSnackbar'
 
+/**
+ * Renders the General Settings page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * 
+ * @returns render()
+ */
 export default function GeneralSettings({ setShowDrawer, setCurrentProject }) {
   /* 
     Page component for rendering the General Settings page
@@ -26,13 +33,6 @@ function GeneralSettingsForm() {
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
-  // const [values, setValues] = React.useState({
-  // })
-
-  // const handleChange = (prop) => (event) => {
-  //   setValues({ ...values, [prop]: event.target.value })
-  // }
-
   const handleSubmit = () => {
     setSnackbarOpen(!snackbarOpen)
   }
@@ -42,14 +42,14 @@ function GeneralSettingsForm() {
       m: 2,
       flexsDirection: 'column'
     }}>
-      <Typography variant="h4">
+      <Typography variant='h4'>
         General Settings
       </Typography>
-      <Typography variant="subtitle1" sx={{ mt: 1 }}>
+      <Typography variant='subtitle1' sx={{ mt: 1 }}>
         Edit below to adjust your Kaizen Manager general settings.
       </Typography>
       <Box
-        component="form"
+        component='form'
         sx={{
           display: 'flex',
           flexDirection: 'column',

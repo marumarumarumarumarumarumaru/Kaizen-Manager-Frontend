@@ -1,9 +1,17 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import LinearProgress from '@mui/material/LinearProgress'
+import { Box, LinearProgress, Typography } from '@mui/material'
 
-import { Typography } from '@mui/material'
-
+/**
+ * Renders the landing page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {object} currentUser 
+ * @param {function} setWorkspaces 
+ * @param {function} setCurrentWorkspace 
+ * @param {function} setWorkspacesLoaded 
+ * 
+ * @returns render()
+ */
 export default function Redirect({ 
   setShowDrawer, currentUser, setWorkspaces, setCurrentWorkspace, setWorkspacesLoaded
 }) {
@@ -53,10 +61,10 @@ export default function Redirect({
       textAlign: 'center'
       }}>
       <Box sx={{ width: '100%'}}>
-        <Typography variant="body2">
+        <Typography variant='body2'>
           Hi {currentUser.first_name}!
         </Typography>
-        <Typography variant="body2" sx={{ mb: 2 }}>
+        <Typography variant='body2' sx={{ mb: 2 }}>
           Hold up, we're getting your session started...
         </Typography>
         <LinearProgress />

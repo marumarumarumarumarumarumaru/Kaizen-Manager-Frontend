@@ -1,24 +1,26 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Link, useNavigate } from 'react-router-dom'
+import { Button, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { WarningAmber as WarningAmberIcon } from '@mui/icons-material'
 
-import { Link } from 'react-router-dom'
 import { useLocalStorage } from '../../utils/LocalStorageFns'
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders Dialog for account deletion
+ * 
+ * Parameters passed down from Profile
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {object} currentUser
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ *  
+ * @returns render()
+ */
 export default function DeleteAccountDialog({ 
   open, setOpen, currentUser, setLogout, setNavigateToRedirect
 }) {
-  /* 
-    Renders the Logout Dialog
-  */
   const navigate = useNavigate()
   const [candidates, setCandidates] = useLocalStorage('candidates', null)
 
@@ -74,7 +76,7 @@ export default function DeleteAccountDialog({
         setOpen(!open)
         setLogout(true)
         setNavigateToRedirect(false)
-        navigate("/")
+        navigate('/')
       }
     }
   
@@ -88,20 +90,20 @@ export default function DeleteAccountDialog({
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Delete Account"}
+      <DialogTitle id='alert-dialog-title'>
+        {'Delete Account'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description1">
+        <DialogContentText id='alert-dialog-description1'>
           Are you sure you want to delete your account? This action cannot be undone!
         </DialogContentText>
         {candidates
         ? (candidates.length > 0
           ? <>
-              <DialogContentText id="alert-dialog-description3" sx={{ mt: 2 }} color="error">
+              <DialogContentText id='alert-dialog-description3' sx={{ mt: 2 }} color='error'>
                 Looks like you have a workspace with more than one member that you are the sole owner of.
                 Please go to the following worksplace(s) and assign at least one member as owner:
               </DialogContentText>
@@ -109,9 +111,9 @@ export default function DeleteAccountDialog({
                 {candidates.map((candidate) => (
                   <ListItem>
                     <ListItemIcon>
-                      <WarningAmberIcon color="error"/>
+                      <WarningAmberIcon color='error'/>
                     </ListItemIcon>
-                    <ListItemText primary={candidate.workspace_name} sx={{ color: "#f44336" }}/>
+                    <ListItemText primary={candidate.workspace_name} sx={{ color: '#f44336' }}/>
                   </ListItem>
                 ))}
               </List>
@@ -128,7 +130,7 @@ export default function DeleteAccountDialog({
           disabled={candidates 
                     ? (candidates.length > 0)
                     : null}
-          color="error"
+          color='error'
         >
           Delete Account
         </Button>

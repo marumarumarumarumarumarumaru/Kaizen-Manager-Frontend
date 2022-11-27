@@ -1,12 +1,21 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
+import { Box, Button, Typography } from '@mui/material'
 
 import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
-// import PasswordForm from '../../components/forms/ProfilePasswordForm'
 import ProfileForm from '../../components/forms/ProfileForm'
 
+/**
+ * Renders the Profile page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * @param {object} currentUser 
+ * @param {function} setCurrentUser 
+ * @param {function} setLogout 
+ * @param {function} setNavigateToRedirect 
+ * 
+ * @returns render()
+ */
 export default function Profile({ 
   setShowDrawer, setCurrentProject, currentUser, setCurrentUser, setLogout,
   setNavigateToRedirect
@@ -31,10 +40,10 @@ export default function Profile({
         m: 2,
         flexsDirection: 'column',
       }}>
-        <Typography variant="h4">
+        <Typography variant='h4'>
           Profile Settings
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           Edit below to update your user profile on Kaizen Manager.
         </Typography>
         <ProfileForm 
@@ -64,19 +73,19 @@ function DeleteAccount({openDialog}) {
   return (
     <React.Fragment>
       <Box sx={{
-        flexsDirection: "column",
+        flexsDirection: 'column',
       }}>
-        <Typography variant="h5" sx={{ mt: 4 }}>
+        <Typography variant='h5' sx={{ mt: 4 }}>
           Delete Account
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           By pressing the below button, you can delete your account after a confirmation screen.
         </Typography>
       </Box>
       <Button 
         variant='contained' 
         onClick={openDialog} 
-        color="error" 
+        color='error' 
         sx={{ mt: 2 }}
       >
         Delete Account

@@ -1,17 +1,16 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+
+import { Box, Button, Typography, IconButton, OutlinedInput, InputLabel, InputAdornment, FormControl } from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+
 import AlertSnackbar from '../../components/AlertSnackbar'
 
-
+/**
+ * Renders the Profile Setting's Profile form
+ * UNUSED
+ *  
+ * @returns render() 
+ */
 export default function PasswordForm() {
   /* 
     Page component for rendering the Profile Settings page's form
@@ -56,62 +55,62 @@ export default function PasswordForm() {
       m: 2,
       flexsDirection: 'column'
     }}>
-      <Typography variant="h5" sx={{ mt: 4 }}>
+      <Typography variant='h5' sx={{ mt: 4 }}>
         Password
       </Typography>
-      <Typography variant="caption">
+      <Typography variant='caption'>
         Edit below to update your password on Kaizen Manager.
       </Typography>
       <Box
-        component="form"
+        component='form'
         sx={{
           display: 'flex',
           flexDirection: 'column',
           paddingY: 2
         }}
       >
-        <FormControl sx={{ m: 1, width: '50vh' }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <FormControl sx={{ m: 1, width: '50vh' }} variant='outlined'>
+          <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
+            id='outlined-adornment-password'
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position='end'>
                 <IconButton
-                  aria-label="toggle password visibility"
+                  aria-label='toggle password visibility'
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
-                  edge="end"
+                  edge='end'
                 >
                   {values.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label='Password'
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: '50vh' }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password (type again)</InputLabel>
+        <FormControl sx={{ m: 1, width: '50vh' }} variant='outlined'>
+          <InputLabel htmlFor='outlined-adornment-password'>Password (type again)</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
+            id='outlined-adornment-password'
             type={values.showPasswordMatch ? 'text' : 'password'}
             value={values.passwordMatch}
             onChange={handleChange('passwordMatch')}
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position='end'>
                 <IconButton
-                  aria-label="toggle password visibility"
+                  aria-label='toggle password visibility'
                   onClick={handleClickShowPasswordMatch}
                   onMouseDown={handleMouseDownPassword}
-                  edge="end"
+                  edge='end'
                 >
                   {values.showPasswordMatch ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label='Password'
           />
         </FormControl>
       </Box>

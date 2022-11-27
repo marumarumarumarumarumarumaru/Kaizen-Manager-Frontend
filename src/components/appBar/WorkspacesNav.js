@@ -1,19 +1,27 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
-import AddIcon from '@mui/icons-material/Add'
-import Divider from '@mui/material/Divider'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-
 import { Link } from 'react-router-dom'
+
+import { Box, Button, Divider, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material'
+import { Add as AddIcon, ExpandMore as ExpandMoreIcon, ArrowRight as ArrowRightIcon } from '@mui/icons-material'
+
 import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
 
+/**
+ * Renders the Workspace Nav
+ * 
+ * Parameters passed down from ResponsiveAppBar
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setCurrentWorkspace
+ * @param {boolean} snackbarOpen
+ * @param {function} setSnackbarOpen
+ * @param {boolean} errorSnackbarOpen
+ * @param {function} setErrorSnackbarOpen
+ * @param {array} workspaces
+ * @param {function} setWorkspaces
+ * 
+ * @returns render()
+ */
 export default function WorkspacesNav({
   currentUser, currentWorkspace, setCurrentWorkspace, snackbarOpen, setSnackbarOpen, 
   errorSnackbarOpen, setErrorSnackbarOpen, workspaces, setWorkspaces
@@ -42,21 +50,21 @@ export default function WorkspacesNav({
 
   return (
     <Box sx={{ flexGrow: 1, mr: 1 }}>
-      <Tooltip title="Open workspaces">
+      <Tooltip title='Open workspaces'>
         <Button
           key='workspaces'
           onClick={handleOpenNavMenu}
           sx={{ my: 2, color: 'white', display: 'block' }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Typography variant="overline">Workspaces</Typography> 
+            <Typography variant='overline'>Workspaces</Typography> 
             <ExpandMoreIcon/>
           </Box>
         </Button>
       </Tooltip>
       <Menu
         anchorEl={anchorElNav}
-        id="account-menu"
+        id='account-menu'
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
         onClick={handleCloseNavMenu}
@@ -85,15 +93,15 @@ export default function WorkspacesNav({
                 onClick={(event) => handleWorkspaceSelect(workspace)}
                 >
                   {workspace.workspace_id === currentWorkspace 
-                  ? <ArrowRightIcon fontSize="large" color="primary" sx={{ mr: 0.5 }}/> 
+                  ? <ArrowRightIcon fontSize='large' color='primary' sx={{ mr: 0.5 }}/> 
                   : null}
-                  <Typography textAlign="center">{workspace.workspace_name}</Typography>
+                  <Typography textAlign='center'>{workspace.workspace_name}</Typography>
               </MenuItem>
             </Link>
           )))
           // We shouldn't encounter a case where no workspace exist for user, BUT in the case it does happen to avoid error
         : <></>}
-        <Divider variant="middle"/>
+        <Divider variant='middle'/>
         <MenuItem>
           <ListItemIcon key='create' onClick={handleNewWorkspaceClickOpen}>
             <AddIcon fontSize='small'/>

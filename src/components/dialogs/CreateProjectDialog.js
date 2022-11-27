@@ -1,23 +1,29 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
-
-import { validateProject, isEmpty } from '../../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+
+import AlertSnackbar from '../AlertSnackbar'
+import { validateProject, isEmpty } from '../../utils/ValidationFns'
+
+/**
+ * Renders Dialog for create project
+ * 
+ * Parameters passed down from ResponsiveDrawer
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setCurrentProject
+ * @param {boolean} newProjectOpen
+ * @param {function} setNewProjectOpen
+ * @param {function} setProjects
+ *  
+ * @returns render()
+ */
 export default function CreateProjectDialog({ 
   currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 
   setProjects
 }) {
-  /* 
-    Renders the Create Project Dialog
-  */
   const navigate = useNavigate()
   const [projectName, setProjectName] = React.useState('')
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
@@ -82,16 +88,16 @@ export default function CreateProjectDialog({
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Project name"
+            margin='dense'
+            id='name'
+            label='Project name'
             value={projectName}
             error={isEmpty(projectName) ? true: false}
-            helperText={isEmpty(projectName) ? "Workspace name cannot be blank": false}
+            helperText={isEmpty(projectName) ? 'Workspace name cannot be blank': false}
             onChange={handleChange}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
         </DialogContent>
         <DialogActions>

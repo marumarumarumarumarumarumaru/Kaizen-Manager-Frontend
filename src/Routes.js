@@ -1,28 +1,33 @@
-import React from "react"
+import React from 'react'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 // Entrypoints
-import Base from "./pages/Base"
+import Base from './pages/Base'
 import Landing from './pages/Landing'
-import Redirect from "./pages/Redirect"
-import CreateWorkspace from "./pages/CreateWorkspace"
+import Redirect from './pages/Redirect'
+import CreateWorkspace from './pages/CreateWorkspace'
 // Workspace
-import Metrics from "./pages/workspace/WorkspaceMetrics"
-import WorkspaceDefault from "./pages/workspace/WorkspaceDefault"
+import Metrics from './pages/workspace/WorkspaceMetrics'
+import WorkspaceDefault from './pages/workspace/WorkspaceDefault'
 import Workspace from './pages/workspace/Workspace'
-import WorkspaceSettings from "./pages/workspace/WorkspaceSettings"
+import WorkspaceSettings from './pages/workspace/WorkspaceSettings'
 // Projects
-import Projects from "./pages/projects/Projects"
-import Project from "./pages/projects/Project"
+import Projects from './pages/projects/Projects'
+import Project from './pages/projects/Project'
 // User Options
-// import GeneralSettings from "./pages/general/GeneralSettings"
-import About from "./pages/general/About"
-import Profile from "./pages/general/Profile"
+// import GeneralSettings from './pages/general/GeneralSettings'
+import About from './pages/general/About'
+import Profile from './pages/general/Profile'
 
-import { checkUserRole } from "./utils/UserFns"
-import { useLocalStorage } from "./utils/LocalStorageFns"
+import { checkUserRole } from './utils/UserFns'
+import { useLocalStorage } from './utils/LocalStorageFns'
 
+/**
+ * Establish routes for page navigation + states used by the application
+ * 
+ * @returns render()
+ */
 export default function MyRoutes() {
   const [drawerOpen, setDrawerOpen] = useLocalStorage('drawer-open', true)  // Controls responsive drawer
   const [showDrawer, setShowDrawer] = useLocalStorage('show-drawer', false)
@@ -52,7 +57,7 @@ export default function MyRoutes() {
     <Routes>
       <Route 
         exact 
-        path="/" 
+        path='/' 
         element={<Base 
             showDrawer={showDrawer}
             workspacesLoaded={workspacesLoaded}
@@ -104,7 +109,7 @@ function EntryRoutes(
         index 
         element={
           (navigateToRedirect && !logout)
-          ? <Navigate replace to="redirect"/>
+          ? <Navigate replace to='redirect'/>
           : <Landing 
               setShowDrawer={setShowDrawer}
               setNavigateToRedirect={setNavigateToRedirect}
@@ -114,7 +119,7 @@ function EntryRoutes(
         />} 
       />
       <Route 
-        path="redirect" 
+        path='redirect' 
         element={
           workspacesLoaded
           ? (workspaces.length > 0
@@ -188,7 +193,7 @@ function WorkspaceRoutes(
       path='workspaces' 
       >
       <Route 
-        path=":workspaceId" 
+        path=':workspaceId' 
         element={<Workspace 
           setShowDrawer={setShowDrawer}
           currentUser={currentUser}
@@ -201,7 +206,7 @@ function WorkspaceRoutes(
             index 
             element={<WorkspaceDefault />}/>
           <Route 
-            path="metrics" 
+            path='metrics' 
             element={<Metrics 
               projects={projects}
               setCurrentProject={setCurrentProject}
@@ -210,7 +215,7 @@ function WorkspaceRoutes(
             />}
           />
           <Route 
-            path="settings" 
+            path='settings' 
             element={<WorkspaceSettings 
               workspaces={workspaces} 
               users={users}
@@ -222,9 +227,9 @@ function WorkspaceRoutes(
               setCurrentProject={setCurrentProject}
             />}
           />
-          <Route path="projects" element={<Projects/>}>
+          <Route path='projects' element={<Projects/>}>
             <Route 
-              path=":projectId" 
+              path=':projectId' 
               element={<Project 
                 projects={projects}
                 currentWorkspace={currentWorkspace}

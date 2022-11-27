@@ -1,17 +1,26 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
+import { Box, Grid, Paper, Typography, Tooltip, IconButton } from '@mui/material'
+import { BorderColor as BorderColorIcon } from '@mui/icons-material'
 
 import TaskCard from '../../components/TaskCard'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectNameDialog from '../../components/dialogs/EditProjectNameDialog'
 import { getProjectName } from '../../utils/ProjectsFns'
 
+/**
+ * Renders the Project page
+ * 
+ * @param {array} projects
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * @param {integer} currentWorkspace 
+ * @param {object} currentUser 
+ * @param {string} currentUserRole 
+ * @param {array} users 
+ * @param {function} setProjects 
+ * 
+ * @returns render()
+ */
 export default function Project({ 
   projects, currentWorkspace, currentProject, currentUser, currentUserRole, users, setProjects
 }) {
@@ -75,11 +84,11 @@ export default function Project({
         flexsDirection: 'column',
       }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
-          <Typography variant="h4" sx={{ mb: 4 }}>
+          <Typography variant='h4' sx={{ mb: 4 }}>
             {currentProjectName}
           </Typography>
-          {["owner", "pm"].includes(currentUserRole)
-          ? <Tooltip title="Update name">
+          {['owner', 'pm'].includes(currentUserRole)
+          ? <Tooltip title='Update name'>
               <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
                 <BorderColorIcon/>
               </IconButton>
@@ -220,7 +229,7 @@ export default function Project({
 function StatusHeader({ status }) {
   return (
     <Paper elevation={24} key={status}>
-      <Typography variant="h5" sx={{ m: 2, paddingY: 2 }}>{status}</Typography>
+      <Typography variant='h5' sx={{ m: 2, paddingY: 2 }}>{status}</Typography>
     </Paper>
   )
 }

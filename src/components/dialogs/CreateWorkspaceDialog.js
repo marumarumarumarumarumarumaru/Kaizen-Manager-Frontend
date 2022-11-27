@@ -1,22 +1,32 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { validateWorkspace, isEmpty } from '../../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders Dialog for create workspace
+ * 
+ * Parameters passed down from WorkspacesNav
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setCurrentWorkspace
+ * @param {function} setCurrentProject
+ * @param {boolean} newWorkspaceOpen
+ * @param {function} setNewWorkspaceOpen
+ * @param {boolean} snackbarOpen      // Boolean controls visibility
+ * @param {function} setSnackbarOpen
+ * @param {boolean} errorSnackbarOpen      // Boolean controls visibility
+ * @param {function} setErrorSnackbarOpen
+ * @param {function} setWorkspaces
+ *  
+ * @returns render()
+ */
 export default function CreateWorkspaceDialog({ 
   currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 
   snackbarOpen, setSnackbarOpen, errorSnackbarOpen, setErrorSnackbarOpen, setWorkspaces
 }) {
-  /* 
-    Renders the Create Workspace Dialog
-  */
   const navigate = useNavigate()
   const [workspaceName, setWorkspaceName] = React.useState('')
 
@@ -60,7 +70,7 @@ export default function CreateWorkspaceDialog({
         setWorkspaces(workspaces)
         setNewWorkspaceOpen(!newWorkspaceOpen)
         setSnackbarOpen(!snackbarOpen)      
-        navigate("/workspaces/" + workspace.workspace_id)
+        navigate('/workspaces/' + workspace.workspace_id)
       }
     }
 
@@ -79,16 +89,16 @@ export default function CreateWorkspaceDialog({
         </DialogContentText>
         <TextField
           autoFocus
-          margin="dense"
-          id="name"
-          label="Workspace name"
+          margin='dense'
+          id='name'
+          label='Workspace name'
           value={workspaceName}
           error={isEmpty(workspaceName) ? true: false}
-          helperText={isEmpty(workspaceName) ? "Workspace name cannot be blank": false}
+          helperText={isEmpty(workspaceName) ? 'Workspace name cannot be blank': false}
           onChange={handleChange}
-          type="text"
+          type='text'
           fullWidth
-          variant="standard"
+          variant='standard'
         />
       </DialogContent>
       <DialogActions>

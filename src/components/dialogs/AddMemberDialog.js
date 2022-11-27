@@ -1,19 +1,24 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+
+import { Box, Button, FormControl, FormHelperText, MenuItem, TextField, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
-import { Box, FormHelperText, TextField } from '@mui/material'
 import { isValidEmail } from '../../utils/ValidationFns'
 
+/**
+ * Renders the Dialog for adding a member
+ * 
+ * Parameters passed down from WorkspaceSettings
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {fuction} setOpen 
+ * @param {integer} currentWorkspace
+ * @param {object} currentUser
+ * @param {string} workspaceName
+ * @param {function} setUsers
+ * 
+ * @returns render()
+ */
 export default function AddMemberDialog({ 
   open, setOpen, currentWorkspace, currentUser, workspaceName, setUsers
 }) {
@@ -87,40 +92,40 @@ export default function AddMemberDialog({
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id='alert-dialog-title'>
           {'Add an user to ' + workspaceName}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description1">
+          <DialogContentText id='alert-dialog-description1'>
             Enter the email address of the user you'd like to add to this workspace.
           </DialogContentText>
-          <DialogContentText id="alert-dialog-description2">
+          <DialogContentText id='alert-dialog-description2'>
             Note that user must have an account on Kaizen Manager.
           </DialogContentText>
           <Box sx={{ 
-            display: "flex", flexDirection: "row", justifyContent: "space-between",
-            alignItems: "baseline", mt: 1
+            display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
+            alignItems: 'baseline', mt: 1
             }}>
             <TextField
               autoFocus
-              margin="dense"
-              id="email"
-              label="Email"
+              margin='dense'
+              id='email'
+              label='Email'
               value={values.email}
               error={isValidEmail(values.email) ? false : true}
-              helperText={isValidEmail(values.email) ? false : "Invalid email format (e.g., test@kaizen.com)"}
+              helperText={isValidEmail(values.email) ? false : 'Invalid email format (e.g., test@kaizen.com)'}
               onChange={handleChange('email')}
-              type="text"
+              type='text'
               fullWidth
-              variant="standard"
+              variant='standard'
             />
-            <FormControl sx={{ ml: 2, minWidth: 120 }}size="small">
+            <FormControl sx={{ ml: 2, minWidth: 120 }}size='small'>
               <Select
-                labelId="update-role-select-small"
-                id="update-role-select-small"
+                labelId='update-role-select-small'
+                id='update-role-select-small'
                 value={values.role}
                 onChange={handleChange('role')}
                 displayEmpty

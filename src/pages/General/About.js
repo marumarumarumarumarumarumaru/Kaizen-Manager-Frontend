@@ -1,14 +1,17 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import GitHubIcon from '@mui/icons-material/GitHub'
-import PersonIcon from '@mui/icons-material/Person'
+import { Box, Typography } from '@mui/material'
 import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { GitHub as GitHubIcon, Person as PersonIcon } from '@mui/icons-material'
 
+/**
+ * Renders the About page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * 
+ * @returns render()
+ */
 export default function About({ setShowDrawer, setCurrentProject }) {
-  /* 
-    Page component for rendering the Help page
-  */
   React.useEffect(() => {
     setShowDrawer(true)
     setCurrentProject(null)
@@ -21,10 +24,10 @@ export default function About({ setShowDrawer, setCurrentProject }) {
         flexsDirection: 'column',
         alignItems: 'left'
       }}>
-        <Typography variant="h4">
+        <Typography variant='h4'>
           About
         </Typography>
-        <Typography variant="caption">
+        <Typography variant='caption'>
           Last updated: November 27, 2022
         </Typography>
         {RenderWhatIsSection()}
@@ -46,7 +49,7 @@ export default function About({ setShowDrawer, setCurrentProject }) {
 function RenderWhatIsSection() {
   return(
     <React.Fragment>
-      <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>
+      <Typography variant='h5' sx={{ mt: 4, mb: 1 }}>
         What Is Kaizen Manager?
       </Typography>
       <Typography>
@@ -60,7 +63,7 @@ function RenderWhatIsSection() {
 function RenderHowItWorksSection() {
   return(
     <React.Fragment>
-      <Typography variant="h5" sx={{ marginY: 1}}>
+      <Typography variant='h5' sx={{ marginY: 1}}>
         How It Works
       </Typography>
       <Typography>
@@ -80,7 +83,7 @@ function RenderHowItWorksSection() {
 function RenderRolesSection() {
   return(
     <React.Fragment>
-      <Typography variant="h5" sx={{ marginY: 1}}>
+      <Typography variant='h5' sx={{ marginY: 1}}>
         Roles
       </Typography>
       <Typography>
@@ -92,7 +95,7 @@ function RenderRolesSection() {
       <Typography>
         Otherwise, a user’s role is assigned or updated by an owner of the workspace.
       </Typography>
-      <Typography variant="h6" sx={{ mt: 2 }}>
+      <Typography variant='h6' sx={{ mt: 2 }}>
         Permissions by Role
       </Typography>
       <List>
@@ -101,7 +104,7 @@ function RenderRolesSection() {
             <PersonIcon/>
           </ListItemIcon>
           <ListItemText 
-            primary="Owner" 
+            primary='Owner' 
             secondary={
               <React.Fragment>
                 <Typography>Workspace - Update and Delete</Typography>
@@ -115,7 +118,7 @@ function RenderRolesSection() {
             <PersonIcon/>
           </ListItemIcon>
           <ListItemText 
-            primary="PM (Project Manager)" 
+            primary='PM (Project Manager)' 
             secondary={
               <React.Fragment>
                 <Typography>Project - Create, Update and Delete</Typography>
@@ -128,7 +131,7 @@ function RenderRolesSection() {
             <PersonIcon/>
           </ListItemIcon>
           <ListItemText 
-            primary="Member" 
+            primary='Member' 
             secondary={
               <React.Fragment>
                 <Typography>Task - Create, Update and Delete</Typography>
@@ -143,7 +146,7 @@ function RenderRolesSection() {
 function RenderDeleteThingsSection() {
   return(
     <React.Fragment>
-      <Typography variant="h5" sx={{ marginY: 1}}>
+      <Typography variant='h5' sx={{ marginY: 1}}>
         Delete Things
       </Typography>
       <Typography>
@@ -155,7 +158,7 @@ function RenderDeleteThingsSection() {
       <Typography sx={{ mt: 1 }}>
         Similarly, deleting a workspace will also delete all of the projects that belong to the workspace (and tasks by extension).
       </Typography>
-      <Typography color="error" sx={{ mt: 2 }}>
+      <Typography color='error' sx={{ mt: 2 }}>
         WARNING: When a user deletes their account, any workspace that does not have another user designated as an owner will also be deleted along with its projects and tasks. 
       </Typography>
       <Typography>
@@ -168,7 +171,7 @@ function RenderDeleteThingsSection() {
 function RenderFreedomSection() {
   return(
     <React.Fragment>
-      <Typography variant="h5" sx={{ marginY: 1}}>
+      <Typography variant='h5' sx={{ marginY: 1}}>
         Freedom
       </Typography>
       <Typography>
@@ -190,7 +193,7 @@ function RenderFreedomSection() {
 function RenderFoundersSection() {
   return(
     <React.Fragment>
-      <Typography variant="h5" sx={{ marginY: 1}}>
+      <Typography variant='h5' sx={{ marginY: 1}}>
         Founders
       </Typography>
       <Typography>
@@ -203,7 +206,7 @@ function RenderFoundersSection() {
               <GitHubIcon/>
             </IconButton>
           </ListItemIcon>
-          <ListItemText primary="Marcos Castillo" secondary="Server and Backend Cloud Deployment "/>
+          <ListItemText primary='Marcos Castillo' secondary='Server and Backend Cloud Deployment '/>
         </ListItem>
         <ListItem>
           <ListItemIcon>
@@ -211,7 +214,7 @@ function RenderFoundersSection() {
               <GitHubIcon/>
             </IconButton>
           </ListItemIcon>
-          <ListItemText primary="Corey Gallagher" secondary="Database and Entity Modeling"/>
+          <ListItemText primary='Corey Gallagher' secondary='Database and Entity Modeling'/>
         </ListItem>
         <ListItem>
           <ListItemIcon>
@@ -219,7 +222,7 @@ function RenderFoundersSection() {
               <GitHubIcon/>
             </IconButton>
           </ListItemIcon>
-          <ListItemText primary="Fusako Obata" secondary="UI/UX and Frontend Cloud Deployment"/>
+          <ListItemText primary='Fusako Obata' secondary='UI/UX and Frontend Cloud Deployment'/>
         </ListItem>
       </List>
     </React.Fragment>

@@ -1,15 +1,23 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { isEmpty } from '../../utils/ValidationFns'
+import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog for edit workspace
+ * 
+ * Parameters passed down from ResponsiveDrawer
+ * @param {string} workspaceName
+ * @param {integer} workspaceId
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {object} currentUser
+ * @param {function} setWorkspaces
+ *  
+ * @returns render()
+ */
 export default function EditWorkspaceNameDialog({ 
   workspaceName, workspaceId, open, setOpen, currentUser, setWorkspaces
 }) {
@@ -67,26 +75,26 @@ export default function EditWorkspaceNameDialog({
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">Edit workspace name</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>Edit workspace name</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description1">
+          <DialogContentText id='alert-dialog-description1'>
             Enter the name you'd like to change the current workspace to.
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="workspace-name"
-            label="Name"
+            margin='dense'
+            id='workspace-name'
+            label='Name'
             value={newName}
             error={isEmpty(newName) ? true: false}
-            helperText={isEmpty(newName) ? "Workspace name cannot be blank": false}
+            helperText={isEmpty(newName) ? 'Workspace name cannot be blank': false}
             onChange={handleChange}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
         </DialogContent>
         <DialogActions>

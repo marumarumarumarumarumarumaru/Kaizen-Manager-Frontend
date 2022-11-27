@@ -4,21 +4,19 @@ import Typography from '@mui/material/Typography'
 import Toolbar from '@mui/material/Toolbar'
 
 /**
- * 
- * @returns render()
  * Renders simple appbar without the workspace and user navigation
  * 
+ * @returns render()
  */
 export default function SimpleAppBar() {
 
   return (
-    <AppBar position="fixed">
+    <AppBar position='fixed'>
       <Toolbar>
         <Typography
-          variant="h4"
+          variant='h4'
           noWrap
-          component="a"
-          href="/"
+          component='a'
           sx={{
             mr: 2,
             ml: 5,
@@ -33,10 +31,9 @@ export default function SimpleAppBar() {
           Kaizen
         </Typography>
         <Typography
-          variant="h4"
+          variant='h4'
           noWrap
-          component="a"
-          href=""
+          component='a'
           sx={{
             mr: 2,
             display: { xs: 'flex', md: 'none' },

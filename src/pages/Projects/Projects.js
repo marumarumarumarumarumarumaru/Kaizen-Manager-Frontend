@@ -1,7 +1,12 @@
 import React from 'react'
-import Box from '@mui/material/Box'
 import { Outlet } from 'react-router-dom'
+import { Box } from '@mui/material'
 
+/**
+ * Renders the projects (used for outlet)
+ * 
+ * @returns render()
+ */
 export default function Projects() {  
   /* 
     Page component for rendering projects

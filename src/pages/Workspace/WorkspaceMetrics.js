@@ -1,16 +1,18 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import { Button, FormGroup } from '@mui/material'
-import Typography from '@mui/material/Typography'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
+import { Box, Button, Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
 import AlertSnackbar from '../../components/AlertSnackbar'
 
+/**
+ * Renders the metrics page content
+ * 
+ * @param {array} projects
+ * @param {function} setCurrentProject 
+ * @param {object} currentUser 
+ * @param {integer} currentWorkspace 
+ * 
+ * @returns render()
+ */
 export default function Metrics({ 
   projects, setCurrentProject, currentUser, currentWorkspace
 }) {
@@ -74,11 +76,15 @@ export default function Metrics({
       for (let i = 0; i < selectedProjects.length; i++) {
         projectList.push(selectedProjects[i].project_id)
       }
-
+      let outputType = undefined
+      if (format === 'json') {
+        outputType = 'application/json'
+      } else if (format === 'csv') {
+        outputType = 'text/csv'
+      }
       const data = { 
         projects: projectList,
-        duration: parseInt(period),
-        format: format
+        duration: parseInt(period)
       }
       const url = process.env.REACT_APP_BACKEND_URL
       const userId = currentUser.user_id
@@ -87,12 +93,12 @@ export default function Metrics({
       const response = await fetch( endpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept' : outputType
         },
         body: JSON.stringify(data)
       })
       let output = undefined
-      let outputType = undefined
       if (format === 'json') {
         const jsonData = await response.json()
         output = JSON.stringify(jsonData)
@@ -118,31 +124,31 @@ export default function Metrics({
       m: 2,
       flexsDirection: 'column',
     }}>
-      <Typography variant="h4">
+      <Typography variant='h4'>
         Metrics
       </Typography>
-      <Typography variant="subtitle1" sx={{ mt:1 }}>
+      <Typography variant='subtitle1' sx={{ mt:1 }}>
         Select a time period and projects you'd like to generate metrics data on.
       </Typography>
       <Box sx={{
       }}>
         <FormControl sx={{ m: 2 }}>
-          <FormLabel id="time-period-radio-button-group" sx={{ marginY: 1 }}>Time Period</FormLabel>
+          <FormLabel id='time-period-radio-button-group' sx={{ marginY: 1 }}>Time Period</FormLabel>
           <RadioGroup
-            aria-labelledby="time-period-radio-group"
-            name="time-period-radio-buttons-group"
+            aria-labelledby='time-period-radio-group'
+            name='time-period-radio-buttons-group'
             value={period}
             onChange={handlePeriodChange}
           >
-            <FormControlLabel value="14" control={<Radio />} label="2 weeks" />
-            <FormControlLabel value="30" control={<Radio />} label="1 month" />
-            <FormControlLabel value="60" control={<Radio />} label="3 months" />
-            <FormControlLabel value="90" control={<Radio />} label="6 months" />
-            <FormControlLabel value="365" control={<Radio />} label="1 year" />
+            <FormControlLabel value='14' control={<Radio />} label='2 weeks' />
+            <FormControlLabel value='30' control={<Radio />} label='1 month' />
+            <FormControlLabel value='60' control={<Radio />} label='3 months' />
+            <FormControlLabel value='90' control={<Radio />} label='6 months' />
+            <FormControlLabel value='365' control={<Radio />} label='1 year' />
           </RadioGroup>
         </FormControl>
         <FormControl sx={{ m: 2 }}>
-          <FormLabel id="radio-button-group" sx={{ marginY: 1 }}>Select Project(s)</FormLabel>
+          <FormLabel id='radio-button-group' sx={{ marginY: 1 }}>Select Project(s)</FormLabel>
           <FormGroup>
 
           </FormGroup>
@@ -163,15 +169,15 @@ export default function Metrics({
           : null}
         </FormControl>
         <FormControl sx={{ m: 2 }}>
-          <FormLabel id="data-format-radio-button-group" sx={{ marginY: 1 }}>Data Format</FormLabel>
+          <FormLabel id='data-format-radio-button-group' sx={{ marginY: 1 }}>Data Format</FormLabel>
           <RadioGroup
-            aria-labelledby="data-format-radio-group"
-            name="data-format-radio-buttons-group"
+            aria-labelledby='data-format-radio-group'
+            name='data-format-radio-buttons-group'
             value={format}
             onChange={handleFormatChange}
           >
-            <FormControlLabel value="json" control={<Radio />} label="JSON" />
-            <FormControlLabel value="csv" control={<Radio />} label="CSV" />
+            <FormControlLabel value='json' control={<Radio />} label='JSON' />
+            <FormControlLabel value='csv' control={<Radio />} label='CSV' />
           </RadioGroup>
         </FormControl>
       </Box>
@@ -184,18 +190,18 @@ export default function Metrics({
       </Button>
       {projects.length < 1
       ? <Typography 
-          variant="subtitle2" 
+          variant='subtitle2' 
           sx={{mt: 1}} 
-          color="primary"
+          color='primary'
         >
           Tip: Create a project and some tasks to generate data!
         </Typography>
       : null}
       {projects.length > 0 && selectedProjects.length < 1
       ? <Typography 
-          variant="subtitle2" 
+          variant='subtitle2' 
           sx={{mt: 1}} 
-          color="primary"
+          color='primary'
         >
           Tip: Select at least one project to generate a data! 
           If the project doesn't have any task, file generated may be empty.
@@ -217,15 +223,15 @@ export default function Metrics({
 // https://stackoverflow.com/questions/57709550/how-to-download-text-from-javascript-variable-on-all-browsers
 // 
 function downloadOutput(filename, text, type) {
-  const a = document.createElement("a")
-  a.style.display = "none"
+  const a = document.createElement('a')
+  a.style.display = 'none'
   document.body.appendChild(a)
 
   a.href = window.URL.createObjectURL(
     new Blob([text], { type })
   )
 
-  a.setAttribute("download", filename)
+  a.setAttribute('download', filename)
   a.click()
 
   window.URL.revokeObjectURL(a.href)

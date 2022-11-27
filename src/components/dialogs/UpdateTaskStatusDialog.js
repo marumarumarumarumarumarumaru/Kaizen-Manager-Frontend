@@ -1,18 +1,23 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog for create workspace
+ * 
+ * Parameters passed down from WorkspacesNav
+ * @param {object} task
+ * @param {boolean} moveTaskOpen      // Boolean controls visibility
+ * @param {function} setMoveTaskOpen
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {function} setProjTasks
+ *  
+ * @returns render()
+ */
 export default function UpdateTaskStatusDialog({ 
   task, moveTaskOpen, setMoveTaskOpen, currentWorkspace, currentProject, 
   currentUser, setProjTasks
@@ -70,24 +75,24 @@ export default function UpdateTaskStatusDialog({
       <Dialog
         open={moveTaskOpen}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id='alert-dialog-title'>
           {'Move "' + task.name + '" to a different state'}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             Select the state you'd like to apply for this task
           </DialogContentText>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="update-status-select-label">Status</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='update-status-select-label'>Status</InputLabel>
             <Select
-              labelId="update-status-select-standard-label"
-              id="update-status-select-standard"
+              labelId='update-status-select-standard-label'
+              id='update-status-select-standard'
               value={selectedStatus}
               onChange={handleChange}
-              label="Status"
+              label='Status'
             >
               {taskStatus.map((status) => (
                 <MenuItem value={status}>{status}</MenuItem>

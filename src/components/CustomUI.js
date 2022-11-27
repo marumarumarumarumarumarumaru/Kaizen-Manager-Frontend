@@ -1,11 +1,8 @@
-import { styled } from '@mui/material/styles'
-import MuiAppBar from '@mui/material/AppBar'
+import { styled, AppBar as MuiAppBar } from '@mui/material'
 const drawerWidth = parseInt(process.env.REACT_APP_DRAWER_WIDTH)
 
 /**
- * 
  * Customized Main UI that works with responsive drawer
- * 
  */
 export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -26,6 +23,9 @@ export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open
   }),
 )
 
+/**
+ * Customized Div that works with responsive drawer
+ */
 export const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -35,6 +35,9 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }))
 
+/**
+ * Customized MUI's AppBar that works with responsive drawer
+ */
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({

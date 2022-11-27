@@ -1,12 +1,16 @@
-import * as React from 'react'
-import Snackbar from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
+import React from 'react'
+import { Snackbar, Alert as MuiAlert } from '@mui/material'
 
-// Able to handle: error, warning, info, success
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
-
+/**
+ * Renders Alert Snackbar
+ * 
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen 
+ * @param {string} severity
+ * @param {string} message
+ * 
+ * @returns render()
+ */
 export default function AlertSnackbar({ open, setOpen, severity, message }) {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -23,3 +27,8 @@ export default function AlertSnackbar({ open, setOpen, severity, message }) {
     </Snackbar>
   )
 }
+
+// Able to handle: error, warning, info, success
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+})

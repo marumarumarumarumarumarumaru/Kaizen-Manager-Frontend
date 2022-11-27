@@ -1,27 +1,33 @@
 import React from 'react'
-import List from '@mui/material/List'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import ListSubheader from '@mui/material/ListSubheader'
-import AddIcon from '@mui/icons-material/Add'
-import ListItem from '@mui/material/ListItem'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Tooltip from '@mui/material/Tooltip'
-import { IconButton } from '@mui/material'
 import { Link } from 'react-router-dom'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material'
+import { Add as AddIcon, Delete as DeleteIcon, ArrowRight as ArrowRightIcon } from '@mui/icons-material'
+import { IconButton, Tooltip } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
 import DeleteProjectDialog from '../dialogs/DeleteProjectDialog'
 
+/**
+ * Renders the Projects in the responsive drawer
+ * 
+ * Parameters passed down from ResponsiveDrawer
+ * @param {array} projects
+ * @param {object} currentUser
+ * @param {string} currentUserRole
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {boolean} newProjectOpen
+ * @param {function} setNewProjectOpen
+ * @param {function} setCurrentProject
+ * @param {function} setProjects
+ * 
+ * @returns render()
+ */
 export default function DrawerProjects({ 
-  projects, users, currentUser, currentUserRole, currentWorkspace, currentProject, 
+  projects, currentUser, currentUserRole, currentWorkspace, currentProject, 
   newProjectOpen, setNewProjectOpen, setCurrentProject, setProjects
 }) {
-  /* 
-    Renders the Projects in drawer
-  */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false) // For deletion
 
   const handleNewProjectClickOpen = () => {
@@ -32,10 +38,10 @@ export default function DrawerProjects({
     <React.Fragment>
       <List
         sx={{ width: '100%' }}
-        component="nav"
-        aria-labelledby="projects-subheader"
+        component='nav'
+        aria-labelledby='projects-subheader'
         subheader={
-          <ListSubheader component="div" id="projects-subheader">
+          <ListSubheader component='div' id='projects-subheader'>
             Projects
           </ListSubheader>
         }
@@ -58,7 +64,7 @@ export default function DrawerProjects({
           <ListItemIcon key='createProject'>
             <AddIcon />
           </ListItemIcon>
-          <ListItemText primary="Create a project" />
+          <ListItemText primary='Create a project' />
         </ListItemButton>
       </List>
       <AlertSnackbar
@@ -87,7 +93,7 @@ function ProjectItem({
       key={project.project_id} 
       disablePadding 
       secondaryAction={
-        ["owner", "pm"].includes(currentUserRole)
+        ['owner', 'pm'].includes(currentUserRole)
         ? <ProjectDeleteButton 
             project={project}
             snackbarOpen={snackbarOpen}
@@ -101,7 +107,7 @@ function ProjectItem({
       <Link to={'/workspaces/' + currentWorkspace + '/projects/' + project.project_id} style={{ textDecoration: 'none', color: 'white' }}>
         <ListItemButton onClick={handleClick}>
           {project.project_id === currentProject 
-          ? <ArrowRightIcon fontSize="large" color="primary" sx={{ mr: 0.5 }}/> 
+          ? <ArrowRightIcon fontSize='large' color='primary' sx={{ mr: 0.5 }}/> 
           : null}
           <ListItemText primary={project.project_name} />
         </ListItemButton>
@@ -125,8 +131,8 @@ function ProjectDeleteButton({
 
   return (
     <React.Fragment>
-      <Tooltip title="Delete project">
-        <IconButton edge="end" aria-label="project options" onClick={handleDelProjectClickOpen}>
+      <Tooltip title='Delete project'>
+        <IconButton edge='end' aria-label='project options' onClick={handleDelProjectClickOpen}>
           <DeleteIcon/>
         </IconButton>
       </Tooltip>
