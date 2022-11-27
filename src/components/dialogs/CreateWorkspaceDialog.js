@@ -7,19 +7,18 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-import { validateCreateWorkspace } from '../../utils/ValidationFns'
+import { validateWorkspace, isEmpty } from '../../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 
 export default function CreateWorkspaceDialog({ 
   currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 
-  snackbarOpen, setSnackbarOpen, setWorkspaces
+  snackbarOpen, setSnackbarOpen, errorSnackbarOpen, setErrorSnackbarOpen, setWorkspaces
 }) {
   /* 
     Renders the Create Workspace Dialog
   */
   const navigate = useNavigate()
   const [workspaceName, setWorkspaceName] = React.useState('')
-  const [errors, setErrors] = React.useState([])
 
   const handleChange = (event) => {
     setWorkspaceName(event.target.value)
@@ -30,11 +29,11 @@ export default function CreateWorkspaceDialog({
   }
 
   const handleNewWorkspaceSubmit = () => {
-    const validationErrors = validateCreateWorkspace(workspaceName)
+    const validationErrors = validateWorkspace(workspaceName)
     const hasErrors = validationErrors.length > 0
     if (hasErrors) { 
-      setErrors(validationErrors)
-      console.log(errors)
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
       return
     }
 
@@ -84,6 +83,8 @@ export default function CreateWorkspaceDialog({
           id="name"
           label="Workspace name"
           value={workspaceName}
+          error={isEmpty(workspaceName) ? true: false}
+          helperText={isEmpty(workspaceName) ? "Workspace name cannot be blank": false}
           onChange={handleChange}
           type="text"
           fullWidth

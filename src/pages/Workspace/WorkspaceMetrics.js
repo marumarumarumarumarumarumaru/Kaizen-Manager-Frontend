@@ -183,10 +183,23 @@ export default function Metrics({
           Generate data
       </Button>
       {projects.length < 1
-      ? <Typography variant="subtitle2" sx={{mt: 1}} color="primary">Tip: Create a project and some tasks to generate data!</Typography>
+      ? <Typography 
+          variant="subtitle2" 
+          sx={{mt: 1}} 
+          color="primary"
+        >
+          Tip: Create a project and some tasks to generate data!
+        </Typography>
       : null}
-      {selectedProjects.length < 1
-      ? <Typography variant="subtitle2" sx={{mt: 1}} color="primary">Tip: Select at least one project to generate a data! If the project doesn't have any task, file generated may be empty.</Typography>
+      {projects.length > 0 && selectedProjects.length < 1
+      ? <Typography 
+          variant="subtitle2" 
+          sx={{mt: 1}} 
+          color="primary"
+        >
+          Tip: Select at least one project to generate a data! 
+          If the project doesn't have any task, file generated may be empty.
+        </Typography>
       : null}
       <AlertSnackbar
         open={snackbarOpen} 

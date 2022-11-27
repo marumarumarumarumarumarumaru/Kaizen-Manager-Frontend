@@ -11,9 +11,7 @@ import CreateTaskDialog from './dialogs/CreateTaskDialog'
 export default function CreateTaskCard({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, setProjTasks
 }) {
-
   const [newTaskOpen, setNewTaskOpen] = React.useState(false)
-  const [snackbarCreateTaskOpen, setSnackbarCreateTaskOpen] = React.useState(false)
 
   const handleNewTaskClickOpen = () => {
     setNewTaskOpen(!newTaskOpen)
@@ -41,8 +39,6 @@ export default function CreateTaskCard({
         users={users} 
         newTaskOpen={newTaskOpen} 
         setNewTaskOpen={setNewTaskOpen} 
-        snackbarOpen={snackbarCreateTaskOpen} 
-        setSnackbarOpen={setSnackbarCreateTaskOpen}
         setProjTasks={setProjTasks}
       />
     </React.Fragment>

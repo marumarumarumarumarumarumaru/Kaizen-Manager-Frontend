@@ -12,6 +12,7 @@ import Select from '@mui/material/Select'
 
 import AlertSnackbar from '../AlertSnackbar'
 import { Box, FormHelperText, TextField } from '@mui/material'
+import { isValidEmail } from '../../utils/ValidationFns'
 
 export default function AddMemberDialog({ 
   open, setOpen, currentWorkspace, currentUser, workspaceName, setUsers
@@ -109,6 +110,8 @@ export default function AddMemberDialog({
               id="email"
               label="Email"
               value={values.email}
+              error={isValidEmail(values.email) ? false : true}
+              helperText={isValidEmail(values.email) ? false : "Invalid email format (e.g., test@kaizen.com)"}
               onChange={handleChange('email')}
               type="text"
               fullWidth

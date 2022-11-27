@@ -18,6 +18,7 @@ export default function ResponsiveAppBar({
     Renders the AppBar
   */
   const [snackbarCreateWSOpen, setSnackbarCreateWSOpen] = React.useState(false)
+  const [snackbarErrorWSOpen, setSnackbarErrorWSOpen] = React.useState(false)
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true)
@@ -80,6 +81,8 @@ export default function ResponsiveAppBar({
             setCurrentWorkspace={setCurrentWorkspace}
             snackbarOpen={snackbarCreateWSOpen} 
             setSnackbarOpen={setSnackbarCreateWSOpen} 
+            errorSnackbarOpen={snackbarErrorWSOpen}
+            setErrorSnackbarOpen={setSnackbarErrorWSOpen}
             workspaces={workspaces}
             setWorkspaces={setWorkspaces}/>
           <UserMenu 
@@ -98,6 +101,12 @@ export default function ResponsiveAppBar({
         setOpen={setSnackbarCreateWSOpen} 
         severity={'success'}
         message={'Workspace has been created'}
+      />
+      <AlertSnackbar 
+        open={snackbarErrorWSOpen} 
+        setOpen={setSnackbarErrorWSOpen} 
+        severity={'error'}
+        message={'Workspace not created. Please check your input'}
       />
     </React.Fragment>
   )

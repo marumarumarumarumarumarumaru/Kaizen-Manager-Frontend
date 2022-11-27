@@ -8,6 +8,8 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
+import { isEmpty } from '../../utils/ValidationFns'
+
 export default function EditProjectNameDialog({ 
   projectName, projectId, open, setOpen, currentUser, currentWorkspace, setProjects
 }) {
@@ -79,6 +81,8 @@ export default function EditProjectNameDialog({
             id="project-name"
             label="Name"
             value={newName}
+            error={isEmpty(newName) ? true: false}
+            helperText={isEmpty(newName) ? "Project name cannot be blank": false}
             onChange={handleChange}
             type="text"
             fullWidth

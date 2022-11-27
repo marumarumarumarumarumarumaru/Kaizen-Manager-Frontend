@@ -13,14 +13,18 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
+import { isEmpty, validateTask } from '../../utils/ValidationFns'
+
 export default function CreateTaskDialog ({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, 
-  newTaskOpen, setNewTaskOpen, snackbarOpen, setSnackbarOpen, setProjTasks
+  newTaskOpen, setNewTaskOpen, setProjTasks
 }) {
   /* 
     Renders the Create Project Dialog
   */
   const [targetDate, setTargetDate] = React.useState(null)
+  const [successSnackbarOpen, setSuccessSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
 
   const [values, setValues] = React.useState({
     taskName: '',
@@ -40,6 +44,14 @@ export default function CreateTaskDialog ({
   }
 
   const handleNewTaskCreate = async () => {
+    const validationErrors = validateTask(values)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
+      return
+    }
+
     let addTaskToWS = true
 
     const createTask = async () => {
@@ -67,7 +79,7 @@ export default function CreateTaskDialog ({
       if (addTaskToWS) {
         setProjTasks(tasks)
         setNewTaskOpen(!newTaskOpen)
-        setSnackbarOpen(!snackbarOpen)
+        setSuccessSnackbarOpen(!successSnackbarOpen)
       }
     }
 
@@ -91,6 +103,8 @@ export default function CreateTaskDialog ({
             id="name"
             label="Task name"
             value={values.taskName}
+            error={isEmpty(values.taskName) ? true: false}
+            helperText={isEmpty(values.taskName) ? "Task name cannot be blank": false}
             onChange={handleChange('taskName')}
             type="text"
             fullWidth
@@ -128,7 +142,7 @@ export default function CreateTaskDialog ({
             margin="dense"
             id="name"
             label="Task value"
-            value={values.taskValue || ''}
+            value={values.taskValue || 0}
             onChange={handleChange('taskValue')}
             type="number"
             fullWidth
@@ -160,10 +174,16 @@ export default function CreateTaskDialog ({
         </DialogActions>
       </Dialog>
       <AlertSnackbar 
-        open={snackbarOpen} 
-        setOpen={setSnackbarOpen} 
+        open={successSnackbarOpen} 
+        setOpen={setSuccessSnackbarOpen} 
         severity={'success'}
         message={'Task has been created'}
+      />
+      <AlertSnackbar 
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Task not created. Please check your inputs'}
       />
     </React.Fragment>
   )

@@ -8,6 +8,8 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
+import { isEmpty } from '../../utils/ValidationFns'
+
 export default function EditWorkspaceNameDialog({ 
   workspaceName, workspaceId, open, setOpen, currentUser, setWorkspaces
 }) {
@@ -79,6 +81,8 @@ export default function EditWorkspaceNameDialog({
             id="workspace-name"
             label="Name"
             value={newName}
+            error={isEmpty(newName) ? true: false}
+            helperText={isEmpty(newName) ? "Workspace name cannot be blank": false}
             onChange={handleChange}
             type="text"
             fullWidth

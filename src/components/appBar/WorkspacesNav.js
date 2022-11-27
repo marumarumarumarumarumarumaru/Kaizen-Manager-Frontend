@@ -16,7 +16,7 @@ import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
 
 export default function WorkspacesNav({
   currentUser, currentWorkspace, setCurrentWorkspace, snackbarOpen, setSnackbarOpen, 
-  workspaces, setWorkspaces
+  errorSnackbarOpen, setErrorSnackbarOpen, workspaces, setWorkspaces
 }) {
   /* 
     Renders the Workspaces Navigation
@@ -108,6 +108,8 @@ export default function WorkspacesNav({
         setNewWorkspaceOpen={setNewWorkspaceOpen} 
         snackbarOpen={snackbarOpen} 
         setSnackbarOpen={setSnackbarOpen}
+        errorSnackbarOpen={errorSnackbarOpen}
+        setErrorSnackbarOpen={setErrorSnackbarOpen}
         setWorkspaces={setWorkspaces}/>
     </Box>
   )

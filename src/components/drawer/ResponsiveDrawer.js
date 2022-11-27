@@ -37,7 +37,6 @@ export default function ResponsiveDrawer({
   const theme = useTheme()
   const [memberOpen, setMemberOpen] = React.useState(false)
   const [newProjectOpen, setNewProjectOpen] = React.useState(false)
-  const [snackbarCreateProjectOpen, setSnackbarCreateProjectOpen] = React.useState(false)
   const [editNameOpen, setEditNameOpen] = React.useState(false)
 
   const drawerWidth = parseInt(process.env.REACT_APP_DRAWER_WIDTH)
@@ -156,8 +155,6 @@ export default function ResponsiveDrawer({
         setCurrentProject={setCurrentProject}
         newProjectOpen={newProjectOpen} 
         setNewProjectOpen={setNewProjectOpen} 
-        snackbarOpen={snackbarCreateProjectOpen}
-        setSnackbarOpen={setSnackbarCreateProjectOpen}
         setProjects={setProjects}
       />
       <EditWorkspaceNameDialog

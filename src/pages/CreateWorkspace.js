@@ -5,8 +5,9 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 
-import { validateCreateWorkspace } from '../utils/ValidationFns'
+import { validateWorkspace, isEmpty } from '../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
+import AlertSnackbar from '../components/AlertSnackbar'
 
 export default function CreateWorkspace({ 
   setShowDrawer, currentUser, setCurrentWorkspace, setWorkspaces
@@ -16,7 +17,7 @@ export default function CreateWorkspace({
   */
   const navigate = useNavigate()
   const [workspaceName, setWorkspaceName] = React.useState('')
-  const [errors, setErrors] = React.useState([])
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
 
   React.useEffect(() => {
     setShowDrawer(false)
@@ -27,11 +28,11 @@ export default function CreateWorkspace({
   }
 
   const handleSubmit = () => {
-    const validationErrors = validateCreateWorkspace(workspaceName)
+    const validationErrors = validateWorkspace(workspaceName)
     const hasErrors = validationErrors.length > 0
     if (hasErrors) { 
-      setErrors(validationErrors)
-      console.log(errors)
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
       return
     }
 
@@ -105,6 +106,8 @@ export default function CreateWorkspace({
               label="Workspace name"
               type="text"
               value={workspaceName}
+              error={isEmpty(workspaceName) ? true: false}
+              helperText={isEmpty(workspaceName) ? "Workspace name cannot be blank": false}
               onChange={handleChange}
               fullWidth
               variant="standard"
@@ -127,6 +130,12 @@ export default function CreateWorkspace({
           </Box>
         </Paper>
       </Box>
+      <AlertSnackbar
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Workspace not created. Please check your input'}
+      />
     </React.Fragment>
   )
 }

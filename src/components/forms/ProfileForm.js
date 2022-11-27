@@ -95,7 +95,7 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
         open={snackbarOpen} 
         setOpen={setSnackbarOpen} 
         severity={'success'}
-        message={'Settings updated'}
+        message={'Your name has been updated to: ' + currentUser.first_name + ' ' + currentUser.last_name}
       />
     </React.Fragment>
   )

@@ -8,19 +8,20 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
-import { validateCreateProject } from '../../utils/ValidationFns'
+import { validateProject, isEmpty } from '../../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 
 export default function CreateProjectDialog({ 
   currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 
-  snackbarOpen, setSnackbarOpen, setProjects
+  setProjects
 }) {
   /* 
     Renders the Create Project Dialog
   */
   const navigate = useNavigate()
   const [projectName, setProjectName] = React.useState('')
-  const [errors, setErrors] = React.useState([])
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
 
   const handleChange = (event) => {
     setProjectName(event.target.value)
@@ -31,11 +32,11 @@ export default function CreateProjectDialog({
   }
 
   const handleNewProjectSubmit = () => {
-    const validationErrors = validateCreateProject(projectName)
+    const validationErrors = validateProject(projectName)
     const hasErrors = validationErrors.length > 0
     if (hasErrors) { 
-      setErrors(validationErrors)
-      console.log(errors)
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
       return
     }
     let addProjectToWS = true
@@ -85,6 +86,8 @@ export default function CreateProjectDialog({
             id="name"
             label="Project name"
             value={projectName}
+            error={isEmpty(projectName) ? true: false}
+            helperText={isEmpty(projectName) ? "Workspace name cannot be blank": false}
             onChange={handleChange}
             type="text"
             fullWidth
@@ -101,6 +104,12 @@ export default function CreateProjectDialog({
         setOpen={setSnackbarOpen} 
         severity={'success'}
         message={'Project has been created'}
+      />
+      <AlertSnackbar
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Project not created. Please check your input'}
       />
     </React.Fragment>
   )

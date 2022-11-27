@@ -13,6 +13,8 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
+import { isEmpty, validateTask } from '../../utils/ValidationFns'
+
 export default function EditTaskDialog({ 
   task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 
   currentUser, setProjTasks
@@ -20,9 +22,10 @@ export default function EditTaskDialog({
   /* 
     Renders the Edit Task Dialog
   */
+  const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
   const [targetDate, setTargetDate] = React.useState(task.task_due_date)
-
   const [values, setValues] = React.useState({
     taskName: task.task_name,
     assignee: task.task_assignee,
@@ -30,9 +33,6 @@ export default function EditTaskDialog({
     taskValue: task.task_value,
     taskDescription: task.task_descriptions
   })
-
-  const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
-  // const [errors, setErrors] = React.useState([])
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value })
@@ -43,6 +43,14 @@ export default function EditTaskDialog({
   }
 
   const handleEditTaskClose = () => {
+    const validationErrors = validateTask(values)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
+      return
+    }
+
     let updateTaskFromProj = true
 
     const editTask = async () => {
@@ -95,6 +103,8 @@ export default function EditTaskDialog({
             id="name"
             label="Task name"
             value={values.taskName}
+            error={isEmpty(values.taskName) ? true: false}
+            helperText={isEmpty(values.taskName) ? "Task name cannot be blank": false}
             onChange={handleChange('taskName')}
             type="text"
             fullWidth
@@ -147,7 +157,7 @@ export default function EditTaskDialog({
             margin="dense"
             id="name"
             label="Descriptions"
-            value={values.taskDescription || ''}
+            value={values.taskDescription || 0}
             onChange={handleChange('taskDescription')}
             type="text"
             fullWidth
@@ -172,6 +182,12 @@ export default function EditTaskDialog({
         setOpen={setSnackbarOpen} 
         severity={'success'}
         message={'Task has been updated'}
+      />
+      <AlertSnackbar 
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Task not updated. Please check your inputs'}
       />
     </React.Fragment>
   )
