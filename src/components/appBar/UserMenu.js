@@ -40,14 +40,14 @@ export default function UserMenu({
   return (
     <React.Fragment>
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
+        <Tooltip title='Open settings'>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
         <Menu
           anchorEl={anchorElUser}
-          id="account-menu"
+          id='account-menu'
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
           onClick={handleCloseUserMenu}
@@ -86,17 +86,17 @@ export default function UserMenu({
             <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '20', pl: 1 }}>
               <Typography>{currentUser.first_name + ' ' + currentUser.last_name}</Typography>
-              <Typography variant="caption">{currentUser.email}</Typography>
+              <Typography variant='caption'>{currentUser.email}</Typography>
             </Box>
           </MenuItem>
-          <Divider variant="middle"/>
+          <Divider variant='middle'/>
           <MenuItem
             onClick={handleCloseUserMenu}
             component={Link}
             to={'/profile'}
           >
             <ListItemIcon>
-              <AccountCircleIcon fontSize="small" />
+              <AccountCircleIcon fontSize='small' />
             </ListItemIcon>
             Profile
           </MenuItem>
@@ -106,7 +106,7 @@ export default function UserMenu({
             to={'/settings'}
           >
             <ListItemIcon>
-              <Settings fontSize="small" />
+              <Settings fontSize='small' />
             </ListItemIcon>
             Settings
           </MenuItem> */}
@@ -116,16 +116,16 @@ export default function UserMenu({
             to={'/about'}
           >
             <ListItemIcon>
-              <HelpIcon fontSize="small" />
+              <HelpIcon fontSize='small' />
             </ListItemIcon>
             About
           </MenuItem>
-          <Divider variant="middle"/>
+          <Divider variant='middle'/>
           <MenuItem
             onClick={handleLogoutClickOpen}
           >
             <ListItemIcon>
-              <Logout fontSize="small" />
+              <Logout fontSize='small' />
             </ListItemIcon>
             Logout
           </MenuItem>

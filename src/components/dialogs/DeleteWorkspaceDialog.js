@@ -39,7 +39,7 @@ export default function DeleteWorkspaceDialog({
           setCurrentWorkspace(workspaces[0].workspace_id)
         } else {
           setCurrentWorkspace(null)
-          navigate("/create-workspace")
+          navigate('/create-workspace')
         }
         setOpen(!open)
       }
@@ -55,14 +55,14 @@ export default function DeleteWorkspaceDialog({
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Delete Workspace"}
+      <DialogTitle id='alert-dialog-title'>
+        {'Delete Workspace'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id='alert-dialog-description'>
           Are you sure you want to delete the workspace "{workspaceName}"?
         </DialogContentText>
       </DialogContent>

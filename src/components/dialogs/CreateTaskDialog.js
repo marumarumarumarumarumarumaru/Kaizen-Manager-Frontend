@@ -99,25 +99,25 @@ export default function CreateTaskDialog ({
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Task name"
+            margin='dense'
+            id='name'
+            label='Task name'
             value={values.taskName}
             error={isEmpty(values.taskName) ? true: false}
-            helperText={isEmpty(values.taskName) ? "Task name cannot be blank": false}
+            helperText={isEmpty(values.taskName) ? 'Task name cannot be blank': false}
             onChange={handleChange('taskName')}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="assignee-select-label">Assignee</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='assignee-select-label'>Assignee</InputLabel>
             <Select
-              labelId="assignee-select-standard-label"
-              id="assignee-select-standard"
+              labelId='assignee-select-standard-label'
+              id='assignee-select-standard'
               value={values.assignee || ''}
               onChange={handleChange('assignee')}
-              label="Assignee"
+              label='Assignee'
             >
               <MenuItem value={''}>None</MenuItem>
               {users
@@ -129,39 +129,39 @@ export default function CreateTaskDialog ({
           </FormControl>
           <TextField
             disabled
-            margin="dense"
-            id="name"
-            label="Status"
+            margin='dense'
+            id='name'
+            label='Status'
             value={values.selectedStatus}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Task value"
+            margin='dense'
+            id='name'
+            label='Task value'
             value={values.taskValue || 0}
             onChange={handleChange('taskValue')}
-            type="number"
+            type='number'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Description"
+            margin='dense'
+            id='name'
+            label='Description'
             value={values.taskDescription || ''}
             onChange={handleChange('taskDescription')}
-            type="text"
+            type='text'
             fullWidth
             multiline
-            variant="standard"
+            variant='standard'
           />
           <DatePicker
-            label="Target date"
+            label='Target date'
             value={targetDate}
             onChange={(newValue) => {setTargetDate(newValue)}}
             renderInput={(params) => <TextField {...params}

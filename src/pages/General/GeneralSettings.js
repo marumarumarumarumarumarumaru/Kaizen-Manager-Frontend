@@ -42,14 +42,14 @@ function GeneralSettingsForm() {
       m: 2,
       flexsDirection: 'column'
     }}>
-      <Typography variant="h4">
+      <Typography variant='h4'>
         General Settings
       </Typography>
-      <Typography variant="subtitle1" sx={{ mt: 1 }}>
+      <Typography variant='subtitle1' sx={{ mt: 1 }}>
         Edit below to adjust your Kaizen Manager general settings.
       </Typography>
       <Box
-        component="form"
+        component='form'
         sx={{
           display: 'flex',
           flexDirection: 'column',

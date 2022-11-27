@@ -99,25 +99,25 @@ export default function EditTaskDialog({
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Task name"
+            margin='dense'
+            id='name'
+            label='Task name'
             value={values.taskName}
             error={isEmpty(values.taskName) ? true: false}
-            helperText={isEmpty(values.taskName) ? "Task name cannot be blank": false}
+            helperText={isEmpty(values.taskName) ? 'Task name cannot be blank': false}
             onChange={handleChange('taskName')}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="assignee-select-label">Assignee</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='assignee-select-label'>Assignee</InputLabel>
             <Select
-              labelId="assignee-select-standard-label"
-              id="assignee-select-standard"
+              labelId='assignee-select-standard-label'
+              id='assignee-select-standard'
               value={values.assignee || ''}
               onChange={handleChange('assignee')}
-              label="Assignee"
+              label='Assignee'
             >
               <MenuItem value={''}>None</MenuItem>
               {users
@@ -127,14 +127,14 @@ export default function EditTaskDialog({
               : null}
             </Select>
           </FormControl>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="status-select-label">Status</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='status-select-label'>Status</InputLabel>
             <Select
-              labelId="status-select-standard-label"
-              id="status-select-standard"
+              labelId='status-select-standard-label'
+              id='status-select-standard'
               value={values.selectedStatus}
               onChange={handleChange('selectedStatus')}
-              label="Status"
+              label='Status'
             >
               {taskStatus.map((status) => (
                 <MenuItem value={status}>{status}</MenuItem>
@@ -143,29 +143,29 @@ export default function EditTaskDialog({
           </FormControl>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Task value"
+            margin='dense'
+            id='name'
+            label='Task value'
             value={values.taskValue || ''}
             onChange={handleChange('taskValue')}
-            type="number"
+            type='number'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Descriptions"
+            margin='dense'
+            id='name'
+            label='Descriptions'
             value={values.taskDescription || 0}
             onChange={handleChange('taskDescription')}
-            type="text"
+            type='text'
             fullWidth
             multiline
-            variant="standard"
+            variant='standard'
           />
           <DatePicker
-            label="Target date"
+            label='Target date'
             value={targetDate}
             onChange={(newValue) => {setTargetDate(newValue)}}
             renderInput={(params) => <TextField {...params}

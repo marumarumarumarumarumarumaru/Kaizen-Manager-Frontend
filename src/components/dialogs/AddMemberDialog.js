@@ -87,40 +87,40 @@ export default function AddMemberDialog({
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id='alert-dialog-title'>
           {'Add an user to ' + workspaceName}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description1">
+          <DialogContentText id='alert-dialog-description1'>
             Enter the email address of the user you'd like to add to this workspace.
           </DialogContentText>
-          <DialogContentText id="alert-dialog-description2">
+          <DialogContentText id='alert-dialog-description2'>
             Note that user must have an account on Kaizen Manager.
           </DialogContentText>
           <Box sx={{ 
-            display: "flex", flexDirection: "row", justifyContent: "space-between",
-            alignItems: "baseline", mt: 1
+            display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
+            alignItems: 'baseline', mt: 1
             }}>
             <TextField
               autoFocus
-              margin="dense"
-              id="email"
-              label="Email"
+              margin='dense'
+              id='email'
+              label='Email'
               value={values.email}
               error={isValidEmail(values.email) ? false : true}
-              helperText={isValidEmail(values.email) ? false : "Invalid email format (e.g., test@kaizen.com)"}
+              helperText={isValidEmail(values.email) ? false : 'Invalid email format (e.g., test@kaizen.com)'}
               onChange={handleChange('email')}
-              type="text"
+              type='text'
               fullWidth
-              variant="standard"
+              variant='standard'
             />
-            <FormControl sx={{ ml: 2, minWidth: 120 }}size="small">
+            <FormControl sx={{ ml: 2, minWidth: 120 }}size='small'>
               <Select
-                labelId="update-role-select-small"
-                id="update-role-select-small"
+                labelId='update-role-select-small'
+                id='update-role-select-small'
                 value={values.role}
                 onChange={handleChange('role')}
                 displayEmpty

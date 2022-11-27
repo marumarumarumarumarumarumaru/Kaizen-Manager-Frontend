@@ -24,7 +24,7 @@ export default function CreateTaskCard({
           <CardContent>
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
               <PostAddIcon/>
-              <Typography gutterBottom variant="button" component="div" sx={{ ml: 2 }}>
+              <Typography gutterBottom variant='button' component='div' sx={{ ml: 2 }}>
                 Create task
               </Typography>
             </Box>

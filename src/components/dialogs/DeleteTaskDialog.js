@@ -53,14 +53,14 @@ export default function DeleteTaskDialog({
       <Dialog
         open={delTaskOpen}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id='alert-dialog-title'>
           {'Delete "' + task.task_name + '"'}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             Are you sure you want to delete this task?
           </DialogContentText>
         </DialogContent>

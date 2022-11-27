@@ -65,12 +65,12 @@ export default function ResponsiveDrawer({
             boxSizing: 'border-box',
           }
         }}
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={drawerOpen}
       >
         <DrawerHeader>
-          <Tooltip title="Hide drawer">
+          <Tooltip title='Hide drawer'>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
@@ -79,17 +79,17 @@ export default function ResponsiveDrawer({
         <Divider />
         <List
           sx={{ width: '100%' }}
-          component="nav"
-          aria-labelledby="workspace-subheader"
+          component='nav'
+          aria-labelledby='workspace-subheader'
           subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+            <ListSubheader component='div' id='nested-list-subheader'>
+              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                 {currWorkspaceName}
-                {currentUserRole === "owner"
+                {currentUserRole === 'owner'
                 ? <Box>
-                    <Tooltip title="Update name">
+                    <Tooltip title='Update name'>
                       <IconButton onClick={handleEditNameClickOpen}>
-                        <BorderColorIcon fontSize="small"/>
+                        <BorderColorIcon fontSize='small'/>
                       </IconButton>
                     </Tooltip>
                   </Box>
@@ -98,14 +98,14 @@ export default function ResponsiveDrawer({
             </ListSubheader>
           }
         >            
-          <Tooltip title="View members">
+          <Tooltip title='View members'>
             <ListItemButton key='membersButton' onClick={handleMemberClickOpen}>
               <ListItemText primary='Members' />
               {memberOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
           </Tooltip>
-          <Collapse in={memberOpen} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+          <Collapse in={memberOpen} timeout='auto' unmountOnExit>
+            <List component='div' disablePadding>
               {users
               ? (users.map((user) => (
                   <ListItem key={user.id} sx={{ml: 1}}>

@@ -55,14 +55,14 @@ export default function RemoveMemberDialog({
       <Dialog
         open={removeUserOpen}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id='alert-dialog-title'>
           {'Remove ' + fullName + ' from current workspace'}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             Are you sure you want to remove {fullName} from this workspace?
           </DialogContentText>
         </DialogContent>

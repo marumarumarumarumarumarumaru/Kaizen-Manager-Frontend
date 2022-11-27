@@ -122,31 +122,31 @@ export default function Metrics({
       m: 2,
       flexsDirection: 'column',
     }}>
-      <Typography variant="h4">
+      <Typography variant='h4'>
         Metrics
       </Typography>
-      <Typography variant="subtitle1" sx={{ mt:1 }}>
+      <Typography variant='subtitle1' sx={{ mt:1 }}>
         Select a time period and projects you'd like to generate metrics data on.
       </Typography>
       <Box sx={{
       }}>
         <FormControl sx={{ m: 2 }}>
-          <FormLabel id="time-period-radio-button-group" sx={{ marginY: 1 }}>Time Period</FormLabel>
+          <FormLabel id='time-period-radio-button-group' sx={{ marginY: 1 }}>Time Period</FormLabel>
           <RadioGroup
-            aria-labelledby="time-period-radio-group"
-            name="time-period-radio-buttons-group"
+            aria-labelledby='time-period-radio-group'
+            name='time-period-radio-buttons-group'
             value={period}
             onChange={handlePeriodChange}
           >
-            <FormControlLabel value="14" control={<Radio />} label="2 weeks" />
-            <FormControlLabel value="30" control={<Radio />} label="1 month" />
-            <FormControlLabel value="60" control={<Radio />} label="3 months" />
-            <FormControlLabel value="90" control={<Radio />} label="6 months" />
-            <FormControlLabel value="365" control={<Radio />} label="1 year" />
+            <FormControlLabel value='14' control={<Radio />} label='2 weeks' />
+            <FormControlLabel value='30' control={<Radio />} label='1 month' />
+            <FormControlLabel value='60' control={<Radio />} label='3 months' />
+            <FormControlLabel value='90' control={<Radio />} label='6 months' />
+            <FormControlLabel value='365' control={<Radio />} label='1 year' />
           </RadioGroup>
         </FormControl>
         <FormControl sx={{ m: 2 }}>
-          <FormLabel id="radio-button-group" sx={{ marginY: 1 }}>Select Project(s)</FormLabel>
+          <FormLabel id='radio-button-group' sx={{ marginY: 1 }}>Select Project(s)</FormLabel>
           <FormGroup>
 
           </FormGroup>
@@ -167,15 +167,15 @@ export default function Metrics({
           : null}
         </FormControl>
         <FormControl sx={{ m: 2 }}>
-          <FormLabel id="data-format-radio-button-group" sx={{ marginY: 1 }}>Data Format</FormLabel>
+          <FormLabel id='data-format-radio-button-group' sx={{ marginY: 1 }}>Data Format</FormLabel>
           <RadioGroup
-            aria-labelledby="data-format-radio-group"
-            name="data-format-radio-buttons-group"
+            aria-labelledby='data-format-radio-group'
+            name='data-format-radio-buttons-group'
             value={format}
             onChange={handleFormatChange}
           >
-            <FormControlLabel value="json" control={<Radio />} label="JSON" />
-            <FormControlLabel value="csv" control={<Radio />} label="CSV" />
+            <FormControlLabel value='json' control={<Radio />} label='JSON' />
+            <FormControlLabel value='csv' control={<Radio />} label='CSV' />
           </RadioGroup>
         </FormControl>
       </Box>
@@ -188,18 +188,18 @@ export default function Metrics({
       </Button>
       {projects.length < 1
       ? <Typography 
-          variant="subtitle2" 
+          variant='subtitle2' 
           sx={{mt: 1}} 
-          color="primary"
+          color='primary'
         >
           Tip: Create a project and some tasks to generate data!
         </Typography>
       : null}
       {projects.length > 0 && selectedProjects.length < 1
       ? <Typography 
-          variant="subtitle2" 
+          variant='subtitle2' 
           sx={{mt: 1}} 
-          color="primary"
+          color='primary'
         >
           Tip: Select at least one project to generate a data! 
           If the project doesn't have any task, file generated may be empty.
@@ -221,15 +221,15 @@ export default function Metrics({
 // https://stackoverflow.com/questions/57709550/how-to-download-text-from-javascript-variable-on-all-browsers
 // 
 function downloadOutput(filename, text, type) {
-  const a = document.createElement("a")
-  a.style.display = "none"
+  const a = document.createElement('a')
+  a.style.display = 'none'
   document.body.appendChild(a)
 
   a.href = window.URL.createObjectURL(
     new Blob([text], { type })
   )
 
-  a.setAttribute("download", filename)
+  a.setAttribute('download', filename)
   a.click()
 
   window.URL.revokeObjectURL(a.href)

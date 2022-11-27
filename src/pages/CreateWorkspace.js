@@ -57,7 +57,7 @@ export default function CreateWorkspace({
       if (createWorkspace) {
         setCurrentWorkspace(workspace.workspace_id)
         setWorkspaces(workspaces)
-        navigate("/workspaces/" + workspace.workspace_id)
+        navigate('/workspaces/' + workspace.workspace_id)
       }
     }
 
@@ -91,7 +91,7 @@ export default function CreateWorkspace({
             <Typography paragraph>Looks like your account doesn't have a workspace. Please create one before proceeding.</Typography>
           </Box>
           <Box
-            component="form"
+            component='form'
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -101,16 +101,16 @@ export default function CreateWorkspace({
           >
             <TextField
               autoFocus
-              margin="dense"
-              id="name"
-              label="Workspace name"
-              type="text"
+              margin='dense'
+              id='name'
+              label='Workspace name'
+              type='text'
               value={workspaceName}
               error={isEmpty(workspaceName) ? true: false}
-              helperText={isEmpty(workspaceName) ? "Workspace name cannot be blank": false}
+              helperText={isEmpty(workspaceName) ? 'Workspace name cannot be blank': false}
               onChange={handleChange}
               fullWidth
-              variant="standard"
+              variant='standard'
             />
           </Box>
           <Box sx={{

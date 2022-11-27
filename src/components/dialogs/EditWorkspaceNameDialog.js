@@ -67,26 +67,26 @@ export default function EditWorkspaceNameDialog({
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">Edit workspace name</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>Edit workspace name</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description1">
+          <DialogContentText id='alert-dialog-description1'>
             Enter the name you'd like to change the current workspace to.
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="workspace-name"
-            label="Name"
+            margin='dense'
+            id='workspace-name'
+            label='Name'
             value={newName}
             error={isEmpty(newName) ? true: false}
-            helperText={isEmpty(newName) ? "Workspace name cannot be blank": false}
+            helperText={isEmpty(newName) ? 'Workspace name cannot be blank': false}
             onChange={handleChange}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
         </DialogContent>
         <DialogActions>

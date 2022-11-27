@@ -82,16 +82,16 @@ export default function CreateProjectDialog({
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="Project name"
+            margin='dense'
+            id='name'
+            label='Project name'
             value={projectName}
             error={isEmpty(projectName) ? true: false}
-            helperText={isEmpty(projectName) ? "Workspace name cannot be blank": false}
+            helperText={isEmpty(projectName) ? 'Workspace name cannot be blank': false}
             onChange={handleChange}
-            type="text"
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
           />
         </DialogContent>
         <DialogActions>

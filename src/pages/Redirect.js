@@ -53,10 +53,10 @@ export default function Redirect({
       textAlign: 'center'
       }}>
       <Box sx={{ width: '100%'}}>
-        <Typography variant="body2">
+        <Typography variant='body2'>
           Hi {currentUser.first_name}!
         </Typography>
-        <Typography variant="body2" sx={{ mb: 2 }}>
+        <Typography variant='body2' sx={{ mb: 2 }}>
           Hold up, we're getting your session started...
         </Typography>
         <LinearProgress />

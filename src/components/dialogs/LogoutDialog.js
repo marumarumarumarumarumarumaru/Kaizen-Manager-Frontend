@@ -24,21 +24,21 @@ export default function LogoutDialog({
     setOpen(!open)
     setLogout(true)
     setNavigateToRedirect(false)
-    navigate("/")
+    navigate('/')
   }
 
   return (
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Logout of Kaizen"}
+      <DialogTitle id='alert-dialog-title'>
+        {'Logout of Kaizen'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id='alert-dialog-description'>
           Are you sure you want to logout?
         </DialogContentText>
       </DialogContent>

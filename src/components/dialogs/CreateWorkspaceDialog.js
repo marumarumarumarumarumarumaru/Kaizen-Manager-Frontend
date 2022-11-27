@@ -60,7 +60,7 @@ export default function CreateWorkspaceDialog({
         setWorkspaces(workspaces)
         setNewWorkspaceOpen(!newWorkspaceOpen)
         setSnackbarOpen(!snackbarOpen)      
-        navigate("/workspaces/" + workspace.workspace_id)
+        navigate('/workspaces/' + workspace.workspace_id)
       }
     }
 
@@ -79,16 +79,16 @@ export default function CreateWorkspaceDialog({
         </DialogContentText>
         <TextField
           autoFocus
-          margin="dense"
-          id="name"
-          label="Workspace name"
+          margin='dense'
+          id='name'
+          label='Workspace name'
           value={workspaceName}
           error={isEmpty(workspaceName) ? true: false}
-          helperText={isEmpty(workspaceName) ? "Workspace name cannot be blank": false}
+          helperText={isEmpty(workspaceName) ? 'Workspace name cannot be blank': false}
           onChange={handleChange}
-          type="text"
+          type='text'
           fullWidth
-          variant="standard"
+          variant='standard'
         />
       </DialogContent>
       <DialogActions>

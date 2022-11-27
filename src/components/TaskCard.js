@@ -46,7 +46,7 @@ export default function TaskCard({
       <Card key={'task' + task.task_id} sx={{ mb: 2 }} elevation={4}>
         <CardActionArea onClick={handleEditTaskClickOpen}>
           <CardContent>
-            <Typography noWrap gutterBottom variant="h6" component="div" sx={{ mb: 1 }}>
+            <Typography noWrap gutterBottom variant='h6' component='div' sx={{ mb: 1 }}>
               {task.task_name}
             </Typography>
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -58,8 +58,8 @@ export default function TaskCard({
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" onClick={handleMoveTaskClickOpen}>Move</Button>
-          <Button size="small" onClick={handleDelTaskClickOpen}>Delete</Button>
+          <Button size='small' onClick={handleMoveTaskClickOpen}>Move</Button>
+          <Button size='small' onClick={handleDelTaskClickOpen}>Delete</Button>
         </CardActions>
       </Card>
       <EditTaskDialog 
@@ -96,9 +96,9 @@ export default function TaskCard({
 
 /**
  * Determine chip color based on target date
- * * "error": red
- * * "warning": yellow
- * * "success": green
+ * * 'error': red
+ * * 'warning': yellow
+ * * 'success': green
  * * null: grey
  * 
  * @param {*} targetDate - string
@@ -114,16 +114,16 @@ function CheckTargetDate(targetDate, taskStatus) {
     let totalDays = Math.ceil(difference / (1000 * 3600 * 24))
     // If target date today or in the past, show red
     if (totalDays <= 0) {
-      return "error"
+      return 'error'
     // Else if the task is already closed, show grey
-    } else if (taskStatus === "Closed") {
+    } else if (taskStatus === 'Closed') {
       return
     // Else if target date is within the next 2 weeks, show yellow
     } else if (14 >= totalDays) {
-      return "warning"
+      return 'warning'
     // Otherwise, show green
     } else {
-      return "success"
+      return 'success'
     }
   } else {
     return

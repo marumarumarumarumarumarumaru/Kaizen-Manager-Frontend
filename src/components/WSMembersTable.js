@@ -24,12 +24,12 @@ export default function MembersTable({
 
   return (
     <TableContainer component={Paper} sx={{ marginY: 2, maxWidth: 1000 }}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
             <TableCell>Member name</TableCell>
-            <TableCell align="right">Role</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell align='right'>Role</TableCell>
+            <TableCell align='right'>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -101,13 +101,13 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
         key={user.user_id}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >
-        <TableCell component="th" scope="row">
+        <TableCell component='th' scope='row'>
           {fullName}
         </TableCell>
-        <TableCell align="right">
+        <TableCell align='right'>
           <FormControl>
             <Select
-              id="update-role-select-standard"
+              id='update-role-select-standard'
               value={role}
               onChange={handleChange}
               displayEmpty
@@ -120,7 +120,7 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
             </Select>
           </FormControl>
         </TableCell>
-        <TableCell align="right">
+        <TableCell align='right'>
           <IconButton 
             onClick={handleRemoveUserClickOpen}
             disabled={currentUserRole !== 'owner' || user.user_id === currentUser.user_id}
@@ -141,7 +141,7 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
         open={roleSnackbarOpen} 
         setOpen={setRoleSnackbarOpen} 
         severity={'success'}
-        message={ fullName + "'s role has been updated to: " + role.toUpperCase() }
+        message={ fullName + '\'s role has been updated to: ' + role.toUpperCase() }
       />
     </React.Fragment>
   )

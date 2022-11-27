@@ -57,18 +57,18 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', 'flexDirection': 'column' }}>
-        <Typography variant="h5" sx={{ mt: 4 }}>
+        <Typography variant='h5' sx={{ mt: 4 }}>
           Name
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           Edit below to adjust your name that you use on Kaizen Manager.
         </Typography>
-        <Typography variant="subtitle2">
+        <Typography variant='subtitle2'>
           Note: If you hit "save" with the input blank, that portion will not be updated.
         </Typography>
       </Box>
       <Box
-        component="form"
+        component='form'
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -76,15 +76,15 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
         }}
       >
         <TextField
-          id="outlined"
-          label="First Name"
+          id='outlined'
+          label='First Name'
           value={values.firstName || ''}
           onChange={handleChange('firstName')}
           sx={{ m: 1, width: '50vh' }}
         />
         <TextField
-          id="outlined"
-          label="Last Name"
+          id='outlined'
+          label='Last Name'
           value={values.lastName || ''}
           onChange={handleChange('lastName')}
           sx={{ m: 1, width: '50vh' }}

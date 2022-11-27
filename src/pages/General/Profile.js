@@ -31,10 +31,10 @@ export default function Profile({
         m: 2,
         flexsDirection: 'column',
       }}>
-        <Typography variant="h4">
+        <Typography variant='h4'>
           Profile Settings
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           Edit below to update your user profile on Kaizen Manager.
         </Typography>
         <ProfileForm 
@@ -64,19 +64,19 @@ function DeleteAccount({openDialog}) {
   return (
     <React.Fragment>
       <Box sx={{
-        flexsDirection: "column",
+        flexsDirection: 'column',
       }}>
-        <Typography variant="h5" sx={{ mt: 4 }}>
+        <Typography variant='h5' sx={{ mt: 4 }}>
           Delete Account
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           By pressing the below button, you can delete your account after a confirmation screen.
         </Typography>
       </Box>
       <Button 
         variant='contained' 
         onClick={openDialog} 
-        color="error" 
+        color='error' 
         sx={{ mt: 2 }}
       >
         Delete Account

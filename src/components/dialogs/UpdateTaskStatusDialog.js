@@ -70,24 +70,24 @@ export default function UpdateTaskStatusDialog({
       <Dialog
         open={moveTaskOpen}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id='alert-dialog-title'>
           {'Move "' + task.name + '" to a different state'}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             Select the state you'd like to apply for this task
           </DialogContentText>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel id="update-status-select-label">Status</InputLabel>
+          <FormControl variant='standard' fullWidth>
+            <InputLabel id='update-status-select-label'>Status</InputLabel>
             <Select
-              labelId="update-status-select-standard-label"
-              id="update-status-select-standard"
+              labelId='update-status-select-standard-label'
+              id='update-status-select-standard'
               value={selectedStatus}
               onChange={handleChange}
-              label="Status"
+              label='Status'
             >
               {taskStatus.map((status) => (
                 <MenuItem value={status}>{status}</MenuItem>

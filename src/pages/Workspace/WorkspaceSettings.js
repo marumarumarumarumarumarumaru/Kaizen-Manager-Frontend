@@ -52,16 +52,16 @@ export default function WorkspaceSettings({
         m: 2,
         flexsDirection: 'column',
       }}>
-        <Typography variant="h4">
+        <Typography variant='h4'>
           Settings
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           Edit below to adjust this workspace's settings.
         </Typography>
-        <Typography variant="h5" sx={{ mt: 4 }}>
+        <Typography variant='h5' sx={{ mt: 4 }}>
           Members
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           Adjust member's role, add a member, or delete a member from a workspace.
         </Typography>
         <MembersTable 
@@ -77,17 +77,17 @@ export default function WorkspaceSettings({
         </Button>
         {currentUserRole !== 'owner'
         ? <Typography 
-            variant="subtitle2" 
+            variant='subtitle2' 
             sx={{mt: 1}} 
-            color="error"
+            color='error'
           >
             You must be an owner to add a member
           </Typography>
         : null}
-        <Typography variant="h5" sx={{ mt: 4 }}>
+        <Typography variant='h5' sx={{ mt: 4 }}>
           Delete Workspace
         </Typography>
-        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        <Typography variant='subtitle1' sx={{ mt: 1 }}>
           If you delete a workspace, the tasks and projects under this workpsace will be deleted!
         </Typography>
       </Box>
@@ -96,14 +96,14 @@ export default function WorkspaceSettings({
         onClick={handleDeleteWSClickOpen} 
         disabled={currentUserRole !== 'owner'}
         sx={{ml: 2}} 
-        color="error">
+        color='error'>
           Delete Workspace
       </Button>
       {currentUserRole !== 'owner'
       ? <Typography 
-          variant="subtitle2" 
+          variant='subtitle2' 
           sx={{ml: 2, mt: 1}} 
-          color="error"
+          color='error'
         >
             You must be an owner to delete a workspace
         </Typography>

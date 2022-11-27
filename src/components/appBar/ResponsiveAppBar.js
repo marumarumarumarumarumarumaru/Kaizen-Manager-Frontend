@@ -26,24 +26,24 @@ export default function ResponsiveAppBar({
 
   return (
     <React.Fragment>
-      <AppBar position="fixed" open={drawerOpen}>
+      <AppBar position='fixed' open={drawerOpen}>
         <Toolbar>
-          <Tooltip title="Expand drawer">
+          <Tooltip title='Expand drawer'>
             <IconButton
-              color="inherit"
-              aria-label="open drawer"
+              color='inherit'
+              aria-label='open drawer'
               onClick={handleDrawerOpen}
-              edge="start"
+              edge='start'
               sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
             >
               <MenuIcon />
             </IconButton>
           </Tooltip>
           <Typography
-            variant="h4"
+            variant='h4'
             noWrap
-            component="a"
-            href={"/workspaces/" + currentWorkspace}
+            component='a'
+            href={'/workspaces/' + currentWorkspace}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -58,10 +58,10 @@ export default function ResponsiveAppBar({
           </Typography>
           {/* Shows Title in the middle (in smaller viewport) */}
           <Typography
-            variant="h4"
+            variant='h4'
             noWrap
-            component="a"
-            href={"/workspaces/" + currentWorkspace}
+            component='a'
+            href={'/workspaces/' + currentWorkspace}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

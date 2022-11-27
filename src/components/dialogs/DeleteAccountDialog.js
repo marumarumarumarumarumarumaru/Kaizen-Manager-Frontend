@@ -74,7 +74,7 @@ export default function DeleteAccountDialog({
         setOpen(!open)
         setLogout(true)
         setNavigateToRedirect(false)
-        navigate("/")
+        navigate('/')
       }
     }
   
@@ -88,20 +88,20 @@ export default function DeleteAccountDialog({
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Delete Account"}
+      <DialogTitle id='alert-dialog-title'>
+        {'Delete Account'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description1">
+        <DialogContentText id='alert-dialog-description1'>
           Are you sure you want to delete your account? This action cannot be undone!
         </DialogContentText>
         {candidates
         ? (candidates.length > 0
           ? <>
-              <DialogContentText id="alert-dialog-description3" sx={{ mt: 2 }} color="error">
+              <DialogContentText id='alert-dialog-description3' sx={{ mt: 2 }} color='error'>
                 Looks like you have a workspace with more than one member that you are the sole owner of.
                 Please go to the following worksplace(s) and assign at least one member as owner:
               </DialogContentText>
@@ -109,9 +109,9 @@ export default function DeleteAccountDialog({
                 {candidates.map((candidate) => (
                   <ListItem>
                     <ListItemIcon>
-                      <WarningAmberIcon color="error"/>
+                      <WarningAmberIcon color='error'/>
                     </ListItemIcon>
-                    <ListItemText primary={candidate.workspace_name} sx={{ color: "#f44336" }}/>
+                    <ListItemText primary={candidate.workspace_name} sx={{ color: '#f44336' }}/>
                   </ListItem>
                 ))}
               </List>
@@ -128,7 +128,7 @@ export default function DeleteAccountDialog({
           disabled={candidates 
                     ? (candidates.length > 0)
                     : null}
-          color="error"
+          color='error'
         >
           Delete Account
         </Button>

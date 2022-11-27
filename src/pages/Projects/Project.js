@@ -75,11 +75,11 @@ export default function Project({
         flexsDirection: 'column',
       }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
-          <Typography variant="h4" sx={{ mb: 4 }}>
+          <Typography variant='h4' sx={{ mb: 4 }}>
             {currentProjectName}
           </Typography>
-          {["owner", "pm"].includes(currentUserRole)
-          ? <Tooltip title="Update name">
+          {['owner', 'pm'].includes(currentUserRole)
+          ? <Tooltip title='Update name'>
               <IconButton sx={{ ml: 2 }} onClick={handleEditNameClickOpen}>
                 <BorderColorIcon/>
               </IconButton>
@@ -220,7 +220,7 @@ export default function Project({
 function StatusHeader({ status }) {
   return (
     <Paper elevation={24} key={status}>
-      <Typography variant="h5" sx={{ m: 2, paddingY: 2 }}>{status}</Typography>
+      <Typography variant='h5' sx={{ m: 2, paddingY: 2 }}>{status}</Typography>
     </Paper>
   )
 }
