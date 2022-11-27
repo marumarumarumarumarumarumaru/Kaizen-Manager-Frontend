@@ -5,7 +5,7 @@ import { Snackbar, Alert as MuiAlert } from '@mui/material'
  * Renders Alert Snackbar
  * 
  * @param {boolean} open      // Boolean controls visibility
- * @param {fuction} setOpen 
+ * @param {function} setOpen 
  * @param {string} severity
  * @param {string} message
  * 

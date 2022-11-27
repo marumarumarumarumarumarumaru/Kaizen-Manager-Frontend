@@ -13,7 +13,7 @@ import { Main, DrawerHeader } from '../components/CustomUI'
  * @param {boolean} workspacesLoaded
  * @param {function} setShowDrawer 
  * @param {boolean} drawerOpen
- * @param {fnction} setDrawerOpen
+ * @param {function} setDrawerOpen
  * @param {array} projects
  * @param {array} users 
  * @param {array} workspaces 
