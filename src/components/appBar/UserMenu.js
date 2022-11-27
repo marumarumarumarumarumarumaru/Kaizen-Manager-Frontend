@@ -1,46 +1,48 @@
-import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import HelpIcon from '@mui/icons-material/Help';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React from 'react'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Tooltip from '@mui/material/Tooltip'
+// import Settings from '@mui/icons-material/Settings'
+import Logout from '@mui/icons-material/Logout'
+import HelpIcon from '@mui/icons-material/Help'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
-import { Link } from 'react-router-dom';
-import LogoutDialog from './dialogs/LogoutDialog';
+import { Link } from 'react-router-dom'
+import LogoutDialog from '../dialogs/LogoutDialog'
 
-export default function UserMenu({ currentUser }) {
+export default function UserMenu({ 
+  currentUser, setLogout, setNavigateToRedirect
+}) {
   /* 
     Renders the User Menu
   */
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [logout, setLogout] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [showLogoutDialog, setShowLogoutDialog] = React.useState(false)
 
   const handleLogoutClickOpen = () => {
-    setLogout(true);
-  };
+    setShowLogoutDialog(true)
+  }
   
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar>F</Avatar>
+            <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
         <Menu
@@ -81,9 +83,9 @@ export default function UserMenu({ currentUser }) {
           <MenuItem
             disabled
           >
-            <Avatar>{currentUser.firstName.charAt(0)}</Avatar>
-            <Box sx={{display: 'flex', flexDirection: 'column', width:'20vh', pl: 1 }}>
-              <Typography>{currentUser.firstName + ' ' + currentUser.lastName}</Typography>
+            <Avatar>{currentUser.first_name.charAt(0)}</Avatar>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '20', pl: 1 }}>
+              <Typography>{currentUser.first_name + ' ' + currentUser.last_name}</Typography>
               <Typography variant="caption">{currentUser.email}</Typography>
             </Box>
           </MenuItem>
@@ -98,7 +100,7 @@ export default function UserMenu({ currentUser }) {
             </ListItemIcon>
             Profile
           </MenuItem>
-          <MenuItem
+          {/* <MenuItem
             onClick={handleCloseUserMenu}
             component={Link}
             to={'/settings'}
@@ -107,16 +109,16 @@ export default function UserMenu({ currentUser }) {
               <Settings fontSize="small" />
             </ListItemIcon>
             Settings
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             onClick={handleCloseUserMenu}
             component={Link}
-            to={'/help'}
+            to={'/about'}
           >
             <ListItemIcon>
               <HelpIcon fontSize="small" />
             </ListItemIcon>
-            Help
+            About
           </MenuItem>
           <Divider variant="middle"/>
           <MenuItem
@@ -129,7 +131,12 @@ export default function UserMenu({ currentUser }) {
           </MenuItem>
         </Menu>
       </Box>
-      <LogoutDialog open={logout} setOpen={setLogout}/>
-    </>
-  );
+      <LogoutDialog 
+        open={showLogoutDialog} 
+        setOpen={setShowLogoutDialog} 
+        setLogout={setLogout}
+        setNavigateToRedirect={setNavigateToRedirect}
+      />
+    </React.Fragment>
+  )
 }

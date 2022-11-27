@@ -1,67 +1,47 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
-import ResponsiveAppBar from '../../components/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/ResponsiveDrawer';
-
-import { Outlet } from 'react-router-dom';
-
-export default function Workspace({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
+export default function Workspace({ 
+  setShowDrawer, currentUser, currentWorkspace, setProjects, setUsers 
+}) {
   /* 
-    Page component for rendering the Workspace page
+    Page component for outletting the workspace for specific workspace id
   */
+  React.useEffect(() => {
+    setShowDrawer(true)
+  })
 
-  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    }),
-  );
+  React.useEffect(() => {
+    let retrieveData = true
+  
+    const fetchData = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const currWorkspaceUrl = url + '/users/' + userId + '/workspaces/' + currentWorkspace
+      
+      const getProjects = await fetch(currWorkspaceUrl + '/projects', {method: 'GET'})
+      const projects = await getProjects.json()
+      const getUsers = await fetch(currWorkspaceUrl + '/users', {method: 'GET'})
+      const users = await getUsers.json()
 
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }));
+      if (retrieveData) {
+        setProjects(projects) 
+        setUsers(users)
+      }
+    }
+  
+    fetchData()
+    return () => {
+      retrieveData = false
+    }
+    // Disables the eslint complaining about the dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWorkspace])
 
   return (
-    <>
-      <ResponsiveAppBar 
-        drawerOpen={drawerOpen} 
-        setDrawerOpen={setDrawerOpen} 
-        drawerWidth={drawerWidth} 
-        workspaces={workspaces}
-        setCurrentWorkspace={setCurrentWorkspace}
-        currentUser={currentUser}
-      />
-      <ResponsiveDrawer 
-        drawerOpen={drawerOpen} 
-        setDrawerOpen={setDrawerOpen} 
-        drawerWidth={drawerWidth}
-        projects={projects}
-        workspaces={workspaces}
-        currentWorkspace={currentWorkspace}
-      />
-      <Main open={drawerOpen}>
-        <DrawerHeader />
-        {/* Outlet will display child routes */}
-        <Outlet />
-      </Main>
-    </>
-  );
+    <React.Fragment>
+      {/* Outlet will display child routes */}
+      <Outlet />
+    </React.Fragment>
+  )
 }

@@ -1,26 +1,88 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { useLocalStorage } from '../../utils/LocalStorageFns'
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+import { useNavigate } from 'react-router-dom'
 
-export default function DeleteAccountDialog({ open, setOpen }) {
+export default function DeleteAccountDialog({ 
+  open, setOpen, currentUser, setLogout, setNavigateToRedirect
+}) {
   /* 
     Renders the Logout Dialog
   */
+  const navigate = useNavigate()
+  const [candidates, setCandidates] = useLocalStorage('candidates', null)
+
+  React.useEffect(() => {
+    let retrieveCandidates = true
+  
+    const fetchWorkspaces = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspace-candidates-for-deletion'
+      
+      // GET /users/:user_id/workspace-candidates-for-deletion      
+      const response = await fetch(endpoint, {method: 'GET'})
+      const workspaces = await response.json()
+      let onlyOwnerWorkspaces = []
+      const workspaceEndpoint = url + '/users/' + userId + '/workspaces/'
+      for (let i = 0; i < workspaces.length; i++) {
+        let usersEndpoint = workspaceEndpoint + workspaces[i].workspace_id + '/users'
+        // GET /users/:user_id/workspaces/:workspace_id/users
+        const response = await fetch(usersEndpoint, {method: 'GET'})
+        const users = await response.json()
+        if (users.length > 1) {
+          onlyOwnerWorkspaces.push(workspaces[i])
+        }
+      }
+      if (retrieveCandidates) {
+        setCandidates(onlyOwnerWorkspaces)
+      }
+    }
+  
+    fetchWorkspaces()
+    return () => {
+      retrieveCandidates = false
+    }
+    // Disables the eslint complaining about the dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(!open)
+  }
 
   const handleDeleteAccount = () => {
-    setOpen(false);
-    // Method to delete the account
-  };
+    let deleteUser = true
+  
+    const userDeletion = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId
+      
+      await fetch(endpoint, {method: 'DELETE'})
+      if (deleteUser) {
+        setOpen(!open)
+        setLogout(true)
+        setNavigateToRedirect(false)
+        navigate("/")
+      }
+    }
+  
+    userDeletion()
+    return () => {
+      deleteUser = false
+    }
+  }
 
   return (
     <Dialog
@@ -34,18 +96,43 @@ export default function DeleteAccountDialog({ open, setOpen }) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description1">
-          Are you sure you want to delete your account?
+          Are you sure you want to delete your account? This action cannot be undone!
         </DialogContentText>
-        <DialogContentText id="alert-dialog-description2">
-          Note this action cannot be undone!
-        </DialogContentText>
+        {candidates
+        ? (candidates.length > 0
+          ? <>
+              <DialogContentText id="alert-dialog-description3" sx={{ mt: 2 }} color="error">
+                Looks like you have a workspace with more than one member that you are the sole owner of.
+                Please go to the following worksplace(s) and assign at least one member as owner:
+              </DialogContentText>
+              <List>
+                {candidates.map((candidate) => (
+                  <ListItem>
+                    <ListItemIcon>
+                      <WarningAmberIcon color="error"/>
+                    </ListItemIcon>
+                    <ListItemText primary={candidate.workspace_name} sx={{ color: "#f44336" }}/>
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          : null)
+        : null}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleDeleteAccount} autoFocus component={Link} to={'/'} color="error">
+        <Button 
+          onClick={handleDeleteAccount} 
+          autoFocus 
+          component={Link} to={'/'} 
+          disabled={candidates 
+                    ? (candidates.length > 0)
+                    : null}
+          color="error"
+        >
           Delete Account
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

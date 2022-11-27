@@ -1,39 +1,53 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog';
-import MembersTable from './WSMembersTable';
-import AddMemberDialog from '../../components/dialogs/AddMemberDialog';
+import React from 'react'
+import Box from '@mui/material/Box'
+import { Button } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
-export default function WorkspaceSettings({ workspaces, users, currentWorkspace }) {
+import MembersTable from '../../components/WSMembersTable'
+import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog'
+import AddMemberDialog from '../../components/dialogs/AddMemberDialog'
+import { checkUserRole } from '../../utils/UserFns'
+
+export default function WorkspaceSettings({
+  workspaces, users, currentWorkspace, currentUser, setUsers, setWorkspaces, 
+  setCurrentWorkspace, setCurrentProject
+}) {
   /* 
     Page component for rendering the Settings page for Workspace
   */
-  const [deleteOpen, setDeleteOpen] = React.useState(false);
-  const [addMemberOpen, setAddMemberOpen] = React.useState(false);
+  const [deleteOpen, setDeleteOpen] = React.useState(false)
+  const [addMemberOpen, setAddMemberOpen] = React.useState(false)
+  const [currentUserRole, setCurrentUserRole] = React.useState(checkUserRole(users, currentUser))
+
+  React.useEffect(() => {
+    setCurrentUserRole(checkUserRole(users, currentUser))
+  }, [users, currentUser])
+
+  React.useEffect(() => {
+    setCurrentProject(null)
+  })
 
   const handleDeleteWSClickOpen = () => {
-    setDeleteOpen(!deleteOpen);
-  };
+    setDeleteOpen(!deleteOpen)
+  }
 
   const handleAddMemberOpen = () => {
-    setAddMemberOpen(!addMemberOpen);
+    setAddMemberOpen(!addMemberOpen)
   }
 
   const getWorkspaceName = (workspaces, currentWorkspace) => {
-    let workspaceName = '';
+    let workspaceName = ''
 
     for (let i = 0; i < workspaces.length; i++) {
-      if (workspaces[i].id === currentWorkspace) {
-        workspaceName = workspaces[i].name
+      if (workspaces[i].workspace_id === currentWorkspace) {
+        workspaceName = workspaces[i].workspace_name
       }
     } 
-    return workspaceName;
+    return workspaceName
   }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{
         m: 2,
         flexsDirection: 'column',
@@ -41,34 +55,76 @@ export default function WorkspaceSettings({ workspaces, users, currentWorkspace 
         <Typography variant="h4">
           Settings
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           Edit below to adjust this workspace's settings.
         </Typography>
         <Typography variant="h5" sx={{ mt: 4 }}>
           Members
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           Adjust member's role, add a member, or delete a member from a workspace.
         </Typography>
-        <MembersTable users={users}/>
-        <Button variant='contained' onClick={handleAddMemberOpen}>Add a member</Button>
+        <MembersTable 
+          users={users} 
+          currentUser={currentUser}
+          currentWorkspace={currentWorkspace}
+          setUsers={setUsers}/>
+        <Button 
+          variant='contained' 
+          disabled={currentUserRole !== 'owner'}
+          onClick={handleAddMemberOpen}>
+            Add a member
+        </Button>
+        {currentUserRole !== 'owner'
+        ? <Typography 
+            variant="subtitle2" 
+            sx={{mt: 1}} 
+            color="error"
+          >
+            You must be an owner to add a member
+          </Typography>
+        : null}
         <Typography variant="h5" sx={{ mt: 4 }}>
           Delete Workspace
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           If you delete a workspace, the tasks and projects under this workpsace will be deleted!
         </Typography>
       </Box>
-      <Button variant='contained' onClick={handleDeleteWSClickOpen} sx={{ml: 2}} color="error">Delete Workspace</Button>
+      <Button 
+        variant='contained' 
+        onClick={handleDeleteWSClickOpen} 
+        disabled={currentUserRole !== 'owner'}
+        sx={{ml: 2}} 
+        color="error">
+          Delete Workspace
+      </Button>
+      {currentUserRole !== 'owner'
+      ? <Typography 
+          variant="subtitle2" 
+          sx={{ml: 2, mt: 1}} 
+          color="error"
+        >
+            You must be an owner to delete a workspace
+        </Typography>
+      : null}
       <DeleteWorkspaceDialog 
         open={deleteOpen} 
         setOpen={setDeleteOpen} 
-        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}/>
+        currentWorkspace={currentWorkspace}
+        currentUser={currentUser}
+        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}
+        setWorkspaces={setWorkspaces}
+        setCurrentWorkspace={setCurrentWorkspace}
+      />
       <AddMemberDialog 
         open={addMemberOpen} 
         setOpen={setAddMemberOpen} 
         currentWorkspace={currentWorkspace}
-        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}/>
-    </>
-  );
+        currentUser={currentUser}
+        workspaceName={getWorkspaceName(workspaces, currentWorkspace)}
+        setUsers={setUsers}
+      />
+    </React.Fragment>
+  )
 }

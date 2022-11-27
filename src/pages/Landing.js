@@ -1,17 +1,42 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import { GoogleLogin } from '@react-oauth/google'
 
-import { Link } from 'react-router-dom';
-
-export default function Landing() {
+export default function Landing({ 
+  setShowDrawer, setNavigateToRedirect, setCurrentUser, setLogout, setWorkspacesLoaded
+}) {
   /* 
     Page component for rendering the Landing page
   */
+  React.useEffect(() => {
+    localStorage.clear()
+    setLogout(false)
+    setWorkspacesLoaded(false)
+    setShowDrawer(false)
+  })
+
+  const handleLogin = async (credentialResponse) => {
+    const credential = credentialResponse.credential
+    const data = { credential: credential }
+    const endpoint = process.env.REACT_APP_BACKEND_URL + '/login'
+    const response = await fetch( endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const userData = await response.json()
+    if (userData) {
+      setCurrentUser(userData)
+      setNavigateToRedirect(true)
+    }
+  }
+
   return (
-    <>
+    <React.Fragment>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',
@@ -30,29 +55,18 @@ export default function Landing() {
           }}
           >
             <Typography variant='h4'>Welcome to Kaizen Manager</Typography>
-            <Typography paragraph>Create an account or login to get started</Typography>
-          </Box>
-          <Box sx={{
-            m: 5,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-          >
-            <Link
-              to='create-account'
-            >
-              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Create an Account</Button>
-            </Link>
-            <Link
-              to='login'
-            >
-              <Button variant='contained' sx={{ m: 2, paddingY: 1, paddingX: 2 }}>Login</Button>
-            </Link>
+            <Typography paragraph>Click on the button below to get started!</Typography>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                handleLogin(credentialResponse)
+              }}                
+              onError={() => {
+                console.log('Login Failed')
+              }}
+            />
           </Box>
         </Paper>
       </Box>
-    </>
-  );
+    </React.Fragment>
+  )
 }

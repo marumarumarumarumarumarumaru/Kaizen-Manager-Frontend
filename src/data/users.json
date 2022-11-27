@@ -1,7 +1,15 @@
 [
-  { "id": 1, "firstName": "Fusako", "lastName": "Obata", "role": "Owner", "email": "fusako@test.com" },
-  { "id": 2, "firstName": "Marcos", "lastName": "Castillo", "role": "PM", "email": "marcos@test.com" },
-  { "id": 3, "firstName": "Corey", "lastName": "Gallahar", "role": "Member", "email": "corey@test.com" },
-  { "id": 4, "firstName": "Morty", "lastName": "The Dog", "role": "Member", "email": "morty@test.com" },
-  { "id": 5, "firstName": "Lily", "lastName": "The Dog", "role": "Owner", "email": "lily@test.com" }
+  {
+    "user_id": 1,
+    "first_name": "Morty",
+    "last_name": "Castillo",
+    "email": "i_chew_everything@gmail.com",
+    "date_created": "2022-11-21T07:50:40.958Z",
+    "date_updated": "2022-11-21T07:50:40.958Z",
+    "role": "Member"
+  },
+  { "user_id": 2, "first_name": "Fusako", "last_name": "Obata", "role": "Owner", "email": "fusako@test.com" },
+  { "user_id": 3, "first_name": "Marcos", "last_name": "Castillo", "role": "PM", "email": "marcos@test.com" },
+  { "user_id": 4, "first_name": "Corey", "last_name": "Gallahar", "role": "Member", "email": "corey@test.com" },
+  { "user_id": 5, "first_name": "Lily", "last_name": "The Dog", "role": "Owner", "email": "lily@test.com" }
 ]

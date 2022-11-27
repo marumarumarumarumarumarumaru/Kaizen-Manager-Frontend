@@ -1,6 +1,6 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 export default function WorkspaceDefault() {
   /* 
@@ -15,8 +15,8 @@ export default function WorkspaceDefault() {
       alignItems: 'center'
     }}>
       <Typography paragraph>
-        Select a project to get started
+        Tip: Try creating a project and creating tasks, or check out the workspace metrics page!
       </Typography>
     </Box>
-  );
+  )
 }

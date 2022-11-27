@@ -1,70 +1,72 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import TextField from '@mui/material/TextField';
-import AlertSnackbar from '../../components/AlertSnackbar';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import AlertSnackbar from '../../components/AlertSnackbar'
 
-
-export default function ProfileForm() {
+export default function ProfileForm({ currentUser, setCurrentUser }) {
   /* 
     Page component for rendering the Profile Settings page's form
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
   const [values, setValues] = React.useState({
-    name: '',
-    email: '',
-    password: '',
-    passwordMatch: '',
-    showPassword: false,
-    showPasswordMatch: false,
-  });
+    firstName: currentUser.first_name,
+    lastName: currentUser.last_name
+  })
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleSubmit = () => {
-    setSnackbarOpen(!snackbarOpen)
+    setValues({ ...values, [prop]: event.target.value })
   }
 
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
+  const handleSubmit = () => {
+    let updateUserProfile = true
 
-  const handleClickShowPasswordMatch = () => {
-    setValues({
-      ...values,
-      showPasswordMatch: !values.showPasswordMatch,
-    });
-  };
+    const updateUser = async () => {
+      const data = {
+        first_name: values.firstName,
+        last_name: values.lastName
+      }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId
+      // PATCH /users/:user_id
+      await fetch( endpoint, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      // GET /users/:user_id
+      const getUser = await fetch( endpoint, {method: 'GET'})
+      const user = await getUser.json()
+      if (updateUserProfile) {
+        setCurrentUser(user)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    updateUser()
+    return () => {
+      updateUserProfile = false
+    }
+  }
 
   return (
-    <Box sx={{
-      m: 2,
-      flexsDirection: 'column'
-    }}>
-      <Typography variant="h4">
-        Profile Settings
-      </Typography>
-      <Typography variant="caption">
-        Edit below to adjust your profile settings on Kaizen Manager.
-      </Typography>
+    <React.Fragment>
+      <Box sx={{ display: 'flex', 'flexDirection': 'column' }}>
+        <Typography variant="h5" sx={{ mt: 4 }}>
+          Name
+        </Typography>
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
+          Edit below to adjust your name that you use on Kaizen Manager.
+        </Typography>
+        <Typography variant="subtitle2">
+          Note: If you hit "save" with the input blank, that portion will not be updated.
+        </Typography>
+      </Box>
       <Box
         component="form"
         sx={{
@@ -75,69 +77,26 @@ export default function ProfileForm() {
       >
         <TextField
           id="outlined"
-          label="Name"
-          onChange={handleChange('name')}
+          label="First Name"
+          value={values.firstName || ''}
+          onChange={handleChange('firstName')}
           sx={{ m: 1, width: '50vh' }}
         />
         <TextField
           id="outlined"
-          label="Email"
-          type="email"
-          onChange={handleChange('email')}
+          label="Last Name"
+          value={values.lastName || ''}
+          onChange={handleChange('lastName')}
           sx={{ m: 1, width: '50vh' }}
         />
-        <FormControl sx={{ m: 1, width: '50vh' }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: '50vh' }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password (type again)</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPasswordMatch ? 'text' : 'password'}
-            value={values.passwordMatch}
-            onChange={handleChange('passwordMatch')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPasswordMatch}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPasswordMatch ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
       </Box>
       <Button variant='contained' onClick={handleSubmit}>Save</Button>
       <AlertSnackbar 
         open={snackbarOpen} 
         setOpen={setSnackbarOpen} 
         severity={'success'}
-        message={'Setting saved'}
+        message={'Your name has been updated to: ' + currentUser.first_name + ' ' + currentUser.last_name}
       />
-    </Box>
-  );
+    </React.Fragment>
+  )
 }

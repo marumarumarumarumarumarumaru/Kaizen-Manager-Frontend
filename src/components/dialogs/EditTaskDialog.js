@@ -1,50 +1,96 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AlertSnackbar from '../AlertSnackbar';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import React from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import AlertSnackbar from '../AlertSnackbar'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
-export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskOpen }) {
+import { isEmpty, validateTask } from '../../utils/ValidationFns'
+
+export default function EditTaskDialog({ 
+  task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 
+  currentUser, setProjTasks
+}) {
   /* 
-    Renders the Create Project Dialog
+    Renders the Edit Task Dialog
   */
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-
-  const [values, setValues] = React.useState({
-    taskName: task.name,
-    assignee: task.assignee,
-    selectedStatus: task.taskStatus,
-    taskValue: task.value,
-    taskDescription: task.description,
-    targetDate: task.targetDate
-  });
-
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
-  // const [errors, setErrors] = React.useState([]);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
+  const [targetDate, setTargetDate] = React.useState(task.task_due_date)
+  const [values, setValues] = React.useState({
+    taskName: task.task_name,
+    assignee: task.task_assignee,
+    selectedStatus: task.task_status,
+    taskValue: task.task_value,
+    taskDescription: task.task_descriptions
+  })
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+    setValues({ ...values, [prop]: event.target.value })
+  }
 
   const handleClose = () => {
-    setEditTaskOpen(false);
-  };
+    setEditTaskOpen(!editTaskOpen)
+  }
 
   const handleEditTaskClose = () => {
-    setEditTaskOpen(false);
-    setSnackbarOpen(!snackbarOpen);
-  };
+    const validationErrors = validateTask(values)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
+      return
+    }
+
+    let updateTaskFromProj = true
+
+    const editTask = async () => {
+      const data = {
+        task_name: values.taskName,
+        task_value: values.taskValue,
+        task_status: values.selectedStatus,
+        task_assignee: values.assignee,
+        task_descriptions: values.taskDescription,
+        task_due_date: targetDate
+      }
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects/' + currentProject + '/tasks'
+      const taskEndpoint = endpoint + '/' + task.task_id
+      // PATCH /users/:user_id/workspaces/:workspace_id/projects/:project_id/tasks/:task_id
+      await fetch( taskEndpoint, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const getTasks = await fetch( endpoint, {method: 'GET'})
+      const tasks = await getTasks.json()
+      if (updateTaskFromProj) {
+        setProjTasks(tasks)
+        setEditTaskOpen(!editTaskOpen)
+        setSnackbarOpen(!snackbarOpen)
+      }
+    }
+
+    editTask()
+    return () => {
+      updateTaskFromProj = false
+    }
+  }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog open={editTaskOpen} onClose={handleClose}>
         <DialogTitle>Edit a task</DialogTitle>
         <DialogContent>
@@ -57,6 +103,8 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             id="name"
             label="Task name"
             value={values.taskName}
+            error={isEmpty(values.taskName) ? true: false}
+            helperText={isEmpty(values.taskName) ? "Task name cannot be blank": false}
             onChange={handleChange('taskName')}
             type="text"
             fullWidth
@@ -67,16 +115,16 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             <Select
               labelId="assignee-select-standard-label"
               id="assignee-select-standard"
-              value={values.assignee ?? undefined}
+              value={values.assignee || ''}
               onChange={handleChange('assignee')}
               label="Assignee"
             >
-              <MenuItem value={undefined}>
-                <em>None</em>
-              </MenuItem>
-              {users.map((user) => (
-                <MenuItem value={user.id}>{user.firstName + ' ' + user.lastName}</MenuItem>
-              ))}
+              <MenuItem value={''}>None</MenuItem>
+              {users
+              ? (users.map((user) => (
+                  <MenuItem value={user.user_id}>{user.first_name + ' ' + user.last_name}</MenuItem>
+                )))
+              : null}
             </Select>
           </FormControl>
           <FormControl variant="standard" fullWidth>
@@ -98,7 +146,7 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             margin="dense"
             id="name"
             label="Task value"
-            value={values.taskValue ?? undefined}
+            value={values.taskValue || ''}
             onChange={handleChange('taskValue')}
             type="number"
             fullWidth
@@ -108,13 +156,20 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
             autoFocus
             margin="dense"
             id="name"
-            label="Description"
-            value={values.taskDescription ?? ''}
+            label="Descriptions"
+            value={values.taskDescription || 0}
             onChange={handleChange('taskDescription')}
             type="text"
             fullWidth
             multiline
             variant="standard"
+          />
+          <DatePicker
+            label="Target date"
+            value={targetDate}
+            onChange={(newValue) => {setTargetDate(newValue)}}
+            renderInput={(params) => <TextField {...params}
+            sx={{ mt: 2 }}/>}
           />
         </DialogContent>
         <DialogActions>
@@ -128,6 +183,12 @@ export default function EditTaskDialog({ task, users, editTaskOpen, setEditTaskO
         severity={'success'}
         message={'Task has been updated'}
       />
-    </>
-  );
+      <AlertSnackbar 
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Task not updated. Please check your inputs'}
+      />
+    </React.Fragment>
+  )
 }

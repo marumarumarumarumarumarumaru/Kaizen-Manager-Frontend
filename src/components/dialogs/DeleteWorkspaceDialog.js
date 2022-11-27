@@ -1,24 +1,55 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Button from '@mui/material/Button'
 // For the dialog
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
-export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) {
+import { useNavigate } from 'react-router-dom'
+
+export default function DeleteWorkspaceDialog({ 
+  open, setOpen, workspaceName, currentUser, currentWorkspace, setWorkspaces, 
+  setCurrentWorkspace
+}) {
   /* 
     Renders the Logout Dialog
   */
+  const navigate = useNavigate()
   const handleClose = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const handleDeleteWorkspace = () => {
-    setOpen(!open);
-    // Method to delete the workspace
-  };
+    let delWorkspace = true
+
+    const performWSDeletion = async () => {
+      const url = process.env.REACT_APP_BACKEND_URL
+      const userId = currentUser.user_id
+      const endpoint = url + '/users/' + userId + '/workspaces'
+      const workspaceEndpoint = endpoint + '/' + currentWorkspace
+      // DELETE /users/:user_id/workspaces/:workspace_id
+      await fetch( workspaceEndpoint, {method: 'DELETE'})
+      const getWorkspaces = await fetch( endpoint, {method: 'GET'})
+      const workspaces = await getWorkspaces.json()
+      if (delWorkspace) {
+        setWorkspaces(workspaces)
+        if (workspaces.length > 0) {
+          setCurrentWorkspace(workspaces[0].workspace_id)
+        } else {
+          setCurrentWorkspace(null)
+          navigate("/create-workspace")
+        }
+        setOpen(!open)
+      }
+    }
+
+    performWSDeletion()
+    return () => {
+      delWorkspace = false
+    }
+  }
 
   return (
     <Dialog
@@ -42,5 +73,5 @@ export default function DeleteWorkspaceDialog({ open, setOpen, workspaceName }) 
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

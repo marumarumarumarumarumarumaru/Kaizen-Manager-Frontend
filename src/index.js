@@ -1,19 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { initializeApp } from "firebase/app";
-// Web app's Firebase configuration
-import { firebaseConfig } from './utils/firebase';
-// Initialize Firebase
-initializeApp(firebaseConfig);
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import App from './App'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+const oauthClientId = process.env.REACT_APP_OAUTH_CLIENT_ID
+
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <GoogleOAuthProvider clientId={oauthClientId}>
+        <App />
+      </GoogleOAuthProvider>
     </Router>
   </React.StrictMode>
-);
+)

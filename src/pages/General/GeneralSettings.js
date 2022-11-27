@@ -1,68 +1,70 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import AlertSnackbar from '../../components/AlertSnackbar'
 
-import GeneralSettingsForm from '../../components/forms/GeneralSettingsForm';
-import ResponsiveAppBar from '../../components/ResponsiveAppBar';
-import ResponsiveDrawer from '../../components/ResponsiveDrawer';
-
-export default function GeneralSettings({ drawerOpen, setDrawerOpen, drawerWidth, projects, workspaces, currentWorkspace, setCurrentWorkspace, currentUser }) {
+export default function GeneralSettings({ setShowDrawer, setCurrentProject }) {
   /* 
     Page component for rendering the General Settings page
   */
-
-  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    }),
-  );
-
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }));
+  React.useEffect(() => {
+    setShowDrawer(true)
+    setCurrentProject(null)
+  })
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <ResponsiveAppBar 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth} 
-          workspaces={workspaces}
-          setCurrentWorkspace={setCurrentWorkspace}
-          currentUser={currentUser}
-        />
-        <ResponsiveDrawer 
-          drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
-          drawerWidth={drawerWidth}
-          projects={projects}
-          workspaces={workspaces}
-          currentWorkspace={currentWorkspace}
-        />
-        <Main open={drawerOpen}>
-          <DrawerHeader />
-          <GeneralSettingsForm/>
-        </Main>
-      </Box>
+      <GeneralSettingsForm/>
     </>
-  );
+  )
+}
+
+function GeneralSettingsForm() {
+  /* 
+    Page component for rendering the Profile Settings page's form
+  */
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+
+  // const [values, setValues] = React.useState({
+  // })
+
+  // const handleChange = (prop) => (event) => {
+  //   setValues({ ...values, [prop]: event.target.value })
+  // }
+
+  const handleSubmit = () => {
+    setSnackbarOpen(!snackbarOpen)
+  }
+
+  return (
+    <Box sx={{
+      m: 2,
+      flexsDirection: 'column'
+    }}>
+      <Typography variant="h4">
+        General Settings
+      </Typography>
+      <Typography variant="subtitle1" sx={{ mt: 1 }}>
+        Edit below to adjust your Kaizen Manager general settings.
+      </Typography>
+      <Box
+        component="form"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          paddingY: 2
+        }}
+      >
+        {/* Add any options here */}
+      </Box>
+      <Button variant='contained' onClick={handleSubmit} disabled>Save</Button>
+      <AlertSnackbar 
+        open={snackbarOpen} 
+        setOpen={setSnackbarOpen} 
+        severity={'success'}
+        message={'Setting saved'}
+      />
+    </Box>
+  )
 }
