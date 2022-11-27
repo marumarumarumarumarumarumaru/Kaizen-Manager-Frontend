@@ -16,7 +16,7 @@ import { useLocalStorage } from '../../utils/LocalStorageFns'
  * @param {function} setLogout
  * @param {function} setNavigateToRedirect
  *  
- * @returns 
+ * @returns render()
  */
 export default function DeleteAccountDialog({ 
   open, setOpen, currentUser, setLogout, setNavigateToRedirect

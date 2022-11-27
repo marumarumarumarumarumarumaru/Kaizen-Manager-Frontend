@@ -1,13 +1,25 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import { Button } from '@mui/material'
-import Typography from '@mui/material/Typography'
+import { Box, Button, Typography } from '@mui/material'
 
 import MembersTable from '../../components/WSMembersTable'
 import DeleteWorkspaceDialog from '../../components/dialogs/DeleteWorkspaceDialog'
 import AddMemberDialog from '../../components/dialogs/AddMemberDialog'
 import { checkUserRole } from '../../utils/UserFns'
 
+/**
+ * Renders the workspace setting content
+ * 
+ * @param {array} workspaces
+ * @param {array} users
+ * @param {integer} currentWorkspace 
+ * @param {object} currentUser 
+ * @param {function} setUsers 
+ * @param {function} setWorkspaces 
+ * @param {function} setCurrentWorkspace 
+ * @param {function} setCurrentProject 
+ * 
+ * @returns render()
+ */
 export default function WorkspaceSettings({
   workspaces, users, currentWorkspace, currentUser, setUsers, setWorkspaces, 
   setCurrentWorkspace, setCurrentProject

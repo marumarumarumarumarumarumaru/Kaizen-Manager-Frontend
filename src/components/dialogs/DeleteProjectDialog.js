@@ -17,7 +17,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
  * @param {object} currentUser
  * @param {function} setProjects
  *  
- * @returns 
+ * @returns render()
  */
 export default function DeleteProjectDialog({ 
   project, delProjectOpen, setDelProjectOpen, snackbarOpen, setSnackbarOpen, 

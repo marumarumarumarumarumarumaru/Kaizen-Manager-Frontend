@@ -18,7 +18,7 @@ import { validateProject, isEmpty } from '../../utils/ValidationFns'
  * @param {function} setNewProjectOpen
  * @param {function} setProjects
  *  
- * @returns 
+ * @returns render()
  */
 export default function CreateProjectDialog({ 
   currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 

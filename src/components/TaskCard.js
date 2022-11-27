@@ -17,7 +17,7 @@ import DeleteTaskDialog from './dialogs/DeleteTaskDialog'
  * @param {object} currentUser
  * @param {function} setProjTasks
  *  
- * @returns 
+ * @returns render()
  */
 export default function TaskCard({ 
   task, users, currentWorkspace, currentProject, currentUser, setProjTasks

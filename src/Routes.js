@@ -23,6 +23,11 @@ import Profile from './pages/general/Profile'
 import { checkUserRole } from './utils/UserFns'
 import { useLocalStorage } from './utils/LocalStorageFns'
 
+/**
+ * Establish routes for page navigation + states used by the application
+ * 
+ * @returns render()
+ */
 export default function MyRoutes() {
   const [drawerOpen, setDrawerOpen] = useLocalStorage('drawer-open', true)  // Controls responsive drawer
   const [showDrawer, setShowDrawer] = useLocalStorage('show-drawer', false)

@@ -1,17 +1,26 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
+import { Box, Grid, Paper, Typography, Tooltip, IconButton } from '@mui/material'
+import { BorderColor as BorderColorIcon } from '@mui/icons-material'
 
 import TaskCard from '../../components/TaskCard'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectNameDialog from '../../components/dialogs/EditProjectNameDialog'
 import { getProjectName } from '../../utils/ProjectsFns'
 
+/**
+ * Renders the Project page
+ * 
+ * @param {array} projects
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * @param {integer} currentWorkspace 
+ * @param {object} currentUser 
+ * @param {string} currentUserRole 
+ * @param {array} users 
+ * @param {function} setProjects 
+ * 
+ * @returns render()
+ */
 export default function Project({ 
   projects, currentWorkspace, currentProject, currentUser, currentUserRole, users, setProjects
 }) {

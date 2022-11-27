@@ -8,6 +8,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 
 import MyRoutes from './Routes'
 
+/**
+ * Renders the application
+ * 
+ * @returns render()
+ */
 export default function App() {
   const getDesignTokens = (mode) => ({
     palette: {

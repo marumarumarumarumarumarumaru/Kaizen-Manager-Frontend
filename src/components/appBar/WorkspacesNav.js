@@ -20,7 +20,7 @@ import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
  * @param {array} workspaces
  * @param {function} setWorkspaces
  * 
- * @returns 
+ * @returns render()
  */
 export default function WorkspacesNav({
   currentUser, currentWorkspace, setCurrentWorkspace, snackbarOpen, setSnackbarOpen, 

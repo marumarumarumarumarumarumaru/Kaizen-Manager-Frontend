@@ -1,6 +1,17 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
+/**
+ * Renders the Workspace page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {object} currentUser 
+ * @param {integer} currentWorkspace 
+ * @param {function} setProjects 
+ * @param {function} setUsers 
+ * 
+ * @returns render()
+ */
 export default function Workspace({ 
   setShowDrawer, currentUser, currentWorkspace, setProjects, setUsers 
 }) {

@@ -14,7 +14,8 @@ import CreateTaskDialog from './dialogs/CreateTaskDialog'
  * @param {string} selectedStatus
  * @param {array} users
  * @param {function} setProjTasks 
- * @returns 
+ * 
+ * @returns render()
  */
 export default function CreateTaskCard({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, setProjTasks

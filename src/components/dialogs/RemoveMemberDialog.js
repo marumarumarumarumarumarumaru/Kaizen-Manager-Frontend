@@ -15,7 +15,7 @@ import AlertSnackbar from '../AlertSnackbar'
  * @param {boolean} removeUserOpen      // Boolean controls visibility
  * @param {function} setRemoveUserOpen
  *  
- * @returns 
+ * @returns render()
  */
 export default function RemoveMemberDialog({ 
   user, currentUser, currentWorkspace, setUsers, removeUserOpen, setRemoveUserOpen 

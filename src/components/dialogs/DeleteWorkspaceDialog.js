@@ -15,7 +15,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
  * @param {function} setWorkspaces
  * @param {function} setCurrentWorkspace
  *  
- * @returns 
+ * @returns render()
  */
 export default function DeleteWorkspaceDialog({ 
   open, setOpen, workspaceName, currentUser, currentWorkspace, setWorkspaces, 

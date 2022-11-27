@@ -1,14 +1,17 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import GitHubIcon from '@mui/icons-material/GitHub'
-import PersonIcon from '@mui/icons-material/Person'
+import { Box, Typography } from '@mui/material'
 import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { GitHub as GitHubIcon, Person as PersonIcon } from '@mui/icons-material'
 
+/**
+ * Renders the About page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * 
+ * @returns render()
+ */
 export default function About({ setShowDrawer, setCurrentProject }) {
-  /* 
-    Page component for rendering the Help page
-  */
   React.useEffect(() => {
     setShowDrawer(true)
     setCurrentProject(null)

@@ -1,16 +1,18 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import { Button, FormGroup } from '@mui/material'
-import Typography from '@mui/material/Typography'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
+import { Box, Button, Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
 import AlertSnackbar from '../../components/AlertSnackbar'
 
+/**
+ * Renders the metrics page content
+ * 
+ * @param {array} projects
+ * @param {function} setCurrentProject 
+ * @param {object} currentUser 
+ * @param {integer} currentWorkspace 
+ * 
+ * @returns render()
+ */
 export default function Metrics({ 
   projects, setCurrentProject, currentUser, currentWorkspace
 }) {

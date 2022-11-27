@@ -1,13 +1,36 @@
 import React from 'react'
-import Box from '@mui/material/Box'
 import { Outlet } from 'react-router-dom'
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, CircularProgress } from '@mui/material'
 
 import SimpleAppBar from '../components/appBar/SimpleAppBar'
-import ResponsiveAppBar from '../components/appBar/ResponsiveAppBar';
-import ResponsiveDrawer from '../components/drawer/ResponsiveDrawer';
-import { Main, DrawerHeader } from '../components/CustomUI';
+import ResponsiveAppBar from '../components/appBar/ResponsiveAppBar'
+import ResponsiveDrawer from '../components/drawer/ResponsiveDrawer'
+import { Main, DrawerHeader } from '../components/CustomUI'
 
+/**
+ * Renders the Base page (for rendering/controlling visibility of drawer and appbar)
+ * 
+ * @param {boolean} workspacesLoaded
+ * @param {function} setShowDrawer 
+ * @param {boolean} drawerOpen
+ * @param {fnction} setDrawerOpen
+ * @param {array} projects
+ * @param {array} users 
+ * @param {array} workspaces 
+ * @param {integer} currentWorkspace 
+ * @param {function} setCurrentWorkspace 
+ * @param {object} currentUser 
+ * @param {function} setCurrentUser 
+ * @param {string} currentUserRole
+ * @param {integer} currentProject 
+ * @param {function} setCurrentProject 
+ * @param {function} setWorkspaces 
+ * @param {function} setProjects 
+ * @param {function} setLogout 
+ * @param {function} setNavigateToRedirect 
+ * 
+ * @returns render()
+ */
 export default function Base({ 
   workspacesLoaded, showDrawer, drawerOpen, setDrawerOpen, projects, users, 
   workspaces, currentWorkspace, setCurrentWorkspace, currentUser, currentUserRole,

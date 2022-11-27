@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
  * @param {function} setLogout
  * @param {function} setNavigateToRedirect
  *  
- * @returns 
+ * @returns render()
  */
 export default function LogoutDialog({ 
   open, setOpen, setLogout, setNavigateToRedirect

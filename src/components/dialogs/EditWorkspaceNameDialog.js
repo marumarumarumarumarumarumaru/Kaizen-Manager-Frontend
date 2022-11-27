@@ -16,7 +16,7 @@ import AlertSnackbar from '../AlertSnackbar'
  * @param {object} currentUser
  * @param {function} setWorkspaces
  *  
- * @returns 
+ * @returns render()
  */
 export default function EditWorkspaceNameDialog({ 
   workspaceName, workspaceId, open, setOpen, currentUser, setWorkspaces

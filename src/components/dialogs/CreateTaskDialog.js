@@ -20,7 +20,7 @@ import { isEmpty, validateTask } from '../../utils/ValidationFns'
  * @param {function} setNewTaskOpen
  * @param {function} setProjTasks
  *  
- * @returns 
+ * @returns render()
  */
 export default function CreateTaskDialog ({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, 

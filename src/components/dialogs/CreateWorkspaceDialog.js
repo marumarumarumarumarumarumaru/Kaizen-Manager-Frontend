@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom'
  * @param {function} setErrorSnackbarOpen
  * @param {function} setWorkspaces
  *  
- * @returns 
+ * @returns render()
  */
 export default function CreateWorkspaceDialog({ 
   currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 

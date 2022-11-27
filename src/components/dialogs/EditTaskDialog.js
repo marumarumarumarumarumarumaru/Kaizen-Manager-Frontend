@@ -19,7 +19,7 @@ import AlertSnackbar from '../AlertSnackbar'
  * @param {object} currentUser
  * @param {function} setProjTasks
  *  
- * @returns 
+ * @returns render()
  */
 export default function EditTaskDialog({ 
   task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 

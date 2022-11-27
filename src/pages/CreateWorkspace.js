@@ -1,14 +1,20 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
+import { Box, Button, Paper, Typography, TextField } from '@mui/material'
 
 import { validateWorkspace, isEmpty } from '../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 import AlertSnackbar from '../components/AlertSnackbar'
 
+/**
+ * Renders the create workspace page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {object} currentUser 
+ * @param {function} setCurrentWorkspace 
+ * @param {function} setWorkspaces 
+ * 
+ * @returns render()
+ */
 export default function CreateWorkspace({ 
   setShowDrawer, currentUser, setCurrentWorkspace, setWorkspaces
 }) {

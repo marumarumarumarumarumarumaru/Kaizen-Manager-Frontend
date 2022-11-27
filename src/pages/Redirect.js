@@ -1,9 +1,17 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import LinearProgress from '@mui/material/LinearProgress'
+import { Box, LinearProgress, Typography } from '@mui/material'
 
-import { Typography } from '@mui/material'
-
+/**
+ * Renders the landing page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {object} currentUser 
+ * @param {function} setWorkspaces 
+ * @param {function} setCurrentWorkspace 
+ * @param {function} setWorkspacesLoaded 
+ * 
+ * @returns render()
+ */
 export default function Redirect({ 
   setShowDrawer, currentUser, setWorkspaces, setCurrentWorkspace, setWorkspacesLoaded
 }) {

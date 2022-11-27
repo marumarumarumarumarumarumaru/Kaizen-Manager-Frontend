@@ -17,7 +17,7 @@ import { isEmpty } from '../../utils/ValidationFns'
  * @param {integer} currentWorkspace
  * @param {function} setProjects
  *  
- * @returns 
+ * @returns render()
  */
 export default function EditProjectNameDialog({ 
   projectName, projectId, open, setOpen, currentUser, currentWorkspace, setProjects

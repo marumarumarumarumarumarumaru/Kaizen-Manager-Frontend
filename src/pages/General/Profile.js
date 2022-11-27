@@ -1,12 +1,21 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
+import { Box, Button, Typography } from '@mui/material'
 
 import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
-// import PasswordForm from '../../components/forms/ProfilePasswordForm'
 import ProfileForm from '../../components/forms/ProfileForm'
 
+/**
+ * Renders the Profile page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * @param {object} currentUser 
+ * @param {function} setCurrentUser 
+ * @param {function} setLogout 
+ * @param {function} setNavigateToRedirect 
+ * 
+ * @returns render()
+ */
 export default function Profile({ 
   setShowDrawer, setCurrentProject, currentUser, setCurrentUser, setLogout,
   setNavigateToRedirect

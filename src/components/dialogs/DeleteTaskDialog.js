@@ -16,7 +16,7 @@ import AlertSnackbar from '../AlertSnackbar'
  * @param {object} currentUser
  * @param {function} setProjTasks
  *  
- * @returns 
+ * @returns render()
  */
 export default function DeleteTaskDialog({ 
   task, delTaskOpen, setDelTaskOpen, currentWorkspace, currentProject, currentUser, setProjTasks

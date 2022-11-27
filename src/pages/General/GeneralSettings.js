@@ -1,9 +1,16 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
+import { Box, Typography } from '@mui/material'
+
 import AlertSnackbar from '../../components/AlertSnackbar'
 
+/**
+ * Renders the General Settings page
+ * 
+ * @param {function} setShowDrawer 
+ * @param {function} setCurrentProject 
+ * 
+ * @returns render()
+ */
 export default function GeneralSettings({ setShowDrawer, setCurrentProject }) {
   /* 
     Page component for rendering the General Settings page
@@ -25,13 +32,6 @@ function GeneralSettingsForm() {
     Page component for rendering the Profile Settings page's form
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
-
-  // const [values, setValues] = React.useState({
-  // })
-
-  // const handleChange = (prop) => (event) => {
-  //   setValues({ ...values, [prop]: event.target.value })
-  // }
 
   const handleSubmit = () => {
     setSnackbarOpen(!snackbarOpen)
