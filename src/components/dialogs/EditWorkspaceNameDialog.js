@@ -1,15 +1,23 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { isEmpty } from '../../utils/ValidationFns'
+import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog for edit workspace
+ * 
+ * Parameters passed down from ResponsiveDrawer
+ * @param {string} workspaceName
+ * @param {integer} workspaceId
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {object} currentUser
+ * @param {function} setWorkspaces
+ *  
+ * @returns 
+ */
 export default function EditWorkspaceNameDialog({ 
   workspaceName, workspaceId, open, setOpen, currentUser, setWorkspaces
 }) {

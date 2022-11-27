@@ -1,22 +1,30 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import Toolbar from '@mui/material/Toolbar'
-import Tooltip from '@mui/material/Tooltip'
+import { Menu as MenuIcon } from '@mui/icons-material'
+import { Toolbar, Tooltip, Typography, IconButton } from '@mui/material'
 
 import WorkspacesNav from './WorkspacesNav'
 import UserMenu from './UserMenu'
 import AlertSnackbar from '../AlertSnackbar'
 import { AppBar } from '../CustomUI'
 
+/**
+ * Renders the Responsive App Bar 
+ * 
+ * Parameters passed down from Base
+ * @param {boolean} drawerOpen
+ * @param {function} setDrawerOpen
+ * @param {array} workspaces
+ * @param {function} setCurrentWorkspace
+ * @param {function} setWorkspaces
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ * 
+ * @returns render()
+ */
 export default function ResponsiveAppBar({ 
   drawerOpen, setDrawerOpen, workspaces, currentWorkspace, setCurrentWorkspace, 
   currentUser, setWorkspaces, setLogout, setNavigateToRedirect
 }) {
-  /* 
-    Renders the AppBar
-  */
   const [snackbarCreateWSOpen, setSnackbarCreateWSOpen] = React.useState(false)
   const [snackbarErrorWSOpen, setSnackbarErrorWSOpen] = React.useState(false)
 

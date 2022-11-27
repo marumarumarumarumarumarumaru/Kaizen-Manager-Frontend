@@ -1,17 +1,24 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Chip from '@mui/material/Chip'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import { Button, CardActionArea, CardActions } from '@mui/material'
-import Avatar from '@mui/material/Avatar'
+import React from 'react'
+import { Avatar, Box, Card, Chip, CardContent, Button, CardActionArea, CardActions, Typography } from '@mui/material'
 import { format } from 'date-fns'
 
 import EditTaskDialog from './dialogs/EditTaskDialog'
 import UpdateTaskStatusDialog from './dialogs/UpdateTaskStatusDialog'
 import DeleteTaskDialog from './dialogs/DeleteTaskDialog'
 
+/**
+ * Renders the Card for task
+ * 
+ * Parameters passed down from Project
+ * @param {object} task
+ * @param {array} users
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {function} setProjTasks
+ *  
+ * @returns 
+ */
 export default function TaskCard({ 
   task, users, currentWorkspace, currentProject, currentUser, setProjTasks
 }) {
@@ -101,8 +108,8 @@ export default function TaskCard({
  * * 'success': green
  * * null: grey
  * 
- * @param {*} targetDate - string
- * @param {*} taskStatus - string
+ * @param {string} targetDate - string
+ * @param {string} taskStatus - string
  * 
  * @returns - string
  */

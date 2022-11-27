@@ -1,13 +1,21 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import { CardActionArea } from '@mui/material'
-import PostAddIcon from '@mui/icons-material/PostAdd'
+import React from 'react'
+import { Box, Card, CardContent, CardActionArea, Typography } from '@mui/material'
+import { PostAdd as PostAddIcon } from '@mui/icons-material'
 
 import CreateTaskDialog from './dialogs/CreateTaskDialog'
 
+/**
+ * Renders Card for creating task
+ * 
+ * Parameters passed down from Project
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {string} selectedStatus
+ * @param {array} users
+ * @param {function} setProjTasks 
+ * @returns 
+ */
 export default function CreateTaskCard({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, setProjTasks
 }) {

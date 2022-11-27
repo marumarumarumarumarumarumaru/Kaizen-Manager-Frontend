@@ -1,23 +1,29 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
-
-import { validateProject, isEmpty } from '../../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+
+import AlertSnackbar from '../AlertSnackbar'
+import { validateProject, isEmpty } from '../../utils/ValidationFns'
+
+/**
+ * Renders Dialog for create project
+ * 
+ * Parameters passed down from ResponsiveDrawer
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setCurrentProject
+ * @param {boolean} newProjectOpen
+ * @param {function} setNewProjectOpen
+ * @param {function} setProjects
+ *  
+ * @returns 
+ */
 export default function CreateProjectDialog({ 
   currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 
   setProjects
 }) {
-  /* 
-    Renders the Create Project Dialog
-  */
   const navigate = useNavigate()
   const [projectName, setProjectName] = React.useState('')
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)

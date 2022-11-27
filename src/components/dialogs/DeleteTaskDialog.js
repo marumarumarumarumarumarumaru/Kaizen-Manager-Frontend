@@ -1,14 +1,23 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Button } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog to delete task
+ * 
+ * Parameters passed down from TaskCard
+ * @param {object} task
+ * @param {boolean} delTaskOpen      // Boolean controls visibility
+ * @param {function} setDelTaskOpen
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {function} setProjTasks
+ *  
+ * @returns 
+ */
 export default function DeleteTaskDialog({ 
   task, delTaskOpen, setDelTaskOpen, currentWorkspace, currentProject, currentUser, setProjTasks
 }) {

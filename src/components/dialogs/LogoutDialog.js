@@ -1,14 +1,20 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Button } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders Dialog for logout
+ * 
+ * Parameters passed down from UserNav
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ *  
+ * @returns 
+ */
 export default function LogoutDialog({ 
   open, setOpen, setLogout, setNavigateToRedirect
 }) {

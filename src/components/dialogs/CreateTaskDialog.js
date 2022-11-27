@@ -1,20 +1,27 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { Button, TextField, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+
+import AlertSnackbar from '../AlertSnackbar'
 import { isEmpty, validateTask } from '../../utils/ValidationFns'
 
+/**
+ * Renders Dialog for create task
+ * 
+ * Parameters passed down from TaskCreateCard
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {string} selectedStatus
+ * @param {array} users
+ * @param {boolean} newTaskOpen
+ * @param {function} setNewTaskOpen
+ * @param {function} setProjTasks
+ *  
+ * @returns 
+ */
 export default function CreateTaskDialog ({ 
   currentWorkspace, currentProject, currentUser, selectedStatus, users, 
   newTaskOpen, setNewTaskOpen, setProjTasks

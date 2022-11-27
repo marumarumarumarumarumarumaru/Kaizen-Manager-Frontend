@@ -1,7 +1,16 @@
-import * as React from 'react'
-import Snackbar from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
+import React from 'react'
+import { Snackbar, Alert as MuiAlert } from '@mui/material'
 
+/**
+ * Renders Alert Snackbar
+ * 
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {fuction} setOpen 
+ * @param {string} severity
+ * @param {string} message
+ * 
+ * @returns render()
+ */
 export default function AlertSnackbar({ open, setOpen, severity, message }) {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

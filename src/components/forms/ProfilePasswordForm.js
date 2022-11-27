@@ -1,17 +1,16 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+
+import { Box, Button, Typography, IconButton, OutlinedInput, InputLabel, InputAdornment, FormControl } from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+
 import AlertSnackbar from '../../components/AlertSnackbar'
 
-
+/**
+ * Renders the Profile Setting's Profile form
+ * UNUSED
+ *  
+ * @returns render() 
+ */
 export default function PasswordForm() {
   /* 
     Page component for rendering the Profile Settings page's form

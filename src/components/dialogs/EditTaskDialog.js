@@ -1,20 +1,26 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import AlertSnackbar from '../AlertSnackbar'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+import { Button, TextField, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 import { isEmpty, validateTask } from '../../utils/ValidationFns'
+import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog for edit task
+ * 
+ * Parameters passed down from TaskCard
+ * @param {object} task
+ * @param {array} users
+ * @param {boolean} editTaskOpen      // Boolean controls visibility
+ * @param {function} setEditTaskOpen
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {object} currentUser
+ * @param {function} setProjTasks
+ *  
+ * @returns 
+ */
 export default function EditTaskDialog({ 
   task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 
   currentUser, setProjTasks

@@ -1,24 +1,26 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Link, useNavigate } from 'react-router-dom'
+import { Button, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { WarningAmber as WarningAmberIcon } from '@mui/icons-material'
 
-import { Link } from 'react-router-dom'
 import { useLocalStorage } from '../../utils/LocalStorageFns'
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders Dialog for account deletion
+ * 
+ * Parameters passed down from Profile
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {function} setOpen
+ * @param {object} currentUser
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ *  
+ * @returns 
+ */
 export default function DeleteAccountDialog({ 
   open, setOpen, currentUser, setLogout, setNavigateToRedirect
 }) {
-  /* 
-    Renders the Logout Dialog
-  */
   const navigate = useNavigate()
   const [candidates, setCandidates] = useLocalStorage('candidates', null)
 

@@ -1,27 +1,33 @@
 import React from 'react'
-import List from '@mui/material/List'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import ListSubheader from '@mui/material/ListSubheader'
-import AddIcon from '@mui/icons-material/Add'
-import ListItem from '@mui/material/ListItem'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Tooltip from '@mui/material/Tooltip'
-import { IconButton } from '@mui/material'
 import { Link } from 'react-router-dom'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material'
+import { Add as AddIcon, Delete as DeleteIcon, ArrowRight as ArrowRightIcon } from '@mui/icons-material'
+import { IconButton, Tooltip } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
 import DeleteProjectDialog from '../dialogs/DeleteProjectDialog'
 
+/**
+ * Renders the Projects in the responsive drawer
+ * 
+ * Parameters passed down from ResponsiveDrawer
+ * @param {array} projects
+ * @param {object} currentUser
+ * @param {string} currentUserRole
+ * @param {integer} currentWorkspace
+ * @param {integer} currentProject
+ * @param {boolean} newProjectOpen
+ * @param {function} setNewProjectOpen
+ * @param {function} setCurrentProject
+ * @param {function} setProjects
+ * 
+ * @returns render()
+ */
 export default function DrawerProjects({ 
-  projects, users, currentUser, currentUserRole, currentWorkspace, currentProject, 
+  projects, currentUser, currentUserRole, currentWorkspace, currentProject, 
   newProjectOpen, setNewProjectOpen, setCurrentProject, setProjects
 }) {
-  /* 
-    Renders the Projects in drawer
-  */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false) // For deletion
 
   const handleNewProjectClickOpen = () => {

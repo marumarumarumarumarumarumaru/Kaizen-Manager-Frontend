@@ -4,10 +4,9 @@ import Typography from '@mui/material/Typography'
 import Toolbar from '@mui/material/Toolbar'
 
 /**
- * 
- * @returns render()
  * Renders simple appbar without the workspace and user navigation
  * 
+ * @returns render()
  */
 export default function SimpleAppBar() {
 

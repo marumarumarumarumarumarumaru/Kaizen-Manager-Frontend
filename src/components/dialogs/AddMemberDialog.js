@@ -1,19 +1,24 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+
+import { Box, Button, FormControl, FormHelperText, MenuItem, TextField, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
-import { Box, FormHelperText, TextField } from '@mui/material'
 import { isValidEmail } from '../../utils/ValidationFns'
 
+/**
+ * Renders the Dialog for adding a member
+ * 
+ * Parameters passed down from WorkspaceSettings
+ * @param {boolean} open      // Boolean controls visibility
+ * @param {fuction} setOpen 
+ * @param {integer} currentWorkspace
+ * @param {object} currentUser
+ * @param {string} workspaceName
+ * @param {function} setUsers
+ * 
+ * @returns render()
+ */
 export default function AddMemberDialog({ 
   open, setOpen, currentWorkspace, currentUser, workspaceName, setUsers
 }) {

@@ -1,27 +1,26 @@
 import React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Tooltip from '@mui/material/Tooltip'
+
+import { Avatar, Box, Divider, Menu, MenuItem, ListItemIcon, IconButton, Typography, Tooltip } from '@mui/material'
+import { Logout, Help as HelpIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material'
 // import Settings from '@mui/icons-material/Settings'
-import Logout from '@mui/icons-material/Logout'
-import HelpIcon from '@mui/icons-material/Help'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../dialogs/LogoutDialog'
 
+/**
+ * Renders the User Menu
+ * 
+ * Parameters passed down from ResponsiveAppBar
+ * @param {object} currentUser
+ * @param {function} setLogout
+ * @param {function} setNavigateToRedirect
+ * 
+ * @returns render()
+ */
+
 export default function UserMenu({ 
   currentUser, setLogout, setNavigateToRedirect
 }) {
-  /* 
-    Renders the User Menu
-  */
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [showLogoutDialog, setShowLogoutDialog] = React.useState(false)
 

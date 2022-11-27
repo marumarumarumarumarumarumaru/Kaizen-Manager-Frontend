@@ -1,14 +1,18 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
+import { Box, Button, Typography, TextField } from '@mui/material'
+
 import AlertSnackbar from '../../components/AlertSnackbar'
 
+/**
+ * Renders the Profile Setting's Profile form
+ * 
+ * Parameters passed down from Profile
+ * @param {object} currentUser
+ * @param {function} setCurrentUser
+ *  
+ * @returns render() 
+ */
 export default function ProfileForm({ currentUser, setCurrentUser }) {
-  /* 
-    Page component for rendering the Profile Settings page's form
-  */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
   const [values, setValues] = React.useState({

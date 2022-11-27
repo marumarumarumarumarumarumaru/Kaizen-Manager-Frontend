@@ -1,19 +1,27 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
-import AddIcon from '@mui/icons-material/Add'
-import Divider from '@mui/material/Divider'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-
 import { Link } from 'react-router-dom'
+
+import { Box, Button, Divider, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material'
+import { Add as AddIcon, ExpandMore as ExpandMoreIcon, ArrowRight as ArrowRightIcon } from '@mui/icons-material'
+
 import CreateWorkspaceDialog from '../dialogs/CreateWorkspaceDialog'
 
+/**
+ * Renders the Workspace Nav
+ * 
+ * Parameters passed down from ResponsiveAppBar
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setCurrentWorkspace
+ * @param {boolean} snackbarOpen
+ * @param {function} setSnackbarOpen
+ * @param {boolean} errorSnackbarOpen
+ * @param {function} setErrorSnackbarOpen
+ * @param {array} workspaces
+ * @param {function} setWorkspaces
+ * 
+ * @returns 
+ */
 export default function WorkspacesNav({
   currentUser, currentWorkspace, setCurrentWorkspace, snackbarOpen, setSnackbarOpen, 
   errorSnackbarOpen, setErrorSnackbarOpen, workspaces, setWorkspaces

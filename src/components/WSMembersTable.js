@@ -1,22 +1,24 @@
-import * as React from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import ClearIcon from '@mui/icons-material/Clear'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+import React from 'react'
 
-import { IconButton } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { IconButton, MenuItem, FormControl, Select, Paper } from '@mui/material'
+import { Clear as ClearIcon } from '@mui/icons-material'
+
 import AlertSnackbar from './AlertSnackbar'
 import RemoveMemberDialog from './dialogs/RemoveMemberDialog'
-
 import { checkUserRole } from '../utils/UserFns'
 
+/**
+ * Renders the Members Table
+ * 
+ * Parameters passed down from WorkspaceSettings
+ * @param {array} users
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setUsers
+ * 
+ * @returns render()
+ */
 export default function MembersTable({ 
   users, currentUser, currentWorkspace, setUsers 
 }) {
@@ -47,6 +49,18 @@ export default function MembersTable({
   )
 }
 
+/**
+ * Renders the Member Rows
+ * 
+ * Parameters passed down from WorkspaceTable
+ * @param {object} user
+ * @param {object} currentUser
+ * @param {string} currentUserRole
+ * @param {integer} currentWorkspace
+ * @param {function} setUsers
+ * 
+ * @returns render()
+ */
 function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setUsers }) {
 
   const [role, setRole] = React.useState(user.user_role)

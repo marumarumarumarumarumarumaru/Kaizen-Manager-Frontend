@@ -1,23 +1,27 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-// For the dialog
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Button } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
 
+/**
+ * Renders Dialog for member removal
+ * 
+ * Parameters passed down from WSMembersTable
+ * @param {object} user
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setUsers
+ * @param {boolean} removeUserOpen      // Boolean controls visibility
+ * @param {function} setRemoveUserOpen
+ *  
+ * @returns 
+ */
 export default function RemoveMemberDialog({ 
   user, currentUser, currentWorkspace, setUsers, removeUserOpen, setRemoveUserOpen 
 }) {
-  /* 
-    Renders the Remove member dialog
-  */
   const fullName = user.first_name + ' ' + user.last_name
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
-  // const [errors, setErrors] = React.useState([])
 
   const handleClose = () => {
     setRemoveUserOpen(!removeUserOpen)

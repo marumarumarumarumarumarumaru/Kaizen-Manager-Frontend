@@ -1,22 +1,32 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import { Button, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { validateWorkspace, isEmpty } from '../../utils/ValidationFns'
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Renders Dialog for create workspace
+ * 
+ * Parameters passed down from WorkspacesNav
+ * @param {object} currentUser
+ * @param {integer} currentWorkspace
+ * @param {function} setCurrentWorkspace
+ * @param {function} setCurrentProject
+ * @param {boolean} newWorkspaceOpen
+ * @param {function} setNewWorkspaceOpen
+ * @param {boolean} snackbarOpen      // Boolean controls visibility
+ * @param {function} setSnackbarOpen
+ * @param {boolean} errorSnackbarOpen      // Boolean controls visibility
+ * @param {function} setErrorSnackbarOpen
+ * @param {function} setWorkspaces
+ *  
+ * @returns 
+ */
 export default function CreateWorkspaceDialog({ 
   currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 
   snackbarOpen, setSnackbarOpen, errorSnackbarOpen, setErrorSnackbarOpen, setWorkspaces
 }) {
-  /* 
-    Renders the Create Workspace Dialog
-  */
   const navigate = useNavigate()
   const [workspaceName, setWorkspaceName] = React.useState('')
 
