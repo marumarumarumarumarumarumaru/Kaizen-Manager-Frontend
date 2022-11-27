@@ -74,11 +74,15 @@ export default function Metrics({
       for (let i = 0; i < selectedProjects.length; i++) {
         projectList.push(selectedProjects[i].project_id)
       }
-
+      let outputType = undefined
+      if (format === 'json') {
+        outputType = 'application/json'
+      } else if (format === 'csv') {
+        outputType = 'text/csv'
+      }
       const data = { 
         projects: projectList,
-        duration: parseInt(period),
-        format: format
+        duration: parseInt(period)
       }
       const url = process.env.REACT_APP_BACKEND_URL
       const userId = currentUser.user_id
@@ -87,12 +91,12 @@ export default function Metrics({
       const response = await fetch( endpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept' : outputType
         },
         body: JSON.stringify(data)
       })
       let output = undefined
-      let outputType = undefined
       if (format === 'json') {
         const jsonData = await response.json()
         output = JSON.stringify(jsonData)
