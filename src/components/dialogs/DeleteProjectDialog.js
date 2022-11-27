@@ -7,13 +7,16 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
+import { useNavigate } from 'react-router-dom'
+
 export default function DeleteProjectDialog({ 
   project, delProjectOpen, setDelProjectOpen, snackbarOpen, setSnackbarOpen, 
-  currentWorkspace, currentProject, currentUser, setProjects
+  currentWorkspace, currentUser, setProjects
 }) {
   /* 
     Renders the Logout Dialog
   */  
+  const navigate = useNavigate()
   const handleClose = () => {
     setDelProjectOpen(!delProjectOpen)
   }
@@ -25,7 +28,7 @@ export default function DeleteProjectDialog({
       const url = process.env.REACT_APP_BACKEND_URL
       const userId = currentUser.user_id
       const endpoint = url + '/users/' + userId + '/workspaces/' + currentWorkspace + '/projects'
-      const projectEndpoint = endpoint + '/' + currentProject
+      const projectEndpoint = endpoint + '/' + project.project_id
       // DELETE /users/:user_id/workspaces/:workspace_id/projects/:project_id
       await fetch( projectEndpoint, {method: 'DELETE'})
       const getProjects = await fetch( endpoint, {method: 'GET'})
@@ -34,6 +37,7 @@ export default function DeleteProjectDialog({
         setProjects(projects)
         setDelProjectOpen(!delProjectOpen)
         setSnackbarOpen(!snackbarOpen)
+        navigate('/workspaces/' + currentWorkspace)
       }
     }
 

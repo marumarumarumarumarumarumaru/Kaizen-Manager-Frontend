@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
 import { validateCreateWorkspace } from '../../utils/ValidationFns'
+import { useNavigate } from 'react-router-dom'
 
 export default function CreateWorkspaceDialog({ 
   currentUser, setCurrentWorkspace, newWorkspaceOpen, setNewWorkspaceOpen, 
@@ -16,6 +17,7 @@ export default function CreateWorkspaceDialog({
   /* 
     Renders the Create Workspace Dialog
   */
+  const navigate = useNavigate()
   const [workspaceName, setWorkspaceName] = React.useState('')
   const [errors, setErrors] = React.useState([])
 
@@ -58,7 +60,9 @@ export default function CreateWorkspaceDialog({
         setCurrentWorkspace(workspace.workspace_id)
         setWorkspaces(workspaces)
         setNewWorkspaceOpen(!newWorkspaceOpen)
-        setSnackbarOpen(!snackbarOpen)      }
+        setSnackbarOpen(!snackbarOpen)      
+        navigate("/workspaces/" + workspace.workspace_id)
+      }
     }
 
     createWS()

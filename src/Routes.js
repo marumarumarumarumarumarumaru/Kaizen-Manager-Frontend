@@ -16,11 +16,12 @@ import WorkspaceSettings from "./pages/workspace/WorkspaceSettings"
 import Projects from "./pages/projects/Projects"
 import Project from "./pages/projects/Project"
 // User Options
-import GeneralSettings from "./pages/general/GeneralSettings"
+// import GeneralSettings from "./pages/general/GeneralSettings"
 import About from "./pages/general/About"
 import Profile from "./pages/general/Profile"
 
 import { checkUserRole } from "./utils/UserFns"
+import { useLocalStorage } from "./utils/LocalStorageFns"
 
 export default function MyRoutes() {
   const [drawerOpen, setDrawerOpen] = useLocalStorage('drawer-open', true)  // Controls responsive drawer
@@ -36,9 +37,10 @@ export default function MyRoutes() {
   const [workspacesLoaded, setWorkspacesLoaded] = useLocalStorage('workspaces-loaded', false)
   const [currentUserRole, setCurrentUserRole] = useLocalStorage('current-user-role', null)
 
-  React.useEffect(() => {
-    // localStorage.clear()
-  }, [])
+  // Debugging use
+  // React.useEffect(() => {
+  //   localStorage.clear()
+  // }, [])
 
   React.useEffect(() => {
     let role = checkUserRole(users, currentUser)
@@ -78,7 +80,8 @@ export default function MyRoutes() {
           workspacesLoaded, setWorkspacesLoaded, logout, setLogout
         )}
         {UserRoutes(
-          setShowDrawer, setCurrentProject, setCurrentUser, currentUser
+          setShowDrawer, setCurrentProject, setCurrentUser, currentUser, setLogout,
+          setNavigateToRedirect
         )}
         {WorkspaceRoutes(
           projects, users, workspaces, currentUser, currentUserRole, currentWorkspace, 
@@ -89,24 +92,6 @@ export default function MyRoutes() {
     </Routes>
   )
 }
-
-// 
-// Code adopted from:
-// https://www.robinwieruch.de/react-uselocalstorage-hook/
-// Robin Wieruch 
-// Last accessed: November 26, 2022
-// 
-const useLocalStorage = (storageKey, fallbackState) => {
-  const [value, setValue] = React.useState(
-    JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState
-  );
-
-  React.useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(value));
-  }, [value, storageKey]);
-
-  return [value, setValue];
-};
 
 function EntryRoutes(
   setShowDrawer, navigateToRedirect, setNavigateToRedirect, currentUser, 
@@ -125,6 +110,7 @@ function EntryRoutes(
               setNavigateToRedirect={setNavigateToRedirect}
               setCurrentUser={setCurrentUser}
               setLogout={setLogout}
+              setWorkspacesLoaded={setWorkspacesLoaded}
         />} 
       />
       <Route 
@@ -158,7 +144,8 @@ function EntryRoutes(
 }
 
 function UserRoutes( 
-  setShowDrawer, setCurrentProject, setCurrentUser, currentUser
+  setShowDrawer, setCurrentProject, setCurrentUser, currentUser, setLogout,
+  setNavigateToRedirect
 ) {
   return(
     <>
@@ -169,15 +156,17 @@ function UserRoutes(
           setCurrentProject={setCurrentProject}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
+          setLogout={setLogout}
+          setNavigateToRedirect={setNavigateToRedirect}
         />}
       />
-      <Route 
+      {/* <Route 
         path='settings' 
         element={<GeneralSettings 
           setShowDrawer={setShowDrawer}
           setCurrentProject={setCurrentProject}
         />}
-      />
+      /> */}
       <Route 
         path='about' 
         element={<About 
@@ -216,6 +205,8 @@ function WorkspaceRoutes(
             element={<Metrics 
               projects={projects}
               setCurrentProject={setCurrentProject}
+              currentUser={currentUser}
+              currentWorkspace={currentWorkspace}
             />}
           />
           <Route 

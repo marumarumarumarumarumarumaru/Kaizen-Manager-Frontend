@@ -8,7 +8,8 @@ import DeleteAccountDialog from '../../components/dialogs/DeleteAccountDialog'
 import ProfileForm from '../../components/forms/ProfileForm'
 
 export default function Profile({ 
-  setShowDrawer, setCurrentProject, currentUser, setCurrentUser
+  setShowDrawer, setCurrentProject, currentUser, setCurrentUser, setLogout,
+  setNavigateToRedirect
 }) {
   /* 
     Page component for rendering the Profile Settings page
@@ -33,7 +34,7 @@ export default function Profile({
         <Typography variant="h4">
           Profile Settings
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           Edit below to update your user profile on Kaizen Manager.
         </Typography>
         <ProfileForm 
@@ -48,6 +49,8 @@ export default function Profile({
         open={deleteOpen} 
         setOpen={setDeleteOpen}
         currentUser={currentUser}
+        setLogout={setLogout}
+        setNavigateToRedirect={setNavigateToRedirect}
       />
     </>
   )
@@ -66,7 +69,7 @@ function DeleteAccount({openDialog}) {
         <Typography variant="h5" sx={{ mt: 4 }}>
           Delete Account
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           By pressing the below button, you can delete your account after a confirmation screen.
         </Typography>
       </Box>

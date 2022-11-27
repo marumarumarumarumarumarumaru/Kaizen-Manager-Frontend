@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import AlertSnackbar from '../AlertSnackbar'
 
 import { validateCreateProject } from '../../utils/ValidationFns'
+import { useNavigate } from 'react-router-dom'
 
 export default function CreateProjectDialog({ 
   currentUser, currentWorkspace, setCurrentProject, newProjectOpen, setNewProjectOpen, 
@@ -17,6 +18,7 @@ export default function CreateProjectDialog({
   /* 
     Renders the Create Project Dialog
   */
+  const navigate = useNavigate()
   const [projectName, setProjectName] = React.useState('')
   const [errors, setErrors] = React.useState([])
 
@@ -51,7 +53,7 @@ export default function CreateProjectDialog({
         },
         body: JSON.stringify(data)
       })
-      const project = response.json()
+      const project = await response.json()
       const getProjects = await fetch( endpoint, {method: 'GET'})
       const projects = await getProjects.json()
       if (addProjectToWS) {
@@ -59,6 +61,7 @@ export default function CreateProjectDialog({
         setCurrentProject(project.project_id)
         setNewProjectOpen(!newProjectOpen)
         setSnackbarOpen(!snackbarOpen)
+        navigate('/workspaces/' + currentWorkspace + '/projects/' + project.project_id)
       }
     }
 

@@ -4,16 +4,17 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
-import { Link } from 'react-router-dom'
 
 import { validateCreateWorkspace } from '../utils/ValidationFns'
+import { useNavigate } from 'react-router-dom'
 
 export default function CreateWorkspace({ 
-  setShowDrawer, currentWorkspace, currentUser, setCurrentWorkspace, setWorkspaces
+  setShowDrawer, currentUser, setCurrentWorkspace, setWorkspaces
 }) {
   /* 
     Page component for rendering the create workspace page
   */
+  const navigate = useNavigate()
   const [workspaceName, setWorkspaceName] = React.useState('')
   const [errors, setErrors] = React.useState([])
 
@@ -55,6 +56,7 @@ export default function CreateWorkspace({
       if (createWorkspace) {
         setCurrentWorkspace(workspace.workspace_id)
         setWorkspaces(workspaces)
+        navigate("/workspaces/" + workspace.workspace_id)
       }
     }
 
@@ -116,16 +118,12 @@ export default function CreateWorkspace({
             justifyContent: 'center'
           }}
           >
-            <Link
-              to={'/workspaces/' + currentWorkspace}
-            >
-              <Button 
-                variant='contained' 
-                sx={{ m: 2, paddingY: 1, paddingX: 2 }}
-                onClick={handleSubmit}>
-                  Get Started!
-              </Button>
-            </Link>
+            <Button 
+              variant='contained' 
+              sx={{ m: 2, paddingY: 1, paddingX: 2 }}
+              onClick={handleSubmit}>
+                Get Started!
+            </Button>
           </Box>
         </Paper>
       </Box>

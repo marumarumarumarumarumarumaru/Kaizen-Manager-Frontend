@@ -55,13 +55,13 @@ export default function WorkspaceSettings({
         <Typography variant="h4">
           Settings
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           Edit below to adjust this workspace's settings.
         </Typography>
         <Typography variant="h5" sx={{ mt: 4 }}>
           Members
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           Adjust member's role, add a member, or delete a member from a workspace.
         </Typography>
         <MembersTable 
@@ -87,7 +87,7 @@ export default function WorkspaceSettings({
         <Typography variant="h5" sx={{ mt: 4 }}>
           Delete Workspace
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           If you delete a workspace, the tasks and projects under this workpsace will be deleted!
         </Typography>
       </Box>

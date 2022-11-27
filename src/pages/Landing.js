@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { GoogleLogin } from '@react-oauth/google'
 
 export default function Landing({ 
-  setShowDrawer, setNavigateToRedirect, setCurrentUser, setLogout
+  setShowDrawer, setNavigateToRedirect, setCurrentUser, setLogout, setWorkspacesLoaded
 }) {
   /* 
     Page component for rendering the Landing page
@@ -13,6 +13,7 @@ export default function Landing({
   React.useEffect(() => {
     localStorage.clear()
     setLogout(false)
+    setWorkspacesLoaded(false)
     setShowDrawer(false)
   })
 

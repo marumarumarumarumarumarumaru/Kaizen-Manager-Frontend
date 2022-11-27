@@ -137,7 +137,6 @@ function ProjectDeleteButton({
         snackbarOpen={snackbarOpen}
         setSnackbarOpen={setSnackbarOpen}
         currentWorkspace={currentWorkspace}
-        currentProject={currentProject}
         currentUser={currentUser}
         setProjects={setProjects}
       />

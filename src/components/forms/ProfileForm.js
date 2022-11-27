@@ -12,8 +12,8 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
 
   const [values, setValues] = React.useState({
-    firstName: '',
-    lastName: ''
+    firstName: currentUser.first_name,
+    lastName: currentUser.last_name
   })
 
   const handleChange = (prop) => (event) => {
@@ -60,11 +60,11 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
         <Typography variant="h5" sx={{ mt: 4 }}>
           Name
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="subtitle1" sx={{ mt: 1 }}>
           Edit below to adjust your name that you use on Kaizen Manager.
         </Typography>
-        <Typography variant="caption">
-          Note: If you hit "save" without changing anything, nothing will be updated.
+        <Typography variant="subtitle2">
+          Note: If you hit "save" with the input blank, that portion will not be updated.
         </Typography>
       </Box>
       <Box

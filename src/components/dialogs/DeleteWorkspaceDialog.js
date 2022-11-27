@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
+import { useNavigate } from 'react-router-dom'
+
 export default function DeleteWorkspaceDialog({ 
   open, setOpen, workspaceName, currentUser, currentWorkspace, setWorkspaces, 
   setCurrentWorkspace
@@ -14,6 +16,7 @@ export default function DeleteWorkspaceDialog({
   /* 
     Renders the Logout Dialog
   */
+  const navigate = useNavigate()
   const handleClose = () => {
     setOpen(!open)
   }
@@ -34,6 +37,9 @@ export default function DeleteWorkspaceDialog({
         setWorkspaces(workspaces)
         if (workspaces.length > 0) {
           setCurrentWorkspace(workspaces[0].workspace_id)
+        } else {
+          setCurrentWorkspace(null)
+          navigate("/create-workspace")
         }
         setOpen(!open)
       }

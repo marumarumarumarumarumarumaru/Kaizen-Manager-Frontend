@@ -45,7 +45,7 @@ function GeneralSettingsForm() {
       <Typography variant="h4">
         General Settings
       </Typography>
-      <Typography variant="caption">
+      <Typography variant="subtitle1" sx={{ mt: 1 }}>
         Edit below to adjust your Kaizen Manager general settings.
       </Typography>
       <Box
@@ -58,7 +58,7 @@ function GeneralSettingsForm() {
       >
         {/* Add any options here */}
       </Box>
-      <Button variant='contained' onClick={handleSubmit}>Save</Button>
+      <Button variant='contained' onClick={handleSubmit} disabled>Save</Button>
       <AlertSnackbar 
         open={snackbarOpen} 
         setOpen={setSnackbarOpen} 
