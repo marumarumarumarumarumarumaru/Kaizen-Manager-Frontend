@@ -39,9 +39,9 @@ export default function Workspace({
   }, [currentWorkspace])
 
   return (
-    <>
+    <React.Fragment>
       {/* Outlet will display child routes */}
       <Outlet />
-    </>
+    </React.Fragment>
   )
 }

@@ -66,7 +66,7 @@ export default function UpdateTaskStatusDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         open={moveTaskOpen}
         onClose={handleClose}
@@ -106,6 +106,6 @@ export default function UpdateTaskStatusDialog({
         severity={'success'}
         message={'Task has been moved to "' + selectedStatus + '"'}
       />
-    </>
+    </React.Fragment>
   )
 }

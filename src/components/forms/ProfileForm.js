@@ -55,7 +55,7 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{ display: 'flex', 'flexDirection': 'column' }}>
         <Typography variant="h5" sx={{ mt: 4 }}>
           Name
@@ -97,6 +97,6 @@ export default function ProfileForm({ currentUser, setCurrentUser }) {
         severity={'success'}
         message={'Settings updated'}
       />
-    </>
+    </React.Fragment>
   )
 }

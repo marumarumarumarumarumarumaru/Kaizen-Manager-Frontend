@@ -72,7 +72,7 @@ export default function CreateProjectDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog open={newProjectOpen} onClose={handleClose}>
         <DialogTitle>Create a project</DialogTitle>
         <DialogContent>
@@ -102,6 +102,6 @@ export default function CreateProjectDialog({
         severity={'success'}
         message={'Project has been created'}
       />
-    </>
+    </React.Fragment>
   )
 }

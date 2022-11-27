@@ -160,7 +160,7 @@ export default function Metrics({
                 label={project.project_name}
               />
             )))
-          : <></>}
+          : null}
         </FormControl>
         <FormControl sx={{ m: 2 }}>
           <FormLabel id="data-format-radio-button-group" sx={{ marginY: 1 }}>Data Format</FormLabel>

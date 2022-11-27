@@ -21,7 +21,7 @@ export default function Base({
   }, [])
 
   return (
-    <>
+    <React.Fragment>
       {workspacesLoaded 
       ? (showDrawer
           ? <Box sx={{ display: 'flex' }}>
@@ -56,19 +56,19 @@ export default function Base({
                 <Outlet />
               </Main>        
             </Box>
-          : <>
+          : <React.Fragment>
               <SimpleAppBar />
               <Outlet />
-            </> 
+            </React.Fragment> 
         )
       : (showDrawer
           ? <CircularProgress />
-          : <>
+          : <React.Fragment>
               <SimpleAppBar />
               <Outlet />
-            </>
+            </React.Fragment>
         )
       }
-    </>
+    </React.Fragment>
   )
 }

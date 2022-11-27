@@ -99,7 +99,7 @@ function EntryRoutes(
   workspacesLoaded, setWorkspacesLoaded, logout, setLogout
 ) {
   return(
-    <>
+    <React.Fragment>
       <Route 
         index 
         element={
@@ -139,7 +139,7 @@ function EntryRoutes(
           setWorkspaces={setWorkspaces}
         />}
       />
-    </>
+    </React.Fragment>
   )
 }
 
@@ -148,7 +148,7 @@ function UserRoutes(
   setNavigateToRedirect
 ) {
   return(
-    <>
+    <React.Fragment>
       <Route 
         path='profile' 
         element={<Profile 
@@ -174,7 +174,7 @@ function UserRoutes(
           setCurrentProject={setCurrentProject}
         />}
       /> 
-    </>
+    </React.Fragment>
   )
 }
 

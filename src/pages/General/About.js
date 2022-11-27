@@ -15,7 +15,7 @@ export default function About({ setShowDrawer, setCurrentProject }) {
   })
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{
         m: 2,
         flexsDirection: 'column',
@@ -39,27 +39,27 @@ export default function About({ setShowDrawer, setCurrentProject }) {
         <Divider sx={{ marginY: 3 }}/>
         {RenderFoundersSection()}
       </Box>
-    </>
+    </React.Fragment>
   )
 }
 
 function RenderWhatIsSection() {
   return(
-    <>
-    <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>
-      What Is Kaizen Manager?
-    </Typography>
-    <Typography>
-      Kaizen Manager, Kaizen for short, is a lightweight project management tool 
-      that gives teams the freedom to collaborate on their own terms.
-    </Typography>
-    </>
+    <React.Fragment>
+      <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>
+        What Is Kaizen Manager?
+      </Typography>
+      <Typography>
+        Kaizen Manager, Kaizen for short, is a lightweight project management tool 
+        that gives teams the freedom to collaborate on their own terms.
+      </Typography>
+    </React.Fragment>
   )
 }
 
 function RenderHowItWorksSection() {
   return(
-    <>
+    <React.Fragment>
       <Typography variant="h5" sx={{ marginY: 1}}>
         How It Works
       </Typography>
@@ -73,13 +73,13 @@ function RenderHowItWorksSection() {
         Anyone who is a member of the workspace can then create tasks in a project 
         and assign the task to other members of the workspace.
       </Typography>
-    </>
+    </React.Fragment>
   )
 }
 
 function RenderRolesSection() {
   return(
-    <>
+    <React.Fragment>
       <Typography variant="h5" sx={{ marginY: 1}}>
         Roles
       </Typography>
@@ -136,13 +136,13 @@ function RenderRolesSection() {
             }/>
         </ListItem>
       </List>
-    </>
+    </React.Fragment>
   )
 }
 
 function RenderDeleteThingsSection() {
   return(
-    <>
+    <React.Fragment>
       <Typography variant="h5" sx={{ marginY: 1}}>
         Delete Things
       </Typography>
@@ -161,13 +161,13 @@ function RenderDeleteThingsSection() {
       <Typography>
         If the workspace has more than one member besides the user and the user is the sole owner of the workspace, user will be instructed to assign at least one other owner in the workspace before deleting their account.
       </Typography>
-    </>
+    </React.Fragment>
   )
 }
 
 function RenderFreedomSection() {
   return(
-    <>
+    <React.Fragment>
       <Typography variant="h5" sx={{ marginY: 1}}>
         Freedom
       </Typography>
@@ -183,13 +183,13 @@ function RenderFreedomSection() {
       <Typography sx={{ mt: 2 }}>
         As of now, user’s have the option to export data in JSON or CSV formats.
       </Typography>
-    </>
+    </React.Fragment>
   )
 }
 
 function RenderFoundersSection() {
   return(
-    <>
+    <React.Fragment>
       <Typography variant="h5" sx={{ marginY: 1}}>
         Founders
       </Typography>
@@ -222,7 +222,7 @@ function RenderFoundersSection() {
           <ListItemText primary="Fusako Obata" secondary="UI/UX and Frontend Cloud Deployment"/>
         </ListItem>
       </List>
-    </>
+    </React.Fragment>
   )
 }
 

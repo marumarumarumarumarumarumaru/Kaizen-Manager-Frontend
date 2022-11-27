@@ -56,7 +56,7 @@ export default function ResponsiveDrawer({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -118,7 +118,7 @@ export default function ResponsiveDrawer({
                     </ListItemButton>
                   </ListItem>
                 )))
-              : <></>}
+              : null}
             </List>
           </Collapse>
           <ListItemButton 
@@ -168,6 +168,6 @@ export default function ResponsiveDrawer({
         currentUser={currentUser}
         setWorkspaces={setWorkspaces}
       />
-    </>
+    </React.Fragment>
   )
 }

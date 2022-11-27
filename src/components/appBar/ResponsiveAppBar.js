@@ -24,7 +24,7 @@ export default function ResponsiveAppBar({
   }
 
   return (
-    <>
+    <React.Fragment>
       <AppBar position="fixed" open={drawerOpen}>
         <Toolbar>
           <Tooltip title="Expand drawer">
@@ -99,6 +99,6 @@ export default function ResponsiveAppBar({
         severity={'success'}
         message={'Workspace has been created'}
       />
-    </>
+    </React.Fragment>
   )
 }

@@ -96,7 +96,7 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
   }
 
   return (
-    <>
+    <React.Fragment>
       <TableRow
         key={user.user_id}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -143,6 +143,6 @@ function MembersRow({ user, currentUserRole, currentUser, currentWorkspace, setU
         severity={'success'}
         message={ fullName + "'s role has been updated to: " + role.toUpperCase() }
       />
-    </>
+    </React.Fragment>
   )
 }

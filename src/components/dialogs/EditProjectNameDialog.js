@@ -61,7 +61,7 @@ export default function EditProjectNameDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -96,6 +96,6 @@ export default function EditProjectNameDialog({
         severity={'success'}
         message={'Project has been updated'}
       />
-    </>
+    </React.Fragment>
   )
 }

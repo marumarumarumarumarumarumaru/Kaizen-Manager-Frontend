@@ -11,13 +11,13 @@ export default function Projects() {
   }, [])
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{
         m: 2,
         flexsDirection: 'column',
       }}>
         <Outlet />
       </Box>
-    </>
+    </React.Fragment>
   )
 }

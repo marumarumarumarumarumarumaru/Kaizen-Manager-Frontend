@@ -20,7 +20,7 @@ export default function CreateTaskCard({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Card sx={{ mb: 2 }} onClick={handleNewTaskClickOpen}>
         <CardActionArea>
           <CardContent>
@@ -45,6 +45,6 @@ export default function CreateTaskCard({
         setSnackbarOpen={setSnackbarCreateTaskOpen}
         setProjTasks={setProjTasks}
       />
-    </>
+    </React.Fragment>
   )
 }

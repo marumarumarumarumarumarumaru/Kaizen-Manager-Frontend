@@ -15,7 +15,7 @@ export default function WorkspaceDefault() {
       alignItems: 'center'
     }}>
       <Typography paragraph>
-        Select a project to get started
+        Tip: Try creating a project and creating tasks, or check out the workspace metrics page!
       </Typography>
     </Box>
   )

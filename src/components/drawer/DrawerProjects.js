@@ -29,7 +29,7 @@ export default function DrawerProjects({
   }
 
   return (
-    <>
+    <React.Fragment>
       <List
         sx={{ width: '100%' }}
         component="nav"
@@ -53,7 +53,7 @@ export default function DrawerProjects({
               currentUser={currentUser}
               setProjects={setProjects}/>        
           )))
-        : <></>}
+        : null}
         <ListItemButton sx={{ pl: 3 }} onClick={handleNewProjectClickOpen}>
           <ListItemIcon key='createProject'>
             <AddIcon />
@@ -67,7 +67,7 @@ export default function DrawerProjects({
         severity={'success'}
         message={'Project has been deleted'}
       />
-    </>
+    </React.Fragment>
   )
 }
 
@@ -124,7 +124,7 @@ function ProjectDeleteButton({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Tooltip title="Delete project">
         <IconButton edge="end" aria-label="project options" onClick={handleDelProjectClickOpen}>
           <DeleteIcon/>
@@ -140,6 +140,6 @@ function ProjectDeleteButton({
         currentUser={currentUser}
         setProjects={setProjects}
       />
-    </>
+    </React.Fragment>
   )
 }

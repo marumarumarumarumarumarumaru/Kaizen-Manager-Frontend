@@ -42,7 +42,7 @@ export default function TaskCard({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Card key={'task' + task.task_id} sx={{ mb: 2 }} elevation={4}>
         <CardActionArea onClick={handleEditTaskClickOpen}>
           <CardContent>
@@ -90,7 +90,7 @@ export default function TaskCard({
         currentUser={currentUser}
         setProjTasks={setProjTasks}
       />
-    </>
+    </React.Fragment>
   )
 }
 

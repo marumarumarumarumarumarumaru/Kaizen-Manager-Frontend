@@ -67,7 +67,7 @@ export default function CreateWorkspace({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',
@@ -127,7 +127,7 @@ export default function CreateWorkspace({
           </Box>
         </Paper>
       </Box>
-    </>
+    </React.Fragment>
   )
 }
 

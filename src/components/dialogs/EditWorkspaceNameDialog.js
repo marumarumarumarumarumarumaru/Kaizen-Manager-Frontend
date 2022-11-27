@@ -61,7 +61,7 @@ export default function EditWorkspaceNameDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -96,6 +96,6 @@ export default function EditWorkspaceNameDialog({
         severity={'success'}
         message={'Workspace has been updated'}
       />
-    </>
+    </React.Fragment>
   )
 }

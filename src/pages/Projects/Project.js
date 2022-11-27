@@ -69,7 +69,7 @@ export default function Project({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{
         m: 2,
         flexsDirection: 'column',
@@ -100,7 +100,7 @@ export default function Project({
                   setProjTasks={setProjTasks}
                 />
               )))
-            : <></>}
+            : null}
             <CreateTaskCard 
               currentWorkspace={currentWorkspace}
               currentProject={currentProject}
@@ -123,7 +123,7 @@ export default function Project({
                   setProjTasks={setProjTasks}
                 />
               )))
-            : <></>}
+            : null}
             <CreateTaskCard 
               currentWorkspace={currentWorkspace}
               currentProject={currentProject}
@@ -146,7 +146,7 @@ export default function Project({
                   setProjTasks={setProjTasks}
                 />
               )))
-            : <></>}
+            : null}
             <CreateTaskCard 
               currentWorkspace={currentWorkspace}
               currentProject={currentProject}
@@ -169,7 +169,7 @@ export default function Project({
                   setProjTasks={setProjTasks}
                 />
               )))
-            : <></>}
+            : null}
             <CreateTaskCard 
               currentWorkspace={currentWorkspace}
               currentProject={currentProject}
@@ -192,7 +192,7 @@ export default function Project({
                   setProjTasks={setProjTasks}
                 />
               )))
-            : <></>}
+            : null}
             <CreateTaskCard 
               currentWorkspace={currentWorkspace}
               currentProject={currentProject}
@@ -213,7 +213,7 @@ export default function Project({
         currentUser={currentUser}
         setProjects={setProjects}
       />
-    </>
+    </React.Fragment>
   )
 }
 

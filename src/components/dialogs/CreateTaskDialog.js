@@ -78,7 +78,7 @@ export default function CreateTaskDialog ({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog open={newTaskOpen} onClose={handleClose}>
         <DialogTitle>Create new task</DialogTitle>
         <DialogContent>
@@ -165,6 +165,6 @@ export default function CreateTaskDialog ({
         severity={'success'}
         message={'Task has been created'}
       />
-    </>
+    </React.Fragment>
   )
 }

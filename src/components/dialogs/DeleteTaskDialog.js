@@ -49,7 +49,7 @@ export default function DeleteTaskDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         open={delTaskOpen}
         onClose={handleClose}
@@ -75,6 +75,6 @@ export default function DeleteTaskDialog({
         severity={'success'}
         message={'Task has been deleted'}
       />
-    </>
+    </React.Fragment>
   )
 }

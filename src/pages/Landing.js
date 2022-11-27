@@ -36,7 +36,7 @@ export default function Landing({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{ 
         display: 'flex',
         justifyContent: 'center',
@@ -67,6 +67,6 @@ export default function Landing({
           </Box>
         </Paper>
       </Box>
-    </>
+    </React.Fragment>
   )
 }

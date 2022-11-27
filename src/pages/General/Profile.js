@@ -62,7 +62,7 @@ function DeleteAccount({openDialog}) {
   */
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{
         flexsDirection: "column",
       }}>
@@ -81,6 +81,6 @@ function DeleteAccount({openDialog}) {
       >
         Delete Account
       </Button>
-    </>
+    </React.Fragment>
   )
 }

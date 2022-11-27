@@ -47,7 +47,7 @@ export default function WorkspaceSettings({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Box sx={{
         m: 2,
         flexsDirection: 'column',
@@ -125,6 +125,6 @@ export default function WorkspaceSettings({
         workspaceName={getWorkspaceName(workspaces, currentWorkspace)}
         setUsers={setUsers}
       />
-    </>
+    </React.Fragment>
   )
 }

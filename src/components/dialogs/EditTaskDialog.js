@@ -82,7 +82,7 @@ export default function EditTaskDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog open={editTaskOpen} onClose={handleClose}>
         <DialogTitle>Edit a task</DialogTitle>
         <DialogContent>
@@ -173,6 +173,6 @@ export default function EditTaskDialog({
         severity={'success'}
         message={'Task has been updated'}
       />
-    </>
+    </React.Fragment>
   )
 }

@@ -51,7 +51,7 @@ export default function RemoveMemberDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         open={removeUserOpen}
         onClose={handleClose}
@@ -77,6 +77,6 @@ export default function RemoveMemberDialog({
         severity={'success'}
         message={fullName + ' has been removed from this workspace'}
       />
-    </>
+    </React.Fragment>
   )
 }

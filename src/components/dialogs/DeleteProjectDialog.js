@@ -48,28 +48,26 @@ export default function DeleteProjectDialog({
   }
 
   return (
-    <>
-      <Dialog
-        open={delProjectOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {'Delete project "' + project.project_name + '"'}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this project?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDeleteProject}>
-            Delete Project
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  )
+    <Dialog
+      open={delProjectOpen}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {'Delete project "' + project.project_name + '"'}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Are you sure you want to delete this project?
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleDeleteProject}>
+          Delete Project
+        </Button>
+      </DialogActions>
+    </Dialog>
+)
 }

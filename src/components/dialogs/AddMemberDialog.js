@@ -82,7 +82,7 @@ export default function AddMemberDialog({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -142,6 +142,6 @@ export default function AddMemberDialog({
         severity={'success'}
         message={'User has been added to this workspace'}
       />
-    </>
+    </React.Fragment>
   )
 }

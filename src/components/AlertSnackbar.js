@@ -16,12 +16,10 @@ export default function AlertSnackbar({ open, setOpen, severity, message }) {
   }
 
   return (
-    <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-          {message}
-        </Alert>
-      </Snackbar>
-    </>
+    <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+        {message}
+      </Alert>
+    </Snackbar>
   )
 }
