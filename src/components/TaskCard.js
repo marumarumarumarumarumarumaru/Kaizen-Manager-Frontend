@@ -119,12 +119,12 @@ function CheckTargetDate(targetDate, taskStatus) {
     const today = new Date()
     let difference = date - today
     let totalDays = Math.ceil(difference / (1000 * 3600 * 24))
-    // If target date today or in the past, show red
-    if (totalDays <= 0) {
-      return 'error'
-    // Else if the task is already closed, show grey
-    } else if (taskStatus === 'Closed') {
+    // If the task is closed, show grey
+    if (taskStatus === 'Closed') {
       return
+    // Else if  target date today or in the past, show red
+    } else if (totalDays <= 0) {
+      return 'error'
     // Else if target date is within the next 2 weeks, show yellow
     } else if (14 >= totalDays) {
       return 'warning'

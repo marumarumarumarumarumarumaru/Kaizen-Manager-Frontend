@@ -7,7 +7,7 @@ import AlertSnackbar from '../AlertSnackbar'
 /**
  * Renders Dialog for create workspace
  * 
- * Parameters passed down from WorkspacesNav
+ * Parameters passed down from TaskCard
  * @param {object} task
  * @param {boolean} moveTaskOpen      // Boolean controls visibility
  * @param {function} setMoveTaskOpen
@@ -22,9 +22,6 @@ export default function UpdateTaskStatusDialog({
   task, moveTaskOpen, setMoveTaskOpen, currentWorkspace, currentProject, 
   currentUser, setProjTasks
 }) {
-  /* 
-    Renders the Edit Task Dialog
-  */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
   const [selectedStatus, setSelectedStatus] = React.useState(task.task_status)
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
