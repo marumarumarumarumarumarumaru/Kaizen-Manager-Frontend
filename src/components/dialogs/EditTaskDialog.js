@@ -23,13 +23,12 @@ import AlertSnackbar from '../AlertSnackbar'
  */
 export default function EditTaskDialog({ 
   task, users, editTaskOpen, setEditTaskOpen, currentWorkspace, currentProject, 
-  currentUser, setProjTasks
+  currentUser, setProjTasks, setSnackbarOpen
 }) {
   /* 
     Renders the Edit Task Dialog
   */
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
   const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
   const [targetDate, setTargetDate] = React.useState(task.task_due_date)
   const [values, setValues] = React.useState({
@@ -85,7 +84,7 @@ export default function EditTaskDialog({
       if (updateTaskFromProj) {
         setProjTasks(tasks)
         setEditTaskOpen(!editTaskOpen)
-        setSnackbarOpen(!snackbarOpen)
+        setSnackbarOpen(true)
       }
     }
 
@@ -183,12 +182,6 @@ export default function EditTaskDialog({
           <Button onClick={handleEditTaskClose}>Update</Button>
         </DialogActions>
       </Dialog>
-      <AlertSnackbar 
-        open={snackbarOpen} 
-        setOpen={setSnackbarOpen} 
-        severity={'success'}
-        message={'Task has been updated'}
-      />
       <AlertSnackbar 
         open={errorSnackbarOpen} 
         setOpen={setErrorSnackbarOpen} 

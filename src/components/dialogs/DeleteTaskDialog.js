@@ -2,8 +2,6 @@ import React from 'react'
 import { Button } from '@mui/material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
-import AlertSnackbar from '../AlertSnackbar'
-
 /**
  * Renders Dialog to delete task
  * 
@@ -19,15 +17,9 @@ import AlertSnackbar from '../AlertSnackbar'
  * @returns render()
  */
 export default function DeleteTaskDialog({ 
-  task, delTaskOpen, setDelTaskOpen, currentWorkspace, currentProject, currentUser, setProjTasks
+  task, delTaskOpen, setDelTaskOpen, currentWorkspace, currentProject, 
+  currentUser, setProjTasks, setSnackbarOpen
 }) {
-  /* 
-    Renders the Logout Dialog
-  */
-
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
-  // const [errors, setErrors] = React.useState([])
-
   const handleClose = () => {
     setDelTaskOpen(!delTaskOpen)
   }
@@ -47,7 +39,7 @@ export default function DeleteTaskDialog({
       if (delTaskFromWS) {
         setProjTasks(tasks)
         setDelTaskOpen(!delTaskOpen)
-        setSnackbarOpen(!snackbarOpen)
+        setSnackbarOpen(true)
       }
     }
 
@@ -78,12 +70,6 @@ export default function DeleteTaskDialog({
           <Button onClick={handleDelete} autoFocus>Delete</Button>
         </DialogActions>
       </Dialog>
-      <AlertSnackbar
-        open={snackbarOpen} 
-        setOpen={setSnackbarOpen} 
-        severity={'success'}
-        message={'Task has been deleted'}
-      />
     </React.Fragment>
   )
 }

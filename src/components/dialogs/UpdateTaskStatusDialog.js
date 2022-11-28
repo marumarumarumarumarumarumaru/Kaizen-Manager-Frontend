@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
-import AlertSnackbar from '../AlertSnackbar'
+// import AlertSnackbar from '../AlertSnackbar'
 
 /**
  * Renders Dialog for create workspace
@@ -20,9 +20,8 @@ import AlertSnackbar from '../AlertSnackbar'
  */
 export default function UpdateTaskStatusDialog({ 
   task, moveTaskOpen, setMoveTaskOpen, currentWorkspace, currentProject, 
-  currentUser, setProjTasks
+  currentUser, setProjTasks, setSnackbarOpen
 }) {
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
   const [selectedStatus, setSelectedStatus] = React.useState(task.task_status)
   const taskStatus = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
   // const [errors, setErrors] = React.useState([])
@@ -57,7 +56,7 @@ export default function UpdateTaskStatusDialog({
       if (updateTaskFromProj) {
         setProjTasks(tasks)
         setMoveTaskOpen(!moveTaskOpen)
-        setSnackbarOpen(!snackbarOpen)
+        setSnackbarOpen(true)
       }
     }
 
@@ -76,7 +75,7 @@ export default function UpdateTaskStatusDialog({
         aria-describedby='alert-dialog-description'
       >
         <DialogTitle id='alert-dialog-title'>
-          {'Move "' + task.name + '" to a different state'}
+          {'Move "' + task.task_name + '" to a different state'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
@@ -102,12 +101,6 @@ export default function UpdateTaskStatusDialog({
           <Button onClick={handleStatusUpdate} autoFocus>Update</Button>
         </DialogActions>
       </Dialog>
-      <AlertSnackbar 
-        open={snackbarOpen} 
-        setOpen={setSnackbarOpen} 
-        severity={'success'}
-        message={'Task has been moved to "' + selectedStatus + '"'}
-      />
     </React.Fragment>
   )
 }

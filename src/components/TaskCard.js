@@ -20,7 +20,8 @@ import DeleteTaskDialog from './dialogs/DeleteTaskDialog'
  * @returns render()
  */
 export default function TaskCard({ 
-  task, users, currentWorkspace, currentProject, currentUser, setProjTasks
+  task, users, currentWorkspace, currentProject, currentUser, setProjTasks,
+  setEditTaskSnackbarOpen, setMoveTaskSnackbarOpen, setDelTaskSnackbarOpen
 }) {
 
   const [editTaskOpen, setEditTaskOpen] = React.useState(false)
@@ -78,6 +79,7 @@ export default function TaskCard({
         currentProject={currentProject}
         currentUser={currentUser}
         setProjTasks={setProjTasks}
+        setSnackbarOpen={setEditTaskSnackbarOpen}
       />
       <UpdateTaskStatusDialog
         task={task}
@@ -87,6 +89,7 @@ export default function TaskCard({
         currentProject={currentProject}
         currentUser={currentUser}
         setProjTasks={setProjTasks}
+        setSnackbarOpen={setMoveTaskSnackbarOpen}
       />
       <DeleteTaskDialog
         task={task}
@@ -96,6 +99,7 @@ export default function TaskCard({
         currentProject={currentProject}
         currentUser={currentUser}
         setProjTasks={setProjTasks}
+        setSnackbarOpen={setDelTaskSnackbarOpen}
       />
     </React.Fragment>
   )
