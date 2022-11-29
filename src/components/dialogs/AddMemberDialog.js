@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Box, Button, FormControl, FormHelperText, MenuItem, TextField, Select } from '@mui/material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
@@ -22,9 +21,6 @@ import { isValidEmail } from '../../utils/ValidationFns'
 export default function AddMemberDialog({ 
   open, setOpen, currentWorkspace, currentUser, workspaceName, setUsers
 }) {
-  /* 
-    Renders the Remove member dialog
-  */
   const [values, setValues] = React.useState({
     email: '',
     role: 'member',

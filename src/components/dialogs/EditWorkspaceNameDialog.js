@@ -4,6 +4,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 
 import { isEmpty } from '../../utils/ValidationFns'
 import AlertSnackbar from '../AlertSnackbar'
+import { validateWorkspace } from '../../utils/ValidationFns'
 
 /**
  * Renders Dialog for edit workspace
@@ -25,6 +26,7 @@ export default function EditWorkspaceNameDialog({
     Renders the Edit Workspace Dialog
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
   const [newName, setNewName] = React.useState(workspaceName)
 
   // const [errors, setErrors] = React.useState([])
@@ -38,6 +40,13 @@ export default function EditWorkspaceNameDialog({
   }
 
   const handleEditWorkspaceUpdate = () => {
+    const validationErrors = validateWorkspace(newName)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
+      return
+    }
     let updateWSName = true
 
     const updateName = async () => {
@@ -107,6 +116,12 @@ export default function EditWorkspaceNameDialog({
         setOpen={setSnackbarOpen} 
         severity={'success'}
         message={'Workspace has been updated'}
+      />
+      <AlertSnackbar
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Workspace not updated. Please check your input'}
       />
     </React.Fragment>
   )
