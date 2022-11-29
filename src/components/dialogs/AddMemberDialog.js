@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Box, Button, FormControl, FormHelperText, MenuItem, TextField, Select } from '@mui/material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
@@ -22,14 +21,12 @@ import { isValidEmail } from '../../utils/ValidationFns'
 export default function AddMemberDialog({ 
   open, setOpen, currentWorkspace, currentUser, workspaceName, setUsers
 }) {
-  /* 
-    Renders the Remove member dialog
-  */
   const [values, setValues] = React.useState({
     email: '',
     role: 'member',
   })
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
   const roles = ['member', 'pm', 'owner']
   // const [errors, setErrors] = React.useState([])
 
@@ -42,6 +39,10 @@ export default function AddMemberDialog({
   }
 
   const handleAdd = () => {
+    if (!isValidEmail(values.email)) {
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      return
+    }
     let addMemberToWS = true
     
     const addMember = async () => {
@@ -116,7 +117,7 @@ export default function AddMemberDialog({
               label='Email'
               value={values.email}
               error={isValidEmail(values.email) ? false : true}
-              helperText={isValidEmail(values.email) ? false : 'Invalid email format (e.g., test@kaizen.com)'}
+              helperText={isValidEmail(values.email) ? false : 'Invalid email address'}
               onChange={handleChange('email')}
               type='text'
               fullWidth
@@ -149,6 +150,12 @@ export default function AddMemberDialog({
         setOpen={setSnackbarOpen} 
         severity={'success'}
         message={'User has been added to this workspace'}
+      />
+      <AlertSnackbar
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Invalid email address. Please check your input'}
       />
     </React.Fragment>
   )

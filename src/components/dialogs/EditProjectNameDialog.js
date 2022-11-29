@@ -3,6 +3,7 @@ import { Button, TextField } from '@mui/material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import AlertSnackbar from '../AlertSnackbar'
+import { validateProject } from '../../utils/ValidationFns'
 import { isEmpty } from '../../utils/ValidationFns'
 
 /**
@@ -26,6 +27,7 @@ export default function EditProjectNameDialog({
     Renders the Edit Project Dialog
   */
   const [snackbarOpen, setSnackbarOpen] = React.useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState(false)
   const [newName, setNewName] = React.useState(projectName)
 
   // const [errors, setErrors] = React.useState([])
@@ -39,6 +41,13 @@ export default function EditProjectNameDialog({
   }
 
   const handleEditProjectUpdate = () => {
+    const validationErrors = validateProject(newName)
+    const hasErrors = validationErrors.length > 0
+    if (hasErrors) { 
+      setErrorSnackbarOpen(!errorSnackbarOpen)
+      console.log(validationErrors)
+      return
+    }
     let updateProjectName = true
 
     const updateName = async () => {
@@ -108,6 +117,12 @@ export default function EditProjectNameDialog({
         setOpen={setSnackbarOpen} 
         severity={'success'}
         message={'Project has been updated'}
+      />
+      <AlertSnackbar
+        open={errorSnackbarOpen} 
+        setOpen={setErrorSnackbarOpen} 
+        severity={'error'}
+        message={'Project not updated. Please check your input'}
       />
     </React.Fragment>
   )

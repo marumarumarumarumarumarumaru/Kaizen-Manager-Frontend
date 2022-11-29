@@ -20,7 +20,8 @@ import DeleteTaskDialog from './dialogs/DeleteTaskDialog'
  * @returns render()
  */
 export default function TaskCard({ 
-  task, users, currentWorkspace, currentProject, currentUser, setProjTasks
+  task, users, currentWorkspace, currentProject, currentUser, setProjTasks,
+  setEditTaskSnackbarOpen, setMoveTaskSnackbarOpen, setDelTaskSnackbarOpen
 }) {
 
   const [editTaskOpen, setEditTaskOpen] = React.useState(false)
@@ -78,6 +79,7 @@ export default function TaskCard({
         currentProject={currentProject}
         currentUser={currentUser}
         setProjTasks={setProjTasks}
+        setSnackbarOpen={setEditTaskSnackbarOpen}
       />
       <UpdateTaskStatusDialog
         task={task}
@@ -87,6 +89,7 @@ export default function TaskCard({
         currentProject={currentProject}
         currentUser={currentUser}
         setProjTasks={setProjTasks}
+        setSnackbarOpen={setMoveTaskSnackbarOpen}
       />
       <DeleteTaskDialog
         task={task}
@@ -96,6 +99,7 @@ export default function TaskCard({
         currentProject={currentProject}
         currentUser={currentUser}
         setProjTasks={setProjTasks}
+        setSnackbarOpen={setDelTaskSnackbarOpen}
       />
     </React.Fragment>
   )
@@ -119,12 +123,12 @@ function CheckTargetDate(targetDate, taskStatus) {
     const today = new Date()
     let difference = date - today
     let totalDays = Math.ceil(difference / (1000 * 3600 * 24))
-    // If target date today or in the past, show red
-    if (totalDays <= 0) {
-      return 'error'
-    // Else if the task is already closed, show grey
-    } else if (taskStatus === 'Closed') {
+    // If the task is closed, show grey
+    if (taskStatus === 'Closed') {
       return
+    // Else if  target date today or in the past, show red
+    } else if (totalDays <= 0) {
+      return 'error'
     // Else if target date is within the next 2 weeks, show yellow
     } else if (14 >= totalDays) {
       return 'warning'

@@ -32,7 +32,7 @@ export function validateTask(values) {
 }
 
 export function isValidEmail(email) {
-  return /\S+@\S+\.\S+/.test(email)
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
 }
 
 export function isEmpty(name) {

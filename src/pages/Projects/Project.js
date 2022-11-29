@@ -6,6 +6,7 @@ import TaskCard from '../../components/TaskCard'
 import CreateTaskCard from '../../components/TaskCreateCard'
 import EditProjectNameDialog from '../../components/dialogs/EditProjectNameDialog'
 import { getProjectName } from '../../utils/ProjectsFns'
+import AlertSnackbar from '../../components/AlertSnackbar'
 
 /**
  * Renders the Project page
@@ -32,6 +33,9 @@ export default function Project({
   const [closedTasks, setClosedTasks] = React.useState()
   const [editNameOpen, setEditNameOpen] = React.useState(false)
   const [currentProjectName, setCurrentProjectName] = React.useState(getProjectName(projects, currentProject))
+  const [editTaskSnackbarOpen, setEditTaskSnackbarOpen] = React.useState(false)
+  const [moveTaskSnackbarOpen, setMoveTaskSnackbarOpen] = React.useState(false)
+  const [delTaskSnackbarOpen, setDelTaskSnackbarOpen] = React.useState(false)
   const taskStates = ['Backlog', 'In Progress', 'Blocked', 'In Review', 'Closed']
 
   React.useEffect(() => {
@@ -107,6 +111,9 @@ export default function Project({
                   currentProject={currentProject}
                   currentUser={currentUser}
                   setProjTasks={setProjTasks}
+                  setEditTaskSnackbarOpen={setEditTaskSnackbarOpen}
+                  setMoveTaskSnackbarOpen={setMoveTaskSnackbarOpen}
+                  setDelTaskSnackbarOpen={setDelTaskSnackbarOpen}
                 />
               )))
             : null}
@@ -130,6 +137,9 @@ export default function Project({
                   currentProject={currentProject}
                   currentUser={currentUser}
                   setProjTasks={setProjTasks}
+                  setEditTaskSnackbarOpen={setEditTaskSnackbarOpen}
+                  setMoveTaskSnackbarOpen={setMoveTaskSnackbarOpen}
+                  setDelTaskSnackbarOpen={setDelTaskSnackbarOpen}
                 />
               )))
             : null}
@@ -153,6 +163,9 @@ export default function Project({
                   currentProject={currentProject}
                   currentUser={currentUser}
                   setProjTasks={setProjTasks}
+                  setEditTaskSnackbarOpen={setEditTaskSnackbarOpen}
+                  setMoveTaskSnackbarOpen={setMoveTaskSnackbarOpen}
+                  setDelTaskSnackbarOpen={setDelTaskSnackbarOpen}
                 />
               )))
             : null}
@@ -176,6 +189,9 @@ export default function Project({
                   currentProject={currentProject}
                   currentUser={currentUser}
                   setProjTasks={setProjTasks}
+                  setEditTaskSnackbarOpen={setEditTaskSnackbarOpen}
+                  setMoveTaskSnackbarOpen={setMoveTaskSnackbarOpen}
+                  setDelTaskSnackbarOpen={setDelTaskSnackbarOpen}
                 />
               )))
             : null}
@@ -199,6 +215,9 @@ export default function Project({
                   currentProject={currentProject}
                   currentUser={currentUser}
                   setProjTasks={setProjTasks}
+                  setEditTaskSnackbarOpen={setEditTaskSnackbarOpen}
+                  setMoveTaskSnackbarOpen={setMoveTaskSnackbarOpen}
+                  setDelTaskSnackbarOpen={setDelTaskSnackbarOpen}
                 />
               )))
             : null}
@@ -221,6 +240,24 @@ export default function Project({
         currentWorkspace={currentWorkspace}
         currentUser={currentUser}
         setProjects={setProjects}
+      />
+      <AlertSnackbar 
+        open={editTaskSnackbarOpen} 
+        setOpen={setEditTaskSnackbarOpen} 
+        severity={'success'}
+        message={'Task has been updated'}
+      /> 
+      <AlertSnackbar 
+        open={moveTaskSnackbarOpen} 
+        setOpen={setMoveTaskSnackbarOpen} 
+        severity={'success'}
+        message={'Task has been moved'}
+      />
+      <AlertSnackbar 
+        open={delTaskSnackbarOpen} 
+        setOpen={setDelTaskSnackbarOpen} 
+        severity={'success'}
+        message={'Task has been deleted'}
       />
     </React.Fragment>
   )
