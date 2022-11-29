@@ -39,11 +39,8 @@ export default function AddMemberDialog({
   }
 
   const handleAdd = () => {
-    const validationErrors = isValidEmail(values.email)
-    const hasErrors = validationErrors.length > 0
-    if (hasErrors) { 
+    if (!isValidEmail(values.email)) {
       setErrorSnackbarOpen(!errorSnackbarOpen)
-      console.log(validationErrors)
       return
     }
     let addMemberToWS = true
